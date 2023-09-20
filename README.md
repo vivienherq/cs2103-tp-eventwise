@@ -1,9 +1,10 @@
 # EventWise
 
+[![codecov](https://codecov.io/gh/AY2324S1-CS2103-F13-3/tp/graph/badge.svg?token=F38QSJAWY2)](https://codecov.io/gh/AY2324S1-CS2103-F13-3/tp)
+
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
 
 https://app.codecov.io/gh/AY2324S1-CS2103-F13-3/tp/settings/badge
-
 
 ![Ui](docs/images/Ui.png)
 
