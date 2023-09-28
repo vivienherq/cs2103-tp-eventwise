@@ -9,6 +9,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Dominic Ng Jun Yao
+
+<img src="images/dom-buri.png" width="200px">
+
+[[github](https://github.com/dom-buri)]
+[[portfolio](team/dom-buri.md)]
+
+* Role: Developer
+* Responsibilities: Code Quality
+
 ### Kevin Toh
 
 <img src="images/kevintoh.jpg" width="200px">
