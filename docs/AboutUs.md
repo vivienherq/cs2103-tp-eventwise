@@ -19,6 +19,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code Quality
 
+### Kevin Toh
+
+<img src="images/kevintoh.jpg" width="200px">
+
+[[homepage](http://kevintoh.cc)]
+[[github](https://github.com/ktzy0305)]
+[[portfolio](team/ktzy0305.md)]
+
+* Role: Developer
+* Responsibilities: UX
+
 ### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
