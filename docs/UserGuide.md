@@ -165,6 +165,52 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
+### Add Event Details: `addEventDetails`
+
+Adds event details such as venue, guests and vendors to a specified event.
+
+Format: `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]`
+
+**What each optional field does for a specified event**
+* `[person/INDEX]`: Adds the person at the specified `INDEX` as a guest of the event.
+* `[venue/VENUE_ID]`: Sets the venue at the specified `VENUE_ID` as the venue of the event.
+* `[vendor/VENDOR_ID]`: Adds the vendor at the specified `VENDOR_ID` as part of the event. (coming in v1.3)
+
+**Command Behavior**
+
+* Adds details such as venue, guests and vendors for the event at the specified `EVENT_ID`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* The optional fields `[person/INDEX]` and `[vendor/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
+
+Examples:
+* `viewEvent 3` followed by `addEventDetails 3 person/2` adds the 2nd person in the address book to 3rd event in the event list
+* `viewEvent 3` followed by `addEventDetails 3 person/3 venue/2` adds the 3rd person in the address book and sets the 2nd venue in the venue list to 3rd event in the event list
+
+**Expected Command Result**
+```
+Person 2: Bernice Yu has been successfully added to Event 3: FOC
+```
+```
+Person 3: Charlotte Oliverio has been successfully added to Event 3: FOC
+Venue 2: MPSH1 has beeen successfully set as the venue for Event 3: FOC
+```
+
+**Invalid Command Results**
+```
+Add Event Details Failed: Invalid Event ID.
+```
+```
+Add Event Details Failed: Event ID does not exist.
+```
+```
+Add Event Details Failed: Person does not exist.
+```
+```
+Add Event Details Failed: Venue does not exist.
+```
+
 ### View Event Details: `viewEvent`
 
 View details for a specified event.
