@@ -165,6 +165,15 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
+### Add Event Details: `addEventDetails`
+_Details coming soon ..._
+
+### View Event Details: `viewEvent`
+_Details coming soon ..._
+
+### Delete Event : `deleteEvent`
+_Details coming soon ..._
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
