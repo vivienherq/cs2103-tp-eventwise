@@ -165,11 +165,64 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
-### Add Event Details: `addEventDetails`
-_Details coming soon ..._
-
 ### View Event Details: `viewEvent`
-_Details coming soon ..._
+
+View details for a specified event.
+
+**Event details to be displayed**
+- Event Name
+- Description
+- Date / Time
+- Venue Name
+- Guest List
+- Vendor List (coming in v1.3)
+
+Format: `viewEvent id/EVENT_ID`
+
+* Displays the details for the event at the specified `EVENT_ID` from the event list.
+* The Event ID refers to the index number shown in the displayed event list.
+* The Event ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewEvents` followed by `viewEvent 3` shows the details of the 3rd event in the event list.
+
+**Expected Command Result**
+```
+Showing Event 3: FOC
+```
+
+**Invalid Command Results**
+```
+View Event Details Failed: Invalid Event ID format.
+```
+```
+View Event Details Failed: Event ID does not exist.
+```
+
+### Delete Event : `deleteEvent`
+
+Deletes the specified event.
+
+Format: `deleteEvent id/EVENT_ID`
+
+* Deletes the event at the specified `EVENT_ID` from the event list.
+* The Event ID refers to the index number shown in the displayed event list.
+* The Event ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewEvents` followed by `deleteEvent 2` deletes the 2nd event in the event list.
+
+**Expected Command Result**
+```
+Event 2: FOC, Freshman Orientation Camp has been successfully deleted
+```
+
+**Invalid Command Results**
+```
+Delete Event Failed: Invalid Event ID.
+```
+```
+Delete Event Failed: Event ID does not exist.
 
 ### Delete Event : `deleteEvent`
 _Details coming soon ..._
