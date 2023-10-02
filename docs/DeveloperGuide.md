@@ -257,27 +257,29 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* student event planners
+* has a need to manage a significant number of events with many guests and logistics to keep track of, as well as vendors to coordinate.
 * can type fast
-* prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: provides a platform that allows all event-specific contacts, including management, attendees, vendors, and venue details to be consolidated in one place. It allows event planners to easily track and access their crucial information in a single app, simplifying event coordination and communication for various kinds of events.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
+|---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
+| `* * *` | event planner | create a new event, specifying its date, time, and location   | keep track of the event details                      |
+| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
+| `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
+| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
+| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
+| `* * *` | event planner | edit an existing event                                        | keep track of the updated changes                    |
+| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
+| `* * *` | event planner | view the list of venues created                               | keep track of the venues that I created              |
+| `* *`   | event planner | add my vendor's information to the event                      | know which vendor I have to work with for eac event  |
 
 *{More to be added}*
 
