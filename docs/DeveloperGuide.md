@@ -276,6 +276,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
 | `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
 | `* * *` | event planner | edit an existing event                                        | keep track of the updated changes                    |
+| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
 | `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
 | `* * *` | event planner | view the list of venues created                               | keep track of the venues that I created              |
 | `* *`   | event planner | add my vendor's information to the event                      | know which vendor I have to work with for eac event  |
