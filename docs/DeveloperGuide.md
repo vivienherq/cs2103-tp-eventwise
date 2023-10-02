@@ -317,6 +317,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should respond quickly to user input, with minimal latency.
+5.  Should be able to handle an increasing number of users or input data if necessary without significant performance degradation.
+6.  Should be stable and not crash under normal usage conditions.
+7.  Should have mechanisms to recover gracefully from unexpected errors or crashes.
+8.  Should maintain well-documented code to make it easier for other developers to understand and contribute to the project.
 
 *{More to be added}*
 
