@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Kevin Toh
 
-<img src="images/ktzy0305.jpg" width="200px">
+<img src="images/ktzy0305.png" width="200px">
 
 [[homepage](http://kevintoh.cc)]
 [[github](https://github.com/ktzy0305)]
