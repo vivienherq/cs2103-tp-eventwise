@@ -257,64 +257,316 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* student event planners
+* has a need to manage a significant number of events with many guests and logistics to keep track of, as well as vendors to coordinate.
 * can type fast
-* prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: provides a platform that allows all event-specific contacts, including management, attendees, vendors, and venue details to be consolidated in one place. It allows event planners to easily track and access their crucial information in a single app, simplifying event coordination and communication for various kinds of events.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
+|---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
+| `* * *` | event planner | create a new event, specifying its date, time, and location   | keep track of the event details                      |
+| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
+| `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
+| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
+| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
+| `* * *` | event planner | edit an existing event                                        | keep track of the updated changes                    |
+| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
+| `* * *` | event planner | view the list of venues created                               | keep track of the venues that I created              |
+| `* *`   | event planner | add my vendor's information to the event                      | know which vendor I have to work with for eac event  |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `EventWise` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Create a new event**
 
 **MSS**
+1. User chooses to create a new event
+2. User enters event’s new details
+3. EventWise displays that the event has been successfully added.
+   
+   Use case ends.
+   
+**Extensions**
+* 2a. EventWise detects that the event name is missing.
+    * 2a1. EventWise shows an error message.
+   
+      Use case ends.
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+* 2b. Event Wise detects that the event description is missing.
+    * 2b1. EventWise shows an error message.
+   
+      Use case ends.
 
-    Use case ends.
+* 2c. Event Wise detects that the event datetime is missing. 
+    * 2c1. EventWise shows an error message.
+    
+      Use case ends.
+
+* 2d. Event Wise detects that the event datetime format is invalid. 
+    * 2d1. EventWise shows an error message.
+      
+      Use case ends.
+  
+* 2e. Event Wise detects that the user uses invalid prefixes. 
+    * 2e1. EventWise shows an error message.
+      
+      Use case ends.
+
+**Use case: UC02 – Add guest’s contact to an event**
+
+**MSS**
+1. User chooses to add guest’s contact to an event
+2. User enters the event ID and guest’s ID to be added to the event.
+3. EventWise displays that the guest has successfully been added to the specified event.
+   
+   Use case ends.
 
 **Extensions**
+* 2a. EventWise detects that the event ID is missing.
+    * 2a1. EventWise shows an error message.
+      
+      Use case ends.
 
-* 2a. The list is empty.
+* 2b. EventWise detects that the event ID is of an invalid format or range.
+    * 2b1. EventWise shows an error message.
+    
+      Use case ends.
+
+* 2c. EventWise detects that the guest’s ID is missing.
+    * 2c1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2d. EventWise detects that the guests ID is of an invalid format or range.
+    * 2d1. EventWise shows an error message.
+    
+      Use case ends.
+
+**Use case: UC03 – Add venue information to an event**
+   
+**MSS**
+1. User lists all venues (UC09)
+2. User chooses to add venue’s information to an event.
+3. User enters the event ID and venue’s ID to be added to the event.
+4. EventWise displays that the venue has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing. 
+    * 3a1. EventWise shows an error message.
+    
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range. 
+    * 3b1. EventWise shows an error message.
+      
+      Use case ends.
+
+* 3c. EventWise detects that the venue ID is missing. 
+    * 3c1. EventWise shows an error message.
+      
+      Use case ends. 
+
+* 3d. EventWise detects that the venue ID is of an invalid format or range. 
+    * 3d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC04 – List all events**
+
+**MSS**
+1. User requests to list all events.
+2. EventWise shows a list of events.
+   
+   Use case ends.
+
+**Extensions**
+* 1a. The event list is empty.
+    * 1a1. EventWise shows a message indicating that no events have been created.
+      
+      Use case ends.
+
+**Use case: UC05 – View an event’s details**
+
+**MSS**
+1. User lists all events (UC04)
+2. User chooses to view a specific event’s details.
+3. User enters event ID of the event.
+4. EventWise shows the specific event’s details
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing.
+    * 3a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC06 – Edit an existing event**
+
+**MSS**
+1. User lists all events (UC04)
+2. User chooses to edit a specific event’s details.
+3. User enters the event’s updated details
+4. EventWise displays that the event has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing
+    * 3a1. EventWise shows an error message.
+    
+      Use case ends
+
+* 3b. EventWise detects that the event ID is invalid
+    * 3b1. EventWise shows an error message.
+    
+      Use case ends
+
+* 3c. EventWise detects that the event name is missing.
+    * 3c1. EventWise shows an error message.
+  
+      Use case ends. 
+  
+* 3d. Event Wise detects that the event description is missing.
+    * 3d1. EventWise shows an error message.
+  
+      Use case ends.
+
+* 3e. Event Wise detects that the event datetime is missing. 
+    * 3e1. EventWise shows an error message.
+      
+      Use case ends. 
+
+* 3f. Event Wise detects that the event datetime format is invalid. 
+    * 3f1. EventWise shows an error message.
+    
+      Use case ends. 
+
+* 3g. Event Wise detects that the user uses invalid prefixes. 
+    * 3g1. EventWise shows an error message.
+    
+      Use case ends.
+
+**Use case: UC07 – Delete an event**
+
+**MSS**
+1. User lists all events (UC04)
+2. User chooses to delete a specific event.
+3. User enters the event’s ID.
+4. EventWise displays that the event has been successfully deleted.
+   
+   Use case ends.
+
+**Extensions**
+* 3a. The event list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3b. EventWise detects that the event ID is missing.
+    * 3b1. EventWise shows an error message.
 
-    * 3a1. AddressBook shows an error message.
+      Use case ends.
 
-      Use case resumes at step 2.
+* 3c. EventWise detects that the event ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
 
-*{More to be added}*
+      Use case ends.
+
+**Use case: UC08 – Create a new venue**
+
+**MSS**
+1. User chooses to create a new venue
+2. User enters venue’s new details
+3. EventWise displays that the venue has been successfully added.
+   Use case ends.
+
+**Extensions**
+* 2a. EventWise detects that the venue name is missing.
+    * 2a1. EventWise shows an error message. 
+  
+      Use case ends. 
+* 2b. Event Wise detects that the venue address is missing. 
+    * 2b1. EventWise shows an error message. 
+  
+      Use case ends. 
+
+* 2c. Event Wise detects that the venue capacity is missing. 
+    * 2c1. EventWise shows an error message. 
+      
+      Use case ends. 
+
+* 2d. Event Wise detects that the venue capacity format is invalid. 
+    * 2d1. EventWise shows an error message. 
+     
+      Use case ends. 
+
+* 2e. Event Wise detects that the user uses invalid prefixes. 
+    * 2e1. EventWise shows an error message. 
+    
+      Use case ends.
+
+
+**Use case: UC09 – List all venues**
+
+**MSS**
+1. User requests to list all venues.
+2. EventWise shows a list of venues.
+   
+   Use case ends.
+
+**Extensions**
+* 1a. The venue list is empty.
+    * 1a1. EventWise shows a message indicating that no venues have been created.
+
+      Use case ends.
+
+**Use case: UC10 – Add vendor’s information to an event**
+
+**MSS**
+1. User chooses to add vendor’s information to an event.
+2. User enters the vendor’s ID to be added to the event.
+3. EventWise displays that the vendor has successfully been added to the specified event.
+   
+   Use case ends.
+
+**Extensions**
+* 2a. EventWise detects that the vendor’s ID is missing. 
+    * 2a1. EventWise shows an error message.
+    
+      Use case ends.
+
+* 2b. EventWise detects that the vendor’s ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message. 
+  
+      Use case ends.
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should respond quickly to user input, with minimal latency.
+5.  Should be able to handle an increasing number of users or input data if necessary without significant performance degradation.
+6.  Should be stable and not crash under normal usage conditions.
+7.  Should have mechanisms to recover gracefully from unexpected errors or crashes.
+8.  Should maintain well-documented code to make it easier for other developers to understand and contribute to the project.
 
 *{More to be added}*
 
