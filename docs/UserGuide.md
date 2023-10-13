@@ -142,7 +142,7 @@ View all the events in a list.
 
 View details for a specified event.
 
-Format: `viewEvents`
+Format: `viewEvent id/EVENT_ID`
 
 **Event details to be displayed**
 - Event Name
@@ -151,8 +151,6 @@ Format: `viewEvents`
 - Venue Name
 - Guest List
 - Vendor List (coming in v1.3)
-
-Format: `viewEvent id/EVENT_ID`
 
 * Displays the details for the event at the specified `EVENT_ID` from the event list.
 * The Event ID refers to the index number shown in the displayed event list.
