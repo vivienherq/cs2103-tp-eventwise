@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.ViewEventCommand.MESSAGE_NOT_IMPLEMENTED_YET;
+import static seedu.address.logic.commands.ViewEventCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ public class ViewEventCommandTest {
 
     @Test
     public void execute() {
-        assertCommandFailure(new ViewEventCommand(), model, MESSAGE_NOT_IMPLEMENTED_YET);
+        assertCommandFailure(new ViewEventCommand(INDEX_FIRST_EVENT), model,
+                String.format(MESSAGE_SUCCESS, INDEX_FIRST_EVENT.getOneBased(), "Event name"));
     }
 }
