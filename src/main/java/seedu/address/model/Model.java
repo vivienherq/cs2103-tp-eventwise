@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -84,4 +85,26 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    // =========== EventWise ================================================================================
+    /**
+     * Adds the given event.
+     * {@code event} must not already exist in the event list.
+     */
+    void addEvent(Event event);
+
+    /**
+     * Deletes the given event.
+     * The event must exist in the event list
+     */
+    void deleteEvent(Event target);
+
+    /**
+     * Replaces the given event {@code target} with {@code editedEvent}.
+     * {@code target} must exist in the event list.
+     */
+    void setEvent(Event target, Event editedEvent);
+
+    /** Returns an unmodifiable view of the filtered events list */
+    ObservableList<Event> getFilteredEventsList();
 }

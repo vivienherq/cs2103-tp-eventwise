@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
     }
 
     public ModelManager() {
@@ -111,6 +114,25 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== EventWise ================================================================================
+
+    @Override
+    public void addEvent(Event event) {
+        addressBook.addEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Event target) {
+        addressBook.removeEvent(target);
+    }
+
+    @Override
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        addressBook.setEvent(target, editedEvent);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -145,4 +167,14 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventsList() {
+        return filteredEvents;
+    }
 }
