@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ViewEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -9,8 +8,7 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 
 /**
  * Parses input arguments and create a new {@code ViewEventCommand} object
@@ -27,6 +25,13 @@ public class ViewEventCommandParser implements Parser<ViewEventCommand> {
     public ViewEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID);
+
+        // Preamble must be empty!!
+        if (!argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewEventCommand.MESSAGE_USAGE));
+        }
+
         argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_EVENT_ID)) {
