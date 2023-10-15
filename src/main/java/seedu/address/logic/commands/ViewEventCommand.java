@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
+
+import java.util.List;
 
 /**
  * View details for a specified event in EventWise
@@ -33,10 +37,17 @@ public class ViewEventCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // Use model to retrieve event
+        requireNonNull(model);
+        List<Event> eventList = model.getFilteredEventsList();
 
+        if (index.getZeroBased() >= eventList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        // Use model to retrieve event
+        Event eventToView = eventList.get(index.getZeroBased());
         // Display success message
-        throw new CommandException(String.format(MESSAGE_SUCCESS, index.getOneBased(), "Event name"));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased(), eventToView.getName()));
     }
 
     @Override
