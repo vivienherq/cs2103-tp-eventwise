@@ -228,6 +228,41 @@ Delete Event Failed: Event ID does not exist.
 ### Delete Event : `deleteEvent`
 _Details coming soon ..._
 
+### Create Venue: `venue`
+
+This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
+
+Format: `venue name/<name> addr/<address> cap/<capacity>`
+
+Examples:
+* `venue name/LT 27 addr/Lower Kent Ridge Road cap/400`
+
+**Expected Command Result**
+```
+Venue 1: LT27, Lower Kent Ridge Road, Capacity: 400 has been successfully added.
+```
+
+**Invalid Command Results**
+```
+Create Venue Failed: Venue name cannot be empty.
+```
+```
+Create Venue Failed: Venue address cannot be empty.
+```
+```
+Create Venue Failed: Venue capacity cannot be empty.
+```
+```
+Create Venue Failed: Invalid capacity value.
+```
+
+### View a list of Events: `viewVenues`
+
+View all the venues in a list.
+
+**Expected Command Result**
+
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
