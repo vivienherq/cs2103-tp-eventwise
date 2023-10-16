@@ -53,6 +53,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
+     */
+    public void setEvents(List<Event> events) {
+        this.events.setEvents(events);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -100,25 +108,38 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// event-level operations
-    public void setEvents(List<Event> events) {
-        this.events.setEvents(events);
+
+    /**
+     * Returns true if an existing event similar to {@code event} exists in the event list.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
     }
 
+    /**
+     * Adds an event to the event list.
+     * The event must not already exist in the event list.
+     */
+    public void addEvent(Event e) {
+        events.add(e);
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the event list.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the event list.
+     */
     public void setEvent(Event target, Event editedEvent) {
         requireNonNull(editedEvent);
 
         events.setEvent(target, editedEvent);
     }
 
-    public boolean hasEvent(Event event) {
-        requireNonNull(event);
-        return events.contains(event);
-    }
-    
-    public void addEvent(Event e) {
-        events.add(e);
-    }
-
+    /**
+     * Removes {@code key} from {@code events}.
+     * {@code key} must exist in the event list.
+     */
     public void removeEvent(Event key) {
         events.remove(key);
     }
