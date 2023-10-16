@@ -6,6 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
@@ -36,7 +37,7 @@ public class JsonAdaptedEventTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-    JsonAdaptedEvent event = new JsonAdaptedEvent(null, VALID_DESCRIPTION, VALID_DATE);
+        JsonAdaptedEvent event = new JsonAdaptedEvent(null, VALID_DESCRIPTION, VALID_DATE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
