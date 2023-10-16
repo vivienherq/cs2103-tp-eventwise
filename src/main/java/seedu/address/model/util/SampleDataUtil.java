@@ -54,7 +54,7 @@ public class SampleDataUtil {
             new Event(new seedu.address.model.event.Name("Career Fair"),
                     new Description("Get insights on different career paths"),
                     new Date("08-01-2024"))
-    };
+        };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
