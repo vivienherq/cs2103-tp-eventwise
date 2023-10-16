@@ -59,8 +59,8 @@ public class Description {
         return eventDesc.equals(otherName.eventDesc);
     }
 
-    @Override
-    public int hashCode() {
-        return eventDesc.hashCode();
-    }
+    //    @Override
+    //    public int hashCode() {
+    //        return eventDesc.hashCode();
+    //    }
 }

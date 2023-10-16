@@ -57,4 +57,11 @@ public class DescriptionTest {
         // different values -> returns false
         assertFalse(desc.equals(new Name("Other Valid Description")));
     }
+
+    @Test
+    public void isToStringValid() {
+        Description description = new Description("Valid Description");
+        assertTrue(description.toString().equals("Valid Description"));
+        assertFalse(description.toString().equals("Invalid Description"));
+    }
 }

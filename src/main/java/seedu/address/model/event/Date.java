@@ -63,8 +63,8 @@ public class Date {
         return eventDate.equals(otherName.eventDate);
     }
 
-    @Override
-    public int hashCode() {
-        return eventDate.hashCode();
-    }
+    //    @Override
+    //    public int hashCode() {
+    //        return eventDate.hashCode();
+    //    }
 }

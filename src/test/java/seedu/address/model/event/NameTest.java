@@ -57,4 +57,11 @@ public class NameTest {
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
     }
+
+    @Test
+    public void isToStringValid() {
+        Name name = new Name("Valid Name");
+        assertTrue(name.toString().equals("Valid Name"));
+        assertFalse(name.toString().equals("Invalid Name"));
+    }
 }

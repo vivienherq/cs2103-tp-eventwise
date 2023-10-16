@@ -56,4 +56,11 @@ public class DateTest {
         // different values -> returns false
         assertFalse(date.equals(new Date("02/01/2000")));
     }
+
+    @Test
+    public void isToStringValid() {
+        Date date = new Date("01/01/2000");
+        assertTrue(date.toString().equals("01/01/2000"));
+        assertFalse(date.toString().equals("Invalid Date"));
+    }
 }
