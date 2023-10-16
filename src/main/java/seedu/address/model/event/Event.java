@@ -27,6 +27,7 @@ public class Event {
         this.date = date;
     }
 
+
     public Name getName() {
         return name;
     }
@@ -66,10 +67,10 @@ public class Event {
             return false;
         }
 
-        Event otherPerson = (Event) other;
-        return name.equals(otherPerson.name)
-                && description.equals(otherPerson.description)
-                && date.equals(otherPerson.date);
+        Event otherEvent = (Event) other;
+        return name.equals(otherEvent.name)
+                && description.equals(otherEvent.description)
+                && date.equals(otherEvent.date);
     }
 
     @Override
@@ -77,6 +78,7 @@ public class Event {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, description, date);
     }
+
 
     @Override
     public String toString() {
