@@ -172,6 +172,13 @@ public class UniqueEventListTest {
     }
 
     @Test
+    public void equals() {
+        assertTrue(uniqueEventList.equals(uniqueEventList));
+        uniqueEventList.add(FOC);
+        assertFalse(uniqueEventList.equals(Arrays.asList(FOC)));
+    }
+
+    @Test
     public void toStringMethod() {
         assertEquals(uniqueEventList.asUnmodifiableObservableList().toString(), uniqueEventList.toString());
     }

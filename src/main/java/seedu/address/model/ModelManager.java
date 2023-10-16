@@ -115,15 +115,20 @@ public class ModelManager implements Model {
     }
 
     //=========== EventWise ================================================================================
-
     @Override
-    public void addEvent(Event event) {
-        addressBook.addEvent(event);
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return addressBook.hasEvent(event);
     }
 
     @Override
     public void deleteEvent(Event target) {
         addressBook.removeEvent(target);
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        addressBook.addEvent(event);
     }
 
     @Override

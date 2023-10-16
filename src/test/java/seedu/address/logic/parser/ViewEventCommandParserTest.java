@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.ViewEventCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ViewEventCommandParserTest {
     private ViewEventCommandParser parser = new ViewEventCommandParser();
@@ -38,6 +40,14 @@ public class ViewEventCommandParserTest {
                 PREFIX_EVENT_ID, INDEX_FIRST_EVENT.getOneBased());
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewEventCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_preambleBeforeIndexPrefix_throwsParseException() {
+        String userInput = String.format("%s %s%d", PREAMBLE_NON_EMPTY,
+                PREFIX_EVENT_ID, INDEX_FIRST_EVENT.getOneBased());
+        ViewEventCommandParser viewEventCommandParser = new ViewEventCommandParser();
+        assertThrows(ParseException.class, () -> viewEventCommandParser.parse(userInput));
     }
 
     @Test

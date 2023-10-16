@@ -88,6 +88,11 @@ public interface Model {
 
     // =========== EventWise ================================================================================
     /**
+     * Returns true if an event with the same identity as {@code event} exists in the event list.
+     */
+    boolean hasEvent(Event event);
+
+    /**
      * Adds the given event.
      * {@code event} must not already exist in the event list.
      */
