@@ -59,10 +59,9 @@ public class Name {
         return eventName.equals(otherName.eventName);
     }
 
-    //    @Override
-    //    public int hashCode() {
-    //        return eventName.hashCode();
-    //    }
+    @Override
+    public int hashCode() {
+        return eventName.hashCode();
+    }
 
 }
-

@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Date;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,10 +43,29 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new seedu.address.model.event.Name("LifeHack"),
+                new Description("Show off your coding prowess in a friendly contest"),
+                new Date("24-12-2023")),
+            new Event(new seedu.address.model.event.Name("Math Olympiad"),
+                new Description("Test your math skills in a challenging competition"),
+                new Date("03-01-2024")),
+            new Event(new seedu.address.model.event.Name("Career Fair"),
+                    new Description("Get insights on different career paths"),
+                    new Date("08-01-2024"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        // Add sample persons
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        // Add sample events
+        for (Event sampleEvent : getSampleEvents()) {
+            sampleAb.addEvent(sampleEvent);
         }
         return sampleAb;
     }

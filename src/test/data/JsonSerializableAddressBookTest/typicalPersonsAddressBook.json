@@ -42,5 +42,10 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ]
-  } ]
+  } ],
+  "events": [{
+    "name" : "Capture The Flag",
+    "description" : "Compete in the best cyber security competition",
+    "date" : "12/12/2023"
+  }]
 }

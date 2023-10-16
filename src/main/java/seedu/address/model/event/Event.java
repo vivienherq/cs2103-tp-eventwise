@@ -2,6 +2,8 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -71,12 +73,11 @@ public class Event {
                 && date.equals(otherEvent.date);
     }
 
-    //    @Override
-    //    public int hashCode() {
-    //        // use this method for custom fields hashing instead of implementing your own
-    //        return Objects.hash(name, description, date);
-    //    }
-
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, description, date);
+    }
 
     @Override
     public String toString() {
@@ -86,4 +87,5 @@ public class Event {
                 .add("date", date)
                 .toString();
     }
+
 }
