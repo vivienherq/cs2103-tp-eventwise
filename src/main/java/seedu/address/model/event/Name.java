@@ -3,12 +3,17 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Event's name in EventWise.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class Name {
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Event name should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
@@ -46,16 +51,17 @@ public class Name {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.person.Name)) {
+        if (!(other instanceof Name)) {
             return false;
         }
 
-        seedu.address.model.person.Name otherName = (seedu.address.model.person.Name) other;
-        return eventName.equals(otherName.fullName);
+        Name otherName = (Name) other;
+        return eventName.equals(otherName.eventName);
     }
 
     @Override
     public int hashCode() {
         return eventName.hashCode();
     }
+
 }

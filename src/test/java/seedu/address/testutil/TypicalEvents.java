@@ -31,7 +31,19 @@ public class TypicalEvents {
             .withDescription("Explore the latest in technology and innovation")
             .withDate("16-12-2023").build();
 
+    public static final Event FSC = new EventBuilder().withName("FSC 2023")
+            .withDescription("Freshman Social Camp 2023").withDate("01/01/2023")
+            .build();
+    public static final Event FOC = new EventBuilder().withName("FOC 2023")
+            .withDescription("Freshman Orientation Camp 2023").withDate("01/02/2023")
+            .build();
+    public static final Event FOW = new EventBuilder().withName("FOW 2023")
+            .withDescription("Freshman Orientation Camp 2023").withDate("01/02/2023")
+            .build();
+
+    private TypicalEvents() {} // prevents instantiation
+
     public static List<Event> getTypicalEvents() {
-        return new ArrayList<>(Arrays.asList(ACADEMIC, BASKETBALL, CODING, DIVERSITY, EXHIBITION));
+        return new ArrayList<>(Arrays.asList(FSC, FOC, FOW, ACADEMIC, BASKETBALL, CODING, DIVERSITY, EXHIBITION));
     }
 }

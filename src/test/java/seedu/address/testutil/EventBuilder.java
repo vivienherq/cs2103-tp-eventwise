@@ -9,9 +9,10 @@ import seedu.address.model.event.Name;
  * A utility class to help with building Event objects.
  */
 public class EventBuilder {
-    public static final String DEFAULT_NAME = "Sports Day";
-    public static final String DEFAULT_DESCRIPTION = "Compete in various sports and have fun";
-    public static final String DEFAULT_DATE = "26-11-2023";
+
+    public static final String DEFAULT_NAME = "Freshman Social Camp 2023";
+    public static final String DEFAULT_DESCRIPTION = "FSC 2023";
+    public static final String DEFAULT_DATE = "01/09/2023";
 
     private Name name;
     private Description description;
