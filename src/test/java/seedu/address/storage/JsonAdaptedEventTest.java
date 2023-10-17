@@ -5,14 +5,14 @@ import static seedu.address.storage.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMA
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Name;
-
-import java.util.ArrayList;
 
 public class JsonAdaptedEventTest {
     private static final String INVALID_NAME = "H@CKERTH0N";

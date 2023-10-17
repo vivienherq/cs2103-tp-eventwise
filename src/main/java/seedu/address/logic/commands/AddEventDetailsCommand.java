@@ -6,17 +6,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringJoiner;
 
 /**
  * Add details for a specified event in EventWise
@@ -33,14 +33,18 @@ public class AddEventDetailsCommand extends Command {
             + "[" + PREFIX_VENDOR + "VENDOR_ID]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_EVENT_ID + "3 " + PREFIX_PERSON + "2";
 
-    public static final String MESSAGE_SUCCESS = "%1$s has been successfully added to Event %2$d: %3$s";
-    public static final String MESSAGE_EXISTING = "%1$s is already added to Event %2$d: %3$s";
+    public static final String MESSAGE_SUCCESS = "Added to Event %1$d: %2$s\n%3$s";
+    public static final String MESSAGE_EXISTING = "Already existing in Event %1$d: %2$s\n%3$s";
 
     private final Index index;
 
     // Preferably move it to a descriptor class like EditPerson
     private final Set<Index> personIndexes;
 
+    /**
+     * @param index of the event in the event list to add event details
+     * @param personIndexes of persons to be added to the event
+     */
     public AddEventDetailsCommand(Index index, Set<Index> personIndexes) {
         // How can we add multiple persons at the same time???
         this.index = index;
@@ -59,57 +63,90 @@ public class AddEventDetailsCommand extends Command {
         // Use model to retrieve event to edit
         Event eventToEdit = eventList.get(index.getZeroBased());
 
-        Set<Person> personsToAdd = getPersonsToAdd(model, personIndexes);
+        // Retrieves a list of persons that the user is trying to add
+        List<Person> personsToAdd = getPersonsToAdd(model, personIndexes);
 
-        // Temporary Code
+        // Checks for cases where the user did not specify a person to add
         if (personsToAdd.isEmpty()) {
             throw new CommandException("Please select a person to add to the event");
         }
 
-        // Find people who already have been added and feedback
-        // TODO: Create a dedicated method to handle adding results
-        // Join objects added
-        StringJoiner stringJoiner = new StringJoiner(", ");
-        for (Person person : personsToAdd) {
-            stringJoiner.add(person.getName().toString());
-        }
+        // Find the existing people in an event that we are trying to add.
+        List<Person> existingPersons = getExistingPersons(eventToEdit, personsToAdd);
+
+        // Get the new people we are trying to add.
+        List<Person> newPersons = personsToAdd.stream()
+                .filter(person -> !existingPersons.contains(person)).collect(Collectors.toList());
 
         // Edited event
-        Event editedEvent = createEditedEvent(eventToEdit, personsToAdd);
+        Event editedEvent = createEditedEvent(eventToEdit, newPersons);
         model.setEvent(eventToEdit, editedEvent);
 
-        // Display success message
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, stringJoiner, index.getOneBased(), eventToEdit.getName()));
+        // Result messages
+        String successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
+                index.getOneBased(), eventToEdit.getName(), getPersonNames(newPersons));
+        String existingPersonsMessage = String.format(MESSAGE_EXISTING,
+                index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
+
+        if (!existingPersons.isEmpty() && newPersons.isEmpty()) {
+            throw new CommandException(existingPersonsMessage);
+        } else if (!existingPersons.isEmpty()) {
+            return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage));
+        } else {
+            return new CommandResult(successfullyAddedMessage);
+        }
     }
 
     /**
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, Set<Person> personsToAdd) {
+    private static Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd) {
         assert eventToEdit != null;
 
         // Using set ensures that we don't add duplicate people into an event
-        Set<Person> currentAttendees = eventToEdit.getPersons();
+        List<Person> currentAttendees = eventToEdit.getPersons();
         currentAttendees.addAll(personsToAdd);
 
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
                 eventToEdit.getDate(), currentAttendees);
     }
 
-    private static Set<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) {
+    private static List<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) {
         // Get person list from the model manager
         List<Person> personList = model.getFilteredPersonList();
 
-        // Create a set of persons to add
-        Set<Person> personSet = new HashSet<>();
+        // Create a list of persons to add
+        List<Person> personsToAdd = new ArrayList<>();
 
         for (Index personIndex: personIndexes) {
-            Person personToAdd = personList.get(personIndex.getZeroBased());
-            personSet.add(personToAdd);
+            Person person = personList.get(personIndex.getZeroBased());
+            personsToAdd.add(person);
         }
 
-        return personSet;
+        return personsToAdd;
+    }
+
+    private static List<Person> getExistingPersons(Event eventToEdit, List<Person> personsToAdd) {
+        assert eventToEdit != null;
+
+        List<Person> existingAttendees = new ArrayList<>();
+
+        // Using set ensures that we don't add duplicate people into an event
+        List<Person> currentAttendees = eventToEdit.getPersons();
+        for (Person person : personsToAdd) {
+            if (currentAttendees.contains(person)) {
+                existingAttendees.add(person);
+            }
+        }
+
+        return existingAttendees;
+    }
+
+    private String getPersonNames(List<Person> persons) {
+        StringBuilder stringBuilder = new StringBuilder();
+        persons.forEach(person -> stringBuilder.append(
+                person.getName().toString()).append(System.lineSeparator()));
+        return stringBuilder.toString();
     }
 }

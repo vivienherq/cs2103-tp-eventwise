@@ -16,7 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and create a new {@code AddEventDetailsCommand} object
  */
-public class AddEventDetailsCommandParser implements Parser<AddEventDetailsCommand>{
+public class AddEventDetailsCommandParser implements Parser<AddEventDetailsCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddEventDetailsCommand}

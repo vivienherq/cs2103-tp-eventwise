@@ -2,9 +2,9 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
@@ -19,7 +19,7 @@ public class Event {
     private final Name name;
     private final Description description;
     private final Date date;
-    private final Set<Person> persons;
+    private final List<Person> persons;
 
     /**
      * Every field must be present and not null.
@@ -30,11 +30,15 @@ public class Event {
         this.name = name;
         this.description = description;
         this.date = date;
-        this.persons = new HashSet<>();
+        this.persons = new ArrayList<>();
     }
 
-    public Event(Name name, Description description, Date date, Set<Person> persons) {
-        requireAllNonNull(name, description, date);
+    /**
+     * Every field must be present and not null.
+     * This constructor is for creating events that allow people to be immediately part of it
+     */
+    public Event(Name name, Description description, Date date, List<Person> persons) {
+        requireAllNonNull(name, description, date, persons);
         this.name = name;
         this.description = description;
         this.date = date;
@@ -53,7 +57,7 @@ public class Event {
         return date;
     }
 
-    public Set<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
