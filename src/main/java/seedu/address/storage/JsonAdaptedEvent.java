@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,6 +12,7 @@ import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
+import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -18,6 +23,7 @@ class JsonAdaptedEvent {
     private final String name;
     private final String description;
     private final String date;
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -25,10 +31,14 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("name") String name,
                             @JsonProperty("email") String description,
-                            @JsonProperty("date") String date) {
+                            @JsonProperty("date") String date,
+                            @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.name = name;
         this.description = description;
         this.date = date;
+        if (persons != null) {
+            this.persons.addAll(persons);
+        }
     }
 
     /**
@@ -38,6 +48,9 @@ class JsonAdaptedEvent {
         name = source.getName().eventName;
         description = source.getDescription().eventDesc;
         date = source.getDate().eventDate;
+        persons.addAll(source.getPersons().stream()
+                .map(JsonAdaptedPerson::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -71,6 +84,12 @@ class JsonAdaptedEvent {
         }
         final Date modelDate = new Date(date);
 
-        return new Event(modelName, modelDescription, modelDate);
+        final List<Person> personList = new ArrayList<>();
+        for (JsonAdaptedPerson person: persons) {
+            personList.add(person.toModelType());
+        }
+
+        final List<Person> modelPersons = new ArrayList<>(personList);
+        return new Event(modelName, modelDescription, modelDate, modelPersons);
     }
 }
