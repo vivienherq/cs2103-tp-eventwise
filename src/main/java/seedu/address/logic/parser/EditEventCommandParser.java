@@ -7,12 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditEventCommand.EditEventDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -26,10 +26,11 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_EVENT_NAME,
+                PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_ID)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

@@ -3,9 +3,17 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_CAREER;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +41,8 @@ public class EditEventCommandTest {
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_EVENT, descriptor);
 
-        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
+        String expectedMessage = String.format(
+                EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(model.getFilteredEventsList().get(0), editedEvent);
@@ -47,14 +56,16 @@ public class EditEventCommandTest {
         Event lastEvent = model.getFilteredEventsList().get(indexLastEvent.getZeroBased());
 
         EventBuilder eventInList = new EventBuilder(lastEvent);
-        Event editedEvent = eventInList.withName(VALID_EVENT_NAME_CAREER_FAIR).withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
+        Event editedEvent = eventInList.withName(VALID_EVENT_NAME_CAREER_FAIR)
+                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
                 .withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_CAREER_FAIR)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
         EditEventCommand editEventCommand = new EditEventCommand(indexLastEvent, descriptor);
 
-        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
+        String expectedMessage = String.format(EditEventCommand
+                .MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(lastEvent, editedEvent);
@@ -67,7 +78,8 @@ public class EditEventCommandTest {
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_EVENT, new EditEventDescriptor());
         Event editedEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
 
-        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
+        String expectedMessage = String.format(EditEventCommand
+                .MESSAGE_EDIT_EVENT_SUCCESS, Messages.format(editedEvent));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
