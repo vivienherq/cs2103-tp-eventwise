@@ -2,9 +2,12 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
 
 /**
  * Represents a Event in EventWise.
@@ -16,17 +19,31 @@ public class Event {
     private final Name name;
     private final Description description;
     private final Date date;
+    private final List<Person> persons;
 
     /**
      * Every field must be present and not null.
+     * Assumption: When an event is created no people are added to the event.
      */
     public Event(Name name, Description description, Date date) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
+        this.persons = new ArrayList<>();
     }
 
+    /**
+     * Every field must be present and not null.
+     * This constructor is for creating events that allow people to be immediately part of it
+     */
+    public Event(Name name, Description description, Date date, List<Person> persons) {
+        requireAllNonNull(name, description, date, persons);
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.persons = persons;
+    }
 
     public Name getName() {
         return name;
@@ -38,6 +55,10 @@ public class Event {
 
     public Date getDate() {
         return date;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
     }
 
     /**
