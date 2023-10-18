@@ -32,13 +32,13 @@ public class TypicalEvents {
             .withDate("16-12-2023").build();
 
     public static final Event FSC = new EventBuilder().withName("FSC 2023")
-            .withDescription("Freshman Social Camp 2023").withDate("01/01/2023")
+            .withDescription("Freshman Social Camp 2023").withDate("12-09-2023")
             .build();
     public static final Event FOC = new EventBuilder().withName("FOC 2023")
-            .withDescription("Freshman Orientation Camp 2023").withDate("01/02/2023")
+            .withDescription("Freshman Orientation Camp 2023").withDate("01-02-2023")
             .build();
     public static final Event FOW = new EventBuilder().withName("FOW 2023")
-            .withDescription("Freshman Orientation Camp 2023").withDate("01/02/2023")
+            .withDescription("Freshman Orientation Camp 2023").withDate("01-02-2023")
             .build();
 
     private TypicalEvents() {} // prevents instantiation
