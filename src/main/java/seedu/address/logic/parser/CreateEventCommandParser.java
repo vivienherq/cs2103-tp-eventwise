@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 
 import java.util.stream.Stream;
 
@@ -32,7 +34,7 @@ public class CreateEventCommandParser implements Parser<CreateEventCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME, PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
-        Name name = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_EVENT_DESC).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_DATE).get());
 

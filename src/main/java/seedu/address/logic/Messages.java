@@ -51,6 +51,9 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code event} for display to the user.
+     */
     public static String format(Event event) {
         final StringBuilder builder = new StringBuilder();
         builder.append(event.getName())

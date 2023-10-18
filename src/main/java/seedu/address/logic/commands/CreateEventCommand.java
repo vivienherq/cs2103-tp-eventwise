@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,25 +53,25 @@ public class CreateEventCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
-//    @Override
-//    public boolean equals(Object other) {
-//        if (other == this) {
-//            return true;
-//        }
-//
-//        // instanceof handles nulls
-//        if (!(other instanceof AddCommand)) {
-//            return false;
-//        }
-//
-//        AddCommand otherAddCommand = (AddCommand) other;
-//        return toAdd.equals(otherAddCommand.toAdd);
-//    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
-//    @Override
-//    public String toString() {
-//        return new ToStringBuilder(this)
-//                .add("toAdd", toAdd)
-//                .toString();
-//    }
+        // instanceof handles nulls
+        if (!(other instanceof CreateEventCommand)) {
+            return false;
+        }
+
+        CreateEventCommand otherCreateEventCommand = (CreateEventCommand) other;
+        return toAdd.equals(otherCreateEventCommand.toAdd);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toAdd", toAdd)
+                .toString();
+    }
 }
