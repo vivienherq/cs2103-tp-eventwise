@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Event date should only be in YYYY-MM-DD format";
+            "Event date should only be in DD-MM-YYYY format";
 
     // Regex referenced from
     // https://stackoverflow.com/questions/15491894/
