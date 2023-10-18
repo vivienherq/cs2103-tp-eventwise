@@ -117,7 +117,7 @@ public class EditEventCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("editPersonDescriptor", editEventDescriptor)
+                .add("editEventDescriptor", editEventDescriptor)
                 .toString();
     }
 

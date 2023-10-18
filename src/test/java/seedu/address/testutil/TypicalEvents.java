@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Event} objects to be used in tests.
@@ -42,6 +44,17 @@ public class TypicalEvents {
             .build();
 
     private TypicalEvents() {} // prevents instantiation
+
+    /**
+     * Returns an {@code AddressBook} with all the typical events.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Event event : getTypicalEvents()) {
+            ab.addEvent(event);
+        }
+        return ab;
+    }
 
     public static List<Event> getTypicalEvents() {
         return new ArrayList<>(Arrays.asList(FSC, FOC, FOW, ACADEMIC, BASKETBALL, CODING, DIVERSITY, EXHIBITION));
