@@ -29,7 +29,7 @@ public class CreateEventCommand extends Command {
             + PREFIX_EVENT_DATE + "01-01-2000";
 
     public static final String MESSAGE_SUCCESS = "New Event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This event already exists in EventWise";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in EventWise";
 
     private final Event toAdd;
 
@@ -46,7 +46,7 @@ public class CreateEventCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEvent(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
         model.addEvent(toAdd);
