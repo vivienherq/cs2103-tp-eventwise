@@ -68,7 +68,7 @@ public class AddEventDetailsCommand extends Command {
 
         // Checks for cases where the user did not specify a person to add
         if (personsToAdd.isEmpty()) {
-            throw new CommandException("Please select a person to add to the event");
+            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
         }
 
         // Find the existing people in an event that we are trying to add.
@@ -105,8 +105,11 @@ public class AddEventDetailsCommand extends Command {
         assert eventToEdit != null;
 
         // Using set ensures that we don't add duplicate people into an event
-        List<Person> currentAttendees = eventToEdit.getPersons();
-        currentAttendees.addAll(personsToAdd);
+        List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
+
+        for (Person person: personsToAdd) {
+            currentAttendees.add(person);
+        }
 
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
                 eventToEdit.getDate(), currentAttendees);
