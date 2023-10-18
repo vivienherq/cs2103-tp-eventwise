@@ -145,8 +145,28 @@ public class AddEventDetailsCommand extends Command {
 
     private String getPersonNames(List<Person> persons) {
         StringBuilder stringBuilder = new StringBuilder();
-        persons.forEach(person -> stringBuilder.append(
-                person.getName().toString()).append(System.lineSeparator()));
+        for (int i = 0; i < persons.size(); i++) {
+            Person person = persons.get(i);
+            stringBuilder.append(person.getName().toString());
+            if (i < persons.size() - 1) {
+                stringBuilder.append(System.lineSeparator());
+            }
+        }
+
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AddEventDetailsCommand)) {
+            return false;
+        }
+
+        AddEventDetailsCommand otherCommand = (AddEventDetailsCommand) other;
+        return index.equals(otherCommand.index);
     }
 }

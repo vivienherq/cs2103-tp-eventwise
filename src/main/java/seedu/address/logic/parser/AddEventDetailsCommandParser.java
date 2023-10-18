@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddEventDetailsCommand;
-import seedu.address.logic.commands.ViewEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -36,7 +35,7 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
         // Minimally event prefix has to be present.
         if (!arePrefixesPresent(argumentMultimap, PREFIX_EVENT_ID)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewEventCommand.MESSAGE_USAGE));
+                    AddEventDetailsCommand.MESSAGE_USAGE));
         }
 
         // Event ID to add people
