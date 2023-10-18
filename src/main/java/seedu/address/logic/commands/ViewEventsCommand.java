@@ -23,7 +23,8 @@ public class ViewEventsCommand extends Command {
         String events = "";
         for (int i = 0; i < eventList.size(); i++) {
             Event event = eventList.get(i);
-            events += String.format("%d: %s\n", i + 1, event.getName());
+            events += String.format("%d: %s; Description: %s; Date: %s\n", i + 1,
+                    event.getName(), event.getDescription(), event.getDate());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, events));
     }
