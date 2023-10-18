@@ -1,8 +1,23 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_DT_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_DT_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_FSC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalEvents.FSC;
@@ -15,7 +30,6 @@ import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
-
 import seedu.address.testutil.EventBuilder;
 
 public class CreateEventCommandParserTest {
@@ -26,8 +40,8 @@ public class CreateEventCommandParserTest {
         Event expectedEvent = new EventBuilder(FSC).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_FSC +
-                EVENT_DESC_FSC + EVENT_DT_FSC, new CreateEventCommand(expectedEvent));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_FSC
+                + EVENT_DESC_FSC + EVENT_DT_FSC, new CreateEventCommand(expectedEvent));
     }
 
     @Test
@@ -106,24 +120,23 @@ public class CreateEventCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_EVENT_NAME + EVENT_DESC_FSC +
-                        EVENT_DT_FSC, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EVENT_NAME + EVENT_DESC_FSC
+                + EVENT_DT_FSC, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, EVENT_NAME_FSC + INVALID_EVENT_DESC +
-                EVENT_DT_FSC , Description.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, EVENT_NAME_FSC + INVALID_EVENT_DESC
+                + EVENT_DT_FSC , Description.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, EVENT_NAME_FSC + EVENT_DESC_FSC + INVALID_EVENT_DATE
-                , Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, EVENT_NAME_FSC + EVENT_DESC_FSC + INVALID_EVENT_DATE,
+                Date.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_EVENT_NAME + EVENT_DESC_FSC + INVALID_EVENT_DATE,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_FSC + EVENT_DESC_FSC + EVENT_DT_FSC
-                        ,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_FSC + EVENT_DESC_FSC + EVENT_DT_FSC,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateEventCommand.MESSAGE_USAGE));
     }
 }

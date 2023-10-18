@@ -2,7 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -66,14 +73,22 @@ public class CommandTestUtil {
     public static final String EVENT_DESC_FSC = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_FSC;
     public static final String EVENT_DT_FSC = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_FSC;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_EVENT_NAME = " " + PREFIX_EVENT_NAME; // '' not allowed in names
-    public static final String INVALID_EVENT_DESC = " " + PREFIX_EVENT_DESC; // '' not allowed in descriptions
-    public static final String INVALID_EVENT_DATE = " " + PREFIX_EVENT_DATE + "30-30-2000"; // '&30-30-2000 not allowed in dates
+    // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
+    // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a";
+    // missing '@' symbol
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo";
+    // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*";
+    // '' not allowed in names
+    public static final String INVALID_EVENT_NAME = " " + PREFIX_EVENT_NAME;
+    // '' not allowed in descriptions
+    public static final String INVALID_EVENT_DESC = " " + PREFIX_EVENT_DESC;
+    // '&30-30-2000 not allowed in dates
+    public static final String INVALID_EVENT_DATE = " " + PREFIX_EVENT_DATE + "30-30-2000";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

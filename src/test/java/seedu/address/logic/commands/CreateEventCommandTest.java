@@ -51,31 +51,32 @@ public class CreateEventCommandTest {
         CreateEventCommand createEventCommand = new CreateEventCommand(validEvent);
         ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
-        assertThrows(CommandException.class, CreateEventCommand.MESSAGE_DUPLICATE_EVENT, () -> createEventCommand.execute(modelStub));
+        assertThrows(CommandException.class, CreateEventCommand.MESSAGE_DUPLICATE_EVENT, () ->
+                createEventCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Event fsc = new EventBuilder().withName("FSC").build();
         Event fow = new EventBuilder().withName("FOW").build();
-        CreateEventCommand addFSCCommand = new CreateEventCommand(fsc);
-        CreateEventCommand addFOWCommand = new CreateEventCommand(fow);
+        CreateEventCommand addFscCommand = new CreateEventCommand(fsc);
+        CreateEventCommand addFowCommand = new CreateEventCommand(fow);
 
         // same object -> returns true
-        assertTrue(addFSCCommand.equals(addFSCCommand));
+        assertTrue(addFscCommand.equals(addFscCommand));
 
         // same values -> returns true
-        CreateEventCommand addFSCCommandCopy = new CreateEventCommand(fsc);
-        assertTrue(addFSCCommand.equals(addFSCCommandCopy));
+        CreateEventCommand addFscCommandCopy = new CreateEventCommand(fsc);
+        assertTrue(addFscCommand.equals(addFscCommandCopy));
 
         // different types -> returns false
-        assertFalse(addFSCCommand.equals(1));
+        assertFalse(addFscCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addFSCCommand.equals(null));
+        assertFalse(addFscCommand.equals(null));
 
         // different event -> returns false
-        assertFalse(addFSCCommand.equals(addFOWCommand));
+        assertFalse(addFscCommand.equals(addFowCommand));
     }
 
     @Test
