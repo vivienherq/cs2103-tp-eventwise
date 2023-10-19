@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -67,9 +68,11 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     // Event Prefixes
+    public static final String EVENT_ID_CAREER_FAIR = " " + PREFIX_EVENT_ID + 1;
     public static final String EVENT_NAME_CAREER_FAIR = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_CAREER_FAIR;
     public static final String EVENT_DESC_CAREER_FAIR = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_CAREER_FAIR;
     public static final String EVENT_DT_CAREER_FAIR = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_CAREER_FAIR;
+    public static final String EVENT_ID_FSC = " " + PREFIX_EVENT_ID + 2;
     public static final String EVENT_NAME_FSC = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_FSC;
     public static final String EVENT_DESC_FSC = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_FSC;
     public static final String EVENT_DT_FSC = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_FSC;
