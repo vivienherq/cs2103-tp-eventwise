@@ -55,15 +55,88 @@ title: User Guide
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+## Guest Features
+
+### Adding a person: `add`
+
+Adds a person to the address book.
+
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A person can have any number of tags (including 0)
+</div>
+
+Examples:
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+### Editing a person : `edit`
+
+Edits an existing person in the address book.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t/` without
+  specifying any tags after it.
+
+Examples:
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+### Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Deleting a person : `delete`
+
+Deletes the specified person from the address book.
+
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+## Event Features
+
 ### Create Event: `event`
 
 This feature creates a new event object with the event name, description date and time and is stored into the event list.
 
-Format: `event name/NAME desc/DESC dt/DT`
+Format: `event n/NAME d/DESC dt/DT`
 
 Examples:
-* `event name/FSC 2023 desc/Freshman Social Camp 2023 dt/2023-10-04`
-* `event name/FOC 2023 desc/Freshman Orientation Camp 2023 dt/2023-09-04`
+* `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-04-2023`
+* `event n/FOC 2023 d/Freshman Orientation Camp 2023 dt/04-09-2023`
 
 **Expected Command Result**
 ```
@@ -81,7 +154,7 @@ Create Event Failed: Event name cannot be empty.
 Create Event Failed: Event description cannot be empty.
 ```
 ```
-Create Event Failed: Event datetime has to be in YYYY-MM-DD format.
+Create Event Failed: Event datetime has to be in DD-MM-YYYY format.
 ```
 
 ### Add Event Details: `addEventDetails`
@@ -176,14 +249,14 @@ View Event Details Failed: Event ID does not exist.
 
 This feature allows users to edit event details.
 
-Format: `editEvent id/ID [name/NAME] [desc/DESC] [dt/DT]`
+Format: `editEvent id/ID [n/NAME] [d/DESC] [dt/DT]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
 
 Examples:
-* `editEvent 1 name/FSC 2024`
-* `editEvent 1 desc/Freshman Orientation Camp 2024`
+* `editEvent id/1 n/FSC 2024`
+* `editEvent id/1 d/Freshman Orientation Camp 2024`
 
 **Expected Command Result**
 ```
@@ -225,10 +298,9 @@ Delete Event Failed: Invalid Event ID.
 ```
 Delete Event Failed: Event ID does not exist.
 
-### Delete Event : `deleteEvent`
-_Details coming soon ..._
+## Venue Features
 
-### Create Venue: `venue`
+### Create Venue: `venue` `[coming in v1.3]`
 
 This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
 
@@ -256,12 +328,27 @@ Create Venue Failed: Venue capacity cannot be empty.
 Create Venue Failed: Invalid capacity value.
 ```
 
-### View a list of Events: `viewVenues`
+### View a list of Events: `viewVenues` `venue` `[coming in v1.3]`
 
 View all the venues in a list.
 
 **Expected Command Result**
 
+## General Features
+
+### Viewing help : `help`
+
+Shows a message explaning how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+### Clearing all entries : `clear`
+
+Clears all entries from the address book.
+
+Format: `clear`
 
 ### Saving the data
 
@@ -305,3 +392,10 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Event** | `event n/NAME d/DESC dt/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-10-2023`
+**Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
+**View Events** | `ViewEvents`
+**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
+**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [dt/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
+**Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
+
