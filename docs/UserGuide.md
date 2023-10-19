@@ -59,11 +59,11 @@ title: User Guide
 
 This feature creates a new event object with the event name, description date and time and is stored into the event list.
 
-Format: `event name/NAME desc/DESC dt/DT`
+Format: `event n/NAME d/DESC dt/DT`
 
 Examples:
-* `event name/FSC 2023 desc/Freshman Social Camp 2023 dt/2023-10-04`
-* `event name/FOC 2023 desc/Freshman Orientation Camp 2023 dt/2023-09-04`
+* `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-04-2023`
+* `event n/FOC 2023 d/Freshman Orientation Camp 2023 dt/04-09-2023`
 
 **Expected Command Result**
 ```
@@ -81,7 +81,7 @@ Create Event Failed: Event name cannot be empty.
 Create Event Failed: Event description cannot be empty.
 ```
 ```
-Create Event Failed: Event datetime has to be in YYYY-MM-DD format.
+Create Event Failed: Event datetime has to be in DD-MM-YYYY format.
 ```
 
 ### Add Event Details: `addEventDetails`
@@ -176,14 +176,14 @@ View Event Details Failed: Event ID does not exist.
 
 This feature allows users to edit event details.
 
-Format: `editEvent id/ID [name/NAME] [desc/DESC] [dt/DT]`
+Format: `editEvent id/ID [n/NAME] [d/DESC] [dt/DT]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
 
 Examples:
-* `editEvent 1 name/FSC 2024`
-* `editEvent 1 desc/Freshman Orientation Camp 2024`
+* `editEvent id/1 n/FSC 2024`
+* `editEvent id/1 d/Freshman Orientation Camp 2024`
 
 **Expected Command Result**
 ```
@@ -225,10 +225,7 @@ Delete Event Failed: Invalid Event ID.
 ```
 Delete Event Failed: Event ID does not exist.
 
-### Delete Event : `deleteEvent`
-_Details coming soon ..._
-
-### Create Venue: `venue`
+### Create Venue: `venue` `[coming in v1.3`
 
 This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
 
@@ -256,7 +253,7 @@ Create Venue Failed: Venue capacity cannot be empty.
 Create Venue Failed: Invalid capacity value.
 ```
 
-### View a list of Events: `viewVenues`
+### View a list of Events: `viewVenues` `venue` `[coming in v1.3`
 
 View all the venues in a list.
 
@@ -305,3 +302,10 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Event** | `event n/NAME d/DESC dt/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-10-2023`
+**Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
+**View Events** | `ViewEvents`
+**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
+**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [dt/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
+**Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
+
