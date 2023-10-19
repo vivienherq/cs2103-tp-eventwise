@@ -21,7 +21,7 @@ public class EventListPanel extends UiPart<Region> {
     private ListView<Event> eventListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code EventListPanel} with the given {@code ObservableList}.
      */
     public EventListPanel(ObservableList<Event> eventList) {
         super(FXML);
