@@ -31,14 +31,14 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
 
         if (!argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewEventCommand.MESSAGE_USAGE));
+                    DeleteEventCommand.MESSAGE_USAGE));
         }
 
         argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_EVENT_ID)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewEventCommand.MESSAGE_USAGE));
+                    DeleteEventCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_EVENT_ID).get());
