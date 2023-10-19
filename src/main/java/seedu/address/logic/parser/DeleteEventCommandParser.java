@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteEventCommand;
-import seedu.address.logic.commands.ViewEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
