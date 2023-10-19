@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +40,28 @@ public class DeleteEventCommandTest {
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteEventCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        DeleteEventCommand deleteFirstEventCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
+        DeleteEventCommand deleteSecondEventCommand = new DeleteEventCommand(INDEX_SECOND_EVENT);
+
+        // same object -> returns true
+        assertTrue(deleteFirstEventCommand.equals(deleteFirstEventCommand));
+
+        // same values -> returns true
+        DeleteEventCommand deleteFirstEventCommandCopy = new DeleteEventCommand(INDEX_FIRST_EVENT);
+        assertTrue(deleteFirstEventCommand.equals(deleteFirstEventCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteFirstEventCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteFirstEventCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(deleteFirstEventCommand.equals(deleteSecondEventCommand));
     }
 
 }
