@@ -3,10 +3,12 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
+/**
+ * A UI component that displays information of an {@code Event}.
+ */
 public class EventDetailsDisplay extends UiPart<Region> {
 
     private static final String FXML = "EventDetailsDisplay.fxml";
@@ -47,6 +49,9 @@ public class EventDetailsDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Clears the event details labels
+     */
     public void clearEventDetails() {
         name.setText("");
         description.setText("");
