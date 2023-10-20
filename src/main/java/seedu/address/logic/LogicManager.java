@@ -78,6 +78,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Event getEventToView() { return model.getEventToView(); }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

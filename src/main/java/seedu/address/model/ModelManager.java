@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private Event eventToView;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -138,6 +139,13 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    @Override
+    public void setEventToView(Event event) {
+        requireNonNull(event);
+
+        this.eventToView = event;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -187,5 +195,15 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    //=========== Current Event Accessor =====================================================================
+
+    /**
+     * Returns the event that was requested by the user to view.
+     */
+    @Override
+    public Event getEventToView() {
+        return eventToView;
     }
 }

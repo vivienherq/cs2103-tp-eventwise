@@ -119,4 +119,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    /**
+     * Sets the current {@code event} information to be displayed.
+     */
+    void setEventToView(Event event);
+
+    /**
+     * Gets the current {@code event} information to be displayed.
+     */
+    Event getEventToView();
 }
