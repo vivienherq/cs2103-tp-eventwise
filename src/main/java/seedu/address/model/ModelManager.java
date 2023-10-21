@@ -100,6 +100,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void resetVenues() {
+        this.addressBook.resetVenues();
+    }
+
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
