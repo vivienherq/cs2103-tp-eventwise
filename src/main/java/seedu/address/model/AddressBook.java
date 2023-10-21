@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -81,6 +82,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+    }
+
+    /**
+     * Resets the existing events data of this {@code AddressBook}.
+     */
+    public void resetEvents() {
+        setEvents(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing guests data of this {@code AddressBook}.
+     */
+    public void resetGuests() {
+        setPersons(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing venues data of this {@code AddressBook}.
+     */
+    public void resetVenues() {
+        setVenues(new ArrayList<>());
     }
 
     //// person-level operations
