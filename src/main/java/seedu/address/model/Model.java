@@ -129,4 +129,7 @@ public interface Model {
      * Gets the current {@code event} information to be displayed.
      */
     Event getEventToView();
+
+    /** Returns an unmodifiable view of the filtered event attendees list */
+    ObservableList<Person> getFilteredEventAttendeesList();
 }

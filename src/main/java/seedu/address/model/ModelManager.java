@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Person> filteredEventAttendees;
     private Event eventToView;
 
     /**
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
     }
 
     public ModelManager() {
@@ -143,6 +145,7 @@ public class ModelManager implements Model {
     public void setEventToView(Event event) {
         requireNonNull(event);
 
+        addressBook.setEventAttendees(event.getPersons());
         this.eventToView = event;
     }
 
@@ -180,7 +183,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    //=========== Filtered Event List Accessors =============================================================
+    //=========== Filtered Event List Accessors ==============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -197,7 +200,17 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
-    //=========== Current Event Accessor =====================================================================
+    //=========== Filtered Event Attendees List Accessors =====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredEventAttendeesList() {
+        return filteredEventAttendees;
+    }
+
+    //=========== Current Event Accessor ======================================================================
 
     /**
      * Returns the event that was requested by the user to view.

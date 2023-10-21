@@ -10,7 +10,6 @@
          <Label fx:id="name" styleClass="event_description_big_label" />
          <Label fx:id="description" styleClass="event_description_small_label" />
          <Label fx:id="date" styleClass="event_description_small_label" />
-         <Label fx:id="persons" styleClass="event_description_small_label" />
       </VBox>
    </children>
 </VBox>

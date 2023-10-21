@@ -19,6 +19,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniquePersonList eventAttendees;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        eventAttendees = new UniquePersonList();
     }
 
     public AddressBook() {}
@@ -58,6 +60,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
+    }
+
+    /**
+     * Replaces the contents of an event's attendee list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setEventAttendees(List<Person> persons) {
+        this.eventAttendees.setPersons(persons);
     }
 
     /**
@@ -161,6 +171,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Person> getEventAttendeesList() {
+        return eventAttendees.asUnmodifiableObservableList();
     }
 
     @Override

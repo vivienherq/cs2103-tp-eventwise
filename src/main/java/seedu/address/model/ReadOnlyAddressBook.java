@@ -20,4 +20,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate events.
      */
     ObservableList<Event> getEventList();
+
+    /**
+     * Returns an unmodifiable view of an event's attendee list.
+     * This list will not contain any duplicate persons.
+     */
+    ObservableList<Person> getEventAttendeesList();
 }
