@@ -2,16 +2,12 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.venue.Address;
 import seedu.address.model.venue.Capacity;
 import seedu.address.model.venue.Name;
 import seedu.address.model.venue.Venue;
-import seedu.address.model.person.Person;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Venue}.
@@ -68,9 +64,10 @@ class JsonAdaptedVenue {
         final Address modelAddress = new Address(address);
 
         if (capacity == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Capacity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Capacity.class.getSimpleName()));
         }
-        if (!Capacity.isValidPhone(capacity)) {
+        if (!Capacity.isValidCapacity(capacity)) {
             throw new IllegalValueException(Capacity.MESSAGE_CONSTRAINTS);
         }
         final Capacity modelCapacity = new Capacity(capacity);

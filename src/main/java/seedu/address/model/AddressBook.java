@@ -157,6 +157,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    /**
+     * Returns true if an existing venue similar to {@code venue} exists in the venue list.
+     */
     public boolean hasVenue(Venue venue) {
         requireNonNull(venue);
         return venues.contains(venue);
