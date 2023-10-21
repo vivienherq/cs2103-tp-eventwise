@@ -112,6 +112,9 @@ public interface Model {
      */
     void setEvent(Event target, Event editedEvent);
 
+    void resetEvents();
+
+
     /** Returns an unmodifiable view of the filtered events list */
     ObservableList<Event> getFilteredEventsList();
 

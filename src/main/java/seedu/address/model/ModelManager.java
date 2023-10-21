@@ -90,6 +90,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void resetEvents() {
+        this.addressBook.resetEvents();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
