@@ -10,6 +10,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.venue.UniqueVenueList;
+import seedu.address.model.venue.Venue;
 
 /**
  * Wraps all data at the address-book level
@@ -19,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniqueVenueList venues;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        venues = new UniqueVenueList();
     }
 
     public AddressBook() {}
@@ -161,6 +165,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Venue> getVenueList() {
+        return venues.asUnmodifiableObservableList();
     }
 
     @Override
