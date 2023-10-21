@@ -37,6 +37,12 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Event> getFilteredEventList();
 
+    /** Returns an unmodifiable view of the filtered list of event attendees */
+    ObservableList<Person> getFilteredEventAttendeesList();
+
+    /** Returns the current event to be viewed */
+    Event getEventToView();
+
     /**
      * Returns the user prefs' address book file path.
      */

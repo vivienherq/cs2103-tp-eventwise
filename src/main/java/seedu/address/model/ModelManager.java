@@ -26,6 +26,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
+    private final FilteredList<Person> filteredEventAttendees;
+    private Event eventToView;
 
 
     /**
@@ -41,6 +43,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
+        filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
     }
 
     public ModelManager() {
@@ -158,6 +161,14 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    @Override
+    public void setEventToView(Event event) {
+        requireNonNull(event);
+
+        addressBook.setEventAttendees(event.getPersons());
+        this.eventToView = event;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -192,7 +203,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    //=========== Filtered Event List Accessors =============================================================
+    //=========== Filtered Event List Accessors ==============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -209,6 +220,27 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+    //=========== Filtered Event Attendees List Accessors ====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredEventAttendeesList() {
+        return filteredEventAttendees;
+    }
+
+    //=========== Current Event Accessor =====================================================================
+
+    /**
+     * Returns the event that was requested by the user to view.
+     */
+    @Override
+    public Event getEventToView() {
+        return eventToView;
+    }
+
+    //=========== Filtered Venue List Accessors ==============================================================
     @Override
     public ObservableList<Venue> getFilteredVenuesList() {
         return filteredVenues;
