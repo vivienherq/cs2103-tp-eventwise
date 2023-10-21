@@ -148,6 +148,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    public boolean hasVenue(Venue venue) {
+        requireNonNull(venue);
+        return venues.contains(venue);
+    }
+
+    /**
+     * Adds an event to the event list.
+     * The event must not already exist in the event list.
+     */
+    public void addVenue(Venue v) {
+        venues.add(v);
+    }
+
     //// util methods
 
     @Override
