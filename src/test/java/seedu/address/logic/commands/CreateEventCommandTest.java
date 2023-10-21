@@ -187,6 +187,11 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public void resetGuests() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Event> getFilteredEventsList() {
             throw new AssertionError("This method should not be called.");
         }

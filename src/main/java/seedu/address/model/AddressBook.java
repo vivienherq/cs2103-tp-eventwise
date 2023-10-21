@@ -91,6 +91,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEvents(new ArrayList<>());
     }
 
+    /**
+     * Resets the existing guests data of this {@code AddressBook}.
+     */
+    public void resetGuests() {
+        setPersons(new ArrayList<>());
+    }
+
     //// person-level operations
 
     /**

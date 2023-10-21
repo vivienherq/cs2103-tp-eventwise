@@ -95,6 +95,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void resetGuests() {
+        this.addressBook.resetGuests();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
