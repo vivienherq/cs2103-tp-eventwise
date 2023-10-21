@@ -110,9 +110,7 @@ public class AddressBookParser {
             return new ViewVenuesCommand();
         case ClearVenuesCommand.COMMAND_WORD:
             return new ClearVenuesCommand();
-
-
-            default:
+        default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
