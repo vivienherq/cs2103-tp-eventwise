@@ -117,13 +117,13 @@ public class AddressBookTest {
         }
 
         @Override
-<<<<<<< HEAD
         public ObservableList<Person> getEventAttendeesList() {
             return eventAttendees;
-=======
+        }
+
+        @Override
         public ObservableList<Venue> getVenueList() {
             return venues;
->>>>>>> 6f7de4cccc3ef6a134dc3e9c0045347f061a37c8
         }
     }
 
