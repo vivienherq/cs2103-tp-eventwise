@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,8 +25,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
     private Event eventToView;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
     }
 
@@ -87,6 +91,22 @@ public class ModelManager implements Model {
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
     }
+
+    @Override
+    public void resetEvents() {
+        this.addressBook.resetEvents();
+    }
+
+    @Override
+    public void resetGuests() {
+        this.addressBook.resetGuests();
+    }
+
+    @Override
+    public void resetVenues() {
+        this.addressBook.resetVenues();
+    }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -200,7 +220,7 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
-    //=========== Filtered Event Attendees List Accessors =====================================================
+    //=========== Filtered Event Attendees List Accessors ====================================================
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -210,7 +230,7 @@ public class ModelManager implements Model {
         return filteredEventAttendees;
     }
 
-    //=========== Current Event Accessor ======================================================================
+    //=========== Current Event Accessor =====================================================================
 
     /**
      * Returns the event that was requested by the user to view.
@@ -218,5 +238,11 @@ public class ModelManager implements Model {
     @Override
     public Event getEventToView() {
         return eventToView;
+    }
+
+    //=========== Filtered Venue List Accessors ==============================================================
+    @Override
+    public ObservableList<Venue> getFilteredVenuesList() {
+        return filteredVenues;
     }
 }

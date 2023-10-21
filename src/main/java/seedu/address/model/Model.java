@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * The API of the Model component.
@@ -111,6 +112,11 @@ public interface Model {
      */
     void setEvent(Event target, Event editedEvent);
 
+    void resetEvents();
+    void resetGuests();
+    void resetVenues();
+
+
     /** Returns an unmodifiable view of the filtered events list */
     ObservableList<Event> getFilteredEventsList();
 
@@ -119,6 +125,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
 
     /**
      * Sets the current {@code event} information to be displayed.
@@ -129,6 +136,9 @@ public interface Model {
      * Gets the current {@code event} information to be displayed.
      */
     Event getEventToView();
+
+    /** Returns an unmodifiable view of the filtered venues list */
+    ObservableList<Venue> getFilteredVenuesList();
 
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
