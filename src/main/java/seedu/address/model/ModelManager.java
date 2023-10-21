@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +25,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Venue> filteredVenues;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
     }
 
     public ModelManager() {
@@ -187,5 +191,10 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Venue> getFilteredVenuesList() {
+        return filteredVenues;
     }
 }

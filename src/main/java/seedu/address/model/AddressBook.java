@@ -10,6 +10,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.venue.UniqueVenueList;
+import seedu.address.model.venue.Venue;
 
 /**
  * Wraps all data at the address-book level
@@ -19,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniqueVenueList venues;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        venues = new UniqueVenueList();
     }
 
     public AddressBook() {}
@@ -61,6 +65,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the venue list with {@code venues}.
+     * {@code venues} must not contain duplicate venues.
+     */
+    public void setVenues(List<Venue> venues) {
+        this.venues.setVenues(venues);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -68,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
+        setVenues(newData.getVenueList());
     }
 
     //// person-level operations
@@ -144,6 +157,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    /**
+     * Returns true if an existing venue similar to {@code venue} exists in the venue list.
+     */
+    public boolean hasVenue(Venue venue) {
+        requireNonNull(venue);
+        return venues.contains(venue);
+    }
+
+    /**
+     * Adds an event to the event list.
+     * The event must not already exist in the event list.
+     */
+    public void addVenue(Venue v) {
+        venues.add(v);
+    }
+
     //// util methods
 
     @Override
@@ -161,6 +190,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Venue> getVenueList() {
+        return venues.asUnmodifiableObservableList();
     }
 
     @Override
