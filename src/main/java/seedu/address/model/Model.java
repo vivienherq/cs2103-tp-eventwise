@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * The API of the Model component.
@@ -119,4 +120,36 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    /**
+     * Returns true if a venue with the same identity as {@code venue} exists in the event list.
+     */
+    boolean hasVenue(Venue venue);
+
+    /**
+     * Adds the given venue.
+     * {@code venue} must not already exist in the venue list.
+     */
+    void addVenue(Venue venue);
+
+    /**
+     * Deletes the given venue.
+     * The venue must exist in the venue list
+     */
+    void deleteVenue(Venue target);
+
+    /**
+     * Replaces the given venue {@code target} with {@code editedVenue}.
+     * {@code target} must exist in the venue list.
+     */
+    void setVenue(Venue target, Venue editedVenue);
+
+    /** Returns an unmodifiable view of the filtered venues list */
+    ObservableList<Venue> getFilteredVenuesList();
+
+    /**
+     * Updates the filter of the filtered venue list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredVenueList(Predicate<Venue> predicate);
 }

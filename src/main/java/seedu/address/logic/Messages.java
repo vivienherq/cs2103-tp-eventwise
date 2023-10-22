@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Container for user visible messages.
@@ -61,6 +62,19 @@ public class Messages {
                 .append(event.getDescription())
                 .append("; Date: ")
                 .append(event.getDate());
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code venue} for display to the user.
+     */
+    public static String format(Venue venue) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(venue.getName())
+                .append("; Address: ")
+                .append(venue.getAddress())
+                .append("; Capacity: ")
+                .append(venue.getCapacity());
         return builder.toString();
     }
 }

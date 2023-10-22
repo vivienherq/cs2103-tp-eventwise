@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Venue> filteredVenues;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +39,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
     }
 
     public ModelManager() {
@@ -138,6 +141,29 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    @Override
+    public boolean hasVenue(Venue venue) {
+        requireNonNull(venue);
+        return addressBook.hasVenue(venue);
+    }
+
+    @Override
+    public void deleteVenue(Venue target) {
+        addressBook.removeVenue(target);
+    }
+
+    @Override
+    public void addVenue(Venue venue) {
+        addressBook.addVenue(venue);
+    }
+
+    @Override
+    public void setVenue(Venue target, Venue editedVenue) {
+        requireAllNonNull(target, editedVenue);
+
+        addressBook.setVenue(target, editedVenue);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -187,5 +213,22 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    //=========== Filtered Venue List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Venue} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Venue> getFilteredVenuesList() {
+        return filteredVenues;
+    }
+
+    @Override
+    public void updateFilteredVenueList(Predicate<Venue> predicate) {
+        requireNonNull(predicate);
+        filteredVenues.setPredicate(predicate);
     }
 }

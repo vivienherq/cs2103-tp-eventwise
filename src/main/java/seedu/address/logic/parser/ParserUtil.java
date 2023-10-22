@@ -181,4 +181,50 @@ public class ParserUtil {
         }
         return new Date(trimmedDate);
     }
+
+    /**
+     * Parses a {@code String name} into an {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    // TODO: Refactor Event's Name to Title
+    public static seedu.address.model.venue.Name parseVenueName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Description.isValidDesc(trimmedName)) {
+            throw new ParseException(seedu.address.model.event.Name.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.venue.Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static seedu.address.model.venue.Address parseVenueAddress(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.venue.Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String capacity} into an {@code Capacity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static seedu.address.model.venue.Capacity parseVenueCapacity(String capacity) throws ParseException {
+        requireNonNull(capacity);
+        String trimmedCapacity = capacity.trim();
+        if (!Address.isValidAddress(trimmedCapacity)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.venue.Capacity(trimmedCapacity);
+    }
 }
