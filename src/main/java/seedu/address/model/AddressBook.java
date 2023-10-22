@@ -10,8 +10,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.venue.Venue;
 import seedu.address.model.venue.UniqueVenueList;
+import seedu.address.model.venue.Venue;
 
 /**
  * Wraps all data at the address-book level

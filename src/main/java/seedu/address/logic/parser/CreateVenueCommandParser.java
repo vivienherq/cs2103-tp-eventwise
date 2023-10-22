@@ -1,19 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.CreateEventCommand;
-import seedu.address.logic.commands.CreateVenueCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.venue.Capacity;
-import seedu.address.model.venue.Name;
-import seedu.address.model.venue.Address;
-import seedu.address.model.venue.Venue;
-
-import java.util.stream.Stream;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_NAME;
+
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.CreateEventCommand;
+import seedu.address.logic.commands.CreateVenueCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.venue.Address;
+import seedu.address.model.venue.Capacity;
+import seedu.address.model.venue.Name;
+import seedu.address.model.venue.Venue;
 
 /**
  * Parses input arguments and creates a new CreateVenueCommand object

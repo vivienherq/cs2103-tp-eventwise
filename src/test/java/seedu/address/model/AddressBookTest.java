@@ -20,8 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.venue.Venue;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.venue.Venue;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
