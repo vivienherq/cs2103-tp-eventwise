@@ -171,5 +171,4 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
-  
 }
