@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
+    private final UniquePersonList eventAttendees;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         events = new UniqueEventList();
         venues = new UniqueVenueList();
+        eventAttendees = new UniquePersonList();
     }
 
     public AddressBook() {}
@@ -65,6 +68,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of an event's attendee list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setEventAttendees(List<Person> persons) {
+        this.eventAttendees.setPersons(persons);
+    }
+
+    /**
      * Replaces the contents of the venue list with {@code venues}.
      * {@code venues} must not contain duplicate venues.
      */
@@ -81,6 +92,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+    }
+
+    /**
+     * Resets the existing events data of this {@code AddressBook}.
+     */
+    public void resetEvents() {
+        setEvents(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing guests data of this {@code AddressBook}.
+     */
+    public void resetGuests() {
+        setPersons(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing venues data of this {@code AddressBook}.
+     */
+    public void resetVenues() {
+        setVenues(new ArrayList<>());
     }
 
     //// person-level operations
@@ -157,10 +189,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
-    //// venue-level operations
-
     /**
-     * Returns true if a venue with the same identity as {@code venue} exists in the address book.
+     * Returns true if an existing venue similar to {@code venue} exists in the venue list.
      */
     public boolean hasVenue(Venue venue) {
         requireNonNull(venue);
@@ -216,6 +246,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Venue> getVenueList() {
         return venues.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Person> getEventAttendeesList() {
+        return eventAttendees.asUnmodifiableObservableList();
     }
 
     @Override

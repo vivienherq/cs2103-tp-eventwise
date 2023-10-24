@@ -46,6 +46,10 @@ public class ViewEventCommand extends Command {
 
         // Use model to retrieve event
         Event eventToView = eventList.get(index.getZeroBased());
+
+        // Set eventToView in the model
+        model.setEventToView(eventToView);
+
         // Display success message
         return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased(), eventToView.getName()));
     }

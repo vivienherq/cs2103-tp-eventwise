@@ -112,6 +112,11 @@ public interface Model {
      */
     void setEvent(Event target, Event editedEvent);
 
+    void resetEvents();
+    void resetGuests();
+    void resetVenues();
+
+
     /** Returns an unmodifiable view of the filtered events list */
     ObservableList<Event> getFilteredEventsList();
 
@@ -120,6 +125,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
 
     /**
      * Returns true if a venue with the same identity as {@code venue} exists in the event list.
@@ -144,6 +150,16 @@ public interface Model {
      */
     void setVenue(Venue target, Venue editedVenue);
 
+    /**
+     * Sets the current {@code event} information to be displayed.
+     */
+    void setEventToView(Event event);
+
+    /**
+     * Gets the current {@code event} information to be displayed.
+     */
+    Event getEventToView();
+
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();
 
@@ -152,4 +168,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVenueList(Predicate<Venue> predicate);
+
+    /** Returns an unmodifiable view of the filtered event attendees list */
+    ObservableList<Person> getFilteredEventAttendeesList();
+  
 }

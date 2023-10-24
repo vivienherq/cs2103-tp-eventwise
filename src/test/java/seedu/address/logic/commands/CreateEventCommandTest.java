@@ -182,6 +182,21 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public void resetEvents() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetGuests() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetVenues() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Event> getFilteredEventsList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,11 +208,21 @@ public class CreateEventCommandTest {
 
         @Override
         public boolean hasVenue(Venue venue) {
+              throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEventToView(Event event) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addVenue(Venue venue) {
+            throw new AssertionError("This method should not be called.");
+        }
+      
+        @Override
+        public Event getEventToView() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -208,6 +233,10 @@ public class CreateEventCommandTest {
 
         @Override
         public void setVenue(Venue target, Venue editedVenue) {
+            throw new AssertionError("This method should not be called.");
+        }
+      
+        public ObservableList<Person> getFilteredEventAttendeesList() {
             throw new AssertionError("This method should not be called.");
         }
 

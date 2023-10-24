@@ -98,6 +98,8 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Venue> venues = FXCollections.observableArrayList();
+        private final ObservableList<Person> eventAttendees = FXCollections.observableArrayList();
+
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -111,6 +113,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public ObservableList<Person> getEventAttendeesList() {
+            return eventAttendees;
         }
 
         @Override

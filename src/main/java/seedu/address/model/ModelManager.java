@@ -26,6 +26,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
+    private final FilteredList<Person> filteredEventAttendees;
+    private Event eventToView;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +42,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
+        filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
     }
 
     public ModelManager() {
@@ -87,6 +90,22 @@ public class ModelManager implements Model {
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
     }
+
+    @Override
+    public void resetEvents() {
+        this.addressBook.resetEvents();
+    }
+
+    @Override
+    public void resetGuests() {
+        this.addressBook.resetGuests();
+    }
+
+    @Override
+    public void resetVenues() {
+        this.addressBook.resetVenues();
+    }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -163,6 +182,13 @@ public class ModelManager implements Model {
 
         addressBook.setVenue(target, editedVenue);
     }
+  
+    public void setEventToView(Event event) {
+        requireNonNull(event);
+
+        addressBook.setEventAttendees(event.getPersons());
+        this.eventToView = event;
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -198,7 +224,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    //=========== Filtered Event List Accessors =============================================================
+    //=========== Filtered Event List Accessors ==============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -215,6 +241,7 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+
     //=========== Filtered Venue List Accessors =============================================================
 
     /**
@@ -230,5 +257,26 @@ public class ModelManager implements Model {
     public void updateFilteredVenueList(Predicate<Venue> predicate) {
         requireNonNull(predicate);
         filteredVenues.setPredicate(predicate);
+
+    //=========== Filtered Event Attendees List Accessors ====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredEventAttendeesList() {
+        return filteredEventAttendees;
+    }
+
+    //=========== Current Event Accessor =====================================================================
+
+    /**
+     * Returns the event that was requested by the user to view.
+     */
+    @Override
+    public Event getEventToView() {
+        return eventToView;
+    }
+      
     }
 }

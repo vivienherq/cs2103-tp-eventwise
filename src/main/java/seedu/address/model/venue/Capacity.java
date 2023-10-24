@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Venue's capacity in EventWise.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCapacity(String)}
  */
 public class Capacity {
 
@@ -22,14 +22,14 @@ public class Capacity {
      */
     public Capacity(String capacity) {
         requireNonNull(capacity);
-        checkArgument(isValidPhone(capacity), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCapacity(capacity), MESSAGE_CONSTRAINTS);
         venueCapacity = capacity;
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidCapacity(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

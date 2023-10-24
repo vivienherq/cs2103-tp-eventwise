@@ -11,6 +11,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventDetailsCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearEventsCommand;
+import seedu.address.logic.commands.ClearGuestsCommand;
+import seedu.address.logic.commands.ClearVenuesCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateEventCommand;
 import seedu.address.logic.commands.CreateVenueCommand;
@@ -24,6 +27,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ViewEventCommand;
 import seedu.address.logic.commands.ViewEventsCommand;
+import seedu.address.logic.commands.ViewVenuesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +75,8 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+        case ClearGuestsCommand.COMMAND_WORD:
+            return new ClearGuestsCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -102,9 +108,19 @@ public class AddressBookParser {
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
 
+
         case CreateVenueCommand.COMMAND_WORD:
             return new CreateVenueCommandParser().parse(arguments);
 
+        case ClearEventsCommand.COMMAND_WORD:
+            return new ClearEventsCommand();
+            
+        case ViewVenuesCommand.COMMAND_WORD:
+            return new ViewVenuesCommand();
+            
+        case ClearVenuesCommand.COMMAND_WORD:
+            return new ClearVenuesCommand();
+            
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
