@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -183,9 +184,11 @@ public class ModelManager implements Model {
         addressBook.setVenue(target, editedVenue);
     }
     public void setEventToView(Event event) {
-        requireNonNull(event);
-
-        addressBook.setEventAttendees(event.getPersons());
+        if (event == null) {
+            addressBook.setEventAttendees(new ArrayList<>());
+        } else {
+            addressBook.setEventAttendees(event.getPersons());
+        }
         this.eventToView = event;
     }
 

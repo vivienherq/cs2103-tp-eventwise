@@ -44,6 +44,10 @@ public class DeleteEventCommand extends Command {
         model.deleteEvent(eventToDelete);
         String eventDetails = String.format("%s; Description: %s; Date: %s\n",
                 eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getDate());
+
+        // Clear set event to view
+        model.setEventToView(null);
+
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, targetIndex.getOneBased(), eventDetails));
     }
 
