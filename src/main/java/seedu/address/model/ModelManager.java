@@ -182,7 +182,6 @@ public class ModelManager implements Model {
 
         addressBook.setVenue(target, editedVenue);
     }
-  
     public void setEventToView(Event event) {
         requireNonNull(event);
 
@@ -257,6 +256,7 @@ public class ModelManager implements Model {
     public void updateFilteredVenueList(Predicate<Venue> predicate) {
         requireNonNull(predicate);
         filteredVenues.setPredicate(predicate);
+    }
 
     //=========== Filtered Event Attendees List Accessors ====================================================
     /**
@@ -277,6 +277,5 @@ public class ModelManager implements Model {
     public Event getEventToView() {
         return eventToView;
     }
-      
-    }
+
 }

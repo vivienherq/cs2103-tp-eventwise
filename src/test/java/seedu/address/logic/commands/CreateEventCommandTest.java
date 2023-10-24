@@ -208,7 +208,7 @@ public class CreateEventCommandTest {
 
         @Override
         public boolean hasVenue(Venue venue) {
-              throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -220,7 +220,7 @@ public class CreateEventCommandTest {
         public void addVenue(Venue venue) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public Event getEventToView() {
             throw new AssertionError("This method should not be called.");
@@ -235,7 +235,7 @@ public class CreateEventCommandTest {
         public void setVenue(Venue target, Venue editedVenue) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         public ObservableList<Person> getFilteredEventAttendeesList() {
             throw new AssertionError("This method should not be called.");
         }
