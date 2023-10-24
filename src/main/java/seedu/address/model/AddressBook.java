@@ -25,7 +25,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
 
-
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -82,7 +81,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setVenues(List<Venue> venues) {
         this.venues.setVenues(venues);
-
     }
 
     /**
@@ -200,11 +198,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds an event to the event list.
-     * The event must not already exist in the event list.
+     * Adds a venue to the address book.
+     * The venue must not already exist in the address book.
      */
-    public void addVenue(Venue v) {
-        venues.add(v);
+    public void addVenue(Venue venue) {
+        venues.add(venue);
+    }
+
+    /**
+     * Replaces the given venue {@code target} in the list with {@code editedVenue}.
+     * {@code target} must exist in the address book.
+     * The venue identity of {@code editedVenue} must not be the same as another existing venue in the address book.
+     */
+    public void setVenue(Venue target, Venue editedVenue) {
+        requireNonNull(editedVenue);
+
+        venues.setVenue(target, editedVenue);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeVenue(Venue key) {
+        venues.remove(key);
     }
 
     //// util methods

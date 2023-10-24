@@ -29,7 +29,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredEventAttendees;
     private Event eventToView;
 
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -162,6 +161,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasVenue(Venue venue) {
+        requireNonNull(venue);
+        return addressBook.hasVenue(venue);
+    }
+
+    @Override
+    public void deleteVenue(Venue target) {
+        addressBook.removeVenue(target);
+    }
+
+    @Override
+    public void addVenue(Venue venue) {
+        addressBook.addVenue(venue);
+    }
+
+    @Override
+    public void setVenue(Venue target, Venue editedVenue) {
+        requireAllNonNull(target, editedVenue);
+
+        addressBook.setVenue(target, editedVenue);
+    }
+  
     public void setEventToView(Event event) {
         requireNonNull(event);
 
@@ -220,6 +241,23 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+
+    //=========== Filtered Venue List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Venue} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Venue> getFilteredVenuesList() {
+        return filteredVenues;
+    }
+
+    @Override
+    public void updateFilteredVenueList(Predicate<Venue> predicate) {
+        requireNonNull(predicate);
+        filteredVenues.setPredicate(predicate);
+
     //=========== Filtered Event Attendees List Accessors ====================================================
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -239,10 +277,6 @@ public class ModelManager implements Model {
     public Event getEventToView() {
         return eventToView;
     }
-
-    //=========== Filtered Venue List Accessors ==============================================================
-    @Override
-    public ObservableList<Venue> getFilteredVenuesList() {
-        return filteredVenues;
+      
     }
 }

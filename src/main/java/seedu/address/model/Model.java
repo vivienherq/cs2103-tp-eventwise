@@ -128,6 +128,29 @@ public interface Model {
 
 
     /**
+     * Returns true if a venue with the same identity as {@code venue} exists in the event list.
+     */
+    boolean hasVenue(Venue venue);
+
+    /**
+     * Adds the given venue.
+     * {@code venue} must not already exist in the venue list.
+     */
+    void addVenue(Venue venue);
+
+    /**
+     * Deletes the given venue.
+     * The venue must exist in the venue list
+     */
+    void deleteVenue(Venue target);
+
+    /**
+     * Replaces the given venue {@code target} with {@code editedVenue}.
+     * {@code target} must exist in the venue list.
+     */
+    void setVenue(Venue target, Venue editedVenue);
+
+    /**
      * Sets the current {@code event} information to be displayed.
      */
     void setEventToView(Event event);
@@ -140,6 +163,13 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();
 
+    /**
+     * Updates the filter of the filtered venue list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredVenueList(Predicate<Venue> predicate);
+
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
+  
 }
