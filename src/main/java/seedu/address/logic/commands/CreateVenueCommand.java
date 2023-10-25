@@ -29,7 +29,7 @@ public class CreateVenueCommand extends Command {
             + PREFIX_VENUE_CAPACITY + "500";
 
     public static final String MESSAGE_SUCCESS = "New Venue added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This venue already exists in EventWise";
+    public static final String MESSAGE_DUPLICATE_VENUE = "This venue already exists in EventWise";
 
     private final Venue toAdd;
 
@@ -46,7 +46,7 @@ public class CreateVenueCommand extends Command {
         requireNonNull(model);
 
         if (model.hasVenue(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+            throw new CommandException(MESSAGE_DUPLICATE_VENUE);
         }
 
         model.addVenue(toAdd);

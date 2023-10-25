@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Add details for a specified event in EventWise
@@ -41,21 +42,26 @@ public class AddEventDetailsCommand extends Command {
     // Preferably move it to a descriptor class like EditPerson
     private final Set<Index> personIndexes;
 
+    private final Index venueIndex;
+
     /**
      * @param index of the event in the event list to add event details
      * @param personIndexes of persons to be added to the event
      */
-    public AddEventDetailsCommand(Index index, Set<Index> personIndexes) {
+    public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Index venueIndex) {
         // How can we add multiple persons at the same time???
         this.index = index;
         this.personIndexes = personIndexes;
+        this.venueIndex = venueIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        // Retrieve list of events saved in EventWise
         List<Event> eventList = model.getFilteredEventsList();
 
+        // Check if index greater than list size
         if (index.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
@@ -66,10 +72,15 @@ public class AddEventDetailsCommand extends Command {
         // Retrieves a list of persons that the user is trying to add
         List<Person> personsToAdd = getPersonsToAdd(model, personIndexes);
 
-        // Checks for cases where the user did not specify a person to add
-        if (personsToAdd.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
+        if (personsToAdd.isEmpty() && venueIndex == null) {
+            throw new CommandException("Please select person(s) to be added to the event and/or set a venue to"
+                    + "the event");
         }
+
+//        // Checks for cases where the user did not specify a person to add
+//        if (personsToAdd.isEmpty()) {
+//            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
+//        }
 
         // Find the existing people in an event that we are trying to add.
         List<Person> existingPersons = getExistingPersons(eventToEdit, personsToAdd);
@@ -78,8 +89,18 @@ public class AddEventDetailsCommand extends Command {
         List<Person> newPersons = personsToAdd.stream()
                 .filter(person -> !existingPersons.contains(person)).collect(Collectors.toList());
 
+        // Retrieve the venue list
+        List<Venue> venueList = model.getFilteredVenuesList();
+
+        if (venueIndex.getZeroBased() >= venueList.size()) {
+            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
+        }
+
+        // Retrieve the venue that the user is trying to add if any.
+        Venue venueToAdd = venueList.get(venueIndex.getZeroBased());
+
         // Edited event
-        Event editedEvent = createEditedEvent(eventToEdit, newPersons);
+        Event editedEvent = createEditedEvent(eventToEdit, newPersons, venueToAdd);
         model.setEvent(eventToEdit, editedEvent);
 
         // Result messages
@@ -101,7 +122,7 @@ public class AddEventDetailsCommand extends Command {
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd) {
+    private static Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd) {
         assert eventToEdit != null;
 
         // Using set ensures that we don't add duplicate people into an event
@@ -112,9 +133,10 @@ public class AddEventDetailsCommand extends Command {
         }
 
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
-                eventToEdit.getDate(), currentAttendees);
+                eventToEdit.getDate(), currentAttendees, venueToAdd);
     }
 
+    // Move this method to model class
     private static List<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) {
         // Get person list from the model manager
         List<Person> personList = model.getFilteredPersonList();
@@ -130,6 +152,7 @@ public class AddEventDetailsCommand extends Command {
         return personsToAdd;
     }
 
+    // Move to event class
     private static List<Person> getExistingPersons(Event eventToEdit, List<Person> personsToAdd) {
         assert eventToEdit != null;
 

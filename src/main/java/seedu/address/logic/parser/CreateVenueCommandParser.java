@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.CreateEventCommand;
 import seedu.address.logic.commands.CreateVenueCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.venue.Address;
@@ -31,7 +30,7 @@ public class CreateVenueCommandParser implements Parser<CreateVenueCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_VENUE_NAME, PREFIX_VENUE_ADDRESS, PREFIX_VENUE_CAPACITY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateEventCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateVenueCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_VENUE_NAME, PREFIX_VENUE_ADDRESS, PREFIX_VENUE_CAPACITY);

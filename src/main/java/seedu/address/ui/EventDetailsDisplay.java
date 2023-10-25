@@ -13,11 +13,17 @@ public class EventDetailsDisplay extends UiPart<Region> {
     private static final String FXML = "EventDetailsDisplay.fxml";
 
     @FXML
-    private Label name;
+    private Label eventName;
     @FXML
     private Label description;
     @FXML
     private Label date;
+    @FXML
+    private Label venueName;
+    @FXML
+    private Label address;
+    @FXML
+    private Label capacity;
 
     public EventDetailsDisplay() {
         super(FXML);
@@ -27,18 +33,29 @@ public class EventDetailsDisplay extends UiPart<Region> {
         if (event == null) {
             clearEventDetails();
         } else {
-            name.setText(event.getName().toString());
+            eventName.setText(event.getName().toString());
             description.setText(event.getDescription().toString());
             date.setText("Date: " + event.getDate().toString());
+            if (event.getVenue() != null) {
+                venueName.setText("Venue: " + event.getVenue().getName().toString());
+                address.setText("Address: " + event.getVenue().getAddress().toString());
+                capacity.setText("Capacity: " + event.getVenue().getCapacity().toString());
+            } else {
+                clearVenueDetails();
+            }
         }
     }
 
-    /**
-     * Clears the event details labels
-     */
-    public void clearEventDetails() {
-        name.setText("");
+    private void clearEventDetails() {
+        eventName.setText("");
         description.setText("");
         date.setText("");
+        clearVenueDetails();
+    }
+
+    private void clearVenueDetails() {
+        venueName.setText("");
+        address.setText("");
+        capacity.setText("");
     }
 }
