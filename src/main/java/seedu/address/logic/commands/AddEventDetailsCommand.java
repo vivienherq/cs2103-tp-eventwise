@@ -109,6 +109,10 @@ public class AddEventDetailsCommand extends Command {
         String existingPersonsMessage = String.format(MESSAGE_EXISTING,
                 index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
 
+
+        // Set edited event to be shown in the UI
+        model.setEventToView(editedEvent);
+
         if (!existingPersons.isEmpty() && newPersons.isEmpty()) {
             throw new CommandException(existingPersonsMessage);
         } else if (!existingPersons.isEmpty()) {
