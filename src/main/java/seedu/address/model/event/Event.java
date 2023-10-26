@@ -39,18 +39,6 @@ public class Event {
 
     /**
      * Every field must be present and not null.
-     * This constructor is for creating events that allow persons to be immediately part of it
-     */
-    public Event(Name name, Description description, Date date, List<Person> persons) {
-        requireAllNonNull(name, description, date, persons);
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.persons = persons;
-    }
-
-    /**
-     * Every field must be present and not null.
      * This constructor is for creating events that allow peorsons
      */
     public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {

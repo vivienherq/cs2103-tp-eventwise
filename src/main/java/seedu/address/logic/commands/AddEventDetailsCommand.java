@@ -41,9 +41,10 @@ public class AddEventDetailsCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSONS =
             "Not allowed to add the same person twice to an event: Person %1$d: %2$s";
 
+    public static final String MESSAGE_VENUE = "\nVenue: %1$s";
+
     private final Index index;
 
-    // Preferably move it to a descriptor class like EditPerson
     private final Set<Index> personIndexes;
 
     private final Index venueIndex;
@@ -53,7 +54,6 @@ public class AddEventDetailsCommand extends Command {
      * @param personIndexes of persons to be added to the event
      */
     public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Index venueIndex) {
-        // How can we add multiple persons at the same time???
         this.index = index;
         this.personIndexes = personIndexes;
         this.venueIndex = venueIndex;
@@ -103,6 +103,10 @@ public class AddEventDetailsCommand extends Command {
         String existingPersonsMessage = String.format(MESSAGE_EXISTING,
                 index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
 
+        // Venue to add
+        if (venueToAdd != null) {
+            successfullyAddedMessage += String.format(MESSAGE_VENUE, venueToAdd.getName());
+        }
 
         // Set edited event to be shown in the UI
         model.setEventToView(editedEvent);

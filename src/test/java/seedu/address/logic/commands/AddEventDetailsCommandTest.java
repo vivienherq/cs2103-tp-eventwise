@@ -110,7 +110,7 @@ public class AddEventDetailsCommandTest {
         String expectedMessage = String.format(MESSAGE_EXISTING,
                 INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), person.getName());
 
-        // Check if the updated model
+        // Check if the command fails
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
     }
 
@@ -188,9 +188,8 @@ public class AddEventDetailsCommandTest {
                 new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_FIRST_VENUE);
 
 
-
-        String expectedMessage = String.format("Added to Event %s: %s\n",
-                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName());
+        String expectedMessage = String.format("Added to Event %s: %s\n\nVenue: %s",
+                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), firstVenue.getName());
 
         // Check if the updated model
         assertCommandSuccess(addEventDetailsCommand, model, expectedMessage, expectedModel);
