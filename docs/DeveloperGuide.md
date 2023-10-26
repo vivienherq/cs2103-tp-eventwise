@@ -168,7 +168,14 @@ To support such a relationship between the data classes `Event`, `Person`, `Vend
 - An event can contain any number of vendors.
 - An event can only be held at one venue.
 
+#### Design considerations
+- Current Choice: Functionality for adding people to events, adding vendors to events and setting venues are in the same command.
+  - Pros: User can add people into an event and set the event venue at the same time
+  - Cons: Many validation functions with different responsibilities are implemented in one class.
 
+- Alternative: Individual commands for adding people to events, adding vendors to events and setting venues.
+  - Pros: Each command has a single responsibility. Easier to handle exceptions.
+  - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
 
 
 ### \[Proposed\] Undo/redo feature
