@@ -36,6 +36,10 @@ public class AddEventDetailsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Added to Event %1$d: %2$s\n%3$s";
     public static final String MESSAGE_EXISTING = "Already existing in Event %1$d: %2$s\n%3$s";
+    public static final String MESSAGE_NO_ACTION = "Please select person(s) to be added to the event "
+            + "and/or set a venue to the event";
+    public static final String MESSAGE_DUPLICATE_PERSONS =
+            "Not allowed to add the same person twice to an event: Person %1$d: %2$s";
 
     private final Index index;
 
@@ -73,14 +77,8 @@ public class AddEventDetailsCommand extends Command {
         List<Person> personsToAdd = getPersonsToAdd(model, personIndexes);
 
         if (personsToAdd.isEmpty() && venueIndex == null) {
-            throw new CommandException("Please select person(s) to be added to the event and/or set a venue to"
-                    + "the event");
+            throw new CommandException(MESSAGE_NO_ACTION);
         }
-
-//        // Checks for cases where the user did not specify a person to add
-//        if (personsToAdd.isEmpty()) {
-//            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
-//        }
 
         // Find the existing people in an event that we are trying to add.
         List<Person> existingPersons = getExistingPersons(eventToEdit, personsToAdd);
@@ -92,12 +90,8 @@ public class AddEventDetailsCommand extends Command {
         // Retrieve the venue list
         List<Venue> venueList = model.getFilteredVenuesList();
 
-        if (venueIndex.getZeroBased() >= venueList.size()) {
-            throw new CommandException(Messages.MESSAGE_NO_PERSON_SPECIFIED);
-        }
-
         // Retrieve the venue that the user is trying to add if any.
-        Venue venueToAdd = venueList.get(venueIndex.getZeroBased());
+        Venue venueToAdd = getVenueToAdd(venueList, venueIndex);
 
         // Edited event
         Event editedEvent = createEditedEvent(eventToEdit, newPersons, venueToAdd);
@@ -122,6 +116,16 @@ public class AddEventDetailsCommand extends Command {
         }
     }
 
+    private static Venue getVenueToAdd(List<Venue> venueList, Index venueIndex) throws CommandException {
+        if (venueIndex == null) {
+            return null;
+        } else if (venueIndex.getZeroBased() >= venueList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
+        } else {
+            return venueList.get(venueIndex.getZeroBased());
+        }
+    }
+
     /**
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
@@ -140,8 +144,7 @@ public class AddEventDetailsCommand extends Command {
                 eventToEdit.getDate(), currentAttendees, venueToAdd);
     }
 
-    // Move this method to model class
-    private static List<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) {
+    private static List<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) throws CommandException {
         // Get person list from the model manager
         List<Person> personList = model.getFilteredPersonList();
 
@@ -149,14 +152,22 @@ public class AddEventDetailsCommand extends Command {
         List<Person> personsToAdd = new ArrayList<>();
 
         for (Index personIndex: personIndexes) {
+            if (personIndex.getZeroBased() > personList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
             Person person = personList.get(personIndex.getZeroBased());
+            if (personsToAdd.contains(person)) {
+                String errorMessage = String.format(
+                        MESSAGE_DUPLICATE_PERSONS, personIndex.getOneBased(), person.getName());
+                throw new CommandException(errorMessage);
+            }
             personsToAdd.add(person);
         }
 
         return personsToAdd;
     }
 
-    // Move to event class
     private static List<Person> getExistingPersons(Event eventToEdit, List<Person> personsToAdd) {
         assert eventToEdit != null;
 

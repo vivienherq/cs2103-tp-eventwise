@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddEventDetailsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.venue.Venue;
 
 /**
  * Parses input arguments and create a new {@code AddEventDetailsCommand} object
@@ -49,8 +48,11 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
         Set<Index> personIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_PERSON));
 
         // Venue ID to set venue
-        Index venueIndex = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_VENUE).get());
+        if (argumentMultimap.getValue(PREFIX_VENUE).isEmpty()) {
+            return new AddEventDetailsCommand(index, personIndexes, null);
+        }
 
+        Index venueIndex = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_VENUE).get());
         return new AddEventDetailsCommand(index, personIndexes, venueIndex);
     }
 

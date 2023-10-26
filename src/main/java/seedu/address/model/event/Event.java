@@ -78,7 +78,9 @@ public class Event {
         return persons;
     }
 
-    public Venue getVenue() { return venue; }
+    public Venue getVenue() {
+        return venue;
+    }
 
     /**
      * Returns true if both events have the same event name.
@@ -110,9 +112,7 @@ public class Event {
         Event otherEvent = (Event) other;
         return name.equals(otherEvent.name)
                 && description.equals(otherEvent.description)
-                && date.equals(otherEvent.date)
-                && persons.equals(otherEvent.persons)
-                && venue.equals(otherEvent.venue);
+                && date.equals(otherEvent.date);
     }
 
     @Override
@@ -127,8 +127,6 @@ public class Event {
                 .add("name", name)
                 .add("description", description)
                 .add("date", date)
-                .add("persons", persons)
-                .add("venue", venue)
                 .toString();
     }
 
