@@ -154,6 +154,23 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add Event Details feature
+
+#### Implementation
+
+The mechanism to add event details is designed to support adding people and vendors to a specified event as well as to set the venue of a specified event.
+
+To support such a relationship between the data classes `Event`, `Person`, `Vendor` and `Venue`, a partial class diagram representing the associations between the classes is given below.
+
+![DataClassDiagram](images/DataClassDiagram.png)
+
+- An event can accommodate any number of people.
+- An event can contain any number of vendors.
+- An event can only be held at one venue.
+
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
