@@ -32,17 +32,19 @@ public class EventDetailsDisplay extends UiPart<Region> {
     public void setEventDetails(Event event) {
         if (event == null) {
             clearEventDetails();
+            return;
+        }
+
+        eventName.setText(event.getName().toString());
+        description.setText(event.getDescription().toString());
+        date.setText("Date: " + event.getDate().toString());
+
+        if (event.getVenue() != null) {
+            venueName.setText("Venue: " + event.getVenue().getName().toString());
+            address.setText("Address: " + event.getVenue().getAddress().toString());
+            capacity.setText("Capacity: " + event.getVenue().getCapacity().toString());
         } else {
-            eventName.setText(event.getName().toString());
-            description.setText(event.getDescription().toString());
-            date.setText("Date: " + event.getDate().toString());
-            if (event.getVenue() != null) {
-                venueName.setText("Venue: " + event.getVenue().getName().toString());
-                address.setText("Address: " + event.getVenue().getAddress().toString());
-                capacity.setText("Capacity: " + event.getVenue().getCapacity().toString());
-            } else {
-                clearVenueDetails();
-            }
+            clearVenueDetails();
         }
     }
 
