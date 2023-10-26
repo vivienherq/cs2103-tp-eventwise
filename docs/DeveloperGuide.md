@@ -154,11 +154,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add Event Details feature
+### [Implemented] View Event
+Viewing event details is a feature that uses the command `viewEvent eid/EVENT_INDEX`.
 
-#### Implementation
+The following sequence diagram shows how the view event operation works.
 
-The mechanism to add event details is designed to support adding people and vendors to a specified event as well as to set the venue of a specified event.
+
+### [Implemented] Add Event Details feature
+
+#### Current Implementation
+Adding event details is a feature that uses the command `addEventDetails eid/EVENT_INDEX [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR_ID]`. This feature is designed to support adding people and vendors to a specified event as well as to set the venue of a specified event.
 
 To support such a relationship between the data classes `Event`, `Person`, `Vendor` and `Venue`, a partial class diagram representing the associations between the classes is given below.
 
@@ -166,7 +171,10 @@ To support such a relationship between the data classes `Event`, `Person`, `Vend
 
 - An event can accommodate any number of people.
 - An event can contain any number of vendors.
-- An event can only be held at one venue.
+- An event can only be held at up to one venue.
+
+The following sequence diagram shows how the add event details operation works.
+
 
 #### Design considerations
 - Current Choice: Functionality for adding people to events, adding vendors to events and setting venues are in the same command.
