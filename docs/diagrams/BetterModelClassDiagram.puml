@@ -4,18 +4,38 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+'AddressBook *-right-> "1" UniqueTagList
+AddressBook *-down-> "1" UniqueEventList
+AddressBook *-down-> "1" UniquePersonList
+AddressBook *-down-> "1" UniqueVenueList
+AddressBook *-down-> "1" UniqueVendorList
+'UniqueTagList -[hidden]down- UniquePersonList
+'UniqueTagList -[hidden]down- UniquePersonList
 
-UniqueTagList -right-> "*" Tag
-UniquePersonList -right-> Person
+'UniqueTagList -right-> "*" Tag
+UniquePersonList -down-> "*" person.Person
+UniqueEventList -down-> "*" event.Event
+UniqueVendorList -down-> "*" vendor.Vendor
+UniqueVenueList -down-> "*" venue.Venue
+'Person -up-> "*" Tag
 
-Person -up-> "*" Tag
+event.Event -right-> "*" person.Person
+event.Event -right-> "*" vendor.Vendor
+event.Event -right-> "0..1" venue.Venue
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+event.Event *--> event.Name
+event.Event *--> event.Description
+event.Event *--> event.Date
+
+person.Person *--> person.Name
+person.Person *--> person.Phone
+person.Person *--> person.Email
+person.Person *--> person.Address
+
+venue.Venue *--> venue.Name
+venue.Venue *--> venue.Address
+venue.Venue *--> venue.Capacity
+
+vendor.Vendor *--> vendor.Name
+vendor.Vendor *--> vendor.Contact
 @enduml
