@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -27,10 +29,11 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
     @Override
     public AddEventDetailsCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID, PREFIX_PERSON);
+        ArgumentMultimap argumentMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID, PREFIX_PERSON, PREFIX_VENUE, PREFIX_VENDOR);
 
-        // Should only have one prefix for EVENT_ID
-        argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID);
+        // Should only have one prefix for EVENT_ID AND VENUE
+        argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_VENUE);
 
         // Minimally event prefix has to be present.
         if (!arePrefixesPresent(argumentMultimap, PREFIX_EVENT_ID)) {
@@ -44,7 +47,13 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
         // Get a list of prefix: person/
         Set<Index> personIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_PERSON));
 
-        return new AddEventDetailsCommand(index, personIndexes);
+        // Venue ID to set venue
+        if (argumentMultimap.getValue(PREFIX_VENUE).isEmpty()) {
+            return new AddEventDetailsCommand(index, personIndexes, null);
+        }
+
+        Index venueIndex = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_VENUE).get());
+        return new AddEventDetailsCommand(index, personIndexes, venueIndex);
     }
 
     /**

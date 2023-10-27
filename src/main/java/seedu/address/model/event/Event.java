@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Represents a Event in EventWise.
@@ -20,10 +21,13 @@ public class Event {
     private final Description description;
     private final Date date;
     private final List<Person> persons;
+    private Venue venue;
 
     /**
      * Every field must be present and not null.
-     * Assumption: When an event is created no people are added to the event.
+     * Assumptions:
+     * 1. When an event is created no people are added to the event.
+     * 2. When an event is created, the venue has not been set.
      */
     public Event(Name name, Description description, Date date) {
         requireAllNonNull(name, description, date);
@@ -35,14 +39,15 @@ public class Event {
 
     /**
      * Every field must be present and not null.
-     * This constructor is for creating events that allow people to be immediately part of it
+     * This constructor is for creating events that allow persons and venus to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons) {
-        requireAllNonNull(name, description, date, persons);
+    public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
+        requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
         this.persons = persons;
+        this.venue = venue;
     }
 
     public Name getName() {
@@ -59,6 +64,10 @@ public class Event {
 
     public List<Person> getPersons() {
         return persons;
+    }
+
+    public Venue getVenue() {
+        return venue;
     }
 
     /**
@@ -97,7 +106,7 @@ public class Event {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, date);
+        return Objects.hash(name, description, date, persons, venue);
     }
 
     @Override

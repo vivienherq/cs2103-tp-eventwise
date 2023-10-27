@@ -8,6 +8,7 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * A utility class to help with building Event objects.
@@ -22,6 +23,7 @@ public class EventBuilder {
     private Description description;
     private Date date;
     private List<Person> persons;
+    private Venue venue;
 
     /**
      * Creates a {@code EventBuilder} with the default details.
@@ -68,14 +70,22 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code Event} that we are building.
+     * Sets the {@code persons} of the {@code Event} that we are building.
      */
     public EventBuilder withPersons(List<Person> persons) {
         this.persons = persons;
         return this;
     }
 
+    /**
+     * Sets the {@code venue} of the {@code Event} that we are building.
+     */
+    public EventBuilder withVenue(Venue venue) {
+        this.venue = venue;
+        return this;
+    }
+
     public Event build() {
-        return new Event(name, description, date, persons);
+        return new Event(name, description, date, persons, venue);
     }
 }

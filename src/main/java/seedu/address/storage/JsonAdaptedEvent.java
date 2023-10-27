@@ -13,6 +13,7 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -24,6 +25,7 @@ class JsonAdaptedEvent {
     private final String description;
     private final String date;
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final JsonAdaptedVenue venue;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -32,13 +34,15 @@ class JsonAdaptedEvent {
     public JsonAdaptedEvent(@JsonProperty("name") String name,
                             @JsonProperty("email") String description,
                             @JsonProperty("date") String date,
-                            @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+                            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                            @JsonProperty("venue") JsonAdaptedVenue venue) {
         this.name = name;
         this.description = description;
         this.date = date;
         if (persons != null) {
             this.persons.addAll(persons);
         }
+        this.venue = venue;
     }
 
     /**
@@ -51,6 +55,11 @@ class JsonAdaptedEvent {
         persons.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
+        if (source.getVenue() != null) {
+            venue = new JsonAdaptedVenue(source.getVenue());
+        } else {
+            venue = null;
+        }
     }
 
     /**
@@ -90,6 +99,12 @@ class JsonAdaptedEvent {
         }
 
         final List<Person> modelPersons = new ArrayList<>(personList);
-        return new Event(modelName, modelDescription, modelDate, modelPersons);
+
+        if (venue == null) {
+            return new Event(modelName, modelDescription, modelDate, modelPersons, null);
+        } else {
+            final Venue modelVenue = venue.toModelType();
+            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVenue);
+        }
     }
 }

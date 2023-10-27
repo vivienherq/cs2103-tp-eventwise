@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_GREATER_THAN_RANGE_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -22,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
 public class AddEventDetailsCommandTest {
@@ -33,7 +35,7 @@ public class AddEventDetailsCommandTest {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_GREATER_THAN_RANGE_EVENT, personIndexes);
+                new AddEventDetailsCommand(INDEX_GREATER_THAN_RANGE_EVENT, personIndexes, null);
 
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
@@ -43,9 +45,9 @@ public class AddEventDetailsCommandTest {
     public void execute_noPersonSpecified_failure() {
         HashSet<Index> personIndexes = new HashSet<>();
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
 
-        String expectedMessage = String.format(Messages.MESSAGE_NO_PERSON_SPECIFIED);
+        String expectedMessage = String.format(Messages.MESSAGE_EVENT_NO_PREFIX);
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
     }
 
@@ -55,7 +57,8 @@ public class AddEventDetailsCommandTest {
         personIndexes.add(INDEX_SECOND_PERSON);
 
         // Command to simulate
-        AddEventDetailsCommand addEventDetailsCommand = new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes);
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
 
         // Create an edited model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -100,13 +103,14 @@ public class AddEventDetailsCommandTest {
         model.setEvent(testEvent, testEditedEvent);
 
         // Command to simulate
-        AddEventDetailsCommand addEventDetailsCommand = new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes);
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
 
         // Expected exception message
         String expectedMessage = String.format(MESSAGE_EXISTING,
                 INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), person.getName());
 
-        // Check if the updated model
+        // Check if the command fails
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
     }
 
@@ -131,7 +135,8 @@ public class AddEventDetailsCommandTest {
         model.setEvent(testEvent, testEditedEvent);
 
         // Command to simulate
-        AddEventDetailsCommand addEventDetailsCommand = new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes);
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
 
         // Expected Model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -153,6 +158,38 @@ public class AddEventDetailsCommandTest {
                 INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), firstPerson.getName());
 
         String expectedMessage = String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage);
+
+        // Check if the updated model is the same as the expected model
+        assertCommandSuccess(addEventDetailsCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_addVenueToEvent_success() {
+        // Person Indexes should only contain the index of the second person
+        HashSet<Index> personIndexes = new HashSet<>();
+
+        // Expected Model
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        // Simulate adding a person into an event by swapping the existing event object with the updated event object
+        Event testEvent = expectedModel.getAddressBook().getEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+
+        // Venue instance
+        Venue firstVenue = expectedModel.getAddressBook().getVenueList().get(INDEX_FIRST_VENUE.getZeroBased());
+
+        // Edited event with venue already set.
+        Event testEditedEvent = new EventBuilder(testEvent).withVenue(firstVenue).build();
+
+        // Update the event in the environment model to contain the venue.
+        expectedModel.setEvent(testEvent, testEditedEvent);
+
+        // Command to simulate
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_FIRST_VENUE);
+
+
+        String expectedMessage = String.format("Added to Event %s: %s\n\nVenue: %s",
+                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), firstVenue.getName());
 
         // Check if the updated model
         assertCommandSuccess(addEventDetailsCommand, model, expectedMessage, expectedModel);

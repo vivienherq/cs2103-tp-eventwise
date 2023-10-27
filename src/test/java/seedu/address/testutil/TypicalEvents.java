@@ -14,7 +14,10 @@ public class TypicalEvents {
 
     public static final Event ACADEMIC = new EventBuilder().withName("Academic Awards Ceremony")
             .withDescription("Celebrating student and research achievements")
-            .withDate("08-11-2023").build();
+            .withDate("08-11-2023")
+            .withPersons(TypicalPersons.getTypicalPersons())
+            .withVenue(TypicalVenues.LT27)
+            .build();
 
     public static final Event BASKETBALL = new EventBuilder().withName("Basketball Competition")
             .withDescription("Inter Faculty Games Basketball Finals")
