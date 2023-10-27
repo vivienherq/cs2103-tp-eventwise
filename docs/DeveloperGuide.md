@@ -158,7 +158,9 @@ This section describes some noteworthy details on how certain features are imple
 Viewing event details is a feature that uses the command `viewEvent eid/EVENT_INDEX`.
 
 The following sequence diagram shows how the view event operation works.
+![ViewEventSequenceDiagram](images/ViewEventSequenceDiagram.png)
 
+This operation involves calling Model#setEventToView(Event) to notify EventDetailsDisplay to display the current event object.
 
 ### [Implemented] Add Event Details feature
 
