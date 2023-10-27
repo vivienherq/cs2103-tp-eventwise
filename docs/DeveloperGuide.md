@@ -154,6 +154,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Create New Event Feature
+
+#### Implementation
+
+This feature creates a new event instance and is stored in storage.
+It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
+It is then hook to AddressBook where user is able to create a new event by using the event command.
+
 ### Add Event Details feature
 
 #### Implementation
