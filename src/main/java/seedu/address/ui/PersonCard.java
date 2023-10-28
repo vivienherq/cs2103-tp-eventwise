@@ -51,10 +51,18 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
         RsvpStatus rsvpVal = AddressBook.getRsvpStatus(EventDetailsDisplay.getCurrentEvent(), person);
+        displayRsvp(rsvpVal);
+    }
+    
+    private void displayRsvp(RsvpStatus rsvpVal) {
         if (rsvpVal == null) {
             rsvp.setText("To Be Confirmed");
-        } else {
-            rsvp.setText(rsvpVal.getStatus());
+            return;
+        } else if (rsvpVal.name().equals("CC")) {
+            rsvp.getStyleClass().addAll("label-tag", "green");
+        } else if (rsvpVal.name().equals("CCC")) {
+            rsvp.getStyleClass().addAll("label-tag", "red");
         }
+        rsvp.setText(rsvpVal.getStatus());
     }
 }

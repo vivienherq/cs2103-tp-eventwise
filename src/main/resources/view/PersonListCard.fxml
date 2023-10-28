@@ -27,7 +27,7 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="rsvp" styleClass="cell_small_label" text="\$rsvp" />
+      <Label fx:id="rsvp" styleClass="label-rsvp" text="\$rsvp" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
     </VBox>
