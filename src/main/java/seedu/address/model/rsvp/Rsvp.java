@@ -3,6 +3,7 @@ package seedu.address.model.rsvp;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -47,5 +48,14 @@ public class Rsvp {
         return otherRsvp != null
                 && otherRsvp.getEvent().equals(getEvent())
                 && otherRsvp.getPerson().equals(getPerson());
+    }
+
+    // To Display
+    public Name getPersonName() {
+        return person.getName();
+    }
+
+    public seedu.address.model.event.Name getEventName() {
+        return event.getName();
     }
 }
