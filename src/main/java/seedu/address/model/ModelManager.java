@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.RSVP;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -191,6 +192,23 @@ public class ModelManager implements Model {
         }
         this.eventToView = event;
     }
+
+//    @Override
+//    public boolean hasRSVP(Event event) {
+//        requireNonNull(event);
+//        return addressBook.hasEvent(event);
+//    }
+//
+//    @Override
+//    public void deleteRSVP(Event target) {
+//        addressBook.removeEvent(target);
+//    }
+
+    @Override
+    public void addRSVP(RSVP rsvp) {
+        addressBook.addRSVP(rsvp);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

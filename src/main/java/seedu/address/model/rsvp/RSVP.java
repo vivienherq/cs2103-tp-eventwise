@@ -28,4 +28,14 @@ public class RSVP {
     public RSVPStatus getRsvpStatus() {
         return rsvpStatus;
     }
+
+    public boolean isSameRSVP(RSVP otherRSVP) {
+        if (otherRSVP == this) {
+            return true;
+        }
+
+        return otherRSVP != null
+                && otherRSVP.getEvent().equals(getEvent())
+                && otherRSVP.getPerson().equals(getPerson());
+    }
 }

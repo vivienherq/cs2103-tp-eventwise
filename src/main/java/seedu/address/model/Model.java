@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.RSVP;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -159,6 +160,12 @@ public interface Model {
      * Gets the current {@code event} information to be displayed.
      */
     Event getEventToView();
+
+    /**
+     * Adds the given rsvp.
+     * {@code rsvp} must not already exist in the rsvp list.
+     */
+    void addRSVP(RSVP rsvp);
 
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();

@@ -5,6 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.RSVP;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
@@ -23,21 +24,33 @@ public class RSVPCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "RSVP status has been updated: %1$s";
 
-    private final Event event;
-    private final Person person;
+//    private final Event event;
+//    private final Person person;
+//    private final RSVPStatus rsvpStatus;
+    private final RSVP rsvp;
+
+    /**
+     * Creates an RSVPCommand to set the specified {@code RSVP}
+     */
+    public RSVPCommand(RSVP rsvp) {
+        this.rsvp = rsvp;
+    }
+
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public RSVPCommand(Event event, Person person) {
-        // Need check if event and person is null!
-        this.event = event;
-        this.person = person;
-    }
+//    public RSVPCommand(Event event, Person person) {
+//        // Need check if event and person is null!
+//        this.event = event;
+//        this.person = person;
+//    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return null;
+//        RSVP newRSVP = new RSVP(event, person);
+        model.addRSVP(rsvp);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ""));
     }
 }
