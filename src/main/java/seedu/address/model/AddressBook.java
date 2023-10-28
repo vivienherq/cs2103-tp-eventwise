@@ -12,6 +12,7 @@ import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.rsvp.UniqueRsvpList;
 import seedu.address.model.venue.UniqueVenueList;
 import seedu.address.model.venue.Venue;
@@ -22,11 +23,11 @@ import seedu.address.model.venue.Venue;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private static UniqueRsvpList rsvps;
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
-    private final UniqueRsvpList rsvps;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -40,7 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
-        rsvps = new UniqueRsvpList();
+        AddressBook.rsvps = new UniqueRsvpList();
     }
 
     public AddressBook() {}
@@ -270,6 +271,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeRsvp(Rsvp key) {
         rsvps.remove(key);
+    }
+
+    public static RsvpStatus getRsvpStatus(Event event, Person person) {
+        for (Rsvp rsvp: rsvps) {
+            if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
+                return rsvp.getRsvpStatus();
+            }
+        }
+        return null;
     }
 
     //// util methods

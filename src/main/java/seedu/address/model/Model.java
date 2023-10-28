@@ -168,7 +168,6 @@ public interface Model {
      * {@code rsvp} must not already exist in the rsvp list.
      */
     void addRsvp(Rsvp rsvp);
-
     Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
 
     boolean isValidRsvp(Rsvp rsvp);

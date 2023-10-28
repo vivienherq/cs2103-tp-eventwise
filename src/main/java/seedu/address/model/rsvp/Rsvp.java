@@ -2,11 +2,11 @@ package seedu.address.model.rsvp;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-
-import java.util.List;
 
 /**
  * Represents a RSVP in the address book.

@@ -10,6 +10,7 @@ import seedu.address.model.event.Event;
  */
 public class EventDetailsDisplay extends UiPart<Region> {
 
+    private static Event currentEvent;
     private static final String FXML = "EventDetailsDisplay.fxml";
 
     @FXML
@@ -30,6 +31,7 @@ public class EventDetailsDisplay extends UiPart<Region> {
     }
 
     public void setEventDetails(Event event) {
+        currentEvent = event;
         if (event == null) {
             clearEventDetails();
             return;
@@ -59,5 +61,9 @@ public class EventDetailsDisplay extends UiPart<Region> {
         venueName.setText("");
         address.setText("");
         capacity.setText("");
+    }
+
+    public static Event getCurrentEvent() {
+        return currentEvent;
     }
 }
