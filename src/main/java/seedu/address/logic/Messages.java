@@ -18,6 +18,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
+    public static final String MESSAGE_INVALID_EVENT_DATE = "The date provided is invalid, "
+            + "date entered should be either today's date or a future date.";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "At least one of the person index(es) "
             + "provided is invalid";
     public static final String MESSAGE_INVALID_VENUE_DISPLAYED_INDEX = "The venue index provided is invalid";
