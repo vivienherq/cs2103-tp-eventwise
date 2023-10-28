@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
@@ -247,6 +248,36 @@ public class CreateEventCommandTest {
 
         @Override
         public void updateFilteredVenueList(Predicate<Venue> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteVendor(Vendor target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setVendor(Vendor target, Vendor editedVendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredVendorList(Predicate<Vendor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Vendor> getFilteredVendorList() {
             throw new AssertionError("This method should not be called.");
         }
     }
