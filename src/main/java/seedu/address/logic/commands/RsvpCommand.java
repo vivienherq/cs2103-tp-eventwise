@@ -56,6 +56,7 @@ public class RsvpCommand extends Command {
                     String.format(MESSAGE_PERSON_NOT_IN_EVENT, rsvp.getPersonName(), rsvp.getEventName()));
         }
         model.addRsvp(rsvp);
+        model.setEventToView(rsvp.getEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 rsvp.getEventName(), rsvp.getPersonName(), rsvpStatus.getStatus()));
     }
