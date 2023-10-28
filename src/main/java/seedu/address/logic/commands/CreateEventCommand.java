@@ -26,10 +26,11 @@ public class CreateEventCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME + "FSC 2023 "
             + PREFIX_EVENT_DESC + "Freshman Social Camp 2023 "
-            + PREFIX_EVENT_DATE + "01-01-2000";
+            + PREFIX_EVENT_DATE + "01-01-2023";
 
     public static final String MESSAGE_SUCCESS = "New Event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in EventWise";
+    public static final String MESSAGE_INVALID_DATE = "Date entered should be either today's date or a future date.";
 
     private final Event toAdd;
 

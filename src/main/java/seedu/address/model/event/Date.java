@@ -38,19 +38,22 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given date input is of a valid format.
      */
     public static boolean isValidDate(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
-            return false;
-        }
+        return test.matches(VALIDATION_REGEX);
+    }
 
+    /**
+     * Returns true if given date is a valid date.
+     */
+    public boolean isNotPast() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date currentDate = new java.util.Date();
         String currentDateString = dateFormat.format(currentDate);
 
         try {
-            java.util.Date inputDate = dateFormat.parse(test);
+            java.util.Date inputDate = dateFormat.parse(eventDate);
             java.util.Date currentDateParsed = dateFormat.parse(currentDateString);
             return !inputDate.before(currentDateParsed);
         } catch (java.text.ParseException e) {
