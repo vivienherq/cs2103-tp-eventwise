@@ -262,6 +262,11 @@ public class CreateEventCommandTest {
         public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean isValidRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
