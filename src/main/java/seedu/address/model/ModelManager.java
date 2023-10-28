@@ -31,6 +31,8 @@ public class ModelManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
+    private final FilteredList<Rsvp> filteredRsvps;
+
     private Event eventToView;
 
     /**
@@ -47,6 +49,7 @@ public class ModelManager implements Model {
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
+        filteredRsvps = new FilteredList<>(this.addressBook.getRsvpList());
     }
 
     public ModelManager() {
@@ -302,6 +305,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredEventAttendeesList() {
         return filteredEventAttendees;
+    }
+
+    //=========== RSVP List Accessors ====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Rsvp> getFilteredRsvpList() {
+        return filteredRsvps;
     }
 
     //=========== Current Event Accessor =====================================================================

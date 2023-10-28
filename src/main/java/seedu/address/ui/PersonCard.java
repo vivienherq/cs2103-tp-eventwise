@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.AddressBook;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
 
 /**
@@ -25,6 +28,8 @@ public class PersonCard extends UiPart<Region> {
 
     public final Person person;
 
+    private ObservableList<Rsvp> rsvps;
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -43,15 +48,25 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person person, int displayedIndex, ObservableList<Rsvp> rsvps) {
         super(FXML);
         this.person = person;
+        this.rsvps = rsvps;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
-        RsvpStatus rsvpVal = AddressBook.getRsvpStatus(EventDetailsDisplay.getCurrentEvent(), person);
+        RsvpStatus rsvpVal = getRsvpStatus(EventDetailsDisplay.getCurrentEvent(), person);
         displayRsvp(rsvpVal);
+    }
+
+    private RsvpStatus getRsvpStatus(Event event, Person person) {
+        for (Rsvp rsvp: rsvps) {
+            if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
+                return rsvp.getRsvpStatus();
+            }
+        }
+        return null;
     }
     
     private void displayRsvp(RsvpStatus rsvpVal) {

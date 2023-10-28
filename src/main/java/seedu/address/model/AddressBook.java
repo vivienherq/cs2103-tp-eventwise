@@ -23,7 +23,7 @@ import seedu.address.model.venue.Venue;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private static UniqueRsvpList rsvps;
+    private final UniqueRsvpList rsvps;
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
@@ -41,7 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
-        AddressBook.rsvps = new UniqueRsvpList();
+        rsvps = new UniqueRsvpList();
     }
 
     public AddressBook() {}
@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the rsvp list with {@code rsvps}.
+         * Replaces the contents of the rsvp list with {@code rsvps}.
      * {@code rsvps} must not contain duplicate rsvps.
      */
     public void setRsvps(List<Rsvp> rsvps) {
@@ -273,7 +273,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         rsvps.remove(key);
     }
 
-    public static RsvpStatus getRsvpStatus(Event event, Person person) {
+    public RsvpStatus getRsvpStatus(Event event, Person person) {
         for (Rsvp rsvp: rsvps) {
             if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
                 return rsvp.getRsvpStatus();
