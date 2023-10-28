@@ -299,6 +299,4 @@ public class ModelManager implements Model {
     public Event getEventToView() {
         return eventToView;
     }
-
-
 }
