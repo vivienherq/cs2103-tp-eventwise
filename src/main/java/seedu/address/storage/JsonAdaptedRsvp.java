@@ -39,7 +39,7 @@ class JsonAdaptedRsvp {
     public JsonAdaptedRsvp(Rsvp source) {
         event = new JsonAdaptedEvent(source.getEvent());
         person = new JsonAdaptedPerson(source.getPerson());
-        status = source.getRsvpStatus().getStatus();
+        status = source.getRsvpStatus().name();
     }
 
     /**

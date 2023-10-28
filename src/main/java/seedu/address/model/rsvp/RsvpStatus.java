@@ -6,9 +6,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * An enum to represent the valid RSVP status.
  */
 public enum RsvpStatus {
-    CONFIRM_COMING("CC"),
-    CONFIRM_NOT_COMING("CCC"),
-    TO_BE_CONFIRMED("TBC");
+    CC("Confirm Coming"),
+    CCC("Confirm Not Coming"),
+    TBC("To Be Confirmed");
 
     public static final String MESSAGE_CONSTRAINTS =
             "Value of RSVP Status can only be CC, CCC or TBC.";
@@ -25,7 +25,7 @@ public enum RsvpStatus {
 
     public static RsvpStatus getRsvpStatus(String status) throws ParseException {
         for (RsvpStatus rsvpStatus : RsvpStatus.values()) {
-            if (rsvpStatus.getStatus().equals(status)) {
+            if (rsvpStatus.name().equals(status)) {
                 return rsvpStatus;
             }
         }

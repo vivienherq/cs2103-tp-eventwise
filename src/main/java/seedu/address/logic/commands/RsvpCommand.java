@@ -39,7 +39,6 @@ public class RsvpCommand extends Command {
      * Creates an RSVPCommand to set the specified {@code RSVP}
      */
     public RsvpCommand(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
-
         this.eventIndex = eventIndex;
         this.personIndex = personIndex;
         this.rsvpStatus = rsvpStatus;
@@ -58,6 +57,6 @@ public class RsvpCommand extends Command {
         }
         model.addRsvp(rsvp);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                rsvp.getEventName(), rsvp.getPersonName(), rsvpStatus));
+                rsvp.getEventName(), rsvp.getPersonName(), rsvpStatus.getStatus()));
     }
 }
