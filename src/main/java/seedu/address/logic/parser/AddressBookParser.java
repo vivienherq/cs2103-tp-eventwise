@@ -8,27 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddEventDetailsCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.ClearEventsCommand;
-import seedu.address.logic.commands.ClearGuestsCommand;
-import seedu.address.logic.commands.ClearVenuesCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CreateEventCommand;
-import seedu.address.logic.commands.CreateVendorCommand;
-import seedu.address.logic.commands.CreateVenueCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteEventCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditEventCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ViewEventCommand;
-import seedu.address.logic.commands.ViewEventsCommand;
-import seedu.address.logic.commands.ViewVenuesCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -124,6 +104,9 @@ public class AddressBookParser {
 
         case CreateVendorCommand.COMMAND_WORD:
             return new CreateVendorCommandParser().parse(arguments);
+
+        case ViewVendorsCommand.COMMAND_WORD:
+            return new ViewVendorsCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
