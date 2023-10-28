@@ -199,13 +199,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            eventDetailsDisplay.setEventDetails(logic.getEventToView());
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } finally {
+            eventDetailsDisplay.setEventDetails(logic.getEventToView());
         }
     }
 }
