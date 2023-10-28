@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.rsvp.exceptions.DuplicateRSVPException;
-import seedu.address.model.rsvp.exceptions.RSVPNotFoundException;
+import seedu.address.model.rsvp.exceptions.DuplicateRsvpException;
+import seedu.address.model.rsvp.exceptions.RsvpNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -20,30 +20,30 @@ import seedu.address.model.rsvp.exceptions.RSVPNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see RSVP#isSameRSVP(RSVP)
+ * @see Rsvp#isSameRsvp(Rsvp)
  */
-public class UniqueRSVPList implements Iterable<RSVP> {
+public class UniqueRsvpList implements Iterable<Rsvp> {
 
-    private final ObservableList<RSVP> internalList = FXCollections.observableArrayList();
-    private final ObservableList<RSVP> internalUnmodifiableList =
+    private final ObservableList<Rsvp> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Rsvp> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(RSVP toCheck) {
+    public boolean contains(Rsvp toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameRSVP);
+        return internalList.stream().anyMatch(toCheck::isSameRsvp);
     }
 
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(RSVP toAdd) {
+    public void add(Rsvp toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateRSVPException();
+            throw new DuplicateRsvpException();
         }
         internalList.add(toAdd);
     }
@@ -53,33 +53,33 @@ public class UniqueRSVPList implements Iterable<RSVP> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setRSVP(RSVP target, RSVP editedRSVP) {
-        requireAllNonNull(target, editedRSVP);
+    public void setRsvp(Rsvp target, Rsvp editedRsvp) {
+        requireAllNonNull(target, editedRsvp);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new RSVPNotFoundException();
+            throw new RsvpNotFoundException();
         }
 
-        if (!target.isSameRSVP(editedRSVP) && contains(editedRSVP)) {
-            throw new DuplicateRSVPException();
+        if (!target.isSameRsvp(editedRsvp) && contains(editedRsvp)) {
+            throw new DuplicateRsvpException();
         }
 
-        internalList.set(index, editedRSVP);
+        internalList.set(index, editedRsvp);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(RSVP toRemove) {
+    public void remove(Rsvp toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new RSVPNotFoundException();
+            throw new RsvpNotFoundException();
         }
     }
 
-    public void setRSVPs(UniqueRSVPList replacement) {
+    public void setRsvps(UniqueRsvpList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +88,10 @@ public class UniqueRSVPList implements Iterable<RSVP> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setRSVPs(List<RSVP> rsvps) {
+    public void setRsvps(List<Rsvp> rsvps) {
         requireAllNonNull(rsvps);
         if (!rsvpsAreUnique(rsvps)) {
-            throw new DuplicateRSVPException();
+            throw new DuplicateRsvpException();
         }
 
         internalList.setAll(rsvps);
@@ -100,12 +100,12 @@ public class UniqueRSVPList implements Iterable<RSVP> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<RSVP> asUnmodifiableObservableList() {
+    public ObservableList<Rsvp> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<RSVP> iterator() {
+    public Iterator<Rsvp> iterator() {
         return internalList.iterator();
     }
 
@@ -116,12 +116,12 @@ public class UniqueRSVPList implements Iterable<RSVP> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UniqueRSVPList)) {
+        if (!(other instanceof UniqueRsvpList)) {
             return false;
         }
 
-        UniqueRSVPList otherUniqueRSVPList = (UniqueRSVPList) other;
-        return internalList.equals(otherUniqueRSVPList.internalList);
+        UniqueRsvpList otherUniqueRsvpList = (UniqueRsvpList) other;
+        return internalList.equals(otherUniqueRsvpList.internalList);
     }
 
     @Override
@@ -137,10 +137,10 @@ public class UniqueRSVPList implements Iterable<RSVP> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean rsvpsAreUnique(List<RSVP> rsvps) {
+    private boolean rsvpsAreUnique(List<Rsvp> rsvps) {
         for (int i = 0; i < rsvps.size() - 1; i++) {
             for (int j = i + 1; j < rsvps.size(); j++) {
-                if (rsvps.get(i).isSameRSVP(rsvps.get(j))) {
+                if (rsvps.get(i).isSameRsvp(rsvps.get(j))) {
                     return false;
                 }
             }

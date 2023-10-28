@@ -11,8 +11,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.rsvp.RSVP;
-import seedu.address.model.rsvp.UniqueRSVPList;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.UniqueRsvpList;
 import seedu.address.model.venue.UniqueVenueList;
 import seedu.address.model.venue.Venue;
 
@@ -26,7 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
-    private final UniqueRSVPList rsvps;
+    private final UniqueRsvpList rsvps;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -40,7 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
-        rsvps = new UniqueRSVPList();
+        rsvps = new UniqueRsvpList();
     }
 
     public AddressBook() {}
@@ -91,8 +91,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the rsvp list with {@code rsvps}.
      * {@code rsvps} must not contain duplicate rsvps.
      */
-    public void setRSVPs(List<RSVP> rsvps) {
-        this.rsvps.setRSVPs(rsvps);
+    public void setRsvps(List<Rsvp> rsvps) {
+        this.rsvps.setRsvps(rsvps);
     }
 
     /**
@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
-        setRSVPs(newData.getRSVPList());
+        setRsvps(newData.getRsvpList());
     }
 
     /**
@@ -240,7 +240,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a RSPV with the same identity as {@code rsvp} exists in the address book.
      */
-    public boolean hasRSVP(RSVP rsvp) {
+    public boolean hasRsvp(Rsvp rsvp) {
         requireNonNull(rsvp);
         return rsvps.contains(rsvp);
     }
@@ -249,26 +249,26 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a RSVP to the address book.
      * The person must not already exist in the address book.
      */
-    public void addRSVP(RSVP rsvp) {
+    public void addRsvp(Rsvp rsvp) {
         rsvps.add(rsvp);
     }
 
     /**
-     * Replaces the given RSVP {@code target} in the list with {@code editedRSVP}.
+     * Replaces the given RSVP {@code target} in the list with {@code editedRsvp}.
      * {@code target} must exist in the address book.
-     * The RSVP identity of {@code editedRSVP} must not be the same as another existing RSVP in the address book.
+     * The RSVP identity of {@code editedRsvp} must not be the same as another existing RSVP in the address book.
      */
-    public void setRSVP(RSVP target, RSVP editedRSVP) {
-        requireNonNull(editedRSVP);
+    public void setRsvp(Rsvp target, Rsvp editedRsvp) {
+        requireNonNull(editedRsvp);
 
-        rsvps.setRSVP(target, editedRSVP);
+        rsvps.setRsvp(target, editedRsvp);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeRSVP(RSVP key) {
+    public void removeRsvp(Rsvp key) {
         rsvps.remove(key);
     }
 
@@ -297,7 +297,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<RSVP> getRSVPList() {
+    public ObservableList<Rsvp> getRsvpList() {
         return rsvps.asUnmodifiableObservableList();
     }
 

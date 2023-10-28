@@ -5,12 +5,12 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.rsvp.RSVP;
-import seedu.address.model.rsvp.RSVPStatus;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.venue.Venue;
-import seedu.address.commons.core.index.Index;
 
 /**
  * The API of the Model component.
@@ -167,9 +167,9 @@ public interface Model {
      * Adds the given rsvp.
      * {@code rsvp} must not already exist in the rsvp list.
      */
-    void addRSVP(RSVP rsvp);
+    void addRsvp(Rsvp rsvp);
 
-    RSVP createRSVP(Index eventIndex, Index personIndex, RSVPStatus rsvpStatus);
+    Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
 
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();

@@ -2,7 +2,10 @@ package seedu.address.model.rsvp;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public enum RSVPStatus {
+/**
+ * An enum to represent the valid RSVP status.
+ */
+public enum RsvpStatus {
     CONFIRM_COMING("CC"),
     CONFIRM_NOT_COMING("CCC"),
     TO_BE_CONFIRMED("TBC");
@@ -12,7 +15,7 @@ public enum RSVPStatus {
 
     private final String status;
 
-    RSVPStatus(String status) {
+    RsvpStatus(String status) {
         this.status = status;
     }
 
@@ -20,8 +23,8 @@ public enum RSVPStatus {
         return this.status;
     }
 
-    public static RSVPStatus getRSVPStatus(String status) throws ParseException {
-        for (RSVPStatus rsvpStatus : RSVPStatus.values()) {
+    public static RsvpStatus getRsvpStatus(String status) throws ParseException {
+        for (RsvpStatus rsvpStatus : RsvpStatus.values()) {
             if (rsvpStatus.getStatus().equals(status)) {
                 return rsvpStatus;
             }

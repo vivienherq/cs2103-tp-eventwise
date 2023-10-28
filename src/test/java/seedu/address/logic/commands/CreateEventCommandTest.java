@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -24,6 +25,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
@@ -247,6 +250,16 @@ public class CreateEventCommandTest {
 
         @Override
         public void updateFilteredVenueList(Predicate<Venue> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
             throw new AssertionError("This method should not be called.");
         }
     }

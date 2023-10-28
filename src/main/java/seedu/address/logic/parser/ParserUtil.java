@@ -14,7 +14,7 @@ import seedu.address.model.event.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.rsvp.RSVPStatus;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.venue.Address;
 import seedu.address.model.venue.Capacity;
 
@@ -191,9 +191,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static RSVPStatus parseRSVPStatus(String status) throws ParseException {
+    public static RsvpStatus parseRsvpStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        return RSVPStatus.getRSVPStatus(trimmedStatus);
+        return RsvpStatus.getRsvpStatus(trimmedStatus);
     }
 }

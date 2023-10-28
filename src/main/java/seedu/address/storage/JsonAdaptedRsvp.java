@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
-import seedu.address.model.rsvp.RSVP;
 import seedu.address.model.person.Person;
-import seedu.address.model.rsvp.RSVPStatus;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 
 /**
- * Jackson-friendly version of {@link RSVP}.
+ * Jackson-friendly version of {@link Rsvp}.
  */
-class JsonAdaptedRSVP {
+class JsonAdaptedRsvp {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "RSVP's %s field is missing!";
 
@@ -25,9 +25,9 @@ class JsonAdaptedRSVP {
      * Constructs a {@code JsonAdaptedRSVP} with the given rsvp details.
      */
     @JsonCreator
-    public JsonAdaptedRSVP(@JsonProperty("event") JsonAdaptedEvent event,
-                             @JsonProperty("person") JsonAdaptedPerson person,
-                             @JsonProperty("status") String status) {
+    public JsonAdaptedRsvp(@JsonProperty("event") JsonAdaptedEvent event,
+                           @JsonProperty("person") JsonAdaptedPerson person,
+                           @JsonProperty("status") String status) {
         this.event = event;
         this.person = person;
         this.status = status;
@@ -36,7 +36,7 @@ class JsonAdaptedRSVP {
     /**
      * Converts a given {@code RSVP} into this class for Jackson use.
      */
-    public JsonAdaptedRSVP(RSVP source) {
+    public JsonAdaptedRsvp(Rsvp source) {
         event = new JsonAdaptedEvent(source.getEvent());
         person = new JsonAdaptedPerson(source.getPerson());
         status = source.getRsvpStatus().getStatus();
@@ -47,7 +47,7 @@ class JsonAdaptedRSVP {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public RSVP toModelType() throws IllegalValueException, ParseException {
+    public Rsvp toModelType() throws IllegalValueException, ParseException {
         if (event == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Event.class.getSimpleName()));
         }
@@ -55,9 +55,10 @@ class JsonAdaptedRSVP {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RSVPStatus.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RsvpStatus.class.getSimpleName()));
         }
-        RSVPStatus rsvpStatus = RSVPStatus.getRSVPStatus(status);
-        return new RSVP(event.toModelType(), person.toModelType(), rsvpStatus);
+        RsvpStatus rsvpStatus = RsvpStatus.getRsvpStatus(status);
+        return new Rsvp(event.toModelType(), person.toModelType(), rsvpStatus);
     }
 }

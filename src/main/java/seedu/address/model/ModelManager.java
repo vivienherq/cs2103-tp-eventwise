@@ -15,8 +15,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.rsvp.RSVP;
-import seedu.address.model.rsvp.RSVPStatus;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -196,18 +196,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRSVP(RSVP rsvp) {
-        addressBook.addRSVP(rsvp);
+    public void addRsvp(Rsvp rsvp) {
+        addressBook.addRsvp(rsvp);
     }
 
-    public RSVP createRSVP(Index eventIndex, Index personIndex, RSVPStatus rsvpStatus) {
-        if (eventIndex.getZeroBased() >= getFilteredEventsList().size() ||
-                personIndex.getZeroBased() >= getFilteredPersonList().size()) {
+    /**
+     * Creates a RSVP object given the index of the event, person and status.
+     * @param eventIndex The index of the event provided by the user.
+     * @param personIndex The index of the person provided by the user.
+     * @param rsvpStatus The status of the RSVP
+     * @return
+     */
+    public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
+        if (eventIndex.getZeroBased() >= getFilteredEventsList().size()
+                || personIndex.getZeroBased() >= getFilteredPersonList().size()) {
             return null;
         }
         Event event = getFilteredEventsList().get(eventIndex.getZeroBased());
         Person person = getFilteredPersonList().get(personIndex.getZeroBased());
-        return new RSVP(event, person, rsvpStatus);
+        return new Rsvp(event, person, rsvpStatus);
     }
 
 
