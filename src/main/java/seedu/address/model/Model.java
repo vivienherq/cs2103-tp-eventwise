@@ -171,6 +171,8 @@ public interface Model {
 
     Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
 
+    boolean isValidRsvp(Rsvp rsvp);
+
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();
 

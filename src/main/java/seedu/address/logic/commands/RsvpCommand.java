@@ -29,6 +29,7 @@ public class RsvpCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "RSVP status has been updated: %1$s, %2$s, %3$s";
     public static final String MESSAGE_INVALID_INDEX = "Event or Person does not exist!";
+    public static final String MESSAGE_PERSON_NOT_IN_EVENT = "%1$s has not been added to %2$s!";
 
     private final Index eventIndex;
     private final Index personIndex;
@@ -50,6 +51,10 @@ public class RsvpCommand extends Command {
         Rsvp rsvp = model.createRsvp(eventIndex, personIndex, rsvpStatus);
         if (rsvp == null) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
+        }
+        if (!model.isValidRsvp(rsvp)) {
+            throw new CommandException(
+                    String.format(MESSAGE_PERSON_NOT_IN_EVENT, rsvp.getPersonName(), rsvp.getEventName()));
         }
         model.addRsvp(rsvp);
         return new CommandResult(String.format(MESSAGE_SUCCESS,

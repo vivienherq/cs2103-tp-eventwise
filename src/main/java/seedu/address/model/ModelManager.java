@@ -207,6 +207,7 @@ public class ModelManager implements Model {
      * @param rsvpStatus The status of the RSVP
      * @return
      */
+    @Override
     public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
         if (eventIndex.getZeroBased() >= getFilteredEventsList().size()
                 || personIndex.getZeroBased() >= getFilteredPersonList().size()) {
@@ -215,6 +216,12 @@ public class ModelManager implements Model {
         Event event = getFilteredEventsList().get(eventIndex.getZeroBased());
         Person person = getFilteredPersonList().get(personIndex.getZeroBased());
         return new Rsvp(event, person, rsvpStatus);
+    }
+
+    @Override
+    public boolean isValidRsvp(Rsvp rsvp) {
+        Person person = rsvp.getPerson();
+        return rsvp.getEventGuests().contains(person);
     }
 
 

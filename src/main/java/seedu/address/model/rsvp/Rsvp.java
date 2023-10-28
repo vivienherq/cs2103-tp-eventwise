@@ -6,6 +6,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+import java.util.List;
+
 /**
  * Represents a RSVP in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -50,12 +52,16 @@ public class Rsvp {
                 && otherRsvp.getPerson().equals(getPerson());
     }
 
-    // To Display
+    // To Resolve Law of Demeter.
     public Name getPersonName() {
         return person.getName();
     }
 
     public seedu.address.model.event.Name getEventName() {
         return event.getName();
+    }
+
+    public List<Person> getEventGuests() {
+        return event.getPersons();
     }
 }
