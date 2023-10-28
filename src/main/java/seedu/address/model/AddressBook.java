@@ -11,6 +11,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.vendor.UniqueVendorList;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.UniqueVenueList;
 import seedu.address.model.venue.Venue;
 
@@ -24,6 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
+    private final UniqueVendorList vendors;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
+        vendors = new UniqueVendorList();
     }
 
     public AddressBook() {}
@@ -81,6 +85,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setVenues(List<Venue> venues) {
         this.venues.setVenues(venues);
+    }
+
+    /**
+     * Replaces the contents of the vendor list with {@code vendors}.
+     * {@code vendors} must not contain duplicate vendors.
+     */
+    public void setVendors(List<Vendor> vendors) {
+        this.vendors.setVendors(vendors);
     }
 
     /**
@@ -189,6 +201,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    //// venue-level operations
+
     /**
      * Returns true if an existing venue similar to {@code venue} exists in the venue list.
      */
@@ -224,6 +238,43 @@ public class AddressBook implements ReadOnlyAddressBook {
         venues.remove(key);
     }
 
+    //// vendor-level operations
+
+    /**
+     * Returns true if an existing vendor similar to {@code vendor} exists in the vendor list.
+     */
+    public boolean hasVendor(Vendor vendor) {
+        requireNonNull(vendor);
+        return vendors.contains(vendor);
+    }
+
+    /**
+     * Adds a vendor to EventWise.
+     * The vendor must not already exist in EventWise.
+     */
+    public void addVendor(Vendor vendor) {
+        vendors.add(vendor);
+    }
+
+    /**
+     * Replaces the given vendor {@code target} in the list with {@code editedVendor}.
+     * {@code target} must exist in EventWise.
+     * The vendor identity of {@code editedVendor} must not be the same as another existing vendor in EventWise.
+     */
+    public void setVendor(Vendor target, Vendor editedVendor) {
+        requireNonNull(editedVendor);
+
+        vendors.setVendor(target, editedVendor);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeVendor(Vendor key) {
+        vendors.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -251,6 +302,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getEventAttendeesList() {
         return eventAttendees.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Vendor> getVendorList() {
+        return vendors.asUnmodifiableObservableList();
     }
 
     @Override

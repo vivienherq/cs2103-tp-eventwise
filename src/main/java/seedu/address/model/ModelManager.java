@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
+    private final FilteredList<Vendor> filteredVendors;
     private Event eventToView;
 
     /**
@@ -43,6 +45,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
+        filteredVendors = new FilteredList<>(this.addressBook.getVendorList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
     }
 
@@ -138,6 +141,8 @@ public class ModelManager implements Model {
     }
 
     //=========== EventWise ================================================================================
+
+    // Events
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
@@ -161,6 +166,17 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    public void setEventToView(Event event) {
+        if (event == null) {
+            addressBook.setEventAttendees(new ArrayList<>());
+        } else {
+            addressBook.setEventAttendees(event.getPersons());
+        }
+        this.eventToView = event;
+    }
+
+    // Venues
+
     @Override
     public boolean hasVenue(Venue venue) {
         requireNonNull(venue);
@@ -183,13 +199,30 @@ public class ModelManager implements Model {
 
         addressBook.setVenue(target, editedVenue);
     }
-    public void setEventToView(Event event) {
-        if (event == null) {
-            addressBook.setEventAttendees(new ArrayList<>());
-        } else {
-            addressBook.setEventAttendees(event.getPersons());
-        }
-        this.eventToView = event;
+
+    // Vendors
+
+    @Override
+    public boolean hasVendor(Vendor vendor) {
+        requireNonNull(vendor);
+        return addressBook.hasVendor(vendor);
+    }
+
+    @Override
+    public void deleteVendor(Vendor target) {
+        addressBook.removeVendor(target);
+    }
+
+    @Override
+    public void addVendor(Vendor vendor) {
+        addressBook.addVendor(vendor);
+    }
+
+    @Override
+    public void setVendor(Vendor target, Vendor editedVendor) {
+        requireAllNonNull(target, editedVendor);
+
+        addressBook.setVendor(target, editedVendor);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -243,7 +276,6 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
-
     //=========== Filtered Venue List Accessors =============================================================
 
     /**
@@ -269,6 +301,23 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredEventAttendeesList() {
         return filteredEventAttendees;
+    }
+
+    //=========== Filtered Vendor List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Vendor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Vendor> getFilteredVendorList() {
+        return filteredVendors;
+    }
+
+    @Override
+    public void updateFilteredVendorList(Predicate<Vendor> predicate) {
+        requireNonNull(predicate);
+        filteredVendors.setPredicate(predicate);
     }
 
     //=========== Current Event Accessor =====================================================================
