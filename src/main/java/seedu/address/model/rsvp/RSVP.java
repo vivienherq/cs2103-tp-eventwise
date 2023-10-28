@@ -38,4 +38,13 @@ public class RSVP {
                 && otherRSVP.getEvent().equals(getEvent())
                 && otherRSVP.getPerson().equals(getPerson());
     }
+
+//    public static boolean isValidStatus(String status) {
+//        for (RSVPStatus rsvpStatus: RSVPStatus.values()) {
+//            if (rsvpStatus.getStatus().equals(status)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

@@ -8,7 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.RSVP;
+import seedu.address.model.rsvp.RSVPStatus;
 import seedu.address.model.venue.Venue;
+import seedu.address.commons.core.index.Index;
 
 /**
  * The API of the Model component.
@@ -166,6 +168,8 @@ public interface Model {
      * {@code rsvp} must not already exist in the rsvp list.
      */
     void addRSVP(RSVP rsvp);
+
+    RSVP createRSVP(Index eventIndex, Index personIndex, RSVPStatus rsvpStatus);
 
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();

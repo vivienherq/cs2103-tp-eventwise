@@ -12,9 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.RSVP;
+import seedu.address.model.rsvp.RSVPStatus;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -193,20 +195,19 @@ public class ModelManager implements Model {
         this.eventToView = event;
     }
 
-//    @Override
-//    public boolean hasRSVP(Event event) {
-//        requireNonNull(event);
-//        return addressBook.hasEvent(event);
-//    }
-//
-//    @Override
-//    public void deleteRSVP(Event target) {
-//        addressBook.removeEvent(target);
-//    }
-
     @Override
     public void addRSVP(RSVP rsvp) {
         addressBook.addRSVP(rsvp);
+    }
+
+    public RSVP createRSVP(Index eventIndex, Index personIndex, RSVPStatus rsvpStatus) {
+        if (eventIndex.getZeroBased() >= getFilteredEventsList().size() ||
+                personIndex.getZeroBased() >= getFilteredPersonList().size()) {
+            return null;
+        }
+        Event event = getFilteredEventsList().get(eventIndex.getZeroBased());
+        Person person = getFilteredPersonList().get(personIndex.getZeroBased());
+        return new RSVP(event, person, rsvpStatus);
     }
 
 
@@ -298,5 +299,6 @@ public class ModelManager implements Model {
     public Event getEventToView() {
         return eventToView;
     }
+
 
 }
