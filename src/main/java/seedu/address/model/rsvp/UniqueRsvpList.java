@@ -5,10 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.rsvp.exceptions.DuplicateRsvpException;
 import seedu.address.model.rsvp.exceptions.RsvpNotFoundException;
 
 /**
@@ -36,6 +36,13 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
         return internalList.stream().anyMatch(toCheck::isSameRsvp);
     }
 
+    private Optional<Rsvp> getDuplicateRsvp(Rsvp toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .filter(toCheck::isSameRsvp)
+                .findFirst();
+    }
+
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
@@ -43,7 +50,9 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     public void add(Rsvp toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateRsvpException();
+            assert getDuplicateRsvp(toAdd).isPresent();
+            setRsvp(getDuplicateRsvp(toAdd).get(), toAdd);
+            return;
         }
         internalList.add(toAdd);
     }
@@ -55,16 +64,10 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
      */
     public void setRsvp(Rsvp target, Rsvp editedRsvp) {
         requireAllNonNull(target, editedRsvp);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new RsvpNotFoundException();
         }
-
-        if (!target.isSameRsvp(editedRsvp) && contains(editedRsvp)) {
-            throw new DuplicateRsvpException();
-        }
-
         internalList.set(index, editedRsvp);
     }
 
@@ -90,10 +93,6 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
      */
     public void setRsvps(List<Rsvp> rsvps) {
         requireAllNonNull(rsvps);
-        if (!rsvpsAreUnique(rsvps)) {
-            throw new DuplicateRsvpException();
-        }
-
         internalList.setAll(rsvps);
     }
 
@@ -132,19 +131,5 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     @Override
     public String toString() {
         return internalList.toString();
-    }
-
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean rsvpsAreUnique(List<Rsvp> rsvps) {
-        for (int i = 0; i < rsvps.size() - 1; i++) {
-            for (int j = i + 1; j < rsvps.size(); j++) {
-                if (rsvps.get(i).isSameRsvp(rsvps.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }
