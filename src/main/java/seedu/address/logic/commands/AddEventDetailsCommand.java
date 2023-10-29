@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -34,18 +35,22 @@ public class AddEventDetailsCommand extends Command {
             + "[" + PREFIX_VENDOR + "VENDOR_ID]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_EVENT_ID + "3 " + PREFIX_PERSON + "2";
 
-    public static final String MESSAGE_SUCCESS = "Added to Event %1$d: %2$s\n%3$s";
+    public static final String MESSAGE_SUCCESS = "Added to Event %1$d: %2$s\n";
     public static final String MESSAGE_EXISTING = "Already existing in Event %1$d: %2$s\n%3$s";
-    public static final String MESSAGE_NO_ACTION = "Please select person(s) to be added to the event "
+    public static final String MESSAGE_NO_ACTION = "Please select person(s) or vendor(s) to be added to the event "
             + "and/or set a venue to the event";
     public static final String MESSAGE_DUPLICATE_PERSONS =
             "Not allowed to add the same person twice to an event: Person %1$d: %2$s";
+
+    public static final String MESSAGE_DUPLICATE_VENDORS =
+            "Not allowed to add the same vendor twice to an event: Vendor %1$d: %2$s";
 
     public static final String MESSAGE_VENUE = "\nVenue: %1$s";
 
     private final Index index;
 
     private final Set<Index> personIndexes;
+    private final Set<Index> vendorIndexes;
 
     private final Index venueIndex;
 
@@ -53,9 +58,10 @@ public class AddEventDetailsCommand extends Command {
      * @param index of the event in the event list to add event details
      * @param personIndexes of persons to be added to the event
      */
-    public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Index venueIndex) {
+    public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Set<Index>vendorIndexes, Index venueIndex) {
         this.index = index;
         this.personIndexes = personIndexes;
+        this.vendorIndexes = vendorIndexes;
         this.venueIndex = venueIndex;
     }
 
@@ -76,16 +82,23 @@ public class AddEventDetailsCommand extends Command {
         // Retrieves a list of persons that the user is trying to add
         List<Person> personsToAdd = getPersonsToAdd(model, personIndexes);
 
-        if (personsToAdd.isEmpty() && venueIndex == null) {
+        List<Vendor> vendorsToAdd = getVendorsToAdd(model, vendorIndexes);
+
+        if (personsToAdd.isEmpty() && vendorsToAdd.isEmpty() && venueIndex == null) {
             throw new CommandException(MESSAGE_NO_ACTION);
         }
 
         // Find the existing people in an event that we are trying to add.
         List<Person> existingPersons = getExistingPersons(eventToEdit, personsToAdd);
 
+        List<Vendor> existingVendors = getExistingVendors(eventToEdit, vendorsToAdd);
+
         // Get the new people we are trying to add.
         List<Person> newPersons = personsToAdd.stream()
                 .filter(person -> !existingPersons.contains(person)).collect(Collectors.toList());
+
+        List<Vendor> newVendors = vendorsToAdd.stream()
+                .filter(vendor -> !existingVendors.contains(vendor)).collect(Collectors.toList());
 
         // Retrieve the venue list
         List<Venue> venueList = model.getFilteredVenuesList();
@@ -94,27 +107,45 @@ public class AddEventDetailsCommand extends Command {
         Venue venueToAdd = getVenueToAdd(venueList, venueIndex);
 
         // Edited event
-        Event editedEvent = createEditedEvent(eventToEdit, newPersons, venueToAdd);
+        Event editedEvent = createEditedEvent(eventToEdit, newPersons, newVendors, venueToAdd);
         model.setEvent(eventToEdit, editedEvent);
 
         // Result messages
         String successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
-                index.getOneBased(), eventToEdit.getName(), getPersonNames(newPersons));
-        String existingPersonsMessage = String.format(MESSAGE_EXISTING,
-                index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
+                index.getOneBased(), eventToEdit.getName());
 
-        // Venue to add
+        if (!newPersons.isEmpty()) {
+            successfullyAddedMessage += String.format(getPersonNames(newPersons));
+        }
+
+        if (!newVendors.isEmpty()) {
+            successfullyAddedMessage += String.format(getVendorNames(newVendors));
+        }
+
         if (venueToAdd != null) {
             successfullyAddedMessage += String.format(MESSAGE_VENUE, venueToAdd.getName());
         }
+
+        String existingPersonsMessage = String.format(MESSAGE_EXISTING,
+                index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
+
+        String existingVendorsMessage = String.format(MESSAGE_EXISTING,
+                index.getOneBased(), eventToEdit.getName(), getVendorNames(existingVendors));
 
         // Set edited event to be shown in the UI
         model.setEventToView(editedEvent);
 
         if (!existingPersons.isEmpty() && newPersons.isEmpty()) {
             throw new CommandException(existingPersonsMessage);
-        } else if (!existingPersons.isEmpty()) {
-            return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage));
+        }
+
+        if (!existingVendors.isEmpty() && newVendors.isEmpty()) {
+            throw new CommandException(existingVendorsMessage);
+        }
+
+        if (!existingPersons.isEmpty() || !existingVendors.isEmpty()) {
+            return new CommandResult(String.format("%s\n%s", successfullyAddedMessage,
+                    existingPersonsMessage, existingVendorsMessage));
         } else {
             return new CommandResult(successfullyAddedMessage);
         }
@@ -134,18 +165,24 @@ public class AddEventDetailsCommand extends Command {
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd) {
+    private static Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
+                                           List<Vendor> vendorsToAdd, Venue venueToAdd) {
         assert eventToEdit != null;
 
         // Using set ensures that we don't add duplicate people into an event
         List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
+        List<Vendor> currentVendors = new ArrayList<>(eventToEdit.getVendors());
 
         for (Person person: personsToAdd) {
             currentAttendees.add(person);
         }
 
+        for (Vendor vendor: vendorsToAdd) {
+            currentVendors.add(vendor);
+        }
+
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
-                eventToEdit.getDate(), currentAttendees, venueToAdd);
+                eventToEdit.getDate(), currentAttendees, currentVendors, venueToAdd);
     }
 
     private static List<Person> getPersonsToAdd(Model model, Set<Index> personIndexes) throws CommandException {
@@ -161,6 +198,7 @@ public class AddEventDetailsCommand extends Command {
             }
 
             Person person = personList.get(personIndex.getZeroBased());
+
             if (personsToAdd.contains(person)) {
                 String errorMessage = String.format(
                         MESSAGE_DUPLICATE_PERSONS, personIndex.getOneBased(), person.getName());
@@ -179,6 +217,7 @@ public class AddEventDetailsCommand extends Command {
 
         // Using set ensures that we don't add duplicate people into an event
         List<Person> currentAttendees = eventToEdit.getPersons();
+
         for (Person person : personsToAdd) {
             if (currentAttendees.contains(person)) {
                 existingAttendees.add(person);
@@ -190,10 +229,67 @@ public class AddEventDetailsCommand extends Command {
 
     private String getPersonNames(List<Person> persons) {
         StringBuilder stringBuilder = new StringBuilder();
+
         for (int i = 0; i < persons.size(); i++) {
             Person person = persons.get(i);
             stringBuilder.append(person.getName().toString());
             if (i < persons.size() - 1) {
+                stringBuilder.append(System.lineSeparator());
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private static List<Vendor> getVendorsToAdd(Model model, Set<Index> vendorIndexes) throws CommandException {
+        // Get vendor list from the model manager
+        List<Vendor> vendorList = model.getFilteredVendorList();
+
+        // Create a list of vendors to add
+        List<Vendor> vendorsToAdd = new ArrayList<>();
+
+        for (Index vendorIndex: vendorIndexes) {
+            if (vendorIndex.getZeroBased() > vendorList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
+            }
+
+            Vendor vendor = vendorList.get(vendorIndex.getZeroBased());
+
+            if (vendorsToAdd.contains(vendor)) {
+                String errorMessage = String.format(
+                        MESSAGE_DUPLICATE_VENDORS, vendorIndex.getOneBased(), vendor.getName());
+                throw new CommandException(errorMessage);
+            }
+            vendorsToAdd.add(vendor);
+        }
+
+        return vendorsToAdd;
+    }
+
+    private static List<Vendor> getExistingVendors(Event eventToEdit, List<Vendor> vendorsToAdd) {
+        assert eventToEdit != null;
+
+        List<Vendor> existingVendors = new ArrayList<>();
+
+        // Using set ensures that we don't add duplicate people into an event
+        List<Vendor> currentVendors = eventToEdit.getVendors();
+
+        for (Vendor vendor : vendorsToAdd) {
+            if (currentVendors.contains(vendor)) {
+                existingVendors.add(vendor);
+            }
+        }
+
+        return existingVendors;
+    }
+
+    private String getVendorNames(List<Vendor> vendors) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < vendors.size(); i++) {
+            Vendor vendor = vendors.get(i);
+            stringBuilder.append(vendor.getName().toString());
+            if (i < vendors.size() - 1) {
                 stringBuilder.append(System.lineSeparator());
             }
         }

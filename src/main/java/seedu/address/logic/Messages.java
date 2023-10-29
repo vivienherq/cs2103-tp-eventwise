@@ -22,12 +22,14 @@ public class Messages {
             + "date entered should be either today's date or a future date.";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "At least one of the person index(es) "
             + "provided is invalid";
+    public static final String MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX = "At least one of the vendor index(es) "
+            + "provided is invalid";
     public static final String MESSAGE_INVALID_VENUE_DISPLAYED_INDEX = "The venue index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_EVENT_NO_PREFIX = "Please select person(s) to be added to the event "
-            + "and/or set a venue to the event";
+    public static final String MESSAGE_EVENT_NO_PREFIX = "Please select person(s) or vendor(s) to be added to the event"
+            + " and/or set a venue to the event";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -21,13 +22,15 @@ public class Event {
     private final Description description;
     private final Date date;
     private final List<Person> persons;
+    private final List<Vendor> vendors;
     private Venue venue;
 
     /**
      * Every field must be present and not null.
      * Assumptions:
      * 1. When an event is created no people are added to the event.
-     * 2. When an event is created, the venue has not been set.
+     * 2. When an event is created no vendors are added to the event.
+     * 3. When an event is created, the venue has not been set.
      */
     public Event(Name name, Description description, Date date) {
         requireAllNonNull(name, description, date);
@@ -35,18 +38,21 @@ public class Event {
         this.description = description;
         this.date = date;
         this.persons = new ArrayList<>();
+        this.vendors = new ArrayList<>();
     }
 
     /**
      * Every field must be present and not null.
-     * This constructor is for creating events that allow persons and venus to be immediately part of it.
+     * This constructor is for creating events that allow persons, vendors and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, Date date,
+                 List<Person> persons, List<Vendor> vendors, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
         this.persons = persons;
+        this.vendors = vendors;
         this.venue = venue;
     }
 
@@ -64,6 +70,10 @@ public class Event {
 
     public List<Person> getPersons() {
         return persons;
+    }
+
+    public List<Vendor> getVendors() {
+        return vendors;
     }
 
     public Venue getVenue() {

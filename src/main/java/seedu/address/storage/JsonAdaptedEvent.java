@@ -13,6 +13,7 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -94,17 +95,20 @@ class JsonAdaptedEvent {
         final Date modelDate = new Date(date);
 
         final List<Person> personList = new ArrayList<>();
+        final List<Vendor> vendorList = new ArrayList<>();
+
         for (JsonAdaptedPerson person: persons) {
             personList.add(person.toModelType());
         }
 
         final List<Person> modelPersons = new ArrayList<>(personList);
+        final List<Vendor> modelVendors = new ArrayList<>(vendorList);
 
         if (venue == null) {
-            return new Event(modelName, modelDescription, modelDate, modelPersons, null);
+            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVendors, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVenue);
+            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVendors, modelVenue);
         }
     }
 }

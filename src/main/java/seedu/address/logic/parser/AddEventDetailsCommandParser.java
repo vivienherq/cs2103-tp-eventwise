@@ -46,14 +46,15 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
 
         // Get a list of prefix: person/
         Set<Index> personIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_PERSON));
+        Set<Index> vendorIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_VENDOR));
 
         // Venue ID to set venue
         if (argumentMultimap.getValue(PREFIX_VENUE).isEmpty()) {
-            return new AddEventDetailsCommand(index, personIndexes, null);
+            return new AddEventDetailsCommand(index, personIndexes, vendorIndexes, null);
         }
 
         Index venueIndex = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_VENUE).get());
-        return new AddEventDetailsCommand(index, personIndexes, venueIndex);
+        return new AddEventDetailsCommand(index, personIndexes, vendorIndexes, venueIndex);
     }
 
     /**

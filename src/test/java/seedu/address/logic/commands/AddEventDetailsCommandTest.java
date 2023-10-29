@@ -34,8 +34,9 @@ public class AddEventDetailsCommandTest {
     public void execute_invalidIndexOutOfRange_failure() {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
+        HashSet<Index> vendorIndexes = new HashSet<>();
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_GREATER_THAN_RANGE_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_GREATER_THAN_RANGE_EVENT, personIndexes, vendorIndexes, null);
 
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
@@ -44,8 +45,9 @@ public class AddEventDetailsCommandTest {
     @Test
     public void execute_noPersonSpecified_failure() {
         HashSet<Index> personIndexes = new HashSet<>();
+        HashSet<Index> vendorIndexes = new HashSet<>();
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
         String expectedMessage = String.format(Messages.MESSAGE_EVENT_NO_PREFIX);
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
@@ -55,10 +57,11 @@ public class AddEventDetailsCommandTest {
     public void execute_addNewPersonToEvent_success() {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
+        HashSet<Index> vendorIndexes = new HashSet<>();
 
         // Command to simulate
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
         // Create an edited model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -78,7 +81,7 @@ public class AddEventDetailsCommandTest {
         // Expected success message
         String expectedSuccessMessage =
                 String.format(AddEventDetailsCommand.MESSAGE_SUCCESS, INDEX_FIRST_EVENT.getOneBased(),
-                        editedEvent.getName(), person.getName());
+                        editedEvent.getName()) + String.format(person.getName().toString());
 
         // Check if the updated model
         assertCommandSuccess(addEventDetailsCommand, model, expectedSuccessMessage, expectedModel);
@@ -89,6 +92,7 @@ public class AddEventDetailsCommandTest {
         // Person Indexes should only contain the index of the second person
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
+        HashSet<Index> vendorIndexes = new HashSet<>();
 
         // Simulate adding a person into an event by swapping the existing event object with the updated event object
         Event testEvent = model.getAddressBook().getEventList().get(INDEX_FIRST_EVENT.getZeroBased());
@@ -104,7 +108,7 @@ public class AddEventDetailsCommandTest {
 
         // Command to simulate
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
         // Expected exception message
         String expectedMessage = String.format(MESSAGE_EXISTING,
@@ -120,6 +124,7 @@ public class AddEventDetailsCommandTest {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_FIRST_PERSON);
         personIndexes.add(INDEX_SECOND_PERSON);
+        HashSet<Index> vendorIndexes = new HashSet<>();
 
         // Simulate adding a person into an event by swapping the existing event object with the updated event object
         Event testEvent = model.getAddressBook().getEventList().get(INDEX_FIRST_EVENT.getZeroBased());
@@ -136,7 +141,7 @@ public class AddEventDetailsCommandTest {
 
         // Command to simulate
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
         // Expected Model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -154,8 +159,8 @@ public class AddEventDetailsCommandTest {
         String existingPersonsMessage = String.format(MESSAGE_EXISTING,
                 INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), secondPerson.getName());
 
-        String successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
-                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), firstPerson.getName());
+        String successfullyAddedMessage = String.format(MESSAGE_SUCCESS, INDEX_FIRST_EVENT.getOneBased(),
+                testEditedEvent.getName()) + String.format(firstPerson.getName().toString());
 
         String expectedMessage = String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage);
 
@@ -167,6 +172,7 @@ public class AddEventDetailsCommandTest {
     public void execute_addVenueToEvent_success() {
         // Person Indexes should only contain the index of the second person
         HashSet<Index> personIndexes = new HashSet<>();
+        HashSet<Index> vendorIndexes = new HashSet<>();
 
         // Expected Model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -185,7 +191,7 @@ public class AddEventDetailsCommandTest {
 
         // Command to simulate
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_FIRST_VENUE);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, INDEX_FIRST_VENUE);
 
 
         String expectedMessage = String.format("Added to Event %s: %s\n\nVenue: %s",
