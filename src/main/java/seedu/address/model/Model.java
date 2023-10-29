@@ -5,8 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
@@ -166,6 +169,15 @@ public interface Model {
 
 
 
+    /**
+     * Adds the given rsvp.
+     * {@code rsvp} must not already exist in the rsvp list.
+     */
+    void addRsvp(Rsvp rsvp);
+    Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
+
+    boolean isValidRsvp(Rsvp rsvp);
+
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();
 
@@ -179,6 +191,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
+
+    /** Returns an unmodifiable view of the filtered rsvps list */
+    ObservableList<Rsvp> getFilteredRsvpList();
 
     // Vendors
 

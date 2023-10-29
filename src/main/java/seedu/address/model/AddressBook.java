@@ -11,6 +11,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.UniqueRsvpList;
 import seedu.address.model.vendor.UniqueVendorList;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.UniqueVenueList;
@@ -22,6 +24,7 @@ import seedu.address.model.venue.Venue;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueRsvpList rsvps;
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
@@ -40,6 +43,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
+        rsvps = new UniqueRsvpList();
         vendors = new UniqueVendorList();
     }
 
@@ -88,6 +92,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the rsvp list with {@code rsvps}.
+     * {@code rsvps} must not contain duplicate rsvps.
+     */
+    public void setRsvps(List<Rsvp> rsvps) {
+        this.rsvps.setRsvps(rsvps);
+    }
+
+    /**
      * Replaces the contents of the vendor list with {@code vendors}.
      * {@code vendors} must not contain duplicate vendors.
      */
@@ -104,6 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+        setRsvps(newData.getRsvpList());
     }
 
     /**
@@ -238,6 +251,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         venues.remove(key);
     }
 
+    /**
+     * Returns true if an RSVP with the same identity as {@code rsvp} exists in the address book.
+     */
+    public boolean hasRsvp(Rsvp rsvp) {
+        requireNonNull(rsvp);
+        return rsvps.contains(rsvp);
+    }
+
+    /**
+     * Adds an RSVP to the address book.
+     * The RSVP must not already exist in the address book.
+     */
+    public void addRsvp(Rsvp rsvp) {
+        rsvps.add(rsvp);
+    }
+
     //// vendor-level operations
 
     /**
@@ -297,6 +326,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Venue> getVenueList() {
         return venues.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Rsvp> getRsvpList() {
+        return rsvps.asUnmodifiableObservableList();
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
@@ -28,6 +29,12 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate venues.
      */
     ObservableList<Venue> getVenueList();
+
+    /**
+     * Returns an unmodifiable view of the rsvps list.
+     * This list will not contain any duplicate rsvps.
+     */
+    ObservableList<Rsvp> getRsvpList();
 
     /**
      * Returns an unmodifiable view of an event's attendee list.

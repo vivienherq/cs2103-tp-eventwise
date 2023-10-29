@@ -14,7 +14,9 @@ import seedu.address.model.event.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.venue.Address;
+import seedu.address.model.venue.Capacity;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -150,7 +152,6 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    // TODO: Refactor Event's Name to Title
     public static seedu.address.model.venue.Name parseVenueName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
@@ -181,13 +182,25 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static seedu.address.model.venue.Capacity parseVenueCapacity(String capacity) throws ParseException {
+    public static Capacity parseVenueCapacity(String capacity) throws ParseException {
         requireNonNull(capacity);
         String trimmedCapacity = capacity.trim();
-        if (!Address.isValidAddress(trimmedCapacity)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        if (!Capacity.isValidCapacity(trimmedCapacity)) {
+            throw new ParseException(Capacity.MESSAGE_CONSTRAINTS);
         }
-        return new seedu.address.model.venue.Capacity(trimmedCapacity);
+        return new Capacity(trimmedCapacity);
+    }
+
+    /**
+     * Parses a {@code String status} into an {@code RsvpStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static RsvpStatus parseRsvpStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        return RsvpStatus.getRsvpStatus(trimmedStatus);
     }
 
     // Vendors
