@@ -154,6 +154,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Create New Event Feature
+
+#### Implementation
+
+This feature creates a new event instance and is stored in storage.
+It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
+It is then hook to AddressBook where user is able to create a new event by using the event command.
+
 ### Add Event Details feature
 
 #### Implementation
@@ -177,6 +185,21 @@ To support such a relationship between the data classes `Event`, `Person`, `Vend
   - Pros: Each command has a single responsibility. Easier to handle exceptions.
   - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
 
+### Create New Venue Feature
+
+#### Implementation
+
+This feature creates a new venue instance and is stored in storage.
+It is implemented by creating `CreateVenueCommand` and `CreateVenueCommandParser`
+It is then hook to EventWise where user is able to create a new venue by using the venue command.
+
+### Create New Vendor Feature
+
+#### Implementation
+
+This feature creates a new vendor instance and is stored in storage.
+It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
+It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
 
 ### \[Proposed\] Undo/redo feature
 

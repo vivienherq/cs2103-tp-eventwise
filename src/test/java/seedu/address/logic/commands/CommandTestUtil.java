@@ -42,11 +42,11 @@ public class CommandTestUtil {
 
     public static final String VALID_EVENT_NAME_CAREER_FAIR = "Career Fair";
     public static final String VALID_EVENT_DESCRIPTION_CAREER_FAIR = "Over 100 companies will be present";
-    public static final String VALID_EVENT_DATE_CAREER_FAIR = "14-11-2023";
+    public static final String VALID_EVENT_DATE_CAREER_FAIR = "14-11-2024";
 
-    public static final String VALID_EVENT_NAME_FSC = "FSC 2023";
-    public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2023";
-    public static final String VALID_EVENT_DATE_FSC = "12-09-2023";
+    public static final String VALID_EVENT_NAME_FSC = "FSC 2024";
+    public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2024";
+    public static final String VALID_EVENT_DATE_FSC = "12-09-2024";
 
     // Person Prefixes
 

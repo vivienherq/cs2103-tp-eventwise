@@ -12,9 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -30,6 +34,8 @@ public class ModelManager implements Model {
     private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
     private final FilteredList<DisplayableListViewItem> filteredDisplayableItems;
+    private final FilteredList<Rsvp> filteredRsvps;
+    private final FilteredList<Vendor> filteredVendors;
     private Event eventToView;
 
     /**
@@ -45,8 +51,10 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
+        filteredVendors = new FilteredList<>(this.addressBook.getVendorList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
         filteredDisplayableItems = new FilteredList<>(this.addressBook.getDisplayableItemList());
+        filteredRsvps = new FilteredList<>(this.addressBook.getRsvpList());
     }
 
     public ModelManager() {
@@ -141,6 +149,8 @@ public class ModelManager implements Model {
     }
 
     //=========== EventWise ================================================================================
+
+    // Events
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
@@ -164,6 +174,17 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    public void setEventToView(Event event) {
+        if (event == null) {
+            addressBook.setEventAttendees(new ArrayList<>());
+        } else {
+            addressBook.setEventAttendees(event.getPersons());
+        }
+        this.eventToView = event;
+    }
+
+    // Venues
+
     @Override
     public boolean hasVenue(Venue venue) {
         requireNonNull(venue);
@@ -186,14 +207,61 @@ public class ModelManager implements Model {
 
         addressBook.setVenue(target, editedVenue);
     }
-    public void setEventToView(Event event) {
-        if (event == null) {
-            addressBook.setEventAttendees(new ArrayList<>());
-        } else {
-            addressBook.setEventAttendees(event.getPersons());
-        }
-        this.eventToView = event;
+
+    // Vendors
+
+    @Override
+    public boolean hasVendor(Vendor vendor) {
+        requireNonNull(vendor);
+        return addressBook.hasVendor(vendor);
     }
+
+    @Override
+    public void deleteVendor(Vendor target) {
+        addressBook.removeVendor(target);
+    }
+
+    @Override
+    public void addVendor(Vendor vendor) {
+        addressBook.addVendor(vendor);
+    }
+
+    @Override
+    public void setVendor(Vendor target, Vendor editedVendor) {
+        requireAllNonNull(target, editedVendor);
+
+        addressBook.setVendor(target, editedVendor);
+    }
+
+    @Override
+    public void addRsvp(Rsvp rsvp) {
+        addressBook.addRsvp(rsvp);
+    }
+
+    /**
+     * Creates a RSVP object given the index of the event, person and status.
+     * @param eventIndex The index of the event provided by the user.
+     * @param personIndex The index of the person provided by the user.
+     * @param rsvpStatus The status of the RSVP
+     * @return
+     */
+    @Override
+    public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
+        if (eventIndex.getZeroBased() >= getFilteredEventsList().size()
+                || personIndex.getZeroBased() >= getFilteredPersonList().size()) {
+            return null;
+        }
+        Event event = getFilteredEventsList().get(eventIndex.getZeroBased());
+        Person person = getFilteredPersonList().get(personIndex.getZeroBased());
+        return new Rsvp(event, person, rsvpStatus);
+    }
+
+    @Override
+    public boolean isValidRsvp(Rsvp rsvp) {
+        Person person = rsvp.getPerson();
+        return rsvp.getEventGuests().contains(person);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -248,7 +316,6 @@ public class ModelManager implements Model {
         addressBook.setDisplayableItems(filteredEvents);
     }
 
-
     //=========== Filtered Venue List Accessors =============================================================
 
     /**
@@ -275,6 +342,34 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredEventAttendeesList() {
         return filteredEventAttendees;
+    }
+
+    //=========== RSVP List Accessors ====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Rsvp} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Rsvp> getFilteredRsvpList() {
+        return filteredRsvps;
+    }
+
+    //=========== Filtered Vendor List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Vendor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Vendor> getFilteredVendorList() {
+        return filteredVendors;
+    }
+
+    @Override
+    public void updateFilteredVendorList(Predicate<Vendor> predicate) {
+        requireNonNull(predicate);
+        filteredVendors.setPredicate(predicate);
+        addressBook.setDisplayableItems(filteredVendors);
     }
 
     //=========== Current Event Accessor =====================================================================

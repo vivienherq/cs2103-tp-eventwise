@@ -19,4 +19,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_VENUE_NAME = new Prefix("n/");
     public static final Prefix PREFIX_VENUE_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_VENUE_CAPACITY = new Prefix("c/");
+    public static final Prefix PREFIX_RSVP_STATUS = new Prefix("s/");
 }

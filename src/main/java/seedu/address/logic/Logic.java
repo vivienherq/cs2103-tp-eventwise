@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 
 /**
  * API of the Logic component
@@ -43,6 +44,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of event attendees */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemsList();
+
+    /** Returns an unmodifiable view of the filtered list of rsvps */
+    ObservableList<Rsvp> getFilteredRsvpList();
 
     /** Returns the current event to be viewed */
     Event getEventToView();

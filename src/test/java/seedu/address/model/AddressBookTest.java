@@ -20,6 +20,8 @@ import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.PersonBuilder;
 
@@ -99,6 +101,9 @@ public class AddressBookTest {
         private final ObservableList<Venue> venues = FXCollections.observableArrayList();
         private final ObservableList<Person> eventAttendees = FXCollections.observableArrayList();
         private final ObservableList<DisplayableListViewItem> displayableItems = FXCollections.observableArrayList();
+        private final ObservableList<Rsvp> rsvps = FXCollections.observableArrayList();
+        private final ObservableList<Vendor> vendors = FXCollections.observableArrayList();
+
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -127,6 +132,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Venue> getVenueList() {
             return venues;
+        }
+
+        @Override
+        public ObservableList<Rsvp> getRsvpList() {
+            return rsvps;
+        }
+
+        @Override
+        public ObservableList<Vendor> getVendorList() {
+            return vendors;
         }
     }
 

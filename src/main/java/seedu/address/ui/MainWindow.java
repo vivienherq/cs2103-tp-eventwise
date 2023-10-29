@@ -31,7 +31,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EventListPanel eventListPanel;
     private DisplayableListPanel displayableListPanel;
     private EventDetailsDisplay eventDetailsDisplay;
     private PersonListPanel personListPanel;
@@ -46,9 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane displayableItemListPanelPlaceholder;
-
-    // @FXML
-    // private StackPane eventListPanelPlaceholder;
 
     @FXML
     private StackPane eventDetailsPlaceholder;
@@ -132,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         eventDetailsDisplay = new EventDetailsDisplay();
         eventDetailsPlaceholder.getChildren().add(eventDetailsDisplay.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList());
+        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList(), logic.getFilteredRsvpList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

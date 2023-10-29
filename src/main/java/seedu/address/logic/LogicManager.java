@@ -18,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.storage.Storage;
 
 /**
@@ -88,6 +89,10 @@ public class LogicManager implements Logic {
         return model.getFilteredDisplayableItemList();
     }
 
+    @Override
+    public ObservableList<Rsvp> getFilteredRsvpList() {
+        return model.getFilteredRsvpList();
+    }
 
     @Override
     public Event getEventToView() {

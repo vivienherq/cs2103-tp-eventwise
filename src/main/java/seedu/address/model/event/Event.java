@@ -40,7 +40,7 @@ public class Event implements DisplayableListViewItem {
 
     /**
      * Every field must be present and not null.
-     * This constructor is for creating events that allow persons and venus to be immediately part of it.
+     * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
     public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
         requireAllNonNull(name, description, date);
