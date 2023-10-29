@@ -37,11 +37,11 @@
 
                 <HBox VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox fx:id="eventList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="displayableItemList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
-                            <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                            <StackPane fx:id="displayableItemListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                             <opaqueInsets>
                                <Insets />
                             </opaqueInsets>
