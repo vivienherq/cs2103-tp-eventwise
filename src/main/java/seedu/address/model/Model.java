@@ -1,10 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
@@ -73,6 +77,16 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Gets a person from the address book based on the {@code index} specified.
+     */
+    Person getPerson(Index index) throws CommandException;
+
+    /**
+     * Gets a list of person objects from the address book based on the {@code indices} specified.
+     */
+    List<Person> getPersons(Set<Index> indices) throws CommandException;
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -112,6 +126,11 @@ public interface Model {
      */
     void setEvent(Event target, Event editedEvent);
 
+    /**
+     * Edits the given event {@code eventToEdit} details with {@code personsToAdd} and {@code venuesToAdd}.
+     */
+    Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd);
+
     void resetEvents();
     void resetGuests();
     void resetVenues();
@@ -137,6 +156,11 @@ public interface Model {
      * {@code venue} must not already exist in the venue list.
      */
     void addVenue(Venue venue);
+
+    /**
+     * Gets a venue from the address book based on the {@code index} specified.
+     */
+    Venue getVenue(Index index) throws CommandException;
 
     /**
      * Deletes the given venue.
