@@ -186,10 +186,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String capacity} into an {@code Capacity}.
+     * Parses a {@code String status} into an {@code RsvpStatus}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code status} is invalid.
      */
     public static RsvpStatus parseRsvpStatus(String status) throws ParseException {
         requireNonNull(status);

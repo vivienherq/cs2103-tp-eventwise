@@ -12,11 +12,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.rsvp.exceptions.RsvpNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of RSVPs that enforces uniqueness between its elements and does not allow nulls.
+ * A RSVP is considered unique by comparing using {@code Rsvp#isSameRsvp(Rsvp)}. As such, adding and updating of
+ * RSVPs uses Rsvp#isSameRsvp(Rsvp) for equality so as to ensure that the RSVP being added or updated is
+ * unique in terms of identity in the UniqueRsvpList.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,7 +28,7 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent RSVP as the given argument.
      */
     public boolean contains(Rsvp toCheck) {
         requireNonNull(toCheck);
@@ -44,8 +43,8 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds an RSVP to the list.
+     * The RSVP must not already exist in the list.
      */
     public void add(Rsvp toAdd) {
         requireNonNull(toAdd);
@@ -58,9 +57,9 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the Rsvp {@code target} in the list with {@code editedRsvp}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The RSVP identity of {@code editedRsvp} must not be the same as another existing RSVP in the list.
      */
     public void setRsvp(Rsvp target, Rsvp editedRsvp) {
         requireAllNonNull(target, editedRsvp);
@@ -72,8 +71,8 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent RSVP from the list.
+     * The RSVP must exist in the list.
      */
     public void remove(Rsvp toRemove) {
         requireNonNull(toRemove);
@@ -88,8 +87,8 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code rsvps}.
+     * {@code rsvps} must not contain duplicate RSVPs.
      */
     public void setRsvps(List<Rsvp> rsvps) {
         requireAllNonNull(rsvps);

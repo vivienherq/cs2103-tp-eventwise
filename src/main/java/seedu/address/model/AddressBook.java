@@ -12,7 +12,6 @@ import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.rsvp.Rsvp;
-import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.rsvp.UniqueRsvpList;
 import seedu.address.model.venue.UniqueVenueList;
 import seedu.address.model.venue.Venue;
@@ -89,7 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-         * Replaces the contents of the rsvp list with {@code rsvps}.
+     * Replaces the contents of the rsvp list with {@code rsvps}.
      * {@code rsvps} must not contain duplicate rsvps.
      */
     public void setRsvps(List<Rsvp> rsvps) {
@@ -239,7 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a RSPV with the same identity as {@code rsvp} exists in the address book.
+     * Returns true if an RSVP with the same identity as {@code rsvp} exists in the address book.
      */
     public boolean hasRsvp(Rsvp rsvp) {
         requireNonNull(rsvp);
@@ -247,39 +246,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a RSVP to the address book.
-     * The person must not already exist in the address book.
+     * Adds an RSVP to the address book.
+     * The RSVP must not already exist in the address book.
      */
     public void addRsvp(Rsvp rsvp) {
         rsvps.add(rsvp);
-    }
-
-    /**
-     * Replaces the given RSVP {@code target} in the list with {@code editedRsvp}.
-     * {@code target} must exist in the address book.
-     * The RSVP identity of {@code editedRsvp} must not be the same as another existing RSVP in the address book.
-     */
-    public void setRsvp(Rsvp target, Rsvp editedRsvp) {
-        requireNonNull(editedRsvp);
-
-        rsvps.setRsvp(target, editedRsvp);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removeRsvp(Rsvp key) {
-        rsvps.remove(key);
-    }
-
-    public RsvpStatus getRsvpStatus(Event event, Person person) {
-        for (Rsvp rsvp: rsvps) {
-            if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
-                return rsvp.getRsvpStatus();
-            }
-        }
-        return null;
     }
 
     //// util methods

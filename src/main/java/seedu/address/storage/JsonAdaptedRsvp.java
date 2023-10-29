@@ -43,9 +43,9 @@ class JsonAdaptedRsvp {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted Rsvp object into the model's {@code Rsvp} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Rsvp.
      */
     public Rsvp toModelType() throws IllegalValueException, ParseException {
         if (event == null) {
