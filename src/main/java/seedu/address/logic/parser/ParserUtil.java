@@ -50,6 +50,8 @@ public class ParserUtil {
         return indexSet;
     }
 
+    // Persons
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -95,6 +97,8 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    // Events
+
     /**
      * Parses a {@code String name} into an {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -139,6 +143,8 @@ public class ParserUtil {
         }
         return new Date(trimmedDate);
     }
+
+    // Venues
 
     /**
      * Parses a {@code String name} into an {@code Name}.
@@ -195,5 +201,52 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         return RsvpStatus.getRsvpStatus(trimmedStatus);
+    }
+
+    // Vendors
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static seedu.address.model.vendor.Name parseVendorName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!seedu.address.model.vendor.Name.isValidName(trimmedName)) {
+            throw new ParseException(seedu.address.model.vendor.Name.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.vendor.Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static seedu.address.model.vendor.Phone parseVendorPhone(String phone) throws ParseException {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        if (!seedu.address.model.vendor.Phone.isValidPhone(trimmedPhone)) {
+            throw new ParseException(seedu.address.model.vendor.Phone.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.vendor.Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static seedu.address.model.vendor.Email parseVendorEmail(String email) throws ParseException {
+        requireNonNull(email);
+        String trimmedEmail = email.trim();
+        if (!seedu.address.model.vendor.Email.isValidEmail(trimmedEmail)) {
+            throw new ParseException(seedu.address.model.vendor.Email.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.vendor.Email(trimmedEmail);
     }
 }
