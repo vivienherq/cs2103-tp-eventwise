@@ -1,14 +1,17 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_EXISTING;
 import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_VENUE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_GREATER_THAN_RANGE_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_OUT_OF_RANGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.HashSet;
@@ -35,7 +38,7 @@ public class AddEventDetailsCommandTest {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_GREATER_THAN_RANGE_EVENT, personIndexes, null);
+                new AddEventDetailsCommand(INDEX_OUT_OF_RANGE, personIndexes, null);
 
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
@@ -187,11 +190,39 @@ public class AddEventDetailsCommandTest {
         AddEventDetailsCommand addEventDetailsCommand =
                 new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_FIRST_VENUE);
 
+        String venueMessage = String.format(MESSAGE_VENUE, firstVenue.getName());
 
-        String expectedMessage = String.format("Added to Event %s: %s\n\nVenue: %s",
-                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), firstVenue.getName());
+        String expectedMessage = String.format(MESSAGE_SUCCESS,
+                INDEX_FIRST_EVENT.getOneBased(), testEditedEvent.getName(), venueMessage);
 
         // Check if the updated model
         assertCommandSuccess(addEventDetailsCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_addVenueIndexOutOfRange_failure() {
+        // Person Indexes should only contain the index of the second person
+        HashSet<Index> personIndexes = new HashSet<>();
+
+        // Command to simulate
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_OUT_OF_RANGE);
+
+
+        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_addPersonIndexOutOfRange_failure() {
+        // Person Indexes should only contain the index of the second person
+        HashSet<Index> personIndexes = new HashSet<>();
+        personIndexes.add(INDEX_OUT_OF_RANGE);
+
+        // Command to simulate
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, INDEX_FIRST_VENUE);
+
+
+        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 }

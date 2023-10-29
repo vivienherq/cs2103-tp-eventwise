@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -139,6 +143,25 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getPerson(Index index) throws CommandException {
+        if (index.getZeroBased() > addressBook.getPersonList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        return filteredPersons.get(index.getZeroBased());
+    }
+
+    @Override
+    public List<Person> getPersons(Set<Index> indices) throws CommandException {
+        List<Person> personList = new ArrayList<>();
+
+        for (Index index : indices) {
+            personList.add(getPerson(index));
+        }
+
+        return personList;
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -165,6 +188,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Venue getVenue(Index index) throws CommandException {
+        if (index == null) {
+            return null;
+        }
+
+        if (index.getZeroBased() > addressBook.getVenueList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
+        }
+
+        return filteredVenues.get(index.getZeroBased());
+    }
+
+    @Override
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
 
@@ -181,6 +217,19 @@ public class ModelManager implements Model {
     }
 
     // Venues
+
+    @Override
+    public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd) {
+        // Using set ensures that we don't add duplicate people into an event
+        List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
+
+        for (Person person: personsToAdd) {
+            currentAttendees.add(person);
+        }
+
+        return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
+                eventToEdit.getDate(), currentAttendees, venueToAdd);
+    }
 
     @Override
     public boolean hasVenue(Venue venue) {
