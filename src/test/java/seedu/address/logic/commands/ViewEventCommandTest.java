@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalEvents.FSC;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_GREATER_THAN_RANGE_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_OUT_OF_RANGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class ViewEventCommandTest {
 
     @Test
     public void execute_invalidIndexOutOfRange_failure() {
-        ViewEventCommand viewEventCommand = new ViewEventCommand(INDEX_GREATER_THAN_RANGE_EVENT);
+        ViewEventCommand viewEventCommand = new ViewEventCommand(INDEX_OUT_OF_RANGE);
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 
         assertCommandFailure(viewEventCommand, model, expectedMessage);

@@ -40,7 +40,7 @@ public class AddEventDetailsCommand extends Command {
     public static final String MESSAGE_NO_ACTION = "Please select person(s) to be added to the event "
             + "and/or set a venue to the event";
 
-    public static final String MESSAGE_VENUE = "\nVenue: %1$s";
+    public static final String MESSAGE_VENUE = "Venue: %1$s";
 
     private final Index index;
 
@@ -101,8 +101,12 @@ public class AddEventDetailsCommand extends Command {
                 index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
 
         // Venue to add
-        if (venueToAdd != null) {
-            successfullyAddedMessage += String.format(MESSAGE_VENUE, venueToAdd.getName());
+        if (venueToAdd != null && newPersons.isEmpty()) {
+            String venueMessage = String.format(MESSAGE_VENUE, venueToAdd.getName());
+            successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
+                    index.getOneBased(), eventToEdit.getName(), venueMessage);
+        } else if (venueToAdd != null) {
+            successfullyAddedMessage += ("\n" + String.format(MESSAGE_VENUE, venueToAdd.getName()));
         }
 
         // Set edited event to be shown in the UI
