@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,6 +20,7 @@ public class ViewEventsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         ObservableList<Event> eventList = model.getFilteredEventsList();
         String events = "";
         for (int i = 0; i < eventList.size(); i++) {

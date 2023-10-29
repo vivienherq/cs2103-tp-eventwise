@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -43,8 +44,15 @@ public interface ReadOnlyAddressBook {
     ObservableList<Person> getEventAttendeesList();
 
     /**
+     * Returns an unmodifiable view of the displayable items list.
+     * This list will not contain any duplicate displayable items.
+     */
+    ObservableList<DisplayableListViewItem> getDisplayableItemList();
+
+    /**
      * Returns an unmodifiable view of the vendors list.
      * This list will not contain any duplicate venues.
      */
     ObservableList<Vendor> getVendorList();
+
 }

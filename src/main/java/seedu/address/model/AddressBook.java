@@ -7,6 +7,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.displayable.DisplayableListViewItem;
+import seedu.address.model.displayable.UniqueDisplayableItemList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
@@ -29,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
+    private final UniqueDisplayableItemList displayableItems;
     private final UniqueVendorList vendors;
 
     /*
@@ -43,6 +46,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
+        displayableItems = new UniqueDisplayableItemList();
         rsvps = new UniqueRsvpList();
         vendors = new UniqueVendorList();
     }
@@ -92,6 +96,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the displayable listview items list with {@code items}.
+     * {@code items} must not contain duplicate displayable list view items.
+     */
+    public void setDisplayableItems(List<? extends DisplayableListViewItem> items) {
+        this.displayableItems.setDisplayableItems(items);
+    }
+
+    /**
      * Replaces the contents of the rsvp list with {@code rsvps}.
      * {@code rsvps} must not contain duplicate rsvps.
      */
@@ -116,6 +128,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+        setEventAttendees(new ArrayList<>());
+        setDisplayableItems(new ArrayList<>());
         setRsvps(newData.getRsvpList());
     }
 
@@ -252,6 +266,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a displayable item to the address book.
+     * The displayable item must not already exist in the address book.
+     */
+    public void addDisplayableItem(DisplayableListViewItem item) {
+        displayableItems.add(item);
+    }
+
+    /**
+     * Replaces the given displayable list view item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The displayable list view identity of {@code editedItem} must not be the same as another existing
+     * displayable list view item in the address book.
+     */
+    public void setDisplayableItem(DisplayableListViewItem target, DisplayableListViewItem editedItem) {
+        requireNonNull(editedItem);
+
+        displayableItems.setDisplayableItem(target, editedItem);
+    }
+
+    /**
      * Returns true if an RSVP with the same identity as {@code rsvp} exists in the address book.
      */
     public boolean hasRsvp(Rsvp rsvp) {
@@ -300,6 +334,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
+    public void removeDisplayableItem(DisplayableListViewItem key) {
+        displayableItems.remove(key);
+    }
+
     public void removeVendor(Vendor key) {
         vendors.remove(key);
     }
@@ -339,6 +377,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<DisplayableListViewItem> getDisplayableItemList() {
+        return displayableItems.asUnmodifiableObservableList();
+    }
+
     public ObservableList<Vendor> getVendorList() {
         return vendors.asUnmodifiableObservableList();
     }

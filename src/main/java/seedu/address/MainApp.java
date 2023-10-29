@@ -65,6 +65,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        // Default: Show all events when initialized
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
     }
 
     /**

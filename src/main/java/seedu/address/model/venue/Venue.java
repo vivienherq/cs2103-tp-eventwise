@@ -5,12 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.displayable.DisplayableListViewItem;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Venue {
+public class Venue implements DisplayableListViewItem {
 
     // Identity fields
     private final Name name;
@@ -52,6 +53,36 @@ public class Venue {
 
         return otherVenue != null
                 && otherVenue.getName().equals(getName());
+    }
+
+    @Override
+    public String getDisplayTitle() {
+        return getName().toString();
+    }
+
+    @Override
+    public String getDisplayFirstText() {
+        return getAddress().toString();
+    }
+
+    @Override
+    public String getDisplaySecondText() {
+        return String.format("Capacity: %s", getCapacity());
+    }
+
+    @Override
+    public boolean isSameItem(DisplayableListViewItem displayableListViewItem) {
+        if (displayableListViewItem == this) {
+            return true;
+        }
+
+        if (!(displayableListViewItem instanceof Venue)) {
+            return false;
+        }
+
+        Venue otherVenue = (Venue) displayableListViewItem;
+
+        return isSameVenue(otherVenue);
     }
 
     /**

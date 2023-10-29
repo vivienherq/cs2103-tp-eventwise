@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDOR;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,6 +20,7 @@ public class ViewVendorsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDOR);
         ObservableList<Vendor> vendorList = model.getFilteredVendorList();
         String vendors = "";
         for (int i = 0; i < vendorList.size(); i++) {

@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -23,6 +24,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Venue> PREDICATE_SHOW_ALL_VENUES = unused -> true;
+    Predicate<Vendor> PREDICATE_SHOW_ALL_VENDOR = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -215,6 +218,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
 
+    /** Returns an unmodifiable view of the filtered displayable items list */
+    ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
+
     /** Returns an unmodifiable view of the filtered rsvps list */
     ObservableList<Rsvp> getFilteredRsvpList();
 
@@ -251,4 +257,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVendorList(Predicate<Vendor> predicate);
+
 }

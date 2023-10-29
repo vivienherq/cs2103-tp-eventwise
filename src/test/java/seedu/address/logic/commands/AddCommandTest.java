@@ -25,6 +25,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -263,6 +264,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredEventAttendeesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList() {
             throw new AssertionError("This method should not be called.");
         }
 

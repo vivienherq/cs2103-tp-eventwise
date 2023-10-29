@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EventListPanel eventListPanel;
+    private DisplayableListPanel displayableListPanel;
     private EventDetailsDisplay eventDetailsDisplay;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -42,8 +42,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
     @FXML
-    private StackPane eventListPanelPlaceholder;
+    private StackPane displayableItemListPanelPlaceholder;
 
     @FXML
     private StackPane eventDetailsPlaceholder;
@@ -117,8 +118,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        // eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        // eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        // Figure a way to get the super class
+        displayableListPanel = new DisplayableListPanel(logic.getFilteredDisplayableItemsList());
+        displayableItemListPanelPlaceholder.getChildren().add(displayableListPanel.getRoot());
 
         eventDetailsDisplay = new EventDetailsDisplay();
         eventDetailsPlaceholder.getChildren().add(eventDetailsDisplay.getRoot());

@@ -23,7 +23,7 @@ public class UniqueEventListTest {
     private final UniqueEventList uniqueEventList = new UniqueEventList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullEvent_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEventList.contains(null));
     }
 
@@ -118,7 +118,7 @@ public class UniqueEventListTest {
     }
 
     @Test
-    public void remove_eventDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_eventDoesNotExist_throwsEventNotFoundException() {
         assertThrows(EventNotFoundException.class, () -> uniqueEventList.remove(FSC));
     }
 
@@ -152,8 +152,8 @@ public class UniqueEventListTest {
     @Test
     public void setEvents_list_replacesOwnListWithProvidedList() {
         uniqueEventList.add(FSC);
-        List<Event> personList = Collections.singletonList(FOC);
-        uniqueEventList.setEvents(personList);
+        List<Event> eventList = Collections.singletonList(FOC);
+        uniqueEventList.setEvents(eventList);
         UniqueEventList expectedUniqueEventList = new UniqueEventList();
         expectedUniqueEventList.add(FOC);
         assertEquals(expectedUniqueEventList, uniqueEventList);
