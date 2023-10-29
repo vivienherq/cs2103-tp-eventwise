@@ -35,8 +35,8 @@ public class TypicalEvents {
             .withDescription("Explore the latest in technology and innovation")
             .withDate("16-12-2023").build();
 
-    public static final Event FSC = new EventBuilder().withName("FSC 2023")
-            .withDescription("Freshman Social Camp 2023").withDate("12-09-2023")
+    public static final Event FSC = new EventBuilder().withName("FSC 2024")
+            .withDescription("Freshman Social Camp 2024").withDate("12-09-2024")
             .build();
     public static final Event FOC = new EventBuilder().withName("FOC 2023")
             .withDescription("Freshman Orientation Camp 2023").withDate("01-02-2023")

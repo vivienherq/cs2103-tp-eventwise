@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
         eventDetailsDisplay = new EventDetailsDisplay();
         eventDetailsPlaceholder.getChildren().add(eventDetailsDisplay.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList());
+        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList(), logic.getFilteredRsvpList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

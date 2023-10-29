@@ -11,6 +11,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -103,6 +106,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     // =========== EventWise ================================================================================
+
+    // Events
     /**
      * Returns true if an event with the same identity as {@code event} exists in the event list.
      */
@@ -145,6 +150,17 @@ public interface Model {
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
+    /**
+     * Sets the current {@code event} information to be displayed.
+     */
+    void setEventToView(Event event);
+
+    /**
+     * Gets the current {@code event} information to be displayed.
+     */
+    Event getEventToView();
+
+    // Venues
 
     /**
      * Returns true if a venue with the same identity as {@code venue} exists in the event list.
@@ -174,15 +190,16 @@ public interface Model {
      */
     void setVenue(Venue target, Venue editedVenue);
 
-    /**
-     * Sets the current {@code event} information to be displayed.
-     */
-    void setEventToView(Event event);
+
 
     /**
-     * Gets the current {@code event} information to be displayed.
+     * Adds the given rsvp.
+     * {@code rsvp} must not already exist in the rsvp list.
      */
-    Event getEventToView();
+    void addRsvp(Rsvp rsvp);
+    Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
+
+    boolean isValidRsvp(Rsvp rsvp);
 
     /** Returns an unmodifiable view of the filtered venues list */
     ObservableList<Venue> getFilteredVenuesList();
@@ -193,6 +210,45 @@ public interface Model {
      */
     void updateFilteredVenueList(Predicate<Venue> predicate);
 
+    // Guests
+
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
+
+    /** Returns an unmodifiable view of the filtered rsvps list */
+    ObservableList<Rsvp> getFilteredRsvpList();
+
+    // Vendors
+
+    /**
+     * Returns true if a vendor with the same identity as {@code vendor} exists in the event list.
+     */
+    boolean hasVendor(Vendor vendor);
+
+    /**
+     * Adds the given vendor.
+     * {@code vendor} must not already exist in the vendor list.
+     */
+    void addVendor(Vendor vendor);
+
+    /**
+     * Deletes the given vendor.
+     * The vendor must exist in the vendor list
+     */
+    void deleteVendor(Vendor target);
+
+    /**
+     * Replaces the given vendor {@code target} with {@code editedVendor}.
+     * {@code target} must exist in the venue list.
+     */
+    void setVendor(Vendor target, Vendor editedVendor);
+
+    /** Returns an unmodifiable view of the filtered vendors list */
+    ObservableList<Vendor> getFilteredVendorList();
+
+    /**
+     * Updates the filter of the filtered vendor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredVendorList(Predicate<Vendor> predicate);
 }

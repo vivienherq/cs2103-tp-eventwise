@@ -18,7 +18,7 @@ public class ViewEventsCommandTest {
     public void execute_nonEmptyEventList_showsNonEmptyList() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         ViewEventsCommand viewEventsCommand = new ViewEventsCommand();
-        String expectedString = "1: FSC 2023; Description: Freshman Social Camp 2023; Date: 12-09-2023\n"
+        String expectedString = "1: FSC 2024; Description: Freshman Social Camp 2024; Date: 12-09-2024\n"
                 + "2: FOC 2023; Description: Freshman Orientation Camp 2023; Date: 01-02-2023\n"
                 + "3: FOW 2023; Description: Freshman Orientation Camp 2023; Date: 01-02-2023\n"
                 + "4: Academic Awards Ceremony; Description: Celebrating student and research achievements; "

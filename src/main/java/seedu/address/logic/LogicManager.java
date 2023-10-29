@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.storage.Storage;
 
 /**
@@ -80,6 +81,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredEventAttendeesList() {
         return model.getFilteredEventAttendeesList();
+    }
+
+    @Override
+    public ObservableList<Rsvp> getFilteredRsvpList() {
+        return model.getFilteredRsvpList();
     }
 
     @Override

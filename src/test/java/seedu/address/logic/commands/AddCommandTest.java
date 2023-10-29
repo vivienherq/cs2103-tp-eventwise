@@ -27,6 +27,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.PersonBuilder;
 
@@ -269,7 +272,55 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredVenueList(Predicate<Venue> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Rsvp> getFilteredRsvpList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void addVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteVendor(Vendor target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setVendor(Vendor target, Vendor editedVendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Vendor> getFilteredVendorList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredVendorList(Predicate<Vendor> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
