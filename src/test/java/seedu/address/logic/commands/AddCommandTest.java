@@ -267,6 +267,11 @@ public class AddCommandTest {
         public boolean isValidRsvp(Rsvp rsvp) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Rsvp> getFilteredRsvpList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -68,7 +67,7 @@ public class PersonCard extends UiPart<Region> {
         }
         return null;
     }
-    
+
     private void displayRsvp(RsvpStatus rsvpVal) {
         if (rsvpVal == null) {
             rsvp.setText("To Be Confirmed");
