@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -97,7 +98,7 @@ public class AddressBookTest {
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Venue> venues = FXCollections.observableArrayList();
         private final ObservableList<Person> eventAttendees = FXCollections.observableArrayList();
-
+        private final ObservableList<DisplayableListViewItem> displayableItems = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -116,6 +117,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getEventAttendeesList() {
             return eventAttendees;
+        }
+
+        @Override
+        public ObservableList<DisplayableListViewItem> getDisplayableItemList() {
+            return displayableItems;
         }
 
         @Override
