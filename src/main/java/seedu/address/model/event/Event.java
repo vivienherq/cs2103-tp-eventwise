@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 
@@ -14,7 +15,7 @@ import seedu.address.model.venue.Venue;
  * Represents a Event in EventWise.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event {
+public class Event implements DisplayableListViewItem {
 
     // Identity fields
     private final Name name;
@@ -101,6 +102,36 @@ public class Event {
         return name.equals(otherEvent.name)
                 && description.equals(otherEvent.description)
                 && date.equals(otherEvent.date);
+    }
+
+    @Override
+    public String getDisplayTitle() {
+        return getName().toString();
+    }
+
+    @Override
+    public String getDisplayFirstText() {
+        return getDescription().toString();
+    }
+
+    @Override
+    public String getDisplaySecondText() {
+        return getDate().toString();
+    }
+
+    @Override
+    public boolean isSameItem(DisplayableListViewItem displayableListViewItem) {
+        if (displayableListViewItem == this) {
+            return true;
+        }
+
+        if (!(displayableListViewItem instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) displayableListViewItem;
+
+        return isSameEvent(otherEvent);
     }
 
     @Override

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
+    private final FilteredList<DisplayableListViewItem> filteredDisplayableItems;
     private Event eventToView;
 
     /**
@@ -44,6 +46,7 @@ public class ModelManager implements Model {
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
+        filteredDisplayableItems = new FilteredList<>(this.addressBook.getDisplayableItemList());
     }
 
     public ModelManager() {
@@ -207,6 +210,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        addressBook.setDisplayableItems(filteredPersons);
     }
 
     @Override
@@ -241,6 +245,7 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        addressBook.setDisplayableItems(filteredEvents);
     }
 
 
@@ -259,6 +264,7 @@ public class ModelManager implements Model {
     public void updateFilteredVenueList(Predicate<Venue> predicate) {
         requireNonNull(predicate);
         filteredVenues.setPredicate(predicate);
+        addressBook.setDisplayableItems(filteredVenues);
     }
 
     //=========== Filtered Event Attendees List Accessors ====================================================
@@ -279,6 +285,17 @@ public class ModelManager implements Model {
     @Override
     public Event getEventToView() {
         return eventToView;
+    }
+
+    //=========== Filtered Displayable Items List Accessor ===================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code DisplayableListViewItem} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList() {
+        return filteredDisplayableItems;
     }
 
 }
