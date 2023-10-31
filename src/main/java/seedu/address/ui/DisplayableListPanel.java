@@ -31,7 +31,8 @@ public class DisplayableListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a
+     * {@code DisplayableListViewItem} using a {@code DisplayCard}.
      */
     class DisplayableItemListViewCell extends ListCell<DisplayableListViewItem> {
         @Override

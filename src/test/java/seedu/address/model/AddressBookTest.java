@@ -100,6 +100,7 @@ public class AddressBookTest {
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Venue> venues = FXCollections.observableArrayList();
         private final ObservableList<Person> eventAttendees = FXCollections.observableArrayList();
+        private final ObservableList<Vendor> eventVendors = FXCollections.observableArrayList();
         private final ObservableList<DisplayableListViewItem> displayableItems = FXCollections.observableArrayList();
         private final ObservableList<Rsvp> rsvps = FXCollections.observableArrayList();
         private final ObservableList<Vendor> vendors = FXCollections.observableArrayList();
@@ -122,6 +123,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getEventAttendeesList() {
             return eventAttendees;
+        }
+
+        @Override
+        public ObservableList<Vendor> getEventVendorsList() {
+            return eventVendors;
         }
 
         @Override

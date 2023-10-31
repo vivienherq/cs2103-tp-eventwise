@@ -218,9 +218,6 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
 
-    /** Returns an unmodifiable view of the filtered displayable items list */
-    ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
-
     /** Returns an unmodifiable view of the filtered rsvps list */
     ObservableList<Rsvp> getFilteredRsvpList();
 
@@ -252,10 +249,17 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered vendors list */
     ObservableList<Vendor> getFilteredVendorList();
 
+    /** Returns an unmodifiable view of the filtered event vendors list */
+    ObservableList<Vendor> getFilteredEventVendorsList();
+
     /**
      * Updates the filter of the filtered vendor list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVendorList(Predicate<Vendor> predicate);
+
+    // Generic
+    /** Returns an unmodifiable view of the filtered displayable items list */
+    ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
 
 }

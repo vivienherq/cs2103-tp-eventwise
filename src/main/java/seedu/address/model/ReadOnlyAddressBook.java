@@ -44,6 +44,12 @@ public interface ReadOnlyAddressBook {
     ObservableList<Person> getEventAttendeesList();
 
     /**
+     * Returns an unmodifiable view of an event's vendor list.
+     * This list will not contain any duplicate vendors.
+     */
+    ObservableList<Vendor> getEventVendorsList();
+
+    /**
      * Returns an unmodifiable view of the displayable items list.
      * This list will not contain any duplicate displayable items.
      */

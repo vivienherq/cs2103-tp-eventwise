@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Venue> filteredVenues;
     private final FilteredList<Person> filteredEventAttendees;
+    private final FilteredList<Vendor> filteredEventVendors;
     private final FilteredList<DisplayableListViewItem> filteredDisplayableItems;
     private final FilteredList<Rsvp> filteredRsvps;
     private final FilteredList<Vendor> filteredVendors;
@@ -57,6 +58,7 @@ public class ModelManager implements Model {
         filteredVenues = new FilteredList<>(this.addressBook.getVenueList());
         filteredVendors = new FilteredList<>(this.addressBook.getVendorList());
         filteredEventAttendees = new FilteredList<>(this.addressBook.getEventAttendeesList());
+        filteredEventVendors = new FilteredList<>(this.addressBook.getEventVendorsList());
         filteredDisplayableItems = new FilteredList<>(this.addressBook.getDisplayableItemList());
         filteredRsvps = new FilteredList<>(this.addressBook.getRsvpList());
     }
@@ -391,6 +393,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredEventAttendeesList() {
         return filteredEventAttendees;
+    }
+
+    //=========== Filtered Event Vendors List Accessors ====================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Vendor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Vendor> getFilteredEventVendorsList() {
+        return filteredEventVendors;
     }
 
     //=========== RSVP List Accessors ====================================================

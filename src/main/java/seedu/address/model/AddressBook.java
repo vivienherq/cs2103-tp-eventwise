@@ -31,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
+    private final UniqueVendorList eventVendors;
     private final UniqueDisplayableItemList displayableItems;
     private final UniqueVendorList vendors;
 
@@ -46,6 +47,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
+        eventVendors = new UniqueVendorList();
         displayableItems = new UniqueDisplayableItemList();
         rsvps = new UniqueRsvpList();
         vendors = new UniqueVendorList();
@@ -120,6 +122,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of an event's vendor list with {@code vendors}.
+     * {@code vendors} must not contain duplicate vendors.
+     */
+    public void setEventVendors(List<Vendor> vendors) {
+        this.eventVendors.setVendors(vendors);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -129,6 +139,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
         setEventAttendees(new ArrayList<>());
+        setEventVendors(new ArrayList<>());
         setDisplayableItems(new ArrayList<>());
         setRsvps(newData.getRsvpList());
     }
@@ -374,6 +385,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getEventAttendeesList() {
         return eventAttendees.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Vendor> getEventVendorsList() {
+        return eventVendors.asUnmodifiableObservableList();
     }
 
     @Override
