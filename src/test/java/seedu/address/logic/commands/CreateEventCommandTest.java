@@ -331,6 +331,11 @@ public class CreateEventCommandTest {
         public ObservableList<Vendor> getFilteredVendorList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Vendor> getFilteredEventVendorsList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

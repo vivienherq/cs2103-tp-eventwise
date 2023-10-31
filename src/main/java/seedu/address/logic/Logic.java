@@ -12,6 +12,7 @@ import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * API of the Logic component
@@ -41,6 +42,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of event attendees */
     ObservableList<Person> getFilteredEventAttendeesList();
+
+    /** Returns an unmodifiable view of the filtered list of event vendors */
+    ObservableList<Vendor> getFilteredEventVendorsList();
 
     /** Returns an unmodifiable view of the filtered list of event attendees */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemsList();
