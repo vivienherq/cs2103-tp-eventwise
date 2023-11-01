@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -12,7 +13,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 
+/**
+ * Removes a person from a specified event in the address book.
+ */
 public class RemovePersonCommand extends Command {
 
     public static final String COMMAND_WORD = "removePerson";
@@ -26,13 +31,13 @@ public class RemovePersonCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Removed Person %1$d: %2$s from Event %3$d: %4$s";
 
-    public static final String MESSAGE_NO_ACTION = "Please select person(s) to be removed from the event "
-            + "and/or set a venue to the event";
-
     private final Index eventIndex;
 
     private final Index personIndex;
 
+    /**
+     * Creates an RemovePersonCommand with {@code eventIndex} and {@code personIndex}
+     */
     public RemovePersonCommand(Index eventIndex, Index personIndex) {
         this.eventIndex = eventIndex;
         this.personIndex = personIndex;
@@ -51,12 +56,21 @@ public class RemovePersonCommand extends Command {
 
         Event eventToEdit = eventList.get(eventIndex.getZeroBased());
 
-        // For index in personIndexes
+        // Validate if personIndex is valid
         if (personIndex.getZeroBased() > eventToEdit.getPersons().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person removedPerson = eventToEdit.getPersons().remove(personIndex.getZeroBased());
+        List<Person> eventAttendees = new ArrayList<>(eventToEdit.getPersons());
+        Person removedPerson = eventAttendees.remove(personIndex.getZeroBased());
+        eventToEdit.setPersons(eventAttendees);
+
+        // Find the Rsvp object to remove
+        Rsvp existingRsvp = model.findRsvp(eventToEdit, removedPerson);
+
+        if (existingRsvp != null) {
+            model.deleteRsvp(existingRsvp);
+        }
 
         String successMessage = String.format(
                 MESSAGE_SUCCESS, personIndex.getOneBased(), removedPerson.getName().toString(),
@@ -66,5 +80,19 @@ public class RemovePersonCommand extends Command {
 
         // Check if person exists in event's person list
         return new CommandResult(successMessage);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RemovePersonCommand)) {
+            return false;
+        }
+
+        RemovePersonCommand otherCommand = (RemovePersonCommand) other;
+        return eventIndex.equals(otherCommand.eventIndex) && personIndex.equals(otherCommand.personIndex);
     }
 }

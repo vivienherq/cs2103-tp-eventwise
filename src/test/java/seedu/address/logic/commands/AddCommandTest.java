@@ -283,6 +283,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp findRsvp(Event event, Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
             throw new AssertionError("This method should not be called.");
         }
