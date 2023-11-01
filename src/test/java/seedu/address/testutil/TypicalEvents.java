@@ -16,6 +16,7 @@ public class TypicalEvents {
             .withDescription("Celebrating student and research achievements")
             .withDate("08-11-2023")
             .withPersons(TypicalPersons.getTypicalPersons())
+            .withVendors(TypicalVendors.getTypicalVendors())
             .withVenue(TypicalVenues.LT27)
             .build();
 

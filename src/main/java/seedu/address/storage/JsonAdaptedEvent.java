@@ -13,8 +13,8 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.venue.Venue;
 import seedu.address.model.vendor.Vendor;
+import seedu.address.model.venue.Venue;
 
 /**
  * Jackson-friendly version of {@link Event}.

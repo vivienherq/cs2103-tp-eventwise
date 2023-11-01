@@ -116,7 +116,7 @@ public class AddEventDetailsCommand extends Command {
                 index.getOneBased(), eventToEdit.getName(), getVendorNames(existingVendors));
 
         // Venue to add
-        if (venueToAdd != null && newPersons.isEmpty()) {
+        if (venueToAdd != null && newPersons.isEmpty() && newVendors.isEmpty()) {
             String venueMessage = String.format(MESSAGE_VENUE, venueToAdd.getName());
             successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
                     index.getOneBased(), eventToEdit.getName(), venueMessage);
@@ -138,7 +138,7 @@ public class AddEventDetailsCommand extends Command {
                     successfullyAddedMessage, existingPersonsMessage, existingVendorsMessage));
         } else if (!existingPersons.isEmpty()) {
             return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage));
-        }  else if (!existingVendors.isEmpty()) {
+        } else if (!existingVendors.isEmpty()) {
             return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingVendorsMessage));
         } else {
             return new CommandResult(successfullyAddedMessage);
