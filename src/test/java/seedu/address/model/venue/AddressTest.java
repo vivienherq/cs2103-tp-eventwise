@@ -14,8 +14,8 @@ public class AddressTest {
 
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(invalidName));
+        String invalidAddress = "";
+        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class AddressTest {
         assertFalse(address.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(address.equals(new Name("Other Valid Name")));
+        assertFalse(address.equals(new Name("Other Valid Address")));
     }
 
     @Test

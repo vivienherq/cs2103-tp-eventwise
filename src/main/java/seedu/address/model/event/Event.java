@@ -9,6 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -21,14 +22,16 @@ public class Event implements DisplayableListViewItem {
     private final Name name;
     private final Description description;
     private final Date date;
-    private List<Person> persons;
     private Venue venue;
+    private List<Person> persons;
+    private List<Vendor> vendors;
 
     /**
      * Every field must be present and not null.
      * Assumptions:
      * 1. When an event is created no people are added to the event.
-     * 2. When an event is created, the venue has not been set.
+     * 2. When an event is created no vendors are added to the event.
+     * 3. When an event is created, the venue has not been set.
      */
     public Event(Name name, Description description, Date date) {
         requireAllNonNull(name, description, date);
@@ -36,19 +39,23 @@ public class Event implements DisplayableListViewItem {
         this.description = description;
         this.date = date;
         this.persons = new ArrayList<>();
+        this.vendors = new ArrayList<>();
     }
 
     /**
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, Date date,
+                 List<Person> persons, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
         this.persons = persons;
         this.venue = venue;
+        // Temporary: To be removed
+        this.vendors = new ArrayList<>();
     }
 
     public Name getName() {
@@ -69,6 +76,14 @@ public class Event implements DisplayableListViewItem {
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    public List<Vendor> getVendors() {
+        return vendors;
+    }
+
+    public void setVendors(List<Vendor> vendors) {
+        this.vendors = vendors;
     }
 
     public Venue getVenue() {
