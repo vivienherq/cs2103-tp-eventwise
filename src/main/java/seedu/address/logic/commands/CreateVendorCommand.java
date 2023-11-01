@@ -50,6 +50,7 @@ public class CreateVendorCommand extends Command {
         }
 
         model.addVendor(toAdd);
+        model.updateFilteredVendorList(Model.PREDICATE_SHOW_ALL_VENDOR);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
