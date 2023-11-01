@@ -35,7 +35,10 @@ public class SampleDataUtil {
                 new Date("03-01-2024")),
             new Event(new seedu.address.model.event.Name("Career Fair"),
                     new Description("Get insights on different career paths"),
-                    new Date("08-01-2024"))
+                    new Date("08-01-2024")),
+            new Event(new seedu.address.model.event.Name("Supernova"),
+                    new Description("All night of partying with a lit DJ lineup"),
+                    new Date("03-02-2024")),
         };
     }
 

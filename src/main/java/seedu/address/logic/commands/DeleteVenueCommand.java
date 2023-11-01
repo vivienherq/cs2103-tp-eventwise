@@ -9,41 +9,43 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.venue.Venue;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a venue identified using its displayed index from EventWise.
  */
-public class DeleteCommand extends Command {
+public class DeleteVenueCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteVenue";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the venue identified by the index number used in the displayed venue list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_VENUE_SUCCESS = "Deleted Venue %1$d: %2$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteVenueCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Venue> lastShownList = model.getFilteredVenuesList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        Venue venueToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteVenue(venueToDelete);
+        String venueDetails = String.format("%s; Address: %s; Capacity: %s\n",
+                venueToDelete.getName(), venueToDelete.getAddress(), venueToDelete.getCapacity());
+
+        return new CommandResult(String.format(MESSAGE_DELETE_VENUE_SUCCESS, targetIndex.getOneBased(), venueDetails));
     }
 
     @Override
@@ -52,12 +54,11 @@ public class DeleteCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteVenueCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
+        DeleteVenueCommand otherDeleteCommand = (DeleteVenueCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 

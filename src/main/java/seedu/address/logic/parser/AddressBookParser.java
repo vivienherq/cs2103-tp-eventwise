@@ -20,10 +20,15 @@ import seedu.address.logic.commands.CreateVendorCommand;
 import seedu.address.logic.commands.CreateVenueCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteVendorCommand;
+import seedu.address.logic.commands.DeleteVenueCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.EditVendorCommand;
+import seedu.address.logic.commands.EditVenueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemovePersonCommand;
@@ -116,25 +121,41 @@ public class AddressBookParser {
         case CreateVenueCommand.COMMAND_WORD:
             return new CreateVenueCommandParser().parse(arguments);
 
+        case EditVenueCommand.COMMAND_WORD:
+            return new EditVenueCommandParser().parse(arguments);
+
+        case DeleteVenueCommand.COMMAND_WORD:
+            return new DeleteVenueCommandParser().parse(arguments);
+
         case ClearEventsCommand.COMMAND_WORD:
             return new ClearEventsCommand();
+
+        case FindEventCommand.COMMAND_WORD:
+            return new FindEventCommandParser().parse(arguments);
 
         case ViewVenuesCommand.COMMAND_WORD:
             return new ViewVenuesCommand();
 
         case ClearVenuesCommand.COMMAND_WORD:
             return new ClearVenuesCommand();
+
         case RsvpCommand.COMMAND_WORD:
             return new RsvpCommandParser().parse(arguments);
 
         case CreateVendorCommand.COMMAND_WORD:
             return new CreateVendorCommandParser().parse(arguments);
 
+        case EditVendorCommand.COMMAND_WORD:
+            return new EditVendorCommandParser().parse(arguments);
+
         case ViewVendorsCommand.COMMAND_WORD:
             return new ViewVendorsCommand();
 
         case RemovePersonCommand.COMMAND_WORD:
             return new RemovePersonCommandParser().parse(arguments);
+
+        case DeleteVendorCommand.COMMAND_WORD:
+            return new DeleteVendorCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
