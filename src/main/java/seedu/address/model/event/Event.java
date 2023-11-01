@@ -9,6 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -22,6 +23,7 @@ public class Event implements DisplayableListViewItem {
     private final Description description;
     private final Date date;
     private List<Person> persons;
+    private List<Vendor> vendors;
     private Venue venue;
 
     /**
@@ -42,12 +44,13 @@ public class Event implements DisplayableListViewItem {
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, Date date, List<Person> persons, List<Vendor> vendors, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
         this.persons = persons;
+        this.vendors = vendors;
         this.venue = venue;
     }
 
@@ -65,6 +68,10 @@ public class Event implements DisplayableListViewItem {
 
     public List<Person> getPersons() {
         return persons;
+    }
+
+    public List<Vendor> getVendors() {
+        return vendors;
     }
 
     public void setPersons(List<Person> persons) {
