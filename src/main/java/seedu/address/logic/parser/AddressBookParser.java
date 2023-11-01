@@ -24,6 +24,7 @@ import seedu.address.logic.commands.DeleteVendorCommand;
 import seedu.address.logic.commands.DeleteVenueCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.EditVendorCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -133,6 +134,9 @@ public class AddressBookParser {
 
         case CreateVendorCommand.COMMAND_WORD:
             return new CreateVendorCommandParser().parse(arguments);
+
+        case EditVendorCommand.COMMAND_WORD:
+            return new EditVendorCommandParser().parse(arguments);
 
         case ViewVendorsCommand.COMMAND_WORD:
             return new ViewVendorsCommand();
