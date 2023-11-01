@@ -225,7 +225,7 @@ public class CreateEventCommandTest {
 
         @Override
         public void updateFilteredEventList(Predicate<Event> predicate) {
-            return ;
+
         }
 
         @Override
