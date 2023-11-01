@@ -50,6 +50,7 @@ public class CreateVenueCommand extends Command {
         }
 
         model.addVenue(toAdd);
+        model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

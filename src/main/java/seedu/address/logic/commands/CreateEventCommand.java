@@ -51,6 +51,7 @@ public class CreateEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
