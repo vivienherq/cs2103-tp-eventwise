@@ -312,6 +312,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         rsvps.add(rsvp);
     }
 
+    /**
+     * Removes an RSVP from the address book.
+     * The RSVP must exist in the address book.
+     */
+    public void removeRsvp(Rsvp key) {
+        rsvps.remove(key);
+    }
+
     //// vendor-level operations
 
     /**

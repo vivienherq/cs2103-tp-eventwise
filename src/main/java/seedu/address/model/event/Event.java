@@ -21,7 +21,7 @@ public class Event implements DisplayableListViewItem {
     private final Name name;
     private final Description description;
     private final Date date;
-    private final List<Person> persons;
+    private List<Person> persons;
     private Venue venue;
 
     /**
@@ -65,6 +65,10 @@ public class Event implements DisplayableListViewItem {
 
     public List<Person> getPersons() {
         return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     public Venue getVenue() {

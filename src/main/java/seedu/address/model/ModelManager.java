@@ -289,6 +289,22 @@ public class ModelManager implements Model {
         addressBook.addRsvp(rsvp);
     }
 
+    @Override
+    public void deleteRsvp(Rsvp rsvp) {
+        addressBook.removeRsvp(rsvp);
+    }
+
+    @Override
+    public Rsvp findRsvp(Event event, Person person) {
+        for (Rsvp rsvp : filteredRsvps) {
+            if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
+                return rsvp;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Creates a RSVP object given the index of the event, person and status.
      * @param eventIndex The index of the event provided by the user.

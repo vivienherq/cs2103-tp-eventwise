@@ -200,6 +200,18 @@ public interface Model {
      * {@code rsvp} must not already exist in the rsvp list.
      */
     void addRsvp(Rsvp rsvp);
+
+    /**
+     * Deletes the given Rsvp.
+     * The Rsvp must exist in the rsvp list.
+     */
+    void deleteRsvp(Rsvp rsvp);
+
+    /**
+     * Finds a Rsvp given an {@code event} and {@code person}.
+     */
+    Rsvp findRsvp(Event event, Person person);
+
     Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus);
 
     boolean isValidRsvp(Rsvp rsvp);

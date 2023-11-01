@@ -288,6 +288,16 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public void deleteRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp findRsvp(Event event, Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasVendor(Vendor vendor) {
             throw new AssertionError("This method should not be called.");
         }

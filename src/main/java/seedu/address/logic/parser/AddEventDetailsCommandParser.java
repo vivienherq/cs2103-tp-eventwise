@@ -21,9 +21,9 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddEventDetailsCommand}
-     * and returns a {@code ViewEventCommand} object for execution.
-     * @param args arguments for {@code ViewEventCommand}
-     * @return {@code ViewEventCommand}
+     * and returns a {@code AddEventDetailsCommand} object for execution.
+     * @param args arguments for {@code AddEventDetailsCommand}
+     * @return {@code AddEventDetailsCommand}
      * @throws ParseException if the user input does not conform with the expected format
      */
     @Override
