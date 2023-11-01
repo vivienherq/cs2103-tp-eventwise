@@ -12,6 +12,7 @@ import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 
@@ -24,6 +25,7 @@ class JsonAdaptedEvent {
     private final String name;
     private final String description;
     private final String date;
+    private final String note;
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final JsonAdaptedVenue venue;
 
@@ -34,11 +36,13 @@ class JsonAdaptedEvent {
     public JsonAdaptedEvent(@JsonProperty("name") String name,
                             @JsonProperty("email") String description,
                             @JsonProperty("date") String date,
+                            @JsonProperty("note") String note,
                             @JsonProperty("persons") List<JsonAdaptedPerson> persons,
                             @JsonProperty("venue") JsonAdaptedVenue venue) {
         this.name = name;
         this.description = description;
         this.date = date;
+        this.note = note;
         if (persons != null) {
             this.persons.addAll(persons);
         }
@@ -52,6 +56,11 @@ class JsonAdaptedEvent {
         name = source.getName().eventName;
         description = source.getDescription().eventDesc;
         date = source.getDate().eventDate;
+        if (source.getNote() == null) {
+            note = null;
+        } else {
+            note = source.getNote().note;
+        }
         persons.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
@@ -93,6 +102,15 @@ class JsonAdaptedEvent {
         }
         final Date modelDate = new Date(date);
 
+        Note modelNote = null;
+        if (note != null) {
+            if (!Note.isValidNote(note)) {
+                throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
+            } else {
+                modelNote = new Note(note);
+            }
+        }
+
         final List<Person> personList = new ArrayList<>();
         for (JsonAdaptedPerson person: persons) {
             personList.add(person.toModelType());
@@ -101,10 +119,10 @@ class JsonAdaptedEvent {
         final List<Person> modelPersons = new ArrayList<>(personList);
 
         if (venue == null) {
-            return new Event(modelName, modelDescription, modelDate, modelPersons, null);
+            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVenue);
+            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, modelVenue);
         }
     }
 }

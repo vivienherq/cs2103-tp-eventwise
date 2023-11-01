@@ -21,6 +21,7 @@ public class Event implements DisplayableListViewItem {
     private final Name name;
     private final Description description;
     private final Date date;
+    private final Note note;
     private List<Person> persons;
     private Venue venue;
 
@@ -30,11 +31,12 @@ public class Event implements DisplayableListViewItem {
      * 1. When an event is created no people are added to the event.
      * 2. When an event is created, the venue has not been set.
      */
-    public Event(Name name, Description description, Date date) {
+    public Event(Name name, Description description, Date date, Note note) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
+        this.note = note;
         this.persons = new ArrayList<>();
     }
 
@@ -42,11 +44,12 @@ public class Event implements DisplayableListViewItem {
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, Date date, Note note, List<Person> persons, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
+        this.note = note;
         this.persons = persons;
         this.venue = venue;
     }
@@ -61,6 +64,10 @@ public class Event implements DisplayableListViewItem {
 
     public Date getDate() {
         return date;
+    }
+
+    public Note getNote() {
+        return note;
     }
 
     public List<Person> getPersons() {
@@ -150,6 +157,7 @@ public class Event implements DisplayableListViewItem {
                 .add("name", name)
                 .add("description", description)
                 .add("date", date)
+                .add("note", note)
                 .toString();
     }
 
