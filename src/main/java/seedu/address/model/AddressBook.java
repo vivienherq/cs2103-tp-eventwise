@@ -138,6 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+        setVendors(newData.getVendorList());
         setEventAttendees(new ArrayList<>());
         setEventVendors(new ArrayList<>());
         setDisplayableItems(new ArrayList<>());
