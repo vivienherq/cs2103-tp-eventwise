@@ -9,6 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -23,6 +24,7 @@ public class Event implements DisplayableListViewItem {
     private final Date date;
     private final Note note;
     private List<Person> persons;
+    private List<Vendor> vendors;
     private Venue venue;
 
     /**
@@ -38,19 +40,22 @@ public class Event implements DisplayableListViewItem {
         this.date = date;
         this.note = note;
         this.persons = new ArrayList<>();
+        this.vendors = new ArrayList<>();
     }
 
     /**
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, Note note, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, Date date, Note note,
+                 List<Person> persons, List<Vendor> vendors, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
         this.note = note;
         this.persons = persons;
+        this.vendors = vendors;
         this.venue = venue;
     }
 
@@ -74,8 +79,16 @@ public class Event implements DisplayableListViewItem {
         return persons;
     }
 
+    public List<Vendor> getVendors() {
+        return vendors;
+    }
+
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    public void setVendors(List<Vendor> vendors) {
+        this.vendors = vendors;
     }
 
     public Venue getVenue() {
@@ -148,7 +161,7 @@ public class Event implements DisplayableListViewItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, date, persons, venue);
+        return Objects.hash(name, description, date, note, persons, vendors, venue);
     }
 
     @Override
