@@ -16,7 +16,7 @@ title: User Guide
 
 1. Download the latest `EventWise.jar` from TBA.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for EventWise.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar EventWise.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -25,7 +25,8 @@ title: User Guide
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `To be added.`
+   * `event n/PE Dry Run d/Dry run for CS2103 PE from/04-11-2024 to/05-11-2024`
+   * `viewEvent eid/1`
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -61,9 +62,6 @@ The Event Details component provides users with in-depth information about a spe
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
@@ -77,40 +75,33 @@ The Event Details component provides users with in-depth information about a spe
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a person to EventWise.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com`
+* `add n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in EventWise.
 
 Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in EventWise.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-  specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Locating persons by name: `find`
 
@@ -132,7 +123,7 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the persons list in EventWise.
 
 Format: `delete INDEX`
 
@@ -141,7 +132,7 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` deletes the 2nd person in EventWise.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ## Event Features
@@ -153,7 +144,7 @@ This feature creates a new event object with the event name, description from da
 Format: `event n/NAME d/DESC from/DT to/DT [no/NOTE]`
 
 Examples:
-* `event n/FSC 2023 d/Freshman Social Camp 2023 from/10-12-2023 to/11-12-2023`
+* `event n/FSC 2023 d/Freshman Social Camp 2023 from/10-12-2023 to/11-12-2023 no/Food and drinks are provided`
 * `event n/FOC 2023 d/Freshman Orientation Camp 2023 from/04-12-2023 to/05-12-2023`
 
 **Expected Command Result**
@@ -270,14 +261,14 @@ Invalid Index
 
 This feature allows users to edit event details.
 
-Format: `editEvent id/ID [n/NAME] [d/DESC] [from/DT] [to/DT]`
+Format: `editEvent eid/ID [n/NAME] [d/DESC] [from/DT] [to/DT]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
 
 Examples:
-* `editEvent id/1 n/FSC 2024`
-* `editEvent id/1 d/Freshman Orientation Camp 2024`
+* `editEvent eid/1 n/FSC 2024`
+* `editEvent eid/1 d/Freshman Orientation Camp 2024`
 
 **Expected Command Result**
 ```
@@ -299,14 +290,14 @@ Edit Event Failed: No parameters provided.
 
 Deletes the specified event.
 
-Format: `deleteEvent id/EVENT_ID`
+Format: `deleteEvent eid/EVENT_ID`
 
 * Deletes the event at the specified `EVENT_ID` from the event list.
 * The Event ID refers to the index number shown in the displayed event list.
 * The Event ID **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `viewEvents` followed by `deleteEvent 2` deletes the 2nd event in the event list.
+* `viewEvents` followed by `deleteEvent eid/2` deletes the 2nd event in the event list.
 
 **Expected Command Result**
 ```
@@ -378,8 +369,8 @@ Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
 - The Person ID refers to the index number displayed in the Persons List inside the event details
   - Note: 
 
+### Remove Vendor From Event: `removeVendor`
 
-### Remove Person From Event: `removeVendor`
 
 ## Venue Features
 
@@ -465,7 +456,7 @@ Delete Venue Failed: Invalid Venue ID.
 ```
 Delete Venue Failed: Venue ID does not exist.
 
-### View a list of Venues: `viewVenues`
+### View a list of Venues: `viewVenues` 
 
 View all the venues in a list.
 
@@ -566,11 +557,137 @@ View all the venues in a list.
 **Expected Command Result**
 ![Ui](images/ViewVendorsUI.png)
 
+### Edit Venue: `editVenue`
+
+This feature allows users to edit venue details.
+
+Format: `editVenue vne/VENUE_ID [n/NAME] [a/ADDRESS] [c/CAPACITY]`
+
+**Command Behavior**
+* At least one of the optional fields must be provided.
+
+Examples:
+* `editVenue vne/1 n/MPSH 1`
+* `editVenue vne/1 a/5 Sports Drive 2, Singapore 117508`
+
+**Expected Command Result**
+```
+Edited Venue: MPSH 1; Address: sports drive; Capacity: 200
+```
+```
+Edited Venue: MPSH 1; Address: 5 Sports Drive 2, Singapore 117508; Capacity: 200
+```
+
+### Delete Venue : `deleteVenue`
+
+Deletes the specified venue.
+
+Format: `deleteVenue vne/VENUE_ID`
+
+* Deletes the venue at the specified `VENUE_ID` from the venue list.
+* Venue ID refers to the index number shown in the displayed venue list using `viewVenues`.
+* Venue ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewVenues` followed by `deleteVenue vne/2` deletes the 2nd venue in the venue list.
+
+**Expected Command Result**
+```
+Deleted Venue 1: MPSH 1; Address: 5 Sports Drive 2, Singapore 117508; Capacity: 200
+```
+
+**Invalid Command Results**
+```
+The venue index provided is invalid
+```
+
+## Vendor Features
+
+### Create Vendor: `vendor`
+
+This feature creates a new vendor object with the vendor name, phone, email, and is stored into the vendor list.
+
+Format: `vendor n/NAME p/PHONE e/EMAIL`
+
+Examples:
+* `vendor n/SUN Catering p/64647788 e/catering@sun.com`
+
+**Expected Command Result**
+```
+New vendor added: SUN Catering; Phone: 64647788; Email: catering@sun.com
+```
+
+**Invalid Command Results**
+```
+
+```
+
+
+### View a list of Vendors: `viewVendors`
+
+View all the vendors in a list.
+
+**Expected Command Result**
+
+**Invalid Command Results**
+```
+
+```
+
+### Edit Vendor: `editVendor`
+
+This feature allows users to edit vendor details.
+
+Format: `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]`
+
+**Command Behavior**
+* At least one of the optional fields must be provided.
+
+Examples:
+* `editVendor vdr/1 n/SUN Shuttle`
+* `editVendor vdr/1 e/shuttle@sun.com`
+
+**Expected Command Result**
+```
+Edited Vendor: SUN Shuttle; Phone: 80008000; Email: vendor1@gmail.com
+```
+```
+Edited Vendor: SUN Shuttle; Phone: 80008000; Email: shuttle@sun.com
+```
+
+**Invalid Command Results**
+```
+
+```
+
+### Delete Vendor : `deleteVendor`
+
+Deletes the specified vendor.
+
+Format: `deleteVendor vdr/VENDOR_ID`
+
+* Deletes the vendor at the specified `VENDOR_ID` from the vendor list.
+* Vendor ID refers to the index number shown in the displayed vendor list using `viewVendors`.
+* Vendor ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewVendors` followed by `deleteVendor vdr/2` deletes the 2nd vendor in the vendor list.
+
+**Expected Command Result**
+```
+Deleted Vendor: vendor food; Phone: 90909090; Email: hihi@gmail.com
+```
+
+**Invalid Command Results**
+```
+
+```
+
 ## General Features
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -578,41 +695,41 @@ Format: `help`
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from EventWise.
 
 Format: `clear`
 
-### Clearing all entries : `clearEvents`
+### Clearing all event entries : `clearEvents`
 
-Clears all event entries from the address book.
+Clears all event entries from EventWise.
 
 Format: `clearEvents`
 
-### Clearing all entries : `clearGuests`
+### Clearing all guest entries : `clearGuests`
 
-Clears all guest entries from the address book.
+Clears all guest entries from EventWise.
 
 Format: `clearGuests`
 
-### Clearing all entries : `clearVenues`
+### Clearing all venue entries : `clearVenues`
 
-Clears all venues from the address book.
-
-Format: `clearVenues`
-
-### Clearing all entries : `clearVendors`
-
-Clears all vendors from the address book.
+Clears all venues from EventWise.
 
 Format: `clearVenues`
+
+### Clearing all vendor entries : `clearVendors`
+
+Clears all vendors from EventWise.
+
+Format: `clearVendors`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+EventWise data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/eventwise.json`. Advanced users are welcome to update data directly by editing that data file.
+EventWise data are saved automatically as a JSON file `[JAR file location]/data/eventwise.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
@@ -674,10 +791,10 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Create Vendor** | `vendor n/NAME p/PHONE e/EMAIL` <br> e.g., `vendor n/Catering p/64646262 e/catering@gmail.com`
-**Edit Vendor** | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g., `editVendor vdr/1 n/Good Food Catering`
-**Delete Vendor** | `deleteVendor vdr/VENDOR_ID` <br> e.g., `deleteVendor vdr/2`
-**View Vendor** | `viewVendors`
+**Create Vendor** | `vendor n/NAME p/PHONE e/EMAIL` <br> e.g., `vendor n/SUN Catering p/64646767 e/catering@sun.com`
+**View Vendors** | `viewVendors`
+**Edit Vendor** | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g., `editVendor vdr/1 n/SUN Catering`
+**Delete Vendor** | `deleteVendor vdr/VENDOR_ID` <br> e.g., `deleteVendor vdr/1`
 
 ### General Command summary
 
