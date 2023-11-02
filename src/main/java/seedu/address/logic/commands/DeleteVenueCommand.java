@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DeleteVenueCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the venue identified by the index number used in the displayed venue list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_VENUE + "1";
 
     public static final String MESSAGE_DELETE_VENUE_SUCCESS = "Deleted Venue %1$d: %2$s";
 

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DeleteVendorCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the vendor identified by the index number used in the displayed vendor list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " vdr/1";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_VENDOR + "1";
 
     public static final String MESSAGE_DELETE_VENDOR_SUCCESS = "Deleted Vendor: %1$s";
 
