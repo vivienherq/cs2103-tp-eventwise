@@ -24,7 +24,8 @@ class JsonAdaptedVendor {
      * Constructs a {@code JsonAdaptedVendor} with the given vendor details.
      */
     @JsonCreator
-    public JsonAdaptedVendor(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedVendor(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email) {
         this.name = name;
         this.phone = phone;
@@ -69,6 +70,7 @@ class JsonAdaptedVendor {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelEmail = new Email(email);
+
         return new Vendor(modelName, modelPhone, modelEmail);
     }
 

@@ -19,12 +19,12 @@ public class CreateEventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to EventWise. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to EventWise. \n"
             + "Parameters: "
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_DESC + "DESCRIPTION "
             + PREFIX_EVENT_FROM + "DATE "
-            + PREFIX_EVENT_TO + "DATE "
+            + PREFIX_EVENT_TO + "DATE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME + "FSC 2023 "
             + PREFIX_EVENT_DESC + "Freshman Social Camp 2023 "

@@ -138,6 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+        setVendors(newData.getVendorList());
         setEventAttendees(new ArrayList<>());
         setEventVendors(new ArrayList<>());
         setDisplayableItems(new ArrayList<>());
@@ -163,6 +164,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetVenues() {
         setVenues(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing vendors data of this {@code AddressBook}.
+     */
+    public void resetVendors() {
+        setVendors(new ArrayList<>());
     }
 
     //// person-level operations

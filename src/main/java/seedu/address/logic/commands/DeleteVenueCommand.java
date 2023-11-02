@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -21,7 +23,7 @@ public class DeleteVenueCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the venue identified by the index number used in the displayed venue list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_VENUE + "1";
 
     public static final String MESSAGE_DELETE_VENUE_SUCCESS = "Deleted Venue %1$d: %2$s";
 
@@ -44,6 +46,33 @@ public class DeleteVenueCommand extends Command {
         model.deleteVenue(venueToDelete);
         String venueDetails = String.format("%s; Address: %s; Capacity: %s\n",
                 venueToDelete.getName(), venueToDelete.getAddress(), venueToDelete.getCapacity());
+
+        // Check if event contains venueToDelete, if true, set event venue to null
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getVenue() == null) {
+                continue;
+            }
+
+            if (event.getVenue().isSameVenue(venueToDelete)) {
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
+                        event.getVendors(), null);
+                model.setEvent(event, updatedEvent);
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null && eventToView.getVenue() != null;
+        if (isNotNull && eventToView.getVenue().isSameVenue(venueToDelete)) {
+            Event currentlyShownEvent = model.getEventToView();
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    currentlyShownEvent.getPersons(), currentlyShownEvent.getVendors(), null);
+            model.setEventToView(updatedEvent);
+        }
+
+        model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);
 
         return new CommandResult(String.format(MESSAGE_DELETE_VENUE_SUCCESS, targetIndex.getOneBased(), venueDetails));
     }

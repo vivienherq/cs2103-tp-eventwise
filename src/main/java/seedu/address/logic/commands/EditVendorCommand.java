@@ -39,8 +39,8 @@ public class EditVendorCommand extends Command {
             + "[" + PREFIX_VENDOR_EMAIL + "EMAIL]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VENDOR + "1 "
-            + PREFIX_VENDOR_NAME + "FSC 2024 "
-            + PREFIX_VENDOR_PHONE + "Freshman Social Camp 2024";
+            + PREFIX_VENDOR_NAME + "SUN Catering "
+            + PREFIX_VENDOR_PHONE + "64646565";
 
     public static final String MESSAGE_EDIT_VENDOR_SUCCESS = "Edited Vendor: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
