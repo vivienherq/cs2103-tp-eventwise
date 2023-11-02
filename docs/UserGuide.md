@@ -333,7 +333,7 @@ John Do2e has not been added to FSC 2023!
 
 This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
 
-Format: `venue name/<name> addr/<address> cap/<capacity>`
+Format: `venue name/NAME addr/ADDRESS cap/CAPACITY`
 
 Examples:
 * `venue name/LT 27 addr/Lower Kent Ridge Road cap/400`
