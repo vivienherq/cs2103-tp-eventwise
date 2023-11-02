@@ -37,15 +37,19 @@ This section defines and explains the components used in EventWise's UI.
 The Main List serves as the primary view to display a range of data types within the application which includes events, persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with the displayed content.
 
 ### 2. Event Details
-The Event Details component provides users with in-depth information about a specific event or item from the Main List
+The Event Details component provides users with in-depth information about a specific event from the Main List such as description, from date, to date and venue information.
 
 #### 2a. Person List
+Displays a list of persons associated with the event.
 
 #### 2b. Vendor List
+Displays a list of vendors associated with the event.
 
 ### 3. Command Result
+The Command Result component displays the outcome or feedback of the requested action. It may display success messages, error notifications or other releant information
 
 ### 4. Command Input
+This is where the user interacts with the application by providing a specific command.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -339,12 +343,17 @@ Removes a person from a specified event
 Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
 - The Event ID refers to the index number displayed in Main List
   - To view all events, type the `viewEvents` command.
-- The Person ID refers to the index number displayed in the Persons List inside the event details
-  - Note: 
+- The Person ID refers to the index number displayed in the Persons List that is associated to the event.
 
 
-### Remove Person From Event: `removeVendor`
+### Remove Vendor From Event: `removeVendor`
 
+Removes a person from a specified event
+
+Format: `removeVendor eid/EVENT_ID vdr/PERSON_INDEX`
+- The Event ID refers to the index number displayed in Main List
+  - To view all events, type the `viewEvents` command.
+- The Vendor ID refers to the index number displayed in the Vendors List that is associated to the event.
 
 ## Venue Features
 
