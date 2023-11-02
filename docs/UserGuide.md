@@ -33,7 +33,7 @@ title: User Guide
 --------------------------------------------------------------------------------------------------------------------
 ## User Interface Components
 This section defines and explains the components used in EventWise's UI. 
-![EventWise UI Components](images/UiComponents.png)
+![EventWise UI Components](images/UIComponents.png)
 ### 1. Main List
 The Main List serves as the primary view to display a range of data types within the application which includes events, persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with the displayed content.
 
@@ -60,7 +60,7 @@ The Event Details component provides users with in-depth information about a spe
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `eid/EVENT_ID [pid/INDEX]` can be used as `eid/1 pid/1` or as `eid/1`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -571,12 +571,7 @@ Delete Vendor Failed: Vendor ID does not exist.
 View all the vendors in a list.
 
 **Expected Command Result**
-
-**Invalid Command Results**
-```
-
-```
-
+![Ui](images/ViewVendorsUI.png)
 
 ## General Features
 
