@@ -31,6 +31,8 @@ public class Messages {
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_EVENT_NO_PREFIX = "Please select person(s) to be added to the event "
             + "and/or set a venue to the event";
+    public static final String MESSAGE_INVALID_INTERVAL = "To Date entered should be either "
+            + "the same as from date or after.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -66,7 +68,7 @@ public class Messages {
                 .append("; Description: ")
                 .append(event.getDescription())
                 .append("; Date: ")
-                .append(event.getDate());
+                .append(event.getFromDate());
         return builder.toString();
     }
 

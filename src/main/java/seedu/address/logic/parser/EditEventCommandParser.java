@@ -2,11 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 
 import java.util.stream.Stream;
 
@@ -29,10 +30,10 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC,
-                PREFIX_EVENT_DATE, PREFIX_EVENT_NOTE);
+                PREFIX_EVENT_FROM, PREFIX_EVENT_TO, PREFIX_EVENT_NOTE);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_EVENT_NAME,
-                PREFIX_EVENT_DESC, PREFIX_EVENT_DATE, PREFIX_EVENT_NOTE);
+                PREFIX_EVENT_DESC, PREFIX_EVENT_FROM, PREFIX_EVENT_TO, PREFIX_EVENT_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_ID)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -49,8 +50,11 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setDescription(ParserUtil.parseDescription(
                     argMultimap.getValue(PREFIX_EVENT_DESC).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_DATE).isPresent()) {
-            editEventDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_DATE).get()));
+        if (argMultimap.getValue(PREFIX_EVENT_FROM).isPresent()) {
+            editEventDescriptor.setFromDate(ParserUtil.parseFromDate(argMultimap.getValue(PREFIX_EVENT_FROM).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EVENT_TO).isPresent()) {
+            editEventDescriptor.setToDate(ParserUtil.parseToDate(argMultimap.getValue(PREFIX_EVENT_TO).get()));
         }
         if (argMultimap.getValue(PREFIX_EVENT_NOTE).isPresent()) {
             editEventDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_EVENT_NOTE).get()));

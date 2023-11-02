@@ -15,7 +15,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_VENDOR = new Prefix("vdr/");
     public static final Prefix PREFIX_EVENT_NAME = new Prefix("n/");
     public static final Prefix PREFIX_EVENT_DESC = new Prefix("d/");
-    public static final Prefix PREFIX_EVENT_DATE = new Prefix("dt/");
+    public static final Prefix PREFIX_EVENT_FROM = new Prefix("from/");
+    public static final Prefix PREFIX_EVENT_TO = new Prefix("to/");
     public static final Prefix PREFIX_EVENT_NOTE = new Prefix("no/");
 
     public static final Prefix PREFIX_VENUE_NAME = new Prefix("n/");

@@ -3,22 +3,26 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC_FSC;
-import static seedu.address.logic.commands.CommandTestUtil.EVENT_DT_CAREER_FAIR;
-import static seedu.address.logic.commands.CommandTestUtil.EVENT_DT_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_FROM_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_FROM_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_ID_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_FSC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_TO_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_FROM_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_CAREER_FAIR;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TO_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_FSC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TO_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TO_DATE_FSC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -32,9 +36,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditEventCommand.EditEventDescriptor;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.ToDate;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 
 public class EditEventCommandParserTest {
@@ -83,7 +88,9 @@ public class EditEventCommandParserTest {
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR
                 + INVALID_EVENT_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR
-                + INVALID_EVENT_DATE, Date.MESSAGE_CONSTRAINTS); // invalid date
+                + INVALID_EVENT_FROM_DATE, FromDate.MESSAGE_CONSTRAINTS); // invalid date
+        assertParseFailure(parser, EVENT_ID_CAREER_FAIR
+                + INVALID_EVENT_TO_DATE, ToDate.MESSAGE_CONSTRAINTS); // invalid date
 
         // invalid description followed by valid name
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR
@@ -91,7 +98,8 @@ public class EditEventCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR + INVALID_EVENT_NAME
-                        + INVALID_EVENT_DESC + VALID_EVENT_DATE_FSC, Name.MESSAGE_CONSTRAINTS);
+                + INVALID_EVENT_DESC + VALID_EVENT_FROM_DATE_FSC
+                + VALID_EVENT_TO_DATE_FSC, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -99,10 +107,11 @@ public class EditEventCommandParserTest {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = EditEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_ID
                 + targetIndex.getOneBased() + EVENT_NAME_CAREER_FAIR + EVENT_DESC_FSC
-                + EVENT_DT_CAREER_FAIR;
+                + EVENT_FROM_DATE_CAREER_FAIR + EVENT_TO_DATE_CAREER_FAIR;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_CAREER_FAIR)
-                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR).build();
         EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
         System.out.println(userInput);
 
@@ -145,8 +154,8 @@ public class EditEventCommandParserTest {
 
         // date
         userInput = EditEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_ID
-                + targetIndex.getOneBased() + EVENT_DT_CAREER_FAIR;
-        descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                + targetIndex.getOneBased() + EVENT_FROM_DATE_CAREER_FAIR;
+        descriptor = new EditEventDescriptorBuilder().withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR).build();
         expectedCommand = new EditEventCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -171,18 +180,18 @@ public class EditEventCommandParserTest {
 
         // multiple valid fields repeated
         userInput = EditEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_ID + targetIndex.getOneBased()
-                + EVENT_DESC_FSC + EVENT_NAME_FSC + EVENT_DT_FSC
-                + EVENT_DESC_FSC + EVENT_NAME_FSC + EVENT_DT_FSC;
+                + EVENT_DESC_FSC + EVENT_NAME_FSC + EVENT_FROM_DATE_FSC
+                + EVENT_DESC_FSC + EVENT_NAME_FSC + EVENT_FROM_DATE_FSC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EVENT_DESC, PREFIX_EVENT_NAME, PREFIX_EVENT_DATE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EVENT_DESC, PREFIX_EVENT_NAME, PREFIX_EVENT_FROM));
 
         // multiple invalid values
         userInput = EditEventCommand.COMMAND_WORD + " " + targetIndex.getOneBased()
-                + INVALID_EVENT_DESC + INVALID_EVENT_NAME + INVALID_EVENT_DATE
-                + INVALID_EVENT_DESC + INVALID_EVENT_NAME + INVALID_EVENT_DATE;
+                + INVALID_EVENT_DESC + INVALID_EVENT_NAME + INVALID_EVENT_FROM_DATE
+                + INVALID_EVENT_DESC + INVALID_EVENT_NAME + INVALID_EVENT_FROM_DATE;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EVENT_DESC, PREFIX_EVENT_NAME, PREFIX_EVENT_DATE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EVENT_DESC, PREFIX_EVENT_NAME, PREFIX_EVENT_FROM));
     }
 }
