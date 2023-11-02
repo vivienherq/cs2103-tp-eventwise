@@ -124,6 +124,11 @@ public class ModelManager implements Model {
         this.addressBook.resetVenues();
     }
 
+    @Override
+    public void resetVendors() {
+        this.addressBook.resetVendors();
+    }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
