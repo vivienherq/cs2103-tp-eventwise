@@ -27,11 +27,13 @@ public class Event implements DisplayableListViewItem {
     private List<Vendor> vendors;
     private Venue venue;
 
+
     /**
      * Every field must be present and not null.
      * Assumptions:
      * 1. When an event is created no people are added to the event.
-     * 2. When an event is created, the venue has not been set.
+     * 2. When an event is created no vendors are added to the event.
+     * 3. When an event is created, the venue has not been set.
      */
     public Event(Name name, Description description, Date date, Note note) {
         requireAllNonNull(name, description, date);
@@ -57,6 +59,8 @@ public class Event implements DisplayableListViewItem {
         this.persons = persons;
         this.vendors = vendors;
         this.venue = venue;
+        // Temporary: To be removed
+        this.vendors = new ArrayList<>();
     }
 
     public Name getName() {

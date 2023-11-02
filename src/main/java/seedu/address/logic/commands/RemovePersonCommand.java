@@ -23,10 +23,10 @@ public class RemovePersonCommand extends Command {
     public static final String COMMAND_WORD = "removePerson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes person(s) from a specified event"
+            + ": Removes a person from a specified event"
             + "by the index number used in the last event listing.\n"
             + "Parameters: " + PREFIX_EVENT_ID + "EVENT_INDEX (must be a positive integer)\n"
-            + "[" + PREFIX_PERSON + "PERSON_ID]...\n"
+            + PREFIX_PERSON + "PERSON_INDEX (from the event attendees list)\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_EVENT_ID + "3 " + PREFIX_PERSON + "2";
 
     public static final String MESSAGE_SUCCESS = "Removed Person %1$d: %2$s from Event %3$d: %4$s";
