@@ -3,7 +3,9 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Represents a Event's date in EventWise.
@@ -49,18 +51,17 @@ public class ToDate {
      */
     public boolean isNotPast() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date currentDate = new java.util.Date();
+        Date currentDate = new Date();
         String currentDateString = dateFormat.format(currentDate);
 
         try {
-            java.util.Date inputDate = dateFormat.parse(eventDate);
-            java.util.Date currentDateParsed = dateFormat.parse(currentDateString);
+            Date inputDate = dateFormat.parse(eventDate);
+            Date currentDateParsed = dateFormat.parse(currentDateString);
             return !inputDate.before(currentDateParsed);
-        } catch (java.text.ParseException e) {
+        } catch (ParseException e) {
             return false;
         }
     }
-
 
     @Override
     public String toString() {
@@ -85,5 +86,16 @@ public class ToDate {
     @Override
     public int hashCode() {
         return eventDate.hashCode();
+    }
+
+    public boolean isAfter(FromDate fromDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date toDateObj = dateFormat.parse(eventDate);
+            Date fromDateObj = dateFormat.parse(fromDate.eventDate);
+            return toDateObj.after(fromDateObj) || toDateObj.equals(fromDateObj);
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }

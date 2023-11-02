@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_EVENT_DATE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INTERVAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -42,8 +43,12 @@ public class CreateEventCommandParser implements Parser<CreateEventCommand> {
         ToDate toDate = ParserUtil.parseToDate(argMultimap.getValue(PREFIX_EVENT_TO).get());
         Note note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_EVENT_NOTE).orElse(null));
 
-        if (!fromDate.isNotPast()) {
+        if (!fromDate.isNotPast() || !toDate.isNotPast()) {
             throw new ParseException(String.format(MESSAGE_INVALID_EVENT_DATE,
+                    CreateEventCommand.MESSAGE_INVALID_DATE));
+        }
+        if (!toDate.isAfter(fromDate)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_INTERVAL,
                     CreateEventCommand.MESSAGE_INVALID_DATE));
         }
 
