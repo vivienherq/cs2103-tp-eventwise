@@ -166,6 +166,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         setVenues(new ArrayList<>());
     }
 
+    /**
+     * Resets the existing vendors data of this {@code AddressBook}.
+     */
+    public void resetVendors() {
+        setVendors(new ArrayList<>());
+    }
+
     //// person-level operations
 
     /**

@@ -16,10 +16,12 @@ import seedu.address.model.UserPrefs;
 public class ViewVendorsCommandTest {
 
     @Test
-    public void execute_emptyVendorsList_showsEmptyList() {
+    public void execute_nonEmptyVendorsList_showsNonEmptyList() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         ViewVendorsCommand viewVendorsCommand = new ViewVendorsCommand();
-        String expectedString = "";
+        String expectedString = "1: SUN Caters; Email: catering@sun.com; Phone: 64266426\n"
+                + "2: UNS Decorates; Email: decorate@uns.com; Phone: 67896789\n"
+                + "3: NSU Drinks; Email: drinks@nsu.com; Phone: 61234567\n";
         String expectedMessage = String.format(ViewVendorsCommand.MESSAGE_SUCCESS, expectedString);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
