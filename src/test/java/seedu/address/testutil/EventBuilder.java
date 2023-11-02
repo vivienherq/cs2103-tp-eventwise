@@ -10,6 +10,7 @@ import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
 import seedu.address.model.event.ToDate;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -31,6 +32,7 @@ public class EventBuilder {
     private ToDate toDate;
     private Note note;
     private List<Person> persons;
+    private List<Vendor> vendors;
     private Venue venue;
 
     /**
@@ -43,6 +45,7 @@ public class EventBuilder {
         toDate = new ToDate(DEFAULT_TO_DATE);
         note = new Note(DEFAULT_NOTE);
         persons = new ArrayList<>();
+        vendors = new ArrayList<>();
     }
 
     /**
@@ -55,6 +58,8 @@ public class EventBuilder {
         toDate = eventToCopy.getToDate();
         note = eventToCopy.getNote();
         persons = eventToCopy.getPersons();
+        vendors = eventToCopy.getVendors();
+        venue = eventToCopy.getVenue();
     }
 
     /**
@@ -106,6 +111,14 @@ public class EventBuilder {
     }
 
     /**
+     * Sets the {@code vendors} of the {@code Event} that we are building.
+     */
+    public EventBuilder withVendors(List<Vendor> vendors) {
+        this.vendors = vendors;
+        return this;
+    }
+
+    /**
      * Sets the {@code venue} of the {@code Event} that we are building.
      */
     public EventBuilder withVenue(Venue venue) {
@@ -114,6 +127,6 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, description, fromDate, toDate, note, persons, venue);
+        return new Event(name, description, fromDate, toDate, note, persons, vendors, venue);
     }
 }

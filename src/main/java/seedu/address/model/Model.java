@@ -137,7 +137,7 @@ public interface Model {
     /**
      * Edits the given event {@code eventToEdit} details with {@code personsToAdd} and {@code venuesToAdd}.
      */
-    Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd);
+    Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, List<Vendor> vendorsToAdd, Venue venueToAdd);
 
     void resetEvents();
     void resetGuests();
@@ -269,6 +269,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVendorList(Predicate<Vendor> predicate);
+
+    /**
+     * Gets a vendor from the address book based on the {@code index} specified.
+     */
+    Vendor getVendor(Index index) throws CommandException;
+
+    /**
+     * Gets a list of vendor objects from the address book based on the {@code indices} specified.
+     */
+    List<Vendor> getVendors(Set<Index> indices) throws CommandException;
 
     // Generic
     /** Returns an unmodifiable view of the filtered displayable items list */

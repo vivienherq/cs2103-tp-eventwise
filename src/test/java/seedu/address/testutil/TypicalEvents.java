@@ -18,6 +18,7 @@ public class TypicalEvents {
             .withToDate("09-11-2023")
             .withNote("Food and drinks are provided")
             .withPersons(TypicalPersons.getTypicalPersons())
+            .withVendors(TypicalVendors.getTypicalVendors())
             .withVenue(TypicalVenues.LT27)
             .build();
 

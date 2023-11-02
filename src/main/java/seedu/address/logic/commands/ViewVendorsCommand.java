@@ -28,6 +28,7 @@ public class ViewVendorsCommand extends Command {
             vendors += String.format("%d: %s; Email: %s; Phone: %s\n", i + 1,
                     vendor.getName(), vendor.getEmail(), vendor.getPhone());
         }
+        System.out.println(vendors.toString());
         return new CommandResult(String.format(MESSAGE_SUCCESS, vendors));
     }
 }

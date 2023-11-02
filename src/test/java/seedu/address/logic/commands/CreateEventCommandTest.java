@@ -199,7 +199,8 @@ public class CreateEventCommandTest {
         }
 
         @Override
-        public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd) {
+        public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
+                                       List<Vendor> vendorsToAdd, Venue venueToAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -334,6 +335,16 @@ public class CreateEventCommandTest {
 
         @Override
         public void updateFilteredVendorList(Predicate<Vendor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Vendor getVendor(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Vendor> getVendors(Set<Index> indices) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
