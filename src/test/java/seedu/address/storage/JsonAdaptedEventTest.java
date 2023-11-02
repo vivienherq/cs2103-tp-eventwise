@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 
 public class JsonAdaptedEventTest {
@@ -68,7 +68,7 @@ public class JsonAdaptedEventTest {
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedEvent event =
                 new JsonAdaptedEvent(VALID_NAME, VALID_DESCRIPTION, INVALID_DATE, VALID_NOTE, new ArrayList<>(), null);
-        String expectedMessage = Date.MESSAGE_CONSTRAINTS;
+        String expectedMessage = FromDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
@@ -76,7 +76,7 @@ public class JsonAdaptedEventTest {
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedEvent event =
                 new JsonAdaptedEvent(VALID_NAME, VALID_DESCRIPTION, null, VALID_NOTE, new ArrayList<>(), null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, FromDate.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 }

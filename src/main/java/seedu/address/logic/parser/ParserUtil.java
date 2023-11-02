@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Note;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -136,13 +136,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static FromDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        if (!FromDate.isValidDate(trimmedDate)) {
+            throw new ParseException(FromDate.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedDate);
+        return new FromDate(trimmedDate);
     }
 
     /**

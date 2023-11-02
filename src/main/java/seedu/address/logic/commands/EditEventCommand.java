@@ -17,9 +17,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
 
@@ -92,10 +92,10 @@ public class EditEventCommand extends Command {
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
-        Date updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
+        FromDate updatedFromDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
 
-        return new Event(updatedName, updatedDescription, updatedDate, updatedNote);
+        return new Event(updatedName, updatedDescription, updatedFromDate, updatedNote);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class EditEventCommand extends Command {
     public static class EditEventDescriptor {
         private Name name;
         private Description description;
-        private Date date;
+        private FromDate fromDate;
         private Note note;
 
         public EditEventDescriptor() {}
@@ -141,7 +141,7 @@ public class EditEventCommand extends Command {
         public EditEventDescriptor(EditEventDescriptor toCopy) {
             setName(toCopy.name);
             setDescription(toCopy.description);
-            setDate(toCopy.date);
+            setDate(toCopy.fromDate);
             setNote(toCopy.note);
         }
 
@@ -149,7 +149,7 @@ public class EditEventCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, description, date, note);
+            return CollectionUtil.isAnyNonNull(name, description, fromDate, note);
         }
 
         public void setName(Name name) {
@@ -168,12 +168,12 @@ public class EditEventCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setDate(Date date) {
-            this.date = date;
+        public void setDate(FromDate fromDate) {
+            this.fromDate = fromDate;
         }
 
-        public Optional<Date> getDate() {
-            return Optional.ofNullable(date);
+        public Optional<FromDate> getDate() {
+            return Optional.ofNullable(fromDate);
         }
 
         public void setNote(Note note) {
@@ -198,7 +198,7 @@ public class EditEventCommand extends Command {
             EditEventDescriptor otherEditPersonDescriptor = (EditEventDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(description, otherEditPersonDescriptor.description)
-                    && Objects.equals(date, otherEditPersonDescriptor.date);
+                    && Objects.equals(fromDate, otherEditPersonDescriptor.fromDate);
         }
 
         @Override
@@ -206,7 +206,7 @@ public class EditEventCommand extends Command {
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("description", description)
-                    .add("date", date)
+                    .add("date", fromDate)
                     .add("note", note)
                     .toString();
         }

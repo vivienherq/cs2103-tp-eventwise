@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CreateEventCommand;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.testutil.EventBuilder;
 
@@ -129,7 +129,7 @@ public class CreateEventCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, EVENT_NAME_FSC + EVENT_DESC_FSC + INVALID_EVENT_DATE,
-                Date.MESSAGE_CONSTRAINTS);
+                FromDate.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_EVENT_NAME + EVENT_DESC_FSC + INVALID_EVENT_DATE,

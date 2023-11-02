@@ -8,8 +8,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -184,14 +184,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventDate_validValueWithoutWhitespace_returnsName() throws Exception {
-        Date expectedDate = new Date(VALID_EVENT_DATE);
-        assertEquals(expectedDate, ParserUtil.parseDate(VALID_EVENT_DATE));
+        FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
+        assertEquals(expectedFromDate, ParserUtil.parseDate(VALID_EVENT_DATE));
     }
 
     @Test
     public void parseEventDate_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_EVENT_DATE + WHITESPACE;
-        Date expectedDate = new Date(VALID_EVENT_DATE);
-        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+        FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
+        assertEquals(expectedFromDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 }

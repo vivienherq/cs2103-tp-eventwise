@@ -32,8 +32,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditEventCommand.EditEventDescriptor;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 
@@ -83,7 +83,7 @@ public class EditEventCommandParserTest {
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR
                 + INVALID_EVENT_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR
-                + INVALID_EVENT_DATE, Date.MESSAGE_CONSTRAINTS); // invalid date
+                + INVALID_EVENT_DATE, FromDate.MESSAGE_CONSTRAINTS); // invalid date
 
         // invalid description followed by valid name
         assertParseFailure(parser, EVENT_ID_CAREER_FAIR

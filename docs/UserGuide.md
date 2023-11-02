@@ -130,7 +130,7 @@ Examples:
 
 ### Create Event: `event`
 
-This feature creates a new event object with the event name, description date and time and is stored into the event list.
+This feature creates a new event object with the event name, description fromDate and time and is stored into the event list.
 
 Format: `event n/NAME d/DESC dt/DT`
 

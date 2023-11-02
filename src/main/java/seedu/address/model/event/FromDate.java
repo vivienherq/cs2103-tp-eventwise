@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  * Represents a Event's date in EventWise.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class FromDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Event date should only be in DD-MM-YYYY format and should be either today's date or a future date. ";
@@ -31,7 +31,7 @@ public class Date {
      *
      * @param date A valid date.
      */
-    public Date(String date) {
+    public FromDate(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         eventDate = date;
@@ -74,11 +74,11 @@ public class Date {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Date)) {
+        if (!(other instanceof FromDate)) {
             return false;
         }
 
-        Date otherName = (Date) other;
+        FromDate otherName = (FromDate) other;
         return eventDate.equals(otherName.eventDate);
     }
 

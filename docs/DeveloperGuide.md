@@ -317,7 +317,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
 |---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
-| `* * *` | event planner | create a new event, specifying its date, time, and location   | keep track of the event details                      |
+| `* * *` | event planner | create a new event, specifying its fromDate, time, and location   | keep track of the event details                      |
 | `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
 | `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
 | `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |

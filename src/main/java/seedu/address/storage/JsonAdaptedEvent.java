@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
 import seedu.address.model.person.Person;
@@ -95,12 +95,13 @@ class JsonAdaptedEvent {
         final Description modelDescription = new Description(description);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    FromDate.class.getSimpleName()));
         }
-        if (!Date.isValidDate(date)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        if (!FromDate.isValidDate(date)) {
+            throw new IllegalValueException(FromDate.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDate = new Date(date);
+        final FromDate modelFromDate = new FromDate(date);
 
         Note modelNote = null;
         if (note != null) {
@@ -119,10 +120,10 @@ class JsonAdaptedEvent {
         final List<Person> modelPersons = new ArrayList<>(personList);
 
         if (venue == null) {
-            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, null);
+            return new Event(modelName, modelDescription, modelFromDate, modelNote, modelPersons, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, modelVenue);
+            return new Event(modelName, modelDescription, modelFromDate, modelNote, modelPersons, modelVenue);
         }
     }
 }

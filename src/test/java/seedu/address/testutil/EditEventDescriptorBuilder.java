@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditEventCommand.EditEventDescriptor;
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -50,7 +50,7 @@ public class EditEventDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditEventDescriptorBuilder withDate(String date) {
-        descriptor.setDate(new Date(date));
+        descriptor.setDate(new FromDate(date));
         return this;
     }
 

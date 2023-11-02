@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
 import seedu.address.model.person.Person;
@@ -24,7 +24,7 @@ public class EventBuilder {
 
     private Name name;
     private Description description;
-    private Date date;
+    private FromDate fromDate;
     private Note note;
     private List<Person> persons;
     private Venue venue;
@@ -35,7 +35,7 @@ public class EventBuilder {
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
-        date = new Date(DEFAULT_DATE);
+        fromDate = new FromDate(DEFAULT_DATE);
         note = new Note(DEFAULT_NOTE);
         persons = new ArrayList<>();
     }
@@ -46,7 +46,7 @@ public class EventBuilder {
     public EventBuilder(Event eventToCopy) {
         name = eventToCopy.getName();
         description = eventToCopy.getDescription();
-        date = eventToCopy.getDate();
+        fromDate = eventToCopy.getDate();
         note = eventToCopy.getNote();
         persons = eventToCopy.getPersons();
     }
@@ -71,7 +71,7 @@ public class EventBuilder {
      * Sets the {@code Date} of the {@code Event} that we are building.
      */
     public EventBuilder withDate(String date) {
-        this.date = new Date(date);
+        this.fromDate = new FromDate(date);
         return this;
     }
 
@@ -100,6 +100,6 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, description, date, note, persons, venue);
+        return new Event(name, description, fromDate, note, persons, venue);
     }
 }
