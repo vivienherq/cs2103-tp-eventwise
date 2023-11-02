@@ -26,7 +26,7 @@ public class VendorListPanel extends UiPart<Region> {
     public VendorListPanel(ObservableList<Vendor> vendorList) {
         super(FXML);
         vendorListView.setItems(vendorList);
-
+        vendorListView.setCellFactory(listView -> new VendorListPanel.VendorListViewCell());
     }
 
     /**

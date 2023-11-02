@@ -11,6 +11,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.vendor.Vendor;
+import seedu.address.model.venue.Address;
+import seedu.address.model.venue.Capacity;
+import seedu.address.model.venue.Venue;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -37,10 +41,45 @@ public class SampleDataUtil {
                 new FromDate("03-01-2024"), new ToDate("04-01-2024"), null),
             new Event(new seedu.address.model.event.Name("Career Fair"),
                     new Description("Get insights on different career paths"),
-                    new FromDate("08-01-2024"), new ToDate("09-01-2024"), new Note("Its in 2024.")),
+                    new FromDate("08-01-2024"), new ToDate("09-01-2024"), new Note("Its in 2024")),
             new Event(new seedu.address.model.event.Name("Supernova"),
                     new Description("All night of partying with a lit DJ lineup"),
                     new FromDate("03-02-2024"), new ToDate("04-02-2024"), null),
+        };
+    }
+
+    public static Vendor[] getSampleVendors() {
+        return new Vendor[] {
+                new Vendor(
+                        new seedu.address.model.vendor.Name("Catering"),
+                        new seedu.address.model.vendor.Phone("64646262"),
+                        new seedu.address.model.vendor.Email("catering@gmail.com")
+                ),
+                new Vendor(
+                        new seedu.address.model.vendor.Name("AV Equipment"),
+                        new seedu.address.model.vendor.Phone("61234567"),
+                        new seedu.address.model.vendor.Email("soundcheck@gmail.com")
+                ),
+        };
+    }
+
+    public static Venue[] getSampleVenues() {
+        return new Venue[] {
+                new Venue(new seedu.address.model.venue.Name("MPSH 1"),
+                        new Address("Sports Drive"),
+                        new Capacity("400")),
+                new Venue(new seedu.address.model.venue.Name("LT27"),
+                        new Address("Lower Kent Ridge Rd"),
+                        new Capacity("400")),
+                new Venue(new seedu.address.model.venue.Name("University Cultural Centre"),
+                        new Address("50 Kent Ridge Crescent Singapore 119279"),
+                        new Capacity("1000")),
+                new Venue(new seedu.address.model.venue.Name("Central Library"),
+                        new Address("12 Kent Ridge Crescent Singapore 119275"),
+                        new Capacity("300")),
+                new Venue(new seedu.address.model.venue.Name("I3 Auditorium"),
+                        new Address("21 Heng Mui Keng Terrace"),
+                        new Capacity("400")),
         };
     }
 
@@ -50,10 +89,22 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+
         // Add sample events
         for (Event sampleEvent : getSampleEvents()) {
             sampleAb.addEvent(sampleEvent);
         }
+
+        // Add sample vendors
+        for (Vendor sampleVendor : getSampleVendors()) {
+            sampleAb.addVendor(sampleVendor);
+        }
+
+        // Add sample venues
+        for (Venue sampleVenue : getSampleVenues()) {
+            sampleAb.addVenue(sampleVenue);
+        }
+
         return sampleAb;
     }
 

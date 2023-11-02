@@ -44,6 +44,7 @@ public class DeleteVenueCommand extends Command {
         model.deleteVenue(venueToDelete);
         String venueDetails = String.format("%s; Address: %s; Capacity: %s\n",
                 venueToDelete.getName(), venueToDelete.getAddress(), venueToDelete.getCapacity());
+        model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);
 
         return new CommandResult(String.format(MESSAGE_DELETE_VENUE_SUCCESS, targetIndex.getOneBased(), venueDetails));
     }
