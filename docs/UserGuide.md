@@ -233,7 +233,7 @@ Format: `viewEvent eid/EVENT_ID`
 * The Event ID **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `viewEvents` followed by `viewEvent 3` shows the details of the 3rd event in the event list.
+* `viewEvents` followed by `viewEvent eid/3` shows the details of the 3rd event in the event list.
 
 **Expected Command Result**
 ![Expected Result UI](images/view-event/result.png)
@@ -303,7 +303,10 @@ Event 2: FOC, Freshman Orientation Camp has been successfully deleted
 ```
 Delete Event Failed: Invalid Event ID.
 ```
+```
 Delete Event Failed: Event ID does not exist.
+```
+
 
 ### RSVP : `rsvp`
 
@@ -314,6 +317,9 @@ Format: `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`
 * Set the RSVP status of the specified `EVENT_ID` and `PERSON_ID` to the new RSVP status.
 * The Event ID refers to the index number shown in the displayed event list.
 * The Person ID refers to the index number shown in the displayed person list.
+* `CC` means the guest is **Confirm Coming**
+* `CCC` means the guest is **Confirm Not Coming**
+* `TBC` means the guest's attendance **Confirmed**
 
 Examples:
 * `rsvp eid/1 pid/1 s/CC`
@@ -566,80 +572,9 @@ Vendor 2: Good Food Catering has been successfully deleted
 ```
 Delete Vendor Failed: Invalid Vendor ID.
 ```
+```
 Delete Vendor Failed: Vendor ID does not exist.
-
-### View a list of Venues: `viewVenues`
-
-View all the venues in a list.
-
-**Expected Command Result**
-![Ui](images/ViewVendorsUI.png)
-
-### Edit Venue: `editVenue`
-
-This feature allows users to edit venue details.
-
-Format: `editVenue vne/VENUE_ID [n/NAME] [a/ADDRESS] [c/CAPACITY]`
-
-**Command Behavior**
-* At least one of the optional fields must be provided.
-
-Examples:
-* `editVenue vne/1 n/MPSH 1`
-* `editVenue vne/1 a/5 Sports Drive 2, Singapore 117508`
-
-**Expected Command Result**
 ```
-Edited Venue: MPSH 1; Address: sports drive; Capacity: 200
-```
-```
-Edited Venue: MPSH 1; Address: 5 Sports Drive 2, Singapore 117508; Capacity: 200
-```
-
-### Delete Venue : `deleteVenue`
-
-Deletes the specified venue.
-
-Format: `deleteVenue vne/VENUE_ID`
-
-* Deletes the venue at the specified `VENUE_ID` from the venue list.
-* Venue ID refers to the index number shown in the displayed venue list using `viewVenues`.
-* Venue ID **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `viewVenues` followed by `deleteVenue vne/2` deletes the 2nd venue in the venue list.
-
-**Expected Command Result**
-```
-Deleted Venue 1: MPSH 1; Address: 5 Sports Drive 2, Singapore 117508; Capacity: 200
-```
-
-**Invalid Command Results**
-```
-The venue index provided is invalid
-```
-
-## Vendor Features
-
-### Create Vendor: `vendor`
-
-This feature creates a new vendor object with the vendor name, phone, email, and is stored into the vendor list.
-
-Format: `vendor n/NAME p/PHONE e/EMAIL`
-
-Examples:
-* `vendor n/SUN Catering p/64647788 e/catering@sun.com`
-
-**Expected Command Result**
-```
-New vendor added: SUN Catering; Phone: 64647788; Email: catering@sun.com
-```
-
-**Invalid Command Results**
-```
-
-```
-
 
 ### View a list of Vendors: `viewVendors`
 
@@ -652,54 +587,6 @@ View all the vendors in a list.
 
 ```
 
-### Edit Vendor: `editVendor`
-
-This feature allows users to edit vendor details.
-
-Format: `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]`
-
-**Command Behavior**
-* At least one of the optional fields must be provided.
-
-Examples:
-* `editVendor vdr/1 n/SUN Shuttle`
-* `editVendor vdr/1 e/shuttle@sun.com`
-
-**Expected Command Result**
-```
-Edited Vendor: SUN Shuttle; Phone: 80008000; Email: vendor1@gmail.com
-```
-```
-Edited Vendor: SUN Shuttle; Phone: 80008000; Email: shuttle@sun.com
-```
-
-**Invalid Command Results**
-```
-
-```
-
-### Delete Vendor : `deleteVendor`
-
-Deletes the specified vendor.
-
-Format: `deleteVendor vdr/VENDOR_ID`
-
-* Deletes the vendor at the specified `VENDOR_ID` from the vendor list.
-* Vendor ID refers to the index number shown in the displayed vendor list using `viewVendors`.
-* Vendor ID **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `viewVendors` followed by `deleteVendor vdr/2` deletes the 2nd vendor in the vendor list.
-
-**Expected Command Result**
-```
-Deleted Vendor: vendor food; Phone: 90909090; Email: hihi@gmail.com
-```
-
-**Invalid Command Results**
-```
-
-```
 
 ## General Features
 
