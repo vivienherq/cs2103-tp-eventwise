@@ -88,6 +88,9 @@ public class ToDate {
         return eventDate.hashCode();
     }
 
+    /**
+     * Returns true if given date is a after the from date.
+     */
     public boolean isAfter(FromDate fromDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {

@@ -13,7 +13,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.CreateEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.*;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
+import seedu.address.model.event.Name;
+import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 
 /**
  * Parses input arguments and creates a new AddCommand object

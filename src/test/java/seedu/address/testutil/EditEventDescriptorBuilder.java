@@ -5,6 +5,8 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.ToDate;
+
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
@@ -27,7 +29,8 @@ public class EditEventDescriptorBuilder {
         descriptor = new EditEventDescriptor();
         descriptor.setName(event.getName());
         descriptor.setDescription(event.getDescription());
-        descriptor.setDate(event.getDate());
+        descriptor.setFromDate(event.getFromDate());
+        descriptor.setToDate(event.getToDate());
     }
 
     /**
@@ -47,10 +50,19 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code FromDate} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditEventDescriptorBuilder withDate(String date) {
-        descriptor.setDate(new FromDate(date));
+    public EditEventDescriptorBuilder withFromDate(String fromDate) {
+        descriptor.setFromDate(new FromDate(fromDate));
+        return this;
+    }
+
+
+    /**
+     * Sets the {@code ToDate} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditEventDescriptorBuilder withToDate(String toDate) {
+        descriptor.setToDate(new ToDate(toDate));
         return this;
     }
 

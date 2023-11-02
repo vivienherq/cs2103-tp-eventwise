@@ -8,7 +8,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.*;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
+import seedu.address.model.event.Name;
+import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 
@@ -132,7 +137,8 @@ class JsonAdaptedEvent {
             return new Event(modelName, modelDescription, modelFromDate, modelToDate, modelNote, modelPersons, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelFromDate, modelToDate, modelNote, modelPersons, modelVenue);
+            return new Event(modelName, modelDescription, modelFromDate, modelToDate, modelNote,
+                    modelPersons, modelVenue);
         }
     }
 }

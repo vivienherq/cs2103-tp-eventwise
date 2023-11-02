@@ -26,7 +26,7 @@ public class DeleteEventCommandTest {
         Event eventToDelete = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
         String eventDetails = String.format("%s; Description: %s; Date: %s\n",
-                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getDate());
+                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getFromDate());
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS,
                 INDEX_FIRST_EVENT.getOneBased(), eventDetails);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());

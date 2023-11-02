@@ -33,7 +33,7 @@ public class Event implements DisplayableListViewItem {
      * 2. When an event is created, the venue has not been set.
      */
     public Event(Name name, Description description, FromDate fromDate, ToDate toDate, Note note) {
-        requireAllNonNull(name, description, fromDate);
+        requireAllNonNull(name, description, fromDate, toDate);
         this.name = name;
         this.description = description;
         this.fromDate = fromDate;
@@ -46,8 +46,9 @@ public class Event implements DisplayableListViewItem {
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, FromDate fromDate, ToDate toDate, Note note, List<Person> persons, Venue venue) {
-        requireAllNonNull(name, description, fromDate);
+    public Event(Name name, Description description, FromDate fromDate, ToDate toDate,
+                 Note note, List<Person> persons, Venue venue) {
+        requireAllNonNull(name, description, fromDate, toDate);
         this.name = name;
         this.description = description;
         this.fromDate = fromDate;

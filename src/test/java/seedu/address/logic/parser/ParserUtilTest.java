@@ -174,24 +174,24 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventDate_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFromDate((String) null));
     }
 
     @Test
     public void parseEventDate_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_EVENT_DATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFromDate(INVALID_EVENT_DATE));
     }
 
     @Test
     public void parseEventDate_validValueWithoutWhitespace_returnsName() throws Exception {
         FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
-        assertEquals(expectedFromDate, ParserUtil.parseDate(VALID_EVENT_DATE));
+        assertEquals(expectedFromDate, ParserUtil.parseFromDate(VALID_EVENT_DATE));
     }
 
     @Test
     public void parseEventDate_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_EVENT_DATE + WHITESPACE;
         FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
-        assertEquals(expectedFromDate, ParserUtil.parseDate(dateWithWhitespace));
+        assertEquals(expectedFromDate, ParserUtil.parseFromDate(dateWithWhitespace));
     }
 }
