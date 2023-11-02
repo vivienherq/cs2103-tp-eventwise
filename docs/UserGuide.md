@@ -46,6 +46,7 @@ The Event Details component provides users with in-depth information about a spe
 ### 3. Command Result
 
 ### 4. Command Input
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -181,12 +182,12 @@ Create Event Failed: Event to date has after from date.
 
 Adds event details such as venue, guests and vendors to a specified event.
 
-Format: `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]`
+Format: `addEventDetails eid/EVENT_ID [pid/INDEX] [vne/VENUE_ID] [vdr/VENDOR_ID]`
 
 **What each optional field does for a specified event**
-* `[person/INDEX]`: Adds the person at the specified `INDEX` as a guest of the event.
-* `[venue/VENUE_ID]`: Sets the venue at the specified `VENUE_ID` as the venue of the event.
-* `[vendor/VENDOR_ID]`: Adds the vendor at the specified `VENDOR_ID` as part of the event. (coming in v1.3)
+* `[pid/INDEX]`: Adds the person at the specified `INDEX` as a guest of the event.
+* `[vne/VENUE_ID]`: Sets the venue at the specified `VENUE_ID` as the venue of the event.
+* `[vdr/VENDOR_ID]`: Adds the vendor at the specified `VENDOR_ID` as part of the event. (coming in v1.3)
 
 **Command Behavior**
 
@@ -194,11 +195,11 @@ Format: `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VEN
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* The optional fields `[person/INDEX]` and `[vendor/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
+* The optional fields `[pid/INDEX]` and `[vdr/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
 
 Examples:
-* `viewEvent 3` followed by `addEventDetails 3 person/2` adds the 2nd person in the address book to 3rd event in the event list
-* `viewEvent 3` followed by `addEventDetails 3 person/3 venue/2` adds the 3rd person in the address book and sets the 2nd venue in the venue list to 3rd event in the event list
+* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2` adds the 2nd person in the address book to 3rd event in the event list
+* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/3 vne/2` adds the 3rd person in the address book and sets the 2nd venue in the venue list to 3rd event in the event list
 
 **Expected Command Result**
 ```
@@ -221,6 +222,9 @@ Add Event Details Failed: Person does not exist.
 ```
 ```
 Add Event Details Failed: Venue does not exist.
+```
+```
+Add Event Details Failed: Vendor does not exist.
 ```
 
 ### View a list of Events: `viewEvents`
@@ -383,10 +387,10 @@ Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
 
 This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
 
-Format: `venue name/NAME addr/ADDRESS cap/CAPACITY`
+Format: `venue n/NAME a/ADDRESS c/CAPACITY`
 
 Examples:
-* `venue name/LT 27 addr/Lower Kent Ridge Road cap/400`
+* `venue n/LT 27 a/Lower Kent Ridge Road c/400`
 
 **Expected Command Result**
 ```
@@ -407,11 +411,160 @@ Create Venue Failed: Venue capacity cannot be empty.
 Create Venue Failed: Invalid capacity value.
 ```
 
-### View a list of Events: `viewVenues` `venue` `[coming in v1.3]`
+### Edit Venue: `editVenue`
+
+This feature allows users to edit venue details.
+
+Format: `editVenue vne/VENUE_ID [n/NAME] [a/ADDRESS] [c/CAPACITY]`
+
+**Command Behavior**
+* At least one of the optional fields must be provided.
+
+Examples:
+* `editVenue vne/1 n/MPSH 2`
+* `editEvent vne/1 c/300`
+
+**Expected Command Result**
+```
+Venue 1: MPSH - Name changed to MPSH 2.
+```
+```
+Venue 1: MPSH 2 - Capacity changed to 300.
+```
+
+**Invalid Command Results**
+```
+Edit Venue Failed: Venue ID does not exist.
+```
+```
+Edit Venue Failed: No parameters provided.
+```
+
+### Delete Venue : `deleteVenue`
+
+Deletes the specified venue.
+
+Format: `deleteVenue vne/VENUE_ID`
+
+**Command Behavior**
+* Deletes the venue at the specified `VENUE_ID` from the venue list.
+* The Venue ID refers to the index number shown in the displayed venue list.
+* The Venue ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewVenues` followed by `deleteVenue vne/2` deletes the 2nd venue in the venue list.
+
+**Expected Command Result**
+```
+Venue 2: MPSH has been successfully deleted
+```
+
+**Invalid Command Results**
+```
+Delete Venue Failed: Invalid Venue ID.
+```
+Delete Venue Failed: Venue ID does not exist.
+
+### View a list of Venues: `viewVenues`
 
 View all the venues in a list.
 
 **Expected Command Result**
+![Ui](images/ViewVenuesUI.png)
+
+## Vendor Features
+
+### Create Vendor: `vendor`
+
+This feature creates a new vendor object with the vendor name, phone number, email, and is stored into the vendor list.
+
+Format: `vendor n/NAME p/PHONE e/EMAIL`
+
+Examples:
+* `vendor n/Catering p/64646262 e/catering@gmail.com`
+
+**Expected Command Result**
+```
+Venue 1: Catering, 64646262, catering@gmail.com has been successfully added.
+```
+
+**Invalid Command Results**
+```
+Create Vendor Failed: Vendor name cannot be empty.
+```
+```
+Create Vendor Failed: Vendor phone number cannot be empty.
+```
+```
+Create Vendor Failed: Vendor email cannot be empty.
+```
+```
+Create Venue Failed: Invalid phone number.
+```
+```
+Create Venue Failed: Invalid email.
+```
+
+### Edit Vendor: `editVendor`
+
+This feature allows users to edit vendor details.
+
+Format: `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]`
+
+**Command Behavior**
+* At least one of the optional fields must be provided.
+
+Examples:
+* `editVendor vdr/1 n/Good Food Catering`
+* `editVendor vdr/1 e/gfcatering@gmail.com`
+
+**Expected Command Result**
+```
+Vendor 1: Catering - Name changed to Good Food Catering.
+```
+```
+Vendor 1: Good Food Catering - Email changed to gfcatering@gmail.com.
+```
+
+**Invalid Command Results**
+```
+Edit Vendor Failed: Vendor ID does not exist.
+```
+```
+Edit Vendor Failed: No parameters provided.
+```
+
+### Delete Vendor : `deleteVendor`
+
+Deletes the specified vendor.
+
+Format: `deleteVendor vdr/VENDOR_ID`
+
+**Command Behavior**
+* Deletes the vendor at the specified `VENDOR_ID` from the vendor list.
+* The Vendor ID refers to the index number shown in the displayed vendor list.
+* The Vendor ID **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewVendors` followed by `deleteVendor vdr/2` deletes the 2nd vendor in the vendor list.
+
+**Expected Command Result**
+```
+Vendor 2: Good Food Catering has been successfully deleted
+```
+
+**Invalid Command Results**
+```
+Delete Vendor Failed: Invalid Vendor ID.
+```
+Delete Vendor Failed: Vendor ID does not exist.
+
+### View a list of Venues: `viewVenues`
+
+View all the venues in a list.
+
+**Expected Command Result**
+![Ui](images/ViewVendorsUI.png)
 
 ## General Features
 
@@ -444,6 +597,12 @@ Format: `clearGuests`
 ### Clearing all entries : `clearVenues`
 
 Clears all venues from the address book.
+
+Format: `clearVenues`
+
+### Clearing all entries : `clearVendors`
+
+Clears all vendors from the address book.
 
 Format: `clearVenues`
 
@@ -483,9 +642,9 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 
@@ -495,11 +654,30 @@ Action | Format, Examples
 --------|------------------
 **Add Event** | `event n/NAME d/DESC from/DATE to/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023`
 **Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
+**Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_INDEX` <br> e.g., `removePerson eid/1 pid/1`
 **Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
 **Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
 **View All Events** | `ViewEvents`
-**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
+**View Event** | `viewEvent eid/ID` <br> e.g., `viewEventeid eid/1`
 **RSVP** | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS` <br> e.g., `rsvp eid/1 pid/1 s/CC`
+
+### Venue Command summary
+
+Action | Format, Examples
+--------|------------------
+**Create Venue** | `venue n/NAME a/ADDRESS c/CAPACITY` <br> e.g., `venue n/LT 27 a/Lower Kent Ridge Road c/400`
+**Edit Venues** | `editVenue vne/VENUE_ID [n/NAME] [a/ADDRESS] [c/CAPACITY]` <br> e.g., `editVenue vne/1 n/MPSH 2`
+**Delete Venue** | `deleteVenue vne/VENUE_ID` <br> e.g., `deleteVenue vne/2`
+**View Venues** | `viewVenues`
+
+### Vendor Command summary
+
+Action | Format, Examples
+--------|------------------
+**Create Vendor** | `vendor n/NAME p/PHONE e/EMAIL` <br> e.g., `vendor n/Catering p/64646262 e/catering@gmail.com`
+**Edit Vendor** | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g., `editVendor vdr/1 n/Good Food Catering`
+**Delete Vendor** | `deleteVendor vdr/VENDOR_ID` <br> e.g., `deleteVendor vdr/2`
+**View Vendor** | `viewVendors`
 
 ### General Command summary
 
@@ -509,4 +687,5 @@ Action | Format, Examples
 **Clear Events** | `clearEvents`
 **Clear Guests** | `clearGuests`
 **Clear Venues** | `clearVenues`
+**Clear Vendors** | `clearVendors`
 **Help** | `help`
