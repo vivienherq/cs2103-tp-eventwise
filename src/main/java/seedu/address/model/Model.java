@@ -142,6 +142,7 @@ public interface Model {
     void resetEvents();
     void resetGuests();
     void resetVenues();
+    void resetVendors();
 
 
     /** Returns an unmodifiable view of the filtered events list */
