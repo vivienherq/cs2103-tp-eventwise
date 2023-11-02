@@ -323,8 +323,12 @@ RSVP status has been updated: FSC 2023, John Doe, Confirm Coming
 **Invalid Command Results**
 ```
 Event or Person does not exist!
+```
+```
 Value of RSVP Status can only be CC, CCC or TBC.
-John Do2e has not been added to FSC 2023!
+```
+```
+John Doe 2 has not been added to FSC 2023!
 ```
 
 ## Venue Features
