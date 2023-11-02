@@ -157,6 +157,7 @@ public class ModelManager implements Model {
         if (index.getZeroBased() > addressBook.getPersonList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
         return filteredPersons.get(index.getZeroBased());
     }
 
@@ -304,6 +305,7 @@ public class ModelManager implements Model {
         if (index.getZeroBased() > addressBook.getVendorList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
         }
+        filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDOR);
         return filteredVendors.get(index.getZeroBased());
     }
 

@@ -38,16 +38,19 @@ This section defines and explains the components used in EventWise's UI.
 The Main List serves as the primary view to display a range of data types within the application which includes events, persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with the displayed content.
 
 ### 2. Event Details
-The Event Details component provides users with in-depth information about a specific event or item from the Main List
+The Event Details component provides users with in-depth information about a specific event from the Main List such as description, from date, to date and venue information.
 
 #### 2a. Person List
+Displays a list of persons associated with the event.
 
 #### 2b. Vendor List
+Displays a list of vendors associated with the event.
 
 ### 3. Command Result
+The Command Result component displays the outcome or feedback of the requested action. It may display success messages, error notifications or other releant information
 
 ### 4. Command Input
-
+This is where the user interacts with the application by providing a specific command.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -190,33 +193,19 @@ Format: `addEventDetails eid/EVENT_ID [pid/INDEX] [vne/VENUE_ID] [vdr/VENDOR_ID]
 
 Examples:
 * `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2` adds the 2nd person in the address book to 3rd event in the event list
-* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/3 vne/2` adds the 3rd person in the address book and sets the 2nd venue in the venue list to 3rd event in the event list
+* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2 pid/3 vne/3` 
+  * adds the 2nd and 3rd person in the address book to 3rd event in the event list 
+  * sets the 3rd venue in the venue list as the venue for the 3rd event in the event list.
+* `viewEvent eid/3` followed by `addEventDetails eid/1 pid/1 vdr/2 vne/3` 
+  * adds the 1st person in the address book to the 1st event in the event list 
+  * adds the 2nd vendor in the address book to the 1st event in the event list
+  * sets the 3rd venue in the venue list as the venue for the 1st event in the event list.
 
 **Expected Command Result**
-```
-Person 2: Bernice Yu has been successfully added to Event 3: FOC
-```
-```
-Person 3: Charlotte Oliverio has been successfully added to Event 3: FOC
-Venue 2: MPSH1 has beeen successfully set as the venue for Event 3: FOC
-```
+![result for 'addEventDetails eid/3 pid/2 pid/3 vne/3'](images/add-event-details/result.png)
 
 **Invalid Command Results**
-```
-Add Event Details Failed: Invalid Event ID.
-```
-```
-Add Event Details Failed: Event ID does not exist.
-```
-```
-Add Event Details Failed: Person does not exist.
-```
-```
-Add Event Details Failed: Venue does not exist.
-```
-```
-Add Event Details Failed: Vendor does not exist.
-```
+![result for 'addEventDetails eid/3 pid/2 pid/3 vne/3'](images/add-event-details/invalid.png)
 
 ### View a list of Events: `viewEvents`
 
@@ -251,10 +240,16 @@ Examples:
 
 **Invalid Command Results**
 
-Non Integer Index
+Non Integer Index: 
+
+`viewEvent eid/afdefdfe`
+
 ![Ui](images/view-event/non_integer_index.png)
 
-Invalid Index
+Invalid Index: 
+
+`viewEvent eid/10000000`
+
 ![](images/view-event/invalid_index.png)
 
 ### Edit Event: `editEvent`
@@ -372,19 +367,34 @@ Removes a person from a specified event
 Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
 - The Event ID refers to the index number displayed in Main List
   - To view all events, type the `viewEvents` command.
-- The Person ID refers to the index number displayed in the Persons List inside the event details
-  - Note: 
+- The Person ID refers to the index number displayed in the Persons List that is associated to the event.
+
+Examples:
+- `viewEvent eid/4` followed by `removePerson eid/4 pid/1` deletes the 1st person in the person list associated with the 4th event.
+
+**Expected Command Result**
+![result for `removePerson eid/4 vdr/1`](images/remove-person/result.png)
+
+**Invalid Command Results**
+![result for `removePerson eid/4 vdr/8`](images/remove-person/invalid_person_index.png)
 
 ### Remove Vendor From Event: `removeVendor`
 
 Removes a vendor from a specified event
 
-Format: `removeVendor eid/EVENT_ID vdr/VENDOR_INDEX`
+Format: `removeVendor eid/EVENT_ID vdr/PERSON_INDEX`
 - The Event ID refers to the index number displayed in Main List
-    - To view all events, type the `viewEvents` command.
-- The Vendor ID refers to the index number displayed in the Vendors List inside the event details
-    - Note:
+  - To view all events, type the `viewEvents` command.
+- The Vendor ID refers to the index number displayed in the Vendors List that is associated to the event.
 
+Examples:
+- `viewEvent eid/2` followed by `removeVendor eid/2 vdr/2` deletes the 2nd vendor in the vendor list associated with the 2nd event.
+
+**Expected Command Result**
+![result for `removeVendor eid/2 vdr/2`](images/remove-vendor/result.png)
+
+**Invalid Command Results**
+![result for `removeVendor eid/2 vdr/3`](images/remove-vendor/invalid_vendor_index.png)
 
 ## Venue Features
 
