@@ -18,11 +18,11 @@ public class CreateVenueCommand extends Command {
 
     public static final String COMMAND_WORD = "venue";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a venue to EventWise. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a venue to EventWise. \n"
             + "Parameters: "
             + PREFIX_VENUE_NAME + "NAME "
             + PREFIX_VENUE_ADDRESS + "ADDRESS "
-            + PREFIX_VENUE_CAPACITY + "CAPACITY "
+            + PREFIX_VENUE_CAPACITY + "CAPACITY \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VENUE_NAME + "MPSH 1 "
             + PREFIX_VENUE_ADDRESS + "Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 "

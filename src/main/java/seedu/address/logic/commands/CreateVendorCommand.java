@@ -18,7 +18,7 @@ public class CreateVendorCommand extends Command {
 
     public static final String COMMAND_WORD = "vendor";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a vendor to EventWise. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a vendor to EventWise. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

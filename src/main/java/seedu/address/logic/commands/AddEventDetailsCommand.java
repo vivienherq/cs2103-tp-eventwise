@@ -28,7 +28,7 @@ public class AddEventDetailsCommand extends Command {
     public static final String COMMAND_WORD = "addEventDetails";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Add details to an event specified"
+            + ": Add details to an event specified "
             + "by the index number used in the last event listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "[" + PREFIX_PERSON + "INDEX] "
@@ -38,7 +38,7 @@ public class AddEventDetailsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Added to Event %1$d: %2$s\n%3$s";
     public static final String MESSAGE_EXISTING = "Already existing in Event %1$d: %2$s\n%3$s";
-    public static final String MESSAGE_NO_ACTION = "Please select person(s) to be added to the event "
+    public static final String MESSAGE_NO_ACTION = "Please select person(s) or vendor(s) to be added to the event "
             + "and/or set a venue to the event";
 
     public static final String MESSAGE_VENUE = "Venue: %1$s";
