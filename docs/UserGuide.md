@@ -379,6 +379,24 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+### Clearing all entries : `clearEvents`
+
+Clears all event entries from the address book.
+
+Format: `clearEvents`
+
+### Clearing all entries : `clearGuests`
+
+Clears all guest entries from the address book.
+
+Format: `clearGuests`
+
+### Clearing all entries : `clearVenues`
+
+Clears all venues from the address book.
+
+Format: `clearVenues`
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -411,20 +429,34 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+### Guest Command summary
 
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
-**Help** | `help`
-**Event** | `event n/NAME d/DESC from/DATE to/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023`
+
+### Event Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add Event** | `event n/NAME d/DESC from/DATE to/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023`
 **Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
-**View Events** | `ViewEvents`
-**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
-**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
 **Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
+**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
+**View All Events** | `ViewEvents`
+**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
 **RSVP** | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS` <br> e.g., `rsvp eid/1 pid/1 s/CC`
+
+### General Command summary
+
+Action | Format, Examples
+--------|------------------
+**Clear All** | `clear`
+**Clear Events** | `clearEvents`
+**Clear Guests** | `clearGuests`
+**Clear Venues** | `clearVenues`
+**Help** | `help`
