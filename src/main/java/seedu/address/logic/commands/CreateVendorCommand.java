@@ -29,7 +29,7 @@ public class CreateVendorCommand extends Command {
             + PREFIX_EMAIL + "catering@sun.com ";
 
     public static final String MESSAGE_SUCCESS = "New vendor added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This vendor already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_VENDOR = "This vendor already exists in the address book";
 
     private final Vendor toAdd;
 
@@ -46,7 +46,7 @@ public class CreateVendorCommand extends Command {
         requireNonNull(model);
 
         if (model.hasVendor(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_VENDOR);
         }
 
         model.addVendor(toAdd);

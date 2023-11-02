@@ -8,7 +8,12 @@ import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_VENUE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_OUT_OF_RANGE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENDOR;
 
 import java.util.HashSet;
 import java.util.List;

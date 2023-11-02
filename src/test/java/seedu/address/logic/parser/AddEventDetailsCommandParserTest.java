@@ -38,8 +38,8 @@ public class AddEventDetailsCommandParserTest {
                 PREFIX_VENUE, INDEX_FIRST_VENUE.getOneBased());
         System.out.println(userInput);
         HashSet<Index> expectedPersons = new HashSet<>();
-        expectedPersons.add(INDEX_SECOND_PERSON);
         HashSet<Index> expectedVendors = new HashSet<>();
+        expectedPersons.add(INDEX_SECOND_PERSON);
         AddEventDetailsCommand expectedCommand =
                 new AddEventDetailsCommand(INDEX_THIRD_EVENT, expectedPersons, expectedVendors, INDEX_FIRST_VENUE);
         assertParseSuccess(parser, userInput, expectedCommand);

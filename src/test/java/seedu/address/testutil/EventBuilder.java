@@ -83,9 +83,9 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code vendor} of the {@code Event} that we are building.
+     * Sets the {@code vendors} of the {@code Event} that we are building.
      */
-    public EventBuilder withVendors(List<Vendor> vendors){
+    public EventBuilder withVendors(List<Vendor> vendors) {
         this.vendors = vendors;
         return this;
     }

@@ -38,13 +38,15 @@ public class Event implements DisplayableListViewItem {
         this.description = description;
         this.date = date;
         this.persons = new ArrayList<>();
+        this.vendors = new ArrayList<>();
     }
 
     /**
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, Date date, List<Person> persons, List<Vendor> vendors, Venue venue) {
+    public Event(Name name, Description description, Date date,
+                 List<Person> persons, List<Vendor> vendors, Venue venue) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
@@ -76,6 +78,10 @@ public class Event implements DisplayableListViewItem {
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    public void setVendors(List<Vendor> vendors) {
+        this.vendors = vendors;
     }
 
     public Venue getVenue() {
@@ -148,7 +154,7 @@ public class Event implements DisplayableListViewItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, date, persons, venue);
+        return Objects.hash(name, description, date, persons, vendors, venue);
     }
 
     @Override

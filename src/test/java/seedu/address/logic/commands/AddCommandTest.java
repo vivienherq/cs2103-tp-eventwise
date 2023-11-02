@@ -198,7 +198,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, List<Vendor> vendorsToAdd, Venue venueToAdd) {
+        public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
+                                       List<Vendor> vendorsToAdd, Venue venueToAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
