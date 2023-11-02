@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NOTE;
 
 import java.util.stream.Stream;
 
@@ -27,10 +28,11 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
-                args, PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
+                args, PREFIX_EVENT_ID, PREFIX_EVENT_NAME, PREFIX_EVENT_DESC,
+                PREFIX_EVENT_DATE, PREFIX_EVENT_NOTE);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_EVENT_NAME,
-                PREFIX_EVENT_DESC, PREFIX_EVENT_DATE);
+                PREFIX_EVENT_DESC, PREFIX_EVENT_DATE, PREFIX_EVENT_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_ID)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -49,6 +51,9 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         }
         if (argMultimap.getValue(PREFIX_EVENT_DATE).isPresent()) {
             editEventDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EVENT_NOTE).isPresent()) {
+            editEventDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_EVENT_NOTE).get()));
         }
 
         if (!editEventDescriptor.isAnyFieldEdited()) {

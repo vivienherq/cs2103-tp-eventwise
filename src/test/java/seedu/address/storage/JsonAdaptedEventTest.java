@@ -18,10 +18,13 @@ public class JsonAdaptedEventTest {
     private static final String INVALID_NAME = "H@CKERTH0N";
     private static final String INVALID_DESCRIPTION = "+capture_%flag";
     private static final String INVALID_DATE = "31 Feb 2023";
+    private static final String INVALID_NOTE = "+capture_%flag";
 
     private static final String VALID_NAME = ACADEMIC.getName().toString();
     private static final String VALID_DESCRIPTION = ACADEMIC.getDescription().toString();
     private static final String VALID_DATE = ACADEMIC.getDate().toString();
+    private static final String VALID_NOTE = ACADEMIC.getNote().toString();
+
 
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {

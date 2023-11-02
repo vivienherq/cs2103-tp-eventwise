@@ -22,6 +22,7 @@ public class Event implements DisplayableListViewItem {
     private final Name name;
     private final Description description;
     private final Date date;
+    private final Note note;
     private List<Person> persons;
     private List<Vendor> vendors;
     private Venue venue;
@@ -32,11 +33,12 @@ public class Event implements DisplayableListViewItem {
      * 1. When an event is created no people are added to the event.
      * 2. When an event is created, the venue has not been set.
      */
-    public Event(Name name, Description description, Date date) {
+    public Event(Name name, Description description, Date date, Note note) {
         requireAllNonNull(name, description, date);
         this.name = name;
         this.description = description;
         this.date = date;
+        this.note = note;
         this.persons = new ArrayList<>();
         this.vendors = new ArrayList<>();
     }
@@ -51,6 +53,7 @@ public class Event implements DisplayableListViewItem {
         this.name = name;
         this.description = description;
         this.date = date;
+        this.note = note;
         this.persons = persons;
         this.vendors = vendors;
         this.venue = venue;
@@ -66,6 +69,10 @@ public class Event implements DisplayableListViewItem {
 
     public Date getDate() {
         return date;
+    }
+
+    public Note getNote() {
+        return note;
     }
 
     public List<Person> getPersons() {
@@ -163,6 +170,7 @@ public class Event implements DisplayableListViewItem {
                 .add("name", name)
                 .add("description", description)
                 .add("date", date)
+                .add("note", note)
                 .toString();
     }
 

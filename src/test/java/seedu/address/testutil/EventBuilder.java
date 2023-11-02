@@ -7,6 +7,7 @@ import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
@@ -19,10 +20,13 @@ public class EventBuilder {
     public static final String DEFAULT_NAME = "Freshman Social Camp 2023";
     public static final String DEFAULT_DESCRIPTION = "FSC 2023";
     public static final String DEFAULT_DATE = "01/09/2023";
+    public static final String DEFAULT_NOTE = "Food and drinks are provided";
+
 
     private Name name;
     private Description description;
     private Date date;
+    private Note note;
     private List<Person> persons;
     private List<Vendor> vendors;
     private Venue venue;
@@ -34,6 +38,7 @@ public class EventBuilder {
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
         date = new Date(DEFAULT_DATE);
+        note = new Note(DEFAULT_NOTE);
         persons = new ArrayList<>();
         vendors = new ArrayList<>();
     }
@@ -45,6 +50,7 @@ public class EventBuilder {
         name = eventToCopy.getName();
         description = eventToCopy.getDescription();
         date = eventToCopy.getDate();
+        note = eventToCopy.getNote();
         persons = eventToCopy.getPersons();
         vendors = eventToCopy.getVendors();
         venue = eventToCopy.getVenue();
@@ -71,6 +77,14 @@ public class EventBuilder {
      */
     public EventBuilder withDate(String date) {
         this.date = new Date(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code Event} that we are building.
+     */
+    public EventBuilder withNote(String note) {
+        this.note = new Note(note);
         return this;
     }
 

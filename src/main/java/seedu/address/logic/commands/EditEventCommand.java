@@ -21,6 +21,7 @@ import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.Note;
 
 /**
  * Edits the details of an existing event in the address book.
@@ -92,9 +93,9 @@ public class EditEventCommand extends Command {
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Date updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
+        Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
 
-
-        return new Event(updatedName, updatedDescription, updatedDate);
+        return new Event(updatedName, updatedDescription, updatedDate, updatedNote);
     }
 
     @Override
@@ -129,6 +130,7 @@ public class EditEventCommand extends Command {
         private Name name;
         private Description description;
         private Date date;
+        private Note note;
 
         public EditEventDescriptor() {}
 
@@ -140,13 +142,14 @@ public class EditEventCommand extends Command {
             setName(toCopy.name);
             setDescription(toCopy.description);
             setDate(toCopy.date);
+            setNote(toCopy.note);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, description, date);
+            return CollectionUtil.isAnyNonNull(name, description, date, note);
         }
 
         public void setName(Name name) {
@@ -173,6 +176,14 @@ public class EditEventCommand extends Command {
             return Optional.ofNullable(date);
         }
 
+        public void setNote(Note note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -196,6 +207,7 @@ public class EditEventCommand extends Command {
                     .add("name", name)
                     .add("description", description)
                     .add("date", date)
+                    .add("note", note)
                     .toString();
         }
     }
