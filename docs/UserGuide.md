@@ -147,13 +147,13 @@ Examples:
 
 ### Create Event: `event`
 
-This feature creates a new event object with the event name, description fromDate and time and is stored into the event list.
+This feature creates a new event object with the event name, description from date, to date and note and is stored into the event list.
 
-Format: `event n/NAME d/DESC dt/DT`
+Format: `event n/NAME d/DESC from/DT to/DT [no/NOTE]`
 
 Examples:
-* `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-04-2023`
-* `event n/FOC 2023 d/Freshman Orientation Camp 2023 dt/04-09-2023`
+* `event n/FSC 2023 d/Freshman Social Camp 2023 from/10-12-2023 to/11-12-2023`
+* `event n/FOC 2023 d/Freshman Orientation Camp 2023 from/04-12-2023 to/05-12-2023`
 
 **Expected Command Result**
 ```
@@ -171,7 +171,10 @@ Create Event Failed: Event name cannot be empty.
 Create Event Failed: Event description cannot be empty.
 ```
 ```
-Create Event Failed: Event datetime has to be in DD-MM-YYYY format.
+Create Event Failed: Event from date has to be in DD-MM-YYYY format.
+```
+```
+Create Event Failed: Event to date has after from date.
 ```
 
 ### Add Event Details: `addEventDetails`
@@ -227,7 +230,6 @@ View all the events in a list.
 **Expected Command Result**
 ![Ui](images/ViewEventsUI.png)
 
-
 ### View Event Details: `viewEvent`
 
 View details for a specified event.
@@ -264,7 +266,7 @@ Invalid Index
 
 This feature allows users to edit event details.
 
-Format: `editEvent id/ID [n/NAME] [d/DESC] [dt/DT]`
+Format: `editEvent id/ID [n/NAME] [d/DESC] [from/DT] [to/DT]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
@@ -313,6 +315,36 @@ Delete Event Failed: Invalid Event ID.
 ```
 Delete Event Failed: Event ID does not exist.
 
+### RSVP : `rsvp`
+
+Update RSVP status of a person for a specific event.
+
+Format: `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`
+
+* Set the RSVP status of the specified `EVENT_ID` and `PERSON_ID` to the new RSVP status.
+* The Event ID refers to the index number shown in the displayed event list.
+* The Person ID refers to the index number shown in the displayed person list.
+
+Examples:
+* `rsvp eid/1 pid/1 s/CC`
+* `rsvp eid/2 pid/2 s/CCC`
+
+**Expected Command Result**
+```
+RSVP status has been updated: FSC 2023, John Doe, Confirm Coming
+```
+
+**Invalid Command Results**
+```
+Event or Person does not exist!
+```
+```
+Value of RSVP Status can only be CC, CCC or TBC.
+```
+```
+John Doe 2 has not been added to FSC 2023!
+```
+
 ### Find Event: `findEvent`
 
 Finds event whose names contain any of the given keywords.
@@ -345,14 +377,13 @@ Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
 
 ### Remove Person From Event: `removeVendor`
 
-
 ## Venue Features
 
-### Create Venue: `venue` `[coming in v1.3]`
+### Create Venue: `venue`
 
 This feature creates a new venue object with the venue name, address, capacity, and is stored into the venue list.
 
-Format: `venue name/<name> addr/<address> cap/<capacity>`
+Format: `venue name/NAME addr/ADDRESS cap/CAPACITY`
 
 Examples:
 * `venue name/LT 27 addr/Lower Kent Ridge Road cap/400`
@@ -398,6 +429,24 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+### Clearing all entries : `clearEvents`
+
+Clears all event entries from the address book.
+
+Format: `clearEvents`
+
+### Clearing all entries : `clearGuests`
+
+Clears all guest entries from the address book.
+
+Format: `clearGuests`
+
+### Clearing all entries : `clearVenues`
+
+Clears all venues from the address book.
+
+Format: `clearVenues`
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -430,20 +479,34 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+### Guest Command summary
 
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
-**Help** | `help`
-**Event** | `event n/NAME d/DESC dt/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 dt/10-10-2023`
-**Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
-**View Events** | `ViewEvents`
-**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
-**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [dt/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
-**Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
 
+### Event Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add Event** | `event n/NAME d/DESC from/DATE to/DATE` <br> e.g., `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023`
+**Add Event Details** | `addEventDetails id/EVENT_ID [person/INDEX] [venue/VENUE_ID] [vendor/VENDOR_ID]` <br> e.g., `addEventDetails 3 person/2`
+**Delete Event** | `deleteEvent id/EVENT_ID` <br> e.g., `deleteEvent 1`
+**Edit Event** | `editEvent id/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]` <br> e.g., `editEvent id/1 d/Freshman Orientation Camp 2024`
+**View All Events** | `ViewEvents`
+**View Event** | `viewEvent id/ID` <br> e.g., `viewEvent 1`
+**RSVP** | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS` <br> e.g., `rsvp eid/1 pid/1 s/CC`
+
+### General Command summary
+
+Action | Format, Examples
+--------|------------------
+**Clear All** | `clear`
+**Clear Events** | `clearEvents`
+**Clear Guests** | `clearGuests`
+**Clear Venues** | `clearVenues`
+**Help** | `help`
