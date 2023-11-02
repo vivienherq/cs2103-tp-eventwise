@@ -46,6 +46,8 @@ public class EventBuilder {
         description = eventToCopy.getDescription();
         date = eventToCopy.getDate();
         persons = eventToCopy.getPersons();
+        vendors = eventToCopy.getVendors();
+        venue = eventToCopy.getVenue();
     }
 
     /**
