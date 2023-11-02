@@ -18,7 +18,7 @@ public class EventDetailsDisplay extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label fromDate;
+    private Label date;
     @FXML
     private Label venueName;
     @FXML
@@ -41,7 +41,7 @@ public class EventDetailsDisplay extends UiPart<Region> {
 
         eventName.setText(event.getName().toString());
         description.setText(event.getDescription().toString());
-        fromDate.setText("Date: " + event.getFromDate().toString());
+        date.setText("Date: " + event.getFromDate().toString() + " to " + event.getToDate().toString());
 
         if (event.getNote() != null && !event.getNote().toString().isEmpty()) {
             note.setText("Note: " + event.getNote().toString());
@@ -59,7 +59,7 @@ public class EventDetailsDisplay extends UiPart<Region> {
     private void clearEventDetails() {
         eventName.setText("");
         description.setText("");
-        fromDate.setText("");
+        date.setText("");
         note.setText("");
         clearVenueDetails();
     }
