@@ -3,8 +3,9 @@ package seedu.address.model.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TO_DATE_CAREER_FAIR;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.FOC;
 import static seedu.address.testutil.TypicalEvents.FSC;
@@ -43,7 +44,8 @@ public class UniqueEventListTest {
         uniqueEventList.add(FSC);
         Event editedFsc = new EventBuilder(FSC)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
-                .withDate(VALID_EVENT_DATE_CAREER_FAIR)
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR)
                 .build();
         assertTrue(uniqueEventList.contains(editedFsc));
     }
@@ -88,7 +90,8 @@ public class UniqueEventListTest {
         uniqueEventList.add(FSC);
         Event editedFsc = new EventBuilder(FSC)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
-                .withDate(VALID_EVENT_DATE_CAREER_FAIR)
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR)
                 .build();
         uniqueEventList.setEvent(FSC, editedFsc);
         UniqueEventList expectedUniqueEventList = new UniqueEventList();

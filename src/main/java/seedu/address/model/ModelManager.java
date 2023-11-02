@@ -234,12 +234,12 @@ public class ModelManager implements Model {
         for (Person person: personsToAdd) {
             currentAttendees.add(person);
         }
-
         for (Vendor vendor: vendorsToAdd) {
             currentVendors.add(vendor);
         }
 
-        return new Event(eventToEdit.getName(), eventToEdit.getDescription(), eventToEdit.getDate(),
+        return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
+                eventToEdit.getFromDate(), eventToEdit.getToDate(),
                 eventToEdit.getNote(), currentAttendees, currentVendors, venueToAdd);
     }
 
