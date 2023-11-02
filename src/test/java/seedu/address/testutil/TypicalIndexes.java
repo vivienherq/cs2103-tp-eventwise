@@ -22,6 +22,7 @@ public class TypicalIndexes {
 
     // Vendors
     public static final Index INDEX_FIRST_VENDOR = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_VENDOR = Index.fromOneBased(2);
 
     // General Use
     public static final Index INDEX_OUT_OF_RANGE = Index.fromOneBased(100);

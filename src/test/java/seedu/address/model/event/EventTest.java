@@ -15,7 +15,7 @@ public class EventTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Event(null, null, null));
+        assertThrows(NullPointerException.class, () -> new Event(null, null, null, null));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class EventTest {
     @Test
     public void toStringMethod() {
         String expected = Event.class.getCanonicalName() + "{name=" + FSC.getName() + ", description="
-                + FSC.getDescription() + ", date=" + FSC.getDate() + "}";
+                + FSC.getDescription() + ", date=" + FSC.getDate() + ", note=" + FSC.getNote() + "}";
         assertEquals(expected, FSC.toString());
     }
 }
