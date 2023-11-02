@@ -133,10 +133,10 @@ class JsonAdaptedEvent {
         final List<Vendor> modelVendors = new ArrayList<>(vendorList);
 
         if (venue == null) {
-            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVendors, null);
+            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, modelVendors, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelDate, modelPersons, modelVendors, modelVenue);
+            return new Event(modelName, modelDescription, modelDate, modelNote, modelPersons, modelVendors, modelVenue);
         }
     }
 }
