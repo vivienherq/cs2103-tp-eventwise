@@ -41,7 +41,8 @@ public class EventDetailsDisplay extends UiPart<Region> {
 
         eventName.setText(event.getName().toString());
         description.setText(event.getDescription().toString());
-        date.setText("Date: " + event.getDate().toString());
+        date.setText("Date: " + event.getFromDate().toString() + " to " + event.getToDate().toString());
+
         if (event.getNote() != null && !event.getNote().toString().isEmpty()) {
             note.setText("Note: " + event.getNote().toString());
         }

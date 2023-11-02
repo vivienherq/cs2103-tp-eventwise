@@ -26,7 +26,7 @@ public class ViewEventsCommand extends Command {
         for (int i = 0; i < eventList.size(); i++) {
             Event event = eventList.get(i);
             events += String.format("%d: %s; Description: %s; Date: %s\n", i + 1,
-                    event.getName(), event.getDescription(), event.getDate());
+                    event.getName(), event.getDescription(), event.getFromDate());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, events));
     }

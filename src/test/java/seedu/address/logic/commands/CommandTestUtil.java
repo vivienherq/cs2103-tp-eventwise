@@ -3,10 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -42,11 +43,13 @@ public class CommandTestUtil {
 
     public static final String VALID_EVENT_NAME_CAREER_FAIR = "Career Fair";
     public static final String VALID_EVENT_DESCRIPTION_CAREER_FAIR = "Over 100 companies will be present";
-    public static final String VALID_EVENT_DATE_CAREER_FAIR = "14-11-2024";
+    public static final String VALID_EVENT_FROM_DATE_CAREER_FAIR = "14-11-2024";
+    public static final String VALID_EVENT_TO_DATE_CAREER_FAIR = "15-11-2024";
 
     public static final String VALID_EVENT_NAME_FSC = "FSC 2024";
     public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2024";
-    public static final String VALID_EVENT_DATE_FSC = "12-09-2024";
+    public static final String VALID_EVENT_FROM_DATE_FSC = "12-09-2024";
+    public static final String VALID_EVENT_TO_DATE_FSC = "15-09-2024";
 
     // Person Prefixes
 
@@ -61,11 +64,16 @@ public class CommandTestUtil {
     public static final String EVENT_ID_CAREER_FAIR = " " + PREFIX_EVENT_ID + 1;
     public static final String EVENT_NAME_CAREER_FAIR = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_CAREER_FAIR;
     public static final String EVENT_DESC_CAREER_FAIR = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_CAREER_FAIR;
-    public static final String EVENT_DT_CAREER_FAIR = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_CAREER_FAIR;
+    public static final String EVENT_FROM_DATE_CAREER_FAIR = " " + PREFIX_EVENT_FROM
+            + VALID_EVENT_FROM_DATE_CAREER_FAIR;
+    public static final String EVENT_TO_DATE_CAREER_FAIR = " " + PREFIX_EVENT_TO + VALID_EVENT_TO_DATE_CAREER_FAIR;
+
     public static final String EVENT_ID_FSC = " " + PREFIX_EVENT_ID + 2;
     public static final String EVENT_NAME_FSC = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_FSC;
     public static final String EVENT_DESC_FSC = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_FSC;
-    public static final String EVENT_DT_FSC = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_FSC;
+    public static final String EVENT_FROM_DATE_FSC = " " + PREFIX_EVENT_FROM + VALID_EVENT_FROM_DATE_FSC;
+    public static final String EVENT_TO_DATE_FSC = " " + PREFIX_EVENT_TO + VALID_EVENT_TO_DATE_FSC;
+
 
     // '&' not allowed in names
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
@@ -78,7 +86,9 @@ public class CommandTestUtil {
     // '' not allowed in descriptions
     public static final String INVALID_EVENT_DESC = " " + PREFIX_EVENT_DESC;
     // '&30-30-2000 not allowed in dates
-    public static final String INVALID_EVENT_DATE = " " + PREFIX_EVENT_DATE + "30-30-2000";
+    public static final String INVALID_EVENT_FROM_DATE = " " + PREFIX_EVENT_FROM + "30-30-2000";
+    public static final String INVALID_EVENT_TO_DATE = " " + PREFIX_EVENT_TO + "30-30-2000";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -96,9 +106,11 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .build();
         DESC_FSC = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_FSC)
-                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withDate(VALID_EVENT_DATE_FSC).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withFromDate(VALID_EVENT_FROM_DATE_FSC)
+                .withToDate(VALID_EVENT_TO_DATE_FSC).build();
         DESC_CAREER = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_CAREER_FAIR)
-                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_FROM_DATE_CAREER_FAIR).build();
     }
 
     /**

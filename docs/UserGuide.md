@@ -30,6 +30,23 @@ title: User Guide
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## User Interface Components
+This section defines and explains the components used in EventWise's UI. 
+![EventWise UI Components](images/UiComponents.png)
+### 1. Main List
+The Main List serves as the primary view to display a range of data types within the application which includes events, persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with the displayed content.
+
+### 2. Event Details
+The Event Details component provides users with in-depth information about a specific event or item from the Main List
+
+#### 2a. Person List
+
+#### 2b. Vendor List
+
+### 3. Command Result
+
+### 4. Command Input
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -213,12 +230,11 @@ View all the events in a list.
 **Expected Command Result**
 ![Ui](images/ViewEventsUI.png)
 
-
 ### View Event Details: `viewEvent`
 
 View details for a specified event.
 
-Format: `viewEvent id/EVENT_ID`
+Format: `viewEvent eid/EVENT_ID`
 
 **Event details to be displayed**
 - Event Name
@@ -226,7 +242,7 @@ Format: `viewEvent id/EVENT_ID`
 - Date / Time
 - Venue Name
 - Guest List
-- Vendor List (coming in v1.3)
+- Vendor List
 
 * Displays the details for the event at the specified `EVENT_ID` from the event list.
 * The Event ID refers to the index number shown in the displayed event list.
@@ -236,17 +252,15 @@ Examples:
 * `viewEvents` followed by `viewEvent 3` shows the details of the 3rd event in the event list.
 
 **Expected Command Result**
-```
-Showing Event 3: FOC
-```
+![Expected Result UI](images/view-event/result.png)
 
 **Invalid Command Results**
-```
-View Event Details Failed: Invalid Event ID format.
-```
-```
-View Event Details Failed: Event ID does not exist.
-```
+
+Non Integer Index
+![Ui](images/view-event/non_integer_index.png)
+
+Invalid Index
+![](images/view-event/invalid_index.png)
 
 ### Edit Event: `editEvent`
 
@@ -330,6 +344,38 @@ Value of RSVP Status can only be CC, CCC or TBC.
 ```
 John Doe 2 has not been added to FSC 2023!
 ```
+
+### Find Event: `findEvent`
+
+Finds event whose names contain any of the given keywords.
+
+Format: `findEvent KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `caReer` will match `Career`
+* The order of the keywords does not matter. e.g. `Sports Day` will match `Day Sports`
+* Only the event name is searched.
+* Only full words will be matched e.g. `Sport` will not match `Sports`
+* Events matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Fair Day` will return `Career Fair`, `Sports Day`
+
+Examples:
+* `findEvent Fair` returns `Career Fair` and `Student Life Fair`
+* `findEvent supernova lifeHack` returns `Supernova`, `LifeHack`<br>
+
+![result for 'findEvent Supernova LifeHack'](images/find-event/result.png)
+
+### Remove Person From Event: `removePerson`
+
+Removes a person from a specified event
+
+Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
+- The Event ID refers to the index number displayed in Main List
+  - To view all events, type the `viewEvents` command.
+- The Person ID refers to the index number displayed in the Persons List inside the event details
+  - Note: 
+
+
+### Remove Person From Event: `removeVendor`
 
 ## Venue Features
 

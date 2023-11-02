@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -45,6 +46,7 @@ public class AddEventDetailsCommand extends Command {
     private final Index index;
 
     private final Set<Index> personIndexes;
+    private final Set<Index> vendorIndexes;
 
     private final Index venueIndex;
 
@@ -52,9 +54,10 @@ public class AddEventDetailsCommand extends Command {
      * @param index of the event in the event list to add event details
      * @param personIndexes of persons to be added to the event
      */
-    public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Index venueIndex) {
+    public AddEventDetailsCommand(Index index, Set<Index> personIndexes, Set<Index> vendorIndexes, Index venueIndex) {
         this.index = index;
         this.personIndexes = personIndexes;
+        this.vendorIndexes = vendorIndexes;
         this.venueIndex = venueIndex;
     }
 
@@ -75,7 +78,9 @@ public class AddEventDetailsCommand extends Command {
         // Retrieves a list of persons that the user is trying to add
         List<Person> personsToAdd = model.getPersons(personIndexes);
 
-        if (personsToAdd.isEmpty() && venueIndex == null) {
+        List<Vendor> vendorsToAdd = model.getVendors(vendorIndexes);
+
+        if (personsToAdd.isEmpty() && vendorsToAdd.isEmpty() && venueIndex == null) {
             throw new CommandException(MESSAGE_NO_ACTION);
         }
 
@@ -87,21 +92,31 @@ public class AddEventDetailsCommand extends Command {
         List<Person> newPersons = personsToAdd.stream()
                 .filter(person -> !existingPersons.contains(person)).collect(Collectors.toList());
 
+        // Find the existing vendors in an event that we are trying to add.
+        List<Vendor> existingVendors = new ArrayList<>(eventToEdit.getVendors());
+        existingVendors.retainAll(vendorsToAdd);
+
+        // Get the new vendors we are trying to add.
+        List<Vendor> newVendors = vendorsToAdd.stream()
+                .filter(vendor -> !existingVendors.contains(vendor)).collect(Collectors.toList());
+
         // Retrieve the venue that the user is trying to add if any.
         Venue venueToAdd = model.getVenue(venueIndex);
 
         // Edited event
-        Event editedEvent = model.createEditedEvent(eventToEdit, newPersons, venueToAdd);
+        Event editedEvent = model.createEditedEvent(eventToEdit, newPersons, newVendors, venueToAdd);
         model.setEvent(eventToEdit, editedEvent);
 
         // Result messages
         String successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
-                index.getOneBased(), eventToEdit.getName(), getPersonNames(newPersons));
+                index.getOneBased(), eventToEdit.getName(), getPersonNames(newPersons), getVendorNames(newVendors));
         String existingPersonsMessage = String.format(MESSAGE_EXISTING,
                 index.getOneBased(), eventToEdit.getName(), getPersonNames(existingPersons));
+        String existingVendorsMessage = String.format(MESSAGE_EXISTING,
+                index.getOneBased(), eventToEdit.getName(), getVendorNames(existingVendors));
 
         // Venue to add
-        if (venueToAdd != null && newPersons.isEmpty()) {
+        if (venueToAdd != null && newPersons.isEmpty() && newVendors.isEmpty()) {
             String venueMessage = String.format(MESSAGE_VENUE, venueToAdd.getName());
             successfullyAddedMessage = String.format(MESSAGE_SUCCESS,
                     index.getOneBased(), eventToEdit.getName(), venueMessage);
@@ -112,10 +127,19 @@ public class AddEventDetailsCommand extends Command {
         // Set edited event to be shown in the UI
         model.setEventToView(editedEvent);
 
-        if (!existingPersons.isEmpty() && newPersons.isEmpty()) {
+        if (!existingPersons.isEmpty() && newPersons.isEmpty() && !existingVendors.isEmpty() && newVendors.isEmpty()) {
+            throw new CommandException(existingPersonsMessage + existingVendorsMessage);
+        } else if (!existingPersons.isEmpty() && newPersons.isEmpty()) {
             throw new CommandException(existingPersonsMessage);
+        } else if (!existingVendors.isEmpty() && newVendors.isEmpty()) {
+            throw new CommandException(existingVendorsMessage);
+        } else if (!existingPersons.isEmpty() && !existingVendors.isEmpty()) {
+            return new CommandResult(String.format("%s\n%s\n%s",
+                    successfullyAddedMessage, existingPersonsMessage, existingVendorsMessage));
         } else if (!existingPersons.isEmpty()) {
             return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingPersonsMessage));
+        } else if (!existingVendors.isEmpty()) {
+            return new CommandResult(String.format("%s\n%s", successfullyAddedMessage, existingVendorsMessage));
         } else {
             return new CommandResult(successfullyAddedMessage);
         }
@@ -127,6 +151,19 @@ public class AddEventDetailsCommand extends Command {
             Person person = persons.get(i);
             stringBuilder.append(person.getName().toString());
             if (i < persons.size() - 1) {
+                stringBuilder.append(System.lineSeparator());
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private String getVendorNames(List<Vendor> vendors) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < vendors.size(); i++) {
+            Vendor vendor = vendors.get(i);
+            stringBuilder.append(vendor.getName().toString());
+            if (i < vendors.size() - 1) {
                 stringBuilder.append(System.lineSeparator());
             }
         }

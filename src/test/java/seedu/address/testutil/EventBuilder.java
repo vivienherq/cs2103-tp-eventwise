@@ -3,12 +3,14 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -18,15 +20,19 @@ public class EventBuilder {
 
     public static final String DEFAULT_NAME = "Freshman Social Camp 2023";
     public static final String DEFAULT_DESCRIPTION = "FSC 2023";
-    public static final String DEFAULT_DATE = "01/09/2023";
+    public static final String DEFAULT_FROM_DATE = "01/12/2024";
+    public static final String DEFAULT_TO_DATE = "02/12/2024";
+
     public static final String DEFAULT_NOTE = "Food and drinks are provided";
 
 
     private Name name;
     private Description description;
-    private Date date;
+    private FromDate fromDate;
+    private ToDate toDate;
     private Note note;
     private List<Person> persons;
+    private List<Vendor> vendors;
     private Venue venue;
 
     /**
@@ -35,9 +41,11 @@ public class EventBuilder {
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
-        date = new Date(DEFAULT_DATE);
+        fromDate = new FromDate(DEFAULT_FROM_DATE);
+        toDate = new ToDate(DEFAULT_TO_DATE);
         note = new Note(DEFAULT_NOTE);
         persons = new ArrayList<>();
+        vendors = new ArrayList<>();
     }
 
     /**
@@ -46,9 +54,12 @@ public class EventBuilder {
     public EventBuilder(Event eventToCopy) {
         name = eventToCopy.getName();
         description = eventToCopy.getDescription();
-        date = eventToCopy.getDate();
+        fromDate = eventToCopy.getFromDate();
+        toDate = eventToCopy.getToDate();
         note = eventToCopy.getNote();
         persons = eventToCopy.getPersons();
+        vendors = eventToCopy.getVendors();
+        venue = eventToCopy.getVenue();
     }
 
     /**
@@ -68,10 +79,18 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code Event} that we are building.
+     * Sets the {@code FromDate} of the {@code Event} that we are building.
      */
-    public EventBuilder withDate(String date) {
-        this.date = new Date(date);
+    public EventBuilder withFromDate(String date) {
+        this.fromDate = new FromDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ToDate} of the {@code Event} that we are building.
+     */
+    public EventBuilder withToDate(String date) {
+        this.toDate = new ToDate(date);
         return this;
     }
 
@@ -92,6 +111,14 @@ public class EventBuilder {
     }
 
     /**
+     * Sets the {@code vendors} of the {@code Event} that we are building.
+     */
+    public EventBuilder withVendors(List<Vendor> vendors) {
+        this.vendors = vendors;
+        return this;
+    }
+
+    /**
      * Sets the {@code venue} of the {@code Event} that we are building.
      */
     public EventBuilder withVenue(Venue venue) {
@@ -100,6 +127,6 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, description, date, note, persons, venue);
+        return new Event(name, description, fromDate, toDate, note, persons, vendors, venue);
     }
 }

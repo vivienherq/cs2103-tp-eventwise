@@ -224,16 +224,23 @@ public class ModelManager implements Model {
     // Venues
 
     @Override
-    public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd, Venue venueToAdd) {
+    public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
+                                   List<Vendor> vendorsToAdd, Venue venueToAdd) {
         // Using set ensures that we don't add duplicate people into an event
         List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
+
+        List<Vendor> currentVendors = new ArrayList<>(eventToEdit.getVendors());
 
         for (Person person: personsToAdd) {
             currentAttendees.add(person);
         }
+        for (Vendor vendor: vendorsToAdd) {
+            currentVendors.add(vendor);
+        }
 
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
-                eventToEdit.getDate(), eventToEdit.getNote(), currentAttendees, venueToAdd);
+                eventToEdit.getFromDate(), eventToEdit.getToDate(),
+                eventToEdit.getNote(), currentAttendees, currentVendors, venueToAdd);
     }
 
     @Override
@@ -282,6 +289,25 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedVendor);
 
         addressBook.setVendor(target, editedVendor);
+    }
+
+    @Override
+    public Vendor getVendor(Index index) throws CommandException {
+        if (index.getZeroBased() > addressBook.getVendorList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
+        }
+        return filteredVendors.get(index.getZeroBased());
+    }
+
+    @Override
+    public List<Vendor> getVendors(Set<Index> indices) throws CommandException {
+        List<Vendor> vendorList = new ArrayList<>();
+
+        for (Index index : indices) {
+            vendorList.add(getVendor(index));
+        }
+
+        return vendorList;
     }
 
     @Override

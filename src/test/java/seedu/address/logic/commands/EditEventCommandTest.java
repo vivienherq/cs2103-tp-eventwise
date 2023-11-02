@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CAREER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FSC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TO_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -58,10 +59,13 @@ public class EditEventCommandTest {
         EventBuilder eventInList = new EventBuilder(lastEvent);
         Event editedEvent = eventInList.withName(VALID_EVENT_NAME_CAREER_FAIR)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
-                .withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR).build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_CAREER_FAIR)
-                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR).build();
         EditEventCommand editEventCommand = new EditEventCommand(indexLastEvent, descriptor);
 
         String expectedMessage = String.format(EditEventCommand
