@@ -220,8 +220,10 @@ public class ModelManager implements Model {
     public void setEventToView(Event event) {
         if (event == null) {
             addressBook.setEventAttendees(new ArrayList<>());
+            addressBook.setEventVendors(new ArrayList<>());
         } else {
             addressBook.setEventAttendees(event.getPersons());
+            addressBook.setEventVendors(event.getVendors());
         }
         this.eventToView = event;
     }
@@ -231,9 +233,8 @@ public class ModelManager implements Model {
     @Override
     public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
                                    List<Vendor> vendorsToAdd, Venue venueToAdd) {
-        // Using set ensures that we don't add duplicate people into an event
-        List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
 
+        List<Person> currentAttendees = new ArrayList<>(eventToEdit.getPersons());
         List<Vendor> currentVendors = new ArrayList<>(eventToEdit.getVendors());
 
         for (Person person: personsToAdd) {
@@ -243,9 +244,11 @@ public class ModelManager implements Model {
             currentVendors.add(vendor);
         }
 
+        Venue venueToStore = (venueToAdd == null) ? eventToEdit.getVenue() : venueToAdd;
+
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
                 eventToEdit.getFromDate(), eventToEdit.getToDate(),
-                eventToEdit.getNote(), currentAttendees, currentVendors, venueToAdd);
+                eventToEdit.getNote(), currentAttendees, currentVendors, venueToStore);
     }
 
     @Override
