@@ -28,7 +28,7 @@ public class AddEventDetailsCommand extends Command {
     public static final String COMMAND_WORD = "addEventDetails";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Add details to an event specified"
+            + ": Add details to an event specified "
             + "by the index number used in the last event listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "[" + PREFIX_PERSON + "INDEX] "

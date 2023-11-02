@@ -20,6 +20,7 @@ import seedu.address.model.venue.Venue;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com")),
@@ -33,53 +34,89 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event(new seedu.address.model.event.Name("LifeHack"),
+            new Event(
+                new seedu.address.model.event.Name("LifeHack"),
                 new Description("Show off your coding prowess in a friendly contest"),
-                new FromDate("24-12-2023"), new ToDate("25-12-2023"), null),
-            new Event(new seedu.address.model.event.Name("Math Olympiad"),
+                new FromDate("24-12-2023"),
+                new ToDate("25-12-2023"),
+                null
+            ),
+            new Event(
+                new seedu.address.model.event.Name("Math Olympiad"),
                 new Description("Test your math skills in a challenging competition"),
-                new FromDate("03-01-2024"), new ToDate("04-01-2024"), null),
-            new Event(new seedu.address.model.event.Name("Career Fair"),
-                    new Description("Get insights on different career paths"),
-                    new FromDate("08-01-2024"), new ToDate("09-01-2024"), new Note("Its in 2024")),
-            new Event(new seedu.address.model.event.Name("Supernova"),
-                    new Description("All night of partying with a lit DJ lineup"),
-                    new FromDate("03-02-2024"), new ToDate("04-02-2024"), null),
+                new FromDate("03-01-2024"),
+                new ToDate("04-01-2024"),
+                null
+            ),
+            new Event(
+                new seedu.address.model.event.Name("Career Fair"),
+                new Description("Get insights on different career paths"),
+                new FromDate("08-01-2024"),
+                new ToDate("09-01-2024"),
+                new Note("Its in 2024")
+            ),
+            new Event(
+                new seedu.address.model.event.Name("Supernova"),
+                new Description("All night of partying with a lit DJ lineup"),
+                new FromDate("03-02-2024"),
+                new ToDate("04-02-2024"),
+                null
+            ),
         };
     }
 
     public static Vendor[] getSampleVendors() {
         return new Vendor[] {
-                new Vendor(
-                        new seedu.address.model.vendor.Name("Catering"),
-                        new seedu.address.model.vendor.Phone("64646262"),
-                        new seedu.address.model.vendor.Email("catering@gmail.com")
-                ),
-                new Vendor(
-                        new seedu.address.model.vendor.Name("AV Equipment"),
-                        new seedu.address.model.vendor.Phone("61234567"),
-                        new seedu.address.model.vendor.Email("soundcheck@gmail.com")
-                ),
+            new Vendor(
+                new seedu.address.model.vendor.Name("Sun Caters"),
+                new seedu.address.model.vendor.Phone("64266426"),
+                new seedu.address.model.vendor.Email("catering@sun.com")
+            ),
+            new Vendor(
+                new seedu.address.model.vendor.Name("UNS Decorates"),
+                new seedu.address.model.vendor.Phone("67896789"),
+                new seedu.address.model.vendor.Email("decorate@uns.com")
+            ),
+            new Vendor(
+                new seedu.address.model.vendor.Name("NSU Drinks"),
+                new seedu.address.model.vendor.Phone("67896789"),
+                new seedu.address.model.vendor.Email("decorate@uns.com")
+            ),
+            new Vendor(
+                new seedu.address.model.vendor.Name("AV Rental"),
+                new seedu.address.model.vendor.Phone("69825345"),
+                new seedu.address.model.vendor.Email("contact@avrental.com.sg")
+            ),
         };
     }
 
     public static Venue[] getSampleVenues() {
         return new Venue[] {
-                new Venue(new seedu.address.model.venue.Name("MPSH 1"),
-                        new Address("Sports Drive"),
-                        new Capacity("400")),
-                new Venue(new seedu.address.model.venue.Name("LT27"),
-                        new Address("Lower Kent Ridge Rd"),
-                        new Capacity("400")),
-                new Venue(new seedu.address.model.venue.Name("University Cultural Centre"),
-                        new Address("50 Kent Ridge Crescent Singapore 119279"),
-                        new Capacity("1000")),
-                new Venue(new seedu.address.model.venue.Name("Central Library"),
-                        new Address("12 Kent Ridge Crescent Singapore 119275"),
-                        new Capacity("300")),
-                new Venue(new seedu.address.model.venue.Name("I3 Auditorium"),
-                        new Address("21 Heng Mui Keng Terrace"),
-                        new Capacity("400")),
+            new Venue(
+                new seedu.address.model.venue.Name("MPSH 1"),
+                new Address("Sports Drive"),
+                new Capacity("400")
+            ),
+            new Venue(
+                new seedu.address.model.venue.Name("LT27"),
+                new Address("Lower Kent Ridge Rd"),
+                new Capacity("400")
+            ),
+            new Venue(
+                new seedu.address.model.venue.Name("University Cultural Centre"),
+                new Address("50 Kent Ridge Crescent Singapore 119279"),
+                new Capacity("1000")
+            ),
+            new Venue(
+                new seedu.address.model.venue.Name("Central Library"),
+                new Address("12 Kent Ridge Crescent Singapore 119275"),
+                new Capacity("300")
+            ),
+            new Venue(
+                new seedu.address.model.venue.Name("I3 Auditorium"),
+                new Address("21 Heng Mui Keng Terrace"),
+                new Capacity("400")
+            ),
         };
     }
 

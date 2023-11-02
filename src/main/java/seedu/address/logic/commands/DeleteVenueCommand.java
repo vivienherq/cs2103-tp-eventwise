@@ -9,6 +9,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.venue.Venue;
 
 /**
@@ -44,6 +45,32 @@ public class DeleteVenueCommand extends Command {
         model.deleteVenue(venueToDelete);
         String venueDetails = String.format("%s; Address: %s; Capacity: %s\n",
                 venueToDelete.getName(), venueToDelete.getAddress(), venueToDelete.getCapacity());
+
+        // Check if event contains venueToDelete, if true, set event venue to null
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getVenue() == null) {
+                continue;
+            }
+
+            if (event.getVenue().isSameVenue(venueToDelete)) {
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
+                        event.getVendors(), null);
+                model.setEvent(event, updatedEvent);
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null && eventToView.getVenue() != null;
+        if (isNotNull && eventToView.getVenue().isSameVenue(venueToDelete)) {
+            Event currentlyShownEvent = model.getEventToView();
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    currentlyShownEvent.getPersons(), currentlyShownEvent.getVendors(), null);
+            model.setEventToView(updatedEvent);
+        }
+
         model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);
 
         return new CommandResult(String.format(MESSAGE_DELETE_VENUE_SUCCESS, targetIndex.getOneBased(), venueDetails));

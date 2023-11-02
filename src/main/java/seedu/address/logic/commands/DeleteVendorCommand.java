@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -9,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.vendor.Vendor;
 
 /**
@@ -42,6 +44,32 @@ public class DeleteVendorCommand extends Command {
 
         Vendor vendorToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteVendor(vendorToDelete);
+
+        // Check if event contains vendorToDelete, if true, remove vendor from the event's vendor list
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getVendors().contains(vendorToDelete)) {
+                List<Vendor> editedVendorList = new ArrayList<>(event.getVendors());
+                editedVendorList.remove(vendorToDelete);
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
+                        editedVendorList, event.getVenue());
+                model.setEvent(event, updatedEvent);
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null;
+        if (isNotNull && eventToView.getVendors().contains(vendorToDelete)) {
+            Event currentlyShownEvent = model.getEventToView();
+            List<Vendor> editedVendorList = new ArrayList<>(currentlyShownEvent.getVendors());
+            editedVendorList.remove(vendorToDelete);
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    currentlyShownEvent.getPersons(), editedVendorList, currentlyShownEvent.getVenue());
+            model.setEventToView(updatedEvent);
+        }
+
         model.updateFilteredVendorList(Model.PREDICATE_SHOW_ALL_VENDOR);
 
         return new CommandResult(String.format(MESSAGE_DELETE_VENDOR_SUCCESS, Messages.format(vendorToDelete)));

@@ -244,9 +244,11 @@ public class ModelManager implements Model {
             currentVendors.add(vendor);
         }
 
+        Venue venueToStore = (venueToAdd == null) ? eventToEdit.getVenue() : venueToAdd;
+
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
                 eventToEdit.getFromDate(), eventToEdit.getToDate(),
-                eventToEdit.getNote(), currentAttendees, currentVendors, venueToAdd);
+                eventToEdit.getNote(), currentAttendees, currentVendors, venueToStore);
     }
 
     @Override
