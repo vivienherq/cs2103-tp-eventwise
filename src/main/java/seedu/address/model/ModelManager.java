@@ -233,7 +233,7 @@ public class ModelManager implements Model {
         }
 
         return new Event(eventToEdit.getName(), eventToEdit.getDescription(),
-                eventToEdit.getDate(), currentAttendees, venueToAdd);
+                eventToEdit.getDate(), eventToEdit.getNote(), currentAttendees, venueToAdd);
     }
 
     @Override

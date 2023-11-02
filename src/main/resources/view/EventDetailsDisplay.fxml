@@ -13,6 +13,7 @@
          <Label fx:id="venueName" styleClass="event_description_small_label" />
          <Label fx:id="address" styleClass="event_description_small_label" />
          <Label fx:id="capacity" styleClass="event_description_small_label" />
+         <Label fx:id="note" styleClass="event_description_small_label" />
       </VBox>
    </children>
 </VBox>
