@@ -113,6 +113,6 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, description, date, persons, vendors, venue);
+        return new Event(name, description, date, note, persons, vendors, venue);
     }
 }
