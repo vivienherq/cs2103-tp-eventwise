@@ -39,8 +39,9 @@ public class AddEventDetailsCommandParserTest {
         System.out.println(userInput);
         HashSet<Index> expectedPersons = new HashSet<>();
         expectedPersons.add(INDEX_SECOND_PERSON);
+        HashSet<Index> expectedVendors = new HashSet<>();
         AddEventDetailsCommand expectedCommand =
-                new AddEventDetailsCommand(INDEX_THIRD_EVENT, expectedPersons, INDEX_FIRST_VENUE);
+                new AddEventDetailsCommand(INDEX_THIRD_EVENT, expectedPersons, expectedVendors, INDEX_FIRST_VENUE);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
