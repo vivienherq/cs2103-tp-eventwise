@@ -21,6 +21,7 @@ public class Event implements DisplayableListViewItem {
     private final Name name;
     private final Description description;
     private final FromDate fromDate;
+    private final ToDate toDate;
     private final Note note;
     private List<Person> persons;
     private Venue venue;
@@ -31,11 +32,12 @@ public class Event implements DisplayableListViewItem {
      * 1. When an event is created no people are added to the event.
      * 2. When an event is created, the venue has not been set.
      */
-    public Event(Name name, Description description, FromDate fromDate, Note note) {
+    public Event(Name name, Description description, FromDate fromDate, ToDate toDate, Note note) {
         requireAllNonNull(name, description, fromDate);
         this.name = name;
         this.description = description;
         this.fromDate = fromDate;
+        this.toDate = toDate;
         this.note = note;
         this.persons = new ArrayList<>();
     }
@@ -44,11 +46,12 @@ public class Event implements DisplayableListViewItem {
      * Every field must be present and not null.
      * This constructor is for creating events that allow persons and venues to be immediately part of it.
      */
-    public Event(Name name, Description description, FromDate fromDate, Note note, List<Person> persons, Venue venue) {
+    public Event(Name name, Description description, FromDate fromDate, ToDate toDate, Note note, List<Person> persons, Venue venue) {
         requireAllNonNull(name, description, fromDate);
         this.name = name;
         this.description = description;
         this.fromDate = fromDate;
+        this.toDate = toDate;
         this.note = note;
         this.persons = persons;
         this.venue = venue;
@@ -62,9 +65,13 @@ public class Event implements DisplayableListViewItem {
         return description;
     }
 
-    public FromDate getDate() {
+    public FromDate getFromDate() {
         return fromDate;
     }
+    public ToDate getToDate() {
+        return toDate;
+    }
+
 
     public Note getNote() {
         return note;
@@ -127,7 +134,7 @@ public class Event implements DisplayableListViewItem {
 
     @Override
     public String getDisplaySecondText() {
-        return getDate().toString();
+        return getFromDate().toString();
     }
 
     @Override
@@ -148,7 +155,7 @@ public class Event implements DisplayableListViewItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, fromDate, persons, venue);
+        return Objects.hash(name, description, fromDate, toDate, note, persons, venue);
     }
 
     @Override
@@ -156,7 +163,8 @@ public class Event implements DisplayableListViewItem {
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("description", description)
-                .add("date", fromDate)
+                .add("fromDate", fromDate)
+                .add("toDate", toDate)
                 .add("note", note)
                 .toString();
     }

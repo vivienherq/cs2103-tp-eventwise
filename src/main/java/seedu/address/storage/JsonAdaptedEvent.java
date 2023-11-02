@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Description;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.FromDate;
-import seedu.address.model.event.Name;
-import seedu.address.model.event.Note;
+import seedu.address.model.event.*;
 import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 
@@ -24,7 +20,8 @@ class JsonAdaptedEvent {
 
     private final String name;
     private final String description;
-    private final String date;
+    private final String fromDate;
+    private final String toDate;
     private final String note;
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final JsonAdaptedVenue venue;
@@ -35,13 +32,15 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("name") String name,
                             @JsonProperty("email") String description,
-                            @JsonProperty("date") String date,
+                            @JsonProperty("fromDate") String fromDate,
+                            @JsonProperty("toDate") String toDate,
                             @JsonProperty("note") String note,
                             @JsonProperty("persons") List<JsonAdaptedPerson> persons,
                             @JsonProperty("venue") JsonAdaptedVenue venue) {
         this.name = name;
         this.description = description;
-        this.date = date;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
         this.note = note;
         if (persons != null) {
             this.persons.addAll(persons);
@@ -55,7 +54,8 @@ class JsonAdaptedEvent {
     public JsonAdaptedEvent(Event source) {
         name = source.getName().eventName;
         description = source.getDescription().eventDesc;
-        date = source.getDate().eventDate;
+        fromDate = source.getFromDate().eventDate;
+        toDate = source.getToDate().eventDate;
         if (source.getNote() == null) {
             note = null;
         } else {
@@ -94,14 +94,23 @@ class JsonAdaptedEvent {
         }
         final Description modelDescription = new Description(description);
 
-        if (date == null) {
+        if (fromDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     FromDate.class.getSimpleName()));
         }
-        if (!FromDate.isValidDate(date)) {
+        if (!FromDate.isValidDate(fromDate)) {
             throw new IllegalValueException(FromDate.MESSAGE_CONSTRAINTS);
         }
-        final FromDate modelFromDate = new FromDate(date);
+        final FromDate modelFromDate = new FromDate(fromDate);
+
+        if (toDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ToDate.class.getSimpleName()));
+        }
+        if (!ToDate.isValidDate(toDate)) {
+            throw new IllegalValueException(ToDate.MESSAGE_CONSTRAINTS);
+        }
+        final ToDate modelToDate = new ToDate(toDate);
 
         Note modelNote = null;
         if (note != null) {
@@ -120,10 +129,10 @@ class JsonAdaptedEvent {
         final List<Person> modelPersons = new ArrayList<>(personList);
 
         if (venue == null) {
-            return new Event(modelName, modelDescription, modelFromDate, modelNote, modelPersons, null);
+            return new Event(modelName, modelDescription, modelFromDate, modelToDate, modelNote, modelPersons, null);
         } else {
             final Venue modelVenue = venue.toModelType();
-            return new Event(modelName, modelDescription, modelFromDate, modelNote, modelPersons, modelVenue);
+            return new Event(modelName, modelDescription, modelFromDate, modelToDate, modelNote, modelPersons, modelVenue);
         }
     }
 }

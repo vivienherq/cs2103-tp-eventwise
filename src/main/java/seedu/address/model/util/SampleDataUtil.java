@@ -6,6 +6,7 @@ import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -30,16 +31,16 @@ public class SampleDataUtil {
         return new Event[] {
             new Event(new seedu.address.model.event.Name("LifeHack"),
                 new Description("Show off your coding prowess in a friendly contest"),
-                new FromDate("24-12-2023"), null),
+                new FromDate("24-12-2023"), new ToDate("25-12-2023"), null),
             new Event(new seedu.address.model.event.Name("Math Olympiad"),
                 new Description("Test your math skills in a challenging competition"),
-                new FromDate("03-01-2024"), null),
+                new FromDate("03-01-2024"), new ToDate("04-01-2024"), null),
             new Event(new seedu.address.model.event.Name("Career Fair"),
                     new Description("Get insights on different career paths"),
-                    new FromDate("08-01-2024"), new Note("Its in 2024.")),
+                    new FromDate("08-01-2024"), new ToDate("09-01-2024"), new Note("Its in 2024.")),
             new Event(new seedu.address.model.event.Name("Supernova"),
                     new Description("All night of partying with a lit DJ lineup"),
-                    new FromDate("03-02-2024"), null),
+                    new FromDate("03-02-2024"), new ToDate("04-02-2024"), null),
         };
     }
 

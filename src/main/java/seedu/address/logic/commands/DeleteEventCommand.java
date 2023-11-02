@@ -43,7 +43,7 @@ public class DeleteEventCommand extends Command {
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEvent(eventToDelete);
         String eventDetails = String.format("%s; Description: %s; Date: %s\n",
-                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getDate());
+                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getFromDate());
 
         // Clear set event to view
         model.setEventToView(null);

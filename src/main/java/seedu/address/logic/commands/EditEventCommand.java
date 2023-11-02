@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 
 /**
  * Edits the details of an existing event in the address book.
@@ -37,7 +39,8 @@ public class EditEventCommand extends Command {
             + PREFIX_EVENT_ID + "INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_NAME + "NAME] "
             + "[" + PREFIX_EVENT_DESC + "DESC] "
-            + "[" + PREFIX_EVENT_DATE + "DATE]\n"
+            + "[" + PREFIX_EVENT_FROM + "DATE] "
+            + "[" + PREFIX_EVENT_TO + "DATE] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_ID + "1 "
             + PREFIX_EVENT_NAME + "FSC 2024 "
@@ -92,10 +95,11 @@ public class EditEventCommand extends Command {
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
-        FromDate updatedFromDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
+        FromDate updatedFromDate = editEventDescriptor.getFromDate().orElse(eventToEdit.getFromDate());
+        ToDate updatedToDate = editEventDescriptor.getToDate().orElse(eventToEdit.getToDate());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
 
-        return new Event(updatedName, updatedDescription, updatedFromDate, updatedNote);
+        return new Event(updatedName, updatedDescription, updatedFromDate, updatedToDate, updatedNote);
     }
 
     @Override
@@ -130,6 +134,7 @@ public class EditEventCommand extends Command {
         private Name name;
         private Description description;
         private FromDate fromDate;
+        private ToDate toDate;
         private Note note;
 
         public EditEventDescriptor() {}
@@ -141,7 +146,8 @@ public class EditEventCommand extends Command {
         public EditEventDescriptor(EditEventDescriptor toCopy) {
             setName(toCopy.name);
             setDescription(toCopy.description);
-            setDate(toCopy.fromDate);
+            setFromDate(toCopy.fromDate);
+            setToDate(toCopy.toDate);
             setNote(toCopy.note);
         }
 
@@ -168,12 +174,20 @@ public class EditEventCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setDate(FromDate fromDate) {
+        public void setFromDate(FromDate fromDate) {
             this.fromDate = fromDate;
         }
 
-        public Optional<FromDate> getDate() {
+        public Optional<FromDate> getFromDate() {
             return Optional.ofNullable(fromDate);
+        }
+
+        public void setToDate(ToDate toDate) {
+            this.toDate = toDate;
+        }
+
+        public Optional<ToDate> getToDate() {
+            return Optional.ofNullable(toDate);
         }
 
         public void setNote(Note note) {
