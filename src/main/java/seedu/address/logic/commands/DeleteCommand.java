@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -45,7 +46,7 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
 
-        // Check if event contains vendorToDelete, if true, remove vendor from the event's vendor list
+        // Check if event contains person, if true, remove person from the event's vendor list
         for (Event event : model.getAddressBook().getEventList()) {
             if (event.getPersons().contains(personToDelete)) {
                 List<Person> editedPersonList = new ArrayList<>(event.getPersons());
@@ -54,6 +55,13 @@ public class DeleteCommand extends Command {
                         event.getFromDate(), event.getToDate(), event.getNote(), editedPersonList,
                         event.getVendors(), event.getVenue());
                 model.setEvent(event, updatedEvent);
+
+                // Find the Rsvp object to remove
+                Rsvp existingRsvp = model.findRsvp(event, personToDelete);
+
+                if (existingRsvp != null) {
+                    model.deleteRsvp(existingRsvp);
+                }
             }
         }
 
