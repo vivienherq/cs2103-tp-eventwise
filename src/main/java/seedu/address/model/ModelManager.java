@@ -154,7 +154,7 @@ public class ModelManager implements Model {
 
     @Override
     public Person getPerson(Index index) throws CommandException {
-        if (index.getZeroBased() > addressBook.getPersonList().size()) {
+        if (index.getZeroBased() >= addressBook.getPersonList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
@@ -204,7 +204,7 @@ public class ModelManager implements Model {
             return null;
         }
 
-        if (index.getZeroBased() > addressBook.getVenueList().size()) {
+        if (index.getZeroBased() >= addressBook.getVenueList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
         }
 
@@ -302,7 +302,7 @@ public class ModelManager implements Model {
 
     @Override
     public Vendor getVendor(Index index) throws CommandException {
-        if (index.getZeroBased() > addressBook.getVendorList().size()) {
+        if (index.getZeroBased() >= addressBook.getVendorList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
         }
         filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDOR);
