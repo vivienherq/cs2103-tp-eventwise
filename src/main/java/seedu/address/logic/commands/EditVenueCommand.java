@@ -17,6 +17,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.venue.Address;
 import seedu.address.model.venue.Capacity;
 import seedu.address.model.venue.Name;
@@ -78,6 +79,32 @@ public class EditVenueCommand extends Command {
         }
 
         model.setVenue(venueToEdit, editedVenue);
+
+        // Check if event contains venueToEdit, if true, update event venue
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getVenue() == null) {
+                continue;
+            }
+
+            if (event.getVenue().isSameVenue(venueToEdit)) {
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
+                        event.getVendors(), editedVenue);
+                model.setEvent(event, updatedEvent);
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null && eventToView.getVenue() != null;
+        if (isNotNull && eventToView.getVenue().isSameVenue(venueToEdit)) {
+            Event currentlyShownEvent = model.getEventToView();
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    currentlyShownEvent.getPersons(), currentlyShownEvent.getVendors(), editedVenue);
+            model.setEventToView(updatedEvent);
+        }
+
         model.updateFilteredVenueList(PREDICATE_SHOW_ALL_VENUES);
         return new CommandResult(String.format(MESSAGE_EDIT_VENUE_SUCCESS, Messages.format(editedVenue)));
     }

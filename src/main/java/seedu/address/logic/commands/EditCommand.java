@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,10 +17,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.rsvp.Rsvp;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -75,6 +78,43 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
+
+        // Check if event contains person, if true, update person from the event's vendor list
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getPersons().contains(personToEdit)) {
+                List<Person> editedPersonList = new ArrayList<>(event.getPersons());
+                editedPersonList.set(editedPersonList.indexOf(personToEdit), editedPerson);
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), editedPersonList,
+                        event.getVendors(), event.getVenue());
+                model.setEvent(event, updatedEvent);
+
+                // Find the Rsvp object to remove
+                Rsvp existingRsvp = model.findRsvp(event, personToEdit);
+
+                if (existingRsvp != null) {
+                    List<Rsvp> rsvpList = model.getAddressBook().getRsvpList();
+                    rsvpList.set(
+                            rsvpList.indexOf(existingRsvp),
+                            new Rsvp(existingRsvp.getEvent(), editedPerson, existingRsvp.getRsvpStatus())
+                    );
+                }
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null;
+        if (isNotNull && eventToView.getPersons().contains(personToEdit)) {
+            Event currentlyShownEvent = model.getEventToView();
+            List<Person> editedPersonList = new ArrayList<>(currentlyShownEvent.getPersons());
+            editedPersonList.set(editedPersonList.indexOf(personToEdit), editedPerson);
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    editedPersonList, currentlyShownEvent.getVendors(), currentlyShownEvent.getVenue());
+            model.setEventToView(updatedEvent);
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
