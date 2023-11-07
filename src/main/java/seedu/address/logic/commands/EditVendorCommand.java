@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDOR;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.vendor.Email;
 import seedu.address.model.vendor.Name;
 import seedu.address.model.vendor.Phone;
@@ -78,6 +80,32 @@ public class EditVendorCommand extends Command {
         }
 
         model.setVendor(vendorToEdit, editedVendor);
+
+        // Check if event contains vendorToDelete, if true, update vendor from the event's vendor list
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getVendors().contains(vendorToEdit)) {
+                List<Vendor> editedVendorList = new ArrayList<>(event.getVendors());
+                editedVendorList.set(editedVendorList.indexOf(vendorToEdit), editedVendor);
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
+                        editedVendorList, event.getVenue());
+                model.setEvent(event, updatedEvent);
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null;
+        if (isNotNull && eventToView.getVendors().contains(vendorToEdit)) {
+            Event currentlyShownEvent = model.getEventToView();
+            List<Vendor> editedVendorList = new ArrayList<>(currentlyShownEvent.getVendors());
+            editedVendorList.set(editedVendorList.indexOf(vendorToEdit), editedVendor);
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    currentlyShownEvent.getPersons(), editedVendorList, currentlyShownEvent.getVenue());
+            model.setEventToView(updatedEvent);
+        }
+
         model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDOR);
         return new CommandResult(String.format(MESSAGE_EDIT_VENDOR_SUCCESS, Messages.format(editedVendor)));
     }
