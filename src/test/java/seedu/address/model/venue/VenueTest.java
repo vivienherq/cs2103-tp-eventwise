@@ -35,20 +35,20 @@ public class VenueTest {
         assertFalse(LT27.isSameVenue(editedLT27));
 
         // name differs in case, all other attributes same -> returns false
-        Venue editedCLB = new VenueBuilder(CLB).withName(VALID_VENUE_NAME_CLB.toLowerCase()).build();
-        assertFalse(CLB.isSameVenue(editedCLB));
+        Venue editedClb = new VenueBuilder(CLB).withName(VALID_VENUE_NAME_CLB.toLowerCase()).build();
+        assertFalse(CLB.isSameVenue(editedClb));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_VENUE_NAME_CLB + " ";
-        editedCLB = new VenueBuilder(CLB).withName(nameWithTrailingSpaces).build();
-        assertFalse(CLB.isSameVenue(editedCLB));
+        editedClb = new VenueBuilder(CLB).withName(nameWithTrailingSpaces).build();
+        assertFalse(CLB.isSameVenue(editedClb));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Venue LT27Copy = new VenueBuilder(LT27).build();
-        assertTrue(LT27Copy.equals(LT27Copy));
+        Venue lTCopy = new VenueBuilder(LT27).build();
+        assertTrue(lTCopy.equals(lTCopy));
 
         // same object -> returns true
         assertTrue(LT27.equals(LT27));

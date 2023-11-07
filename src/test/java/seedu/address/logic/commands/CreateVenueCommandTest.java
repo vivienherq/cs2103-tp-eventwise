@@ -59,8 +59,8 @@ public class CreateVenueCommandTest {
         CreateVenueCommand createVenueCommand = new CreateVenueCommand(validVenue);
         ModelStub modelStub = new ModelStubWithVenue(validVenue);
 
-        assertThrows(CommandException.class, CreateVenueCommand.MESSAGE_DUPLICATE_VENUE,
-                () -> createVenueCommand.execute(modelStub));
+        assertThrows(CommandException.class, CreateVenueCommand.MESSAGE_DUPLICATE_VENUE, () -> createVenueCommand
+                .execute(modelStub));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class CreateVenueCommandTest {
         Venue lt27 = new VenueBuilder().withName("LT27").build();
         Venue clb = new VenueBuilder().withName("CLB").build();
         CreateVenueCommand createVenueLT27Command = new CreateVenueCommand(lt27);
-        CreateVenueCommand createVenueCLBCommand = new CreateVenueCommand(clb);
+        CreateVenueCommand createVenueClbCommand = new CreateVenueCommand(clb);
 
         // same object -> returns true
         assertTrue(createVenueLT27Command.equals(createVenueLT27Command));
@@ -84,7 +84,7 @@ public class CreateVenueCommandTest {
         assertFalse(createVenueLT27Command.equals(null));
 
         // different person -> returns false
-        assertFalse(createVenueLT27Command.equals(createVenueCLBCommand));
+        assertFalse(createVenueLT27Command.equals(createVenueClbCommand));
     }
 
     @Test
