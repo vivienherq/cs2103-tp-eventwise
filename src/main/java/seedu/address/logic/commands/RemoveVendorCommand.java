@@ -49,15 +49,15 @@ public class RemoveVendorCommand extends Command {
         List<Event> eventList = model.getFilteredEventsList();
 
         // Validate if eventIndex is valid
-        if (eventIndex.getZeroBased() > eventList.size()) {
+        if (eventIndex.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
         Event eventToEdit = eventList.get(eventIndex.getZeroBased());
 
         // Validate if vendorIndex is valid
-        if (vendorIndex.getZeroBased() > eventToEdit.getVendors().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
+        if (vendorIndex.getZeroBased() >= eventToEdit.getVendors().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_INDEX);
         }
 
         List<Vendor> eventVendors = new ArrayList<>(eventToEdit.getVendors());

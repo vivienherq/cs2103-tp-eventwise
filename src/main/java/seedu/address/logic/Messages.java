@@ -22,10 +22,12 @@ public class Messages {
             + "date entered should be either today's date or a future date.";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "At least one of the person index(es) "
             + "provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_INDEX = "The person index provided is invalid.";
     public static final String MESSAGE_INVALID_VENUE_DISPLAYED_INDEX = "The venue index provided is invalid";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
     public static final String MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX = "At least one of the vendor index(es) "
             + "provided is invalid";
+    public static final String MESSAGE_INVALID_VENDOR_INDEX = "The vendor index provided is invalid.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
