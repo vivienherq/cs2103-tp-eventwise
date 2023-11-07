@@ -139,17 +139,17 @@ public class Event implements DisplayableListViewItem {
 
     @Override
     public String getDisplayTitle() {
-        return getName().toString();
+        return name.toString();
     }
 
     @Override
     public String getDisplayFirstText() {
-        return getDescription().toString();
+        return description.toString();
     }
 
     @Override
     public String getDisplaySecondText() {
-        return getFromDate().toString();
+        return String.format("%s to %s", fromDate.toString(), toDate.toString());
     }
 
     @Override
