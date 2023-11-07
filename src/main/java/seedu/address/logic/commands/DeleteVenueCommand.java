@@ -44,7 +44,7 @@ public class DeleteVenueCommand extends Command {
 
         Venue venueToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteVenue(venueToDelete);
-        String venueDetails = String.format("%s; Address: %s; Capacity: %s\n",
+        String venueDetails = String.format("%s; Address: %s; Capacity: %s",
                 venueToDelete.getName(), venueToDelete.getAddress(), venueToDelete.getCapacity());
 
         // Check if event contains venueToDelete, if true, set event venue to null

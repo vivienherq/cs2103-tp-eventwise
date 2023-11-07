@@ -19,6 +19,7 @@ public class TypicalIndexes {
 
     // Venues
     public static final Index INDEX_FIRST_VENUE = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_VENUE = Index.fromOneBased(2);
 
     // Vendors
     public static final Index INDEX_FIRST_VENDOR = Index.fromOneBased(1);
