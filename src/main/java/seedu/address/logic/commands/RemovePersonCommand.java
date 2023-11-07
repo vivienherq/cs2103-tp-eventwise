@@ -50,15 +50,15 @@ public class RemovePersonCommand extends Command {
         List<Event> eventList = model.getFilteredEventsList();
 
         // Validate if eventIndex is valid
-        if (eventIndex.getZeroBased() > eventList.size()) {
+        if (eventIndex.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
         Event eventToEdit = eventList.get(eventIndex.getZeroBased());
 
         // Validate if personIndex is valid
-        if (personIndex.getZeroBased() > eventToEdit.getPersons().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (personIndex.getZeroBased() >= eventToEdit.getPersons().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_INDEX);
         }
 
         List<Person> eventAttendees = new ArrayList<>(eventToEdit.getPersons());
