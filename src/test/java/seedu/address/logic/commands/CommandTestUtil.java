@@ -25,6 +25,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVenueDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -44,11 +45,14 @@ public class CommandTestUtil {
 
     public static final String VALID_VENUE_NAME_LT27 = "LT27";
     public static final String VALID_VENUE_NAME_CLB = "CLB";
+    public static final String VALID_VENUE_NAME_COM1 = "COM1";
     public static final String VALID_VENUE_ADDRESS_LT27 = "Lecture Theatre 27, 10 Lower Kent Ridge Rd, "
             + "Kent Ridge Campus, Singapore 119076";
     public static final String VALID_VENUE_ADDRESS_CLB = "Central Library, 12 Kent Ridge Crescent, Singapore 119275";
+    public static final String VALID_VENUE_ADDRESS_COM1 = "Computing 1 13 Computing Drive Singapore 117417";
     public static final String VALID_VENUE_CAPACITY_LT27 = "400";
     public static final String VALID_VENUE_CAPACITY_CLB = "1000";
+    public static final String VALID_VENUE_CAPACITY_COM1 = "1500";
 
     // Events
 
@@ -106,6 +110,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditVenueCommand.EditVenueDescriptor DESC_LT27;
+    public static final EditVenueCommand.EditVenueDescriptor DESC_CLB;
     public static final EditEventCommand.EditEventDescriptor DESC_FSC;
     public static final EditEventCommand.EditEventDescriptor DESC_CAREER;
 
@@ -115,6 +121,12 @@ public class CommandTestUtil {
                 .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .build();
+        DESC_LT27 = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_LT27)
+                .withAddress(VALID_VENUE_ADDRESS_LT27).withCapacity(VALID_VENUE_CAPACITY_LT27)
+                .build();
+        DESC_CLB = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_CLB)
+                .withAddress(VALID_VENUE_ADDRESS_CLB).withCapacity(VALID_VENUE_CAPACITY_CLB)
                 .build();
         DESC_FSC = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_FSC)
                 .withDescription(VALID_EVENT_DESCRIPTION_FSC).withFromDate(VALID_EVENT_FROM_DATE_FSC)
