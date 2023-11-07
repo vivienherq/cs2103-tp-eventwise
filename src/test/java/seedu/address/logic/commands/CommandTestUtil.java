@@ -39,6 +39,16 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
 
+    // Venues
+
+    public static final String VALID_VENUE_NAME_LT27 = "LT27";
+    public static final String VALID_VENUE_NAME_CLB = "CLB";
+    public static final String VALID_VENUE_ADDRESS_LT27 = "Lecture Theatre 27, 10 Lower Kent Ridge Rd, "
+            + "Kent Ridge Campus, Singapore 119076";
+    public static final String VALID_VENUE_ADDRESS_CLB = "Central Library, 12 Kent Ridge Crescent, Singapore 119275";
+    public static final String VALID_VENUE_CAPACITY_LT27 = "400";
+    public static final String VALID_VENUE_CAPACITY_CLB = "1000";
+
     // Events
 
     public static final String VALID_EVENT_NAME_CAREER_FAIR = "Career Fair";
