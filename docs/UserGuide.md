@@ -77,7 +77,8 @@ This is where the user interacts with the application by providing a specific co
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters will be ignored.<br>
+  Commands include `list`, `viewVendors`, `viewVenues`, `viewEvents`, `clear`, `clearEvents`, `clearGuests`, `clearVenues`, `clearVendors`, `exit`, `help`.
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -102,6 +103,10 @@ Examples:
 Shows a list of all persons in EventWise.
 
 Format: `list`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `list 1`, it will be interpreted as `list`.
 
 ### Editing a person : `edit`
 
@@ -188,6 +193,12 @@ Create Venue Failed: Invalid email.
 ### Listing all vendors: `viewVendors`
 
 Shows a list of all vendors in EventWise.
+
+Format: `viewVendors`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `viewVendors 1`, it will be interpreted as `viewVendors`.
 
 **Expected Command Result**
 ![Ui](images/ViewVendorsUI.png)
@@ -282,6 +293,12 @@ Create Venue Failed: Invalid capacity value.
 ### Listing all venues: `viewVenues`
 
 Shows a list of all venues in EventWise.
+
+Format: `viewVenues`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `viewVenues 1`, it will be interpreted as `viewVenues`.
 
 **Expected Command Result**
 ![Ui](images/ViewVenuesUI.png)
@@ -413,6 +430,12 @@ Examples:
 ### Listing all events: `viewEvents`
 
 Shows a list of all events in EventWise.
+
+Format: `viewEvents`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `viewEvents 1`, it will be interpreted as `viewEvents`.
 
 **Expected Command Result**
 ![Ui](images/ViewEventsUI.png)
@@ -610,11 +633,19 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `help 1`, it will be interpreted as `help`.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from EventWise.
 
 Format: `clear`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `clear 1`, it will be interpreted as `clear`.
 
 ### Clearing all event entries : `clearEvents`
 
@@ -622,11 +653,19 @@ Clears all event entries from EventWise.
 
 Format: `clearEvents`
 
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `clearEvents 1`, it will be interpreted as `clearEvents`.
+
 ### Clearing all guest entries : `clearGuests`
 
 Clears all guest entries from EventWise.
 
 Format: `clearGuests`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `clearGuests 1`, it will be interpreted as `clearGuests`.
 
 ### Clearing all venue entries : `clearVenues`
 
@@ -634,11 +673,19 @@ Clears all venues from EventWise.
 
 Format: `clearVenues`
 
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `clearVenues 1`, it will be interpreted as `clearVenues`.
+
 ### Clearing all vendor entries : `clearVendors`
 
 Clears all vendors from EventWise.
 
 Format: `clearVendors`
+
+**Command Behavior**
+* Extraneous parameters will be ignored.
+* e.g. if the command specifies `clearVendors 1`, it will be interpreted as `clearVendors`.
 
 ### Saving the data
 
@@ -652,10 +699,6 @@ Advanced users are welcome to update data directly by editing that data file.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -688,9 +731,9 @@ _Details coming soon ..._
 | Action            | Format                                                  | Examples                                              |
 |-------------------|---------------------------------------------------------|-------------------------------------------------------|
 | **Create Vendor** | `vendor n/NAME p/PHONE e/EMAIL`                         | `vendor n/SUN Catering p/64646767 e/catering@sun.com` |
-| **View Vendors**  | `viewVendors`                                           |                                                       |
 | **Edit Vendor**   | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]` | `editVendor vdr/1 n/SUN Catering`                     |
 | **Delete Vendor** | `deleteVendor vdr/VENDOR_ID`                            | `deleteVendor vdr/1`                                  |
+| **View Vendors**  | `viewVendors`                                           |                                                       |
 
 ### Venue Command summary
 
@@ -710,8 +753,8 @@ _Details coming soon ..._
 | **Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_INDEX`                              | `removePerson eid/1 pid/1`                                                   |
 | **Delete Event**             | `deleteEvent eid/EVENT_ID`                                                | `deleteEvent eid/1`                                                          |
 | **Edit Event**               | `editEvent eid/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]`                | `editEvent eid/1 d/Freshman Orientation Camp 2024`                           |
-| **View All Events**          | `ViewEvents`                                                              |                                                                              |
 | **View Event**               | `viewEvent eid/ID`                                                        | `viewEvent eid/1`                                                            |
+| **View All Events**          | `ViewEvents`                                                              |                                                                              |
 | **RSVP**                     | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`                                | `rsvp eid/1 pid/1 s/CC`                                                      |
 
 ### General Command summary
