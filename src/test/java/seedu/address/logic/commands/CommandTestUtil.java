@@ -2,14 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -83,6 +76,15 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+
+    // Vendor Prefixes
+
+    public static final String VENDOR_NAME_DRINKS = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_DRINKS;
+    public static final String VENDOR_NAME_FOOD = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_FOOD;
+    public static final String VENDOR_PHONE_DRINKS = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_DRINKS;
+    public static final String VENDOR_PHONE_FOOD = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_FOOD;
+    public static final String VENDOR_EMAIL_DRINKS = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_DRINKS;
+    public static final String VENDOR_EMAIL_FOOD = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_FOOD;
 
     // Event Prefixes
     public static final String EVENT_ID_CAREER_FAIR = " " + PREFIX_EVENT_ID + 1;
