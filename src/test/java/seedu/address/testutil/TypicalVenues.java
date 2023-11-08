@@ -1,5 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_ADDRESS_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_ADDRESS_COM1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_CAPACITY_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_CAPACITY_COM1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_COM1;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +35,20 @@ public class TypicalVenues {
             .withName("ECube")
             .withAddress("4 Engineering Drive 3, Singapore 117583")
             .withCapacity("100")
+            .build();
+
+    // Manually added - Venue's details found in {@code CommandTestUtil}
+
+    public static final Venue COM1 = new VenueBuilder()
+            .withName(VALID_VENUE_NAME_COM1)
+            .withAddress(VALID_VENUE_ADDRESS_COM1)
+            .withCapacity(VALID_VENUE_CAPACITY_COM1)
+            .build();
+
+    public static final Venue BIZ2 = new VenueBuilder()
+            .withName(VALID_VENUE_NAME_BIZ2)
+            .withAddress(VALID_VENUE_ADDRESS_BIZ2)
+            .withCapacity(VALID_VENUE_CAPACITY_BIZ2)
             .build();
 
     private TypicalVenues() {} // prevents instantiation

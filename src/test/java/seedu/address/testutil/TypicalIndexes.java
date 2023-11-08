@@ -20,10 +20,12 @@ public class TypicalIndexes {
     // Venues
     public static final Index INDEX_FIRST_VENUE = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_VENUE = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_VENUE = Index.fromOneBased(3);
 
     // Vendors
     public static final Index INDEX_FIRST_VENDOR = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_VENDOR = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_VENDOR = Index.fromOneBased(3);
 
     // General Use
     public static final Index INDEX_OUT_OF_RANGE = Index.fromOneBased(100);

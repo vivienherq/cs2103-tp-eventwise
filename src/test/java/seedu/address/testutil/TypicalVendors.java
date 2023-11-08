@@ -1,5 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_FOOD;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +35,20 @@ public class TypicalVendors {
             .withName("NSU Drinks")
             .withPhone("61234567")
             .withEmail("drinks@nsu.com")
+            .build();
+
+    // Manually added - Vendor's details found in {@code CommandTestUtil}
+
+    public static final Vendor DRINKS = new VendorBuilder()
+            .withName(VALID_VENDOR_NAME_DRINKS)
+            .withPhone(VALID_VENDOR_PHONE_DRINKS)
+            .withEmail(VALID_VENDOR_EMAIL_DRINKS)
+            .build();
+
+    public static final Vendor FOOD = new VendorBuilder()
+            .withName(VALID_VENDOR_NAME_FOOD)
+            .withPhone(VALID_VENDOR_PHONE_FOOD)
+            .withEmail(VALID_VENDOR_EMAIL_FOOD)
             .build();
 
     private TypicalVendors() {} // prevents instantiation
