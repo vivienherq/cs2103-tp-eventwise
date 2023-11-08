@@ -10,6 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVendorDescriptorBuilder;
 import seedu.address.testutil.EditVenueDescriptorBuilder;
 
 /**
@@ -39,6 +43,15 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
+
+    // Vendors
+
+    public static final String VALID_VENDOR_NAME_FOOD = "Food Catering";
+    public static final String VALID_VENDOR_NAME_DRINKS = "Drinks Bar";
+    public static final String VALID_VENDOR_PHONE_FOOD = "66667777";
+    public static final String VALID_VENDOR_PHONE_DRINKS = "66886688";
+    public static final String VALID_VENDOR_EMAIL_FOOD = "foodcatering@example.com";
+    public static final String VALID_VENDOR_EMAIL_DRINKS = "drinksbar@example.com";
 
     // Venues
 
@@ -73,6 +86,15 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+
+    // Vendor Prefixes
+
+    public static final String VENDOR_NAME_DRINKS = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_DRINKS;
+    public static final String VENDOR_NAME_FOOD = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_FOOD;
+    public static final String VENDOR_PHONE_DRINKS = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_DRINKS;
+    public static final String VENDOR_PHONE_FOOD = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_FOOD;
+    public static final String VENDOR_EMAIL_DRINKS = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_DRINKS;
+    public static final String VENDOR_EMAIL_FOOD = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_FOOD;
 
     // Event Prefixes
     public static final String EVENT_ID_CAREER_FAIR = " " + PREFIX_EVENT_ID + 1;
@@ -109,6 +131,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_DRINKS;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_FOOD;
     public static final EditVenueCommand.EditVenueDescriptor DESC_LT27;
     public static final EditVenueCommand.EditVenueDescriptor DESC_CLB;
     public static final EditEventCommand.EditEventDescriptor DESC_FSC;
@@ -120,6 +144,12 @@ public class CommandTestUtil {
                 .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .build();
+        DESC_DRINKS = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_DRINKS)
+                .withPhone(VALID_VENDOR_PHONE_DRINKS).withEmail(VALID_VENDOR_EMAIL_DRINKS)
+                .build();
+        DESC_FOOD = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_FOOD)
+                .withPhone(VALID_VENDOR_PHONE_FOOD).withEmail(VALID_VENDOR_EMAIL_FOOD)
                 .build();
         DESC_LT27 = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_LT27)
                 .withAddress(VALID_VENUE_ADDRESS_LT27).withCapacity(VALID_VENUE_CAPACITY_LT27)
