@@ -20,7 +20,7 @@ import seedu.address.model.venue.Venue;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteVenueCommand}.
  */
 public class DeleteVenueCommandTest {
 
@@ -73,9 +73,9 @@ public class DeleteVenueCommandTest {
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
-        String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
-        assertEquals(expected, deleteCommand.toString());
+        DeleteVenueCommand deleteVenueCommand = new DeleteVenueCommand(targetIndex);
+        String expected = DeleteVenueCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        assertEquals(expected, deleteVenueCommand.toString());
     }
 
     /**
