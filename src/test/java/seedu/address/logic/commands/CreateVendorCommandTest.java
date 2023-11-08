@@ -32,7 +32,6 @@ import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.VendorBuilder;
 
 public class CreateVendorCommandTest {
@@ -60,8 +59,8 @@ public class CreateVendorCommandTest {
         CreateVendorCommand createVendorCommand = new CreateVendorCommand(validVendor);
         ModelStub modelStub = new ModelStubWithVendor(validVendor);
 
-        assertThrows(CommandException.class, CreateVendorCommand.MESSAGE_DUPLICATE_VENDOR,
-                () -> createVendorCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                CreateVendorCommand.MESSAGE_DUPLICATE_VENDOR, () -> createVendorCommand.execute(modelStub));
     }
 
     @Test

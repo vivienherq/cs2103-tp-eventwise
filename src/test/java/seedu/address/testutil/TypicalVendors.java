@@ -1,15 +1,18 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_FOOD;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.vendor.Vendor;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 
 /**
  * A utility class containing a list of {@code Venue} objects to be used in tests.
