@@ -40,6 +40,15 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
 
+    // Vendors
+
+    public static final String VALID_VENDOR_NAME_FOOD = "Food Catering";
+    public static final String VALID_VENDOR_NAME_DRINKS = "Drinks Bar";
+    public static final String VALID_VENDOR_PHONE_FOOD = "66667777";
+    public static final String VALID_VENDOR_PHONE_DRINKS = "66886688";
+    public static final String VALID_VENDOR_EMAIL_FOOD = "foodcatering@example.com";
+    public static final String VALID_VENDOR_EMAIL_DRINKS = "drinksbar@example.com";
+
     // Venues
 
     public static final String VALID_VENUE_NAME_LT27 = "LT27";

@@ -5,7 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.vendor.Vendor;
+
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 
 /**
  * A utility class containing a list of {@code Venue} objects to be used in tests.
@@ -28,6 +32,20 @@ public class TypicalVendors {
             .withName("NSU Drinks")
             .withPhone("61234567")
             .withEmail("drinks@nsu.com")
+            .build();
+
+    // Manually added - Vendor's details found in {@code CommandTestUtil}
+
+    public static final Vendor DRINKS = new VendorBuilder()
+            .withName(VALID_VENDOR_NAME_DRINKS)
+            .withPhone(VALID_VENDOR_PHONE_DRINKS)
+            .withEmail(VALID_VENDOR_EMAIL_DRINKS)
+            .build();
+
+    public static final Vendor FOOD = new VendorBuilder()
+            .withName(VALID_VENDOR_NAME_FOOD)
+            .withPhone(VALID_VENDOR_PHONE_FOOD)
+            .withEmail(VALID_VENDOR_EMAIL_FOOD)
             .build();
 
     private TypicalVendors() {} // prevents instantiation
