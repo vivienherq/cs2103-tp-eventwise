@@ -360,6 +360,16 @@ public class AddCommandTest {
         public List<Vendor> getVendors(Set<Index> indices) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Rsvp> getFilteredEventRsvpList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventRsvpList(Predicate<Rsvp> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

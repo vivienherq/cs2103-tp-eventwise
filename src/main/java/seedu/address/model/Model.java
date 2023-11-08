@@ -285,4 +285,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered displayable items list */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
 
+    ObservableList<Rsvp> getFilteredEventRsvpList();
+
+    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
 }
