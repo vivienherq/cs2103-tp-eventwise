@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDOR;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDORS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +106,7 @@ public class EditVendorCommand extends Command {
             model.setEventToView(updatedEvent);
         }
 
-        model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDOR);
+        model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDORS);
         return new CommandResult(String.format(MESSAGE_EDIT_VENDOR_SUCCESS, Messages.format(editedVendor)));
     }
 

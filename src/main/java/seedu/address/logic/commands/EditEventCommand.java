@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +25,7 @@ import seedu.address.model.event.FromDate;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Note;
 import seedu.address.model.event.ToDate;
+import seedu.address.model.rsvp.Rsvp;
 
 /**
  * Edits the details of an existing event in the address book.
@@ -81,6 +83,18 @@ public class EditEventCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
+        // Find Rsvp objects affected by the change and swap the event
+        List<Rsvp> rsvpList = new ArrayList<>(model.getFilteredRsvpList());
+        for (Rsvp rsvp: rsvpList) {
+            if (rsvp.getEvent().isSameEvent(eventToEdit)) {
+                Rsvp editedRsvp = new Rsvp(editedEvent, rsvp.getPerson(), rsvp.getRsvpStatus());
+                rsvpList.set(rsvpList.indexOf(rsvp), editedRsvp);
+            }
+        }
+
+        model.setRsvps(rsvpList);
+
+        // Update event details in UI
         model.setEvent(eventToEdit, editedEvent);
 
         // Check if the current event that is being shown in the event details is affected
@@ -106,7 +120,8 @@ public class EditEventCommand extends Command {
         ToDate updatedToDate = editEventDescriptor.getToDate().orElse(eventToEdit.getToDate());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
 
-        return new Event(updatedName, updatedDescription, updatedFromDate, updatedToDate, updatedNote);
+        return new Event(updatedName, updatedDescription, updatedFromDate, updatedToDate, updatedNote,
+                eventToEdit.getPersons(), eventToEdit.getVendors(), eventToEdit.getVenue());
     }
 
     @Override

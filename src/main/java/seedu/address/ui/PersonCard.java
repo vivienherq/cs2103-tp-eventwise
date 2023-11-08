@@ -55,12 +55,17 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
+        System.out.println(EventDetailsDisplay.getCurrentEvent());
         RsvpStatus rsvpVal = getRsvpStatus(EventDetailsDisplay.getCurrentEvent(), person);
         displayRsvp(rsvpVal);
     }
 
     private RsvpStatus getRsvpStatus(Event event, Person person) {
         for (Rsvp rsvp: rsvps) {
+            System.out.println("RSVP Data");
+            System.out.println(rsvp.getEvent());
+            System.out.println(rsvp.getPerson());
+            System.out.println(rsvp.getRsvpStatus());
             if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
                 return rsvp.getRsvpStatus();
             }

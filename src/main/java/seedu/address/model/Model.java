@@ -23,9 +23,11 @@ import seedu.address.model.venue.Venue;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_NO_PERSONS = unused -> false;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     Predicate<Venue> PREDICATE_SHOW_ALL_VENUES = unused -> true;
-    Predicate<Vendor> PREDICATE_SHOW_ALL_VENDOR = unused -> true;
+    Predicate<Vendor> PREDICATE_SHOW_ALL_VENDORS = unused -> true;
+    Predicate<Vendor> PREDICATE_SHOW_NO_VENDORS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -209,6 +211,11 @@ public interface Model {
     void deleteRsvp(Rsvp rsvp);
 
     /**
+     * Sets {@code rsvps} as the updated rsvp list in address book
+     */
+    void setRsvps(List<Rsvp> rsvps);
+
+    /**
      * Finds a Rsvp given an {@code event} and {@code person}.
      */
     Rsvp findRsvp(Event event, Person person);
@@ -230,6 +237,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered event attendees list */
     ObservableList<Person> getFilteredEventAttendeesList();
+
+    /**
+     * Updates the filter of the filtered event attendees list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventAttendeesList(Predicate<Person> predicate);
 
     /** Returns an unmodifiable view of the filtered rsvps list */
     ObservableList<Rsvp> getFilteredRsvpList();
@@ -266,10 +279,16 @@ public interface Model {
     ObservableList<Vendor> getFilteredEventVendorsList();
 
     /**
-     * Updates the filter of the filtered vendor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered vendors list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVendorList(Predicate<Vendor> predicate);
+
+    /**
+     * Updates the filter of the filtered event vendors list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventVendorList(Predicate<Vendor> predicate);
 
     /**
      * Gets a vendor from the address book based on the {@code index} specified.

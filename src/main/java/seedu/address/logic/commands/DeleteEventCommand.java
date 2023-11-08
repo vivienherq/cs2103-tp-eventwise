@@ -42,6 +42,8 @@ public class DeleteEventCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
+        // Before you delete an event, you also have to remove RSVPs that exist for the event
+
         model.deleteEvent(eventToDelete);
         String eventDetails = String.format("%s; Description: %s; Date: %s\n",
                 eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getFromDate());

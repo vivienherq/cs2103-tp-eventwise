@@ -225,6 +225,10 @@ public class ModelManager implements Model {
         } else {
             addressBook.setEventAttendees(event.getPersons());
             addressBook.setEventVendors(event.getVendors());
+            updateFilteredEventAttendeesList(PREDICATE_SHOW_NO_PERSONS);
+            updateFilteredEventVendorList(PREDICATE_SHOW_NO_VENDORS);
+            updateFilteredEventAttendeesList(PREDICATE_SHOW_ALL_PERSONS);
+            updateFilteredEventVendorList(PREDICATE_SHOW_ALL_VENDORS);
         }
         this.eventToView = event;
     }
@@ -305,7 +309,7 @@ public class ModelManager implements Model {
         if (index.getZeroBased() >= addressBook.getVendorList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
         }
-        filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDOR);
+        filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDORS);
         return filteredVendors.get(index.getZeroBased());
     }
 
@@ -339,6 +343,11 @@ public class ModelManager implements Model {
         }
 
         return null;
+    }
+
+    @Override
+    public void setRsvps(List<Rsvp> rsvps) {
+        addressBook.setRsvps(rsvps);
     }
 
     /**
@@ -447,6 +456,12 @@ public class ModelManager implements Model {
         return filteredEventAttendees;
     }
 
+    @Override
+    public void updateFilteredEventAttendeesList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredEventAttendees.setPredicate(predicate);
+    }
+
     //=========== Filtered Event Vendors List Accessors ====================================================
     /**
      * Returns an unmodifiable view of the list of {@code Vendor} backed by the internal list of
@@ -455,6 +470,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Vendor> getFilteredEventVendorsList() {
         return filteredEventVendors;
+    }
+
+    @Override
+    public void updateFilteredEventVendorList(Predicate<Vendor> predicate) {
+        requireNonNull(predicate);
+        filteredEventVendors.setPredicate(predicate);
     }
 
     //=========== RSVP List Accessors ====================================================
