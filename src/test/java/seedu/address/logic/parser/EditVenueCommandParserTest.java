@@ -1,11 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_ADDRESS;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_CAPACITY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_ADDRESS_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_CAPACITY_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_ADDRESS_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_ADDRESS_COM1;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_CAPACITY_BIZ2;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_CAPACITY_COM1;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_NAME_BIZ2;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_CAPACITY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENUE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_VENUE;
 
 import org.junit.jupiter.api.Test;
 
