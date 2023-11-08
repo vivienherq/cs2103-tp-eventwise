@@ -24,6 +24,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVendorDescriptorBuilder;
 import seedu.address.testutil.EditVenueDescriptorBuilder;
 
 /**
@@ -118,6 +119,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_DRINKS;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_FOOD;
     public static final EditVenueCommand.EditVenueDescriptor DESC_LT27;
     public static final EditVenueCommand.EditVenueDescriptor DESC_CLB;
     public static final EditEventCommand.EditEventDescriptor DESC_FSC;
@@ -129,6 +132,12 @@ public class CommandTestUtil {
                 .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .build();
+        DESC_DRINKS = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_DRINKS)
+                .withPhone(VALID_VENDOR_PHONE_DRINKS).withEmail(VALID_VENDOR_EMAIL_DRINKS)
+                .build();
+        DESC_FOOD = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_FOOD)
+                .withPhone(VALID_VENDOR_PHONE_FOOD).withEmail(VALID_VENDOR_EMAIL_FOOD)
                 .build();
         DESC_LT27 = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_LT27)
                 .withAddress(VALID_VENUE_ADDRESS_LT27).withCapacity(VALID_VENUE_CAPACITY_LT27)
