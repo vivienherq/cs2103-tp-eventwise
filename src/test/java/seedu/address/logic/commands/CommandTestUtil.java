@@ -2,7 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;

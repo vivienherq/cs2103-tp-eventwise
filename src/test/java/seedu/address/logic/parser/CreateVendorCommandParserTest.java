@@ -1,8 +1,23 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_EMAIL_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_EMAIL_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_NAME_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_NAME_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_PHONE_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_PHONE_FOOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalVendors.FOOD;

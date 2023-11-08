@@ -1,18 +1,35 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_EMAIL_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_EMAIL_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_NAME_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_PHONE_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VENDOR_PHONE_FOOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENDOR;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENDOR;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_VENDOR;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.EditVendorCommand.EditVendorDescriptor;
 import seedu.address.logic.commands.EditVendorCommand;
+import seedu.address.logic.commands.EditVendorCommand.EditVendorDescriptor;
 import seedu.address.model.vendor.Email;
 import seedu.address.model.vendor.Name;
 import seedu.address.model.vendor.Phone;
