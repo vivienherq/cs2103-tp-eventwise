@@ -266,6 +266,21 @@ public class CreateVendorCommandTest {
         }
 
         @Override
+        public void resetAllEventGuests() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetAllEventVendors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetAllEventVenues() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteVenue(Venue venue) {
             throw new AssertionError("This method should not be called.");
         }

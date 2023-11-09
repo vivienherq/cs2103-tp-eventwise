@@ -20,6 +20,7 @@ public class ClearEventsCommand extends Command {
         model.resetEvents();
         model.resetRsvps();
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.setEventToView(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -18,6 +18,7 @@ public class ClearGuestsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.resetGuests();
+        model.resetAllEventGuests();
         model.resetRsvps();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);

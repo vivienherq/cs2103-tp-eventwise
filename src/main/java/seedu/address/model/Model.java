@@ -164,6 +164,17 @@ public interface Model {
      */
     Event getEventToView();
 
+
+    /** Resets the attendee list associated to all events to an empty list */
+    void resetAllEventGuests();
+
+
+    /** Resets the vendor list associated to all events to an empty list */
+    void resetAllEventVendors();
+
+    /** Resets the venue associated to all events to null */
+    void resetAllEventVenues();
+
     // Venues
 
     /**
@@ -239,6 +250,15 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered rsvps list */
     ObservableList<Rsvp> getFilteredRsvpList();
 
+    /** Returns an unmodifiable view of the filtered event rsvp list */
+    ObservableList<Rsvp> getFilteredEventRsvpList();
+
+    /**
+     * Updates the filter of the filtered event rsvp list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
+
     // Vendors
 
     /**
@@ -290,7 +310,4 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered displayable items list */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
 
-    ObservableList<Rsvp> getFilteredEventRsvpList();
-
-    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
 }

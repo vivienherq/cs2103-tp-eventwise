@@ -240,6 +240,36 @@ public class ModelManager implements Model {
         this.eventToView = event;
     }
 
+    @Override
+    public void resetAllEventGuests() {
+        for (Event event: addressBook.getEventList()) {
+            event.setPersons(new ArrayList<>());
+            if (getEventToView() != null && getEventToView().isSameEvent(event)) {
+                setEventToView(event);
+            }
+        }
+    }
+
+    @Override
+    public void resetAllEventVendors() {
+        for (Event event: addressBook.getEventList()) {
+            event.setVendors(new ArrayList<>());
+            if (getEventToView() != null && getEventToView().isSameEvent(event)) {
+                setEventToView(event);
+            }
+        }
+    }
+
+    @Override
+    public void resetAllEventVenues() {
+        for (Event event: addressBook.getEventList()) {
+            event.setVenue(null);
+            if (getEventToView() != null && getEventToView().isSameEvent(event)) {
+                setEventToView(event);
+            }
+        }
+    }
+
     private List<Rsvp> getRsvps(Event event) {
         List<Rsvp> rsvps = new ArrayList<>();
         for (Rsvp rsvp : filteredRsvps) {

@@ -18,6 +18,7 @@ public class ClearVenuesCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.resetVenues();
+        model.resetAllEventVenues();
         model.updateFilteredVenueList(PREDICATE_SHOW_ALL_VENUES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
