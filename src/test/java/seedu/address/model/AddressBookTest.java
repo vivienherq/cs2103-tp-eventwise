@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRsvps.ALICE_FSC_CC;
+import static seedu.address.testutil.TypicalRsvps.CARL_CODING_TBC;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -84,6 +86,27 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    }
+
+    @Test
+    public void hasRsvp_nullRsvp_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasRsvp(null));
+    }
+
+    @Test
+    public void hasRsvp_rsvpNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasRsvp(CARL_CODING_TBC));
+    }
+
+    @Test
+    public void hasRsvp_rsvpInAddressBook_returnsTrue() {
+        addressBook.addRsvp(ALICE_FSC_CC);
+        assertTrue(addressBook.hasRsvp(ALICE_FSC_CC));
+    }
+
+    @Test
+    public void getRsvpList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getRsvpList().remove(0));
     }
 
     @Test

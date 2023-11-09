@@ -244,22 +244,22 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRSVPStatus_null_throwsNullPointerException() {
+    public void parseRsvpStatus_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseRsvpStatus((String) null));
     }
 
     @Test
-    public void parseRSVPStatus_invalidValue_throwsParseException() {
+    public void parseRsvpStatus_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseRsvpStatus(INVALID_RSVP_STATUS));
     }
 
     @Test
-    public void parseRSVPStatus_validValueWithoutWhitespace_returnsRSVPStatus() throws Exception {
+    public void parseRsvpStatus_validValueWithoutWhitespace_returnsRsvpStatus() throws Exception {
         assertEquals(RsvpStatus.CC, ParserUtil.parseRsvpStatus(VALID_RSVP_STATUS));
     }
 
     @Test
-    public void parseRSVPStatus_validValueWithWhitespace_returnsRSVPStatus() throws Exception {
+    public void parseRsvpStatus_validValueWithWhitespace_returnsRsvpStatus() throws Exception {
         String rsvpStatusWithWhitespace = WHITESPACE + VALID_RSVP_STATUS + WHITESPACE;
         assertEquals(RsvpStatus.CC, ParserUtil.parseRsvpStatus(rsvpStatusWithWhitespace));
     }
