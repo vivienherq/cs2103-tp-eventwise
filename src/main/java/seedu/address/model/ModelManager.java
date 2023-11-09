@@ -119,16 +119,19 @@ public class ModelManager implements Model {
     @Override
     public void resetGuests() {
         this.addressBook.resetGuests();
+        this.addressBook.clearGuestsFromEvents();
     }
 
     @Override
     public void resetVenues() {
         this.addressBook.resetVenues();
+        this.addressBook.clearVenuesFromEvents();
     }
 
     @Override
     public void resetVendors() {
         this.addressBook.resetVendors();
+        this.addressBook.clearVendorsFromEvents();
     }
 
     @Override
@@ -540,5 +543,4 @@ public class ModelManager implements Model {
         filteredRsvps.setPredicate(predicate);
         addressBook.setEventRsvps(filteredRsvps);
     }
-
 }

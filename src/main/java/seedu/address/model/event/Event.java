@@ -104,6 +104,18 @@ public class Event implements DisplayableListViewItem {
         return venue;
     }
 
+    public void clearVenue() {
+        this.venue = null;
+    }
+    public void clearVendors() {
+        this.vendors = new ArrayList<>();
+    }
+
+    public void clearGuests() {
+        this.persons = new ArrayList<>();
+    }
+
+
     /**
      * Returns true if both events have the same event name.
      */

@@ -450,6 +450,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.equals(otherAddressBook.persons);
     }
 
+    /**
+     * Remove all guests' information from all events
+     */
+    public void clearGuestsFromEvents() {
+        for (Event event: events) {
+            event.clearGuests();
+        }
+    }
+
+    /**
+     * Remove all venues' information from all events
+     */
+    public void clearVenuesFromEvents() {
+        for (Event event: events) {
+            event.clearVenue();
+        }
+    }
+
+    /**
+     * Remove all vendors' information from all events
+     */
+    public void clearVendorsFromEvents() {
+        for (Event event: events) {
+            event.clearVendors();
+        }
+    }
+
     @Override
     public int hashCode() {
         return persons.hashCode();
