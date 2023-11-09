@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
+import java.util.List;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
 
-import java.util.List;
-
+/**
+ * A utility class containing a list of {@code Rsvp} objects to be used in tests.
+ */
 public class TypicalRsvps {
     public static final Rsvp ALICE_FSC_CC = new RsvpBuilder()
             .withPerson(TypicalPersons.ALICE)

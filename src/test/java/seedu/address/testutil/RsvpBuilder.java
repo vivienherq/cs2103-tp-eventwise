@@ -5,6 +5,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
 
+/**
+ * A utility class to help with building Rsvp objects.
+ */
 public class RsvpBuilder {
     public static final Event DEFAULT_EVENT = TypicalEvents.ACADEMIC;
     public static final Person DEFAULT_PERSON = TypicalPersons.CARL;
@@ -32,16 +35,25 @@ public class RsvpBuilder {
         rsvpStatus = rsvpToCopy.getRsvpStatus();
     }
 
+    /**
+     * Sets the {@code Event} of the {@code Rsvp} that we are building.
+     */
     public RsvpBuilder withEvent(Event event) {
         this.event = event;
         return this;
     }
 
+    /**
+     * Sets the {@code Person} of the {@code Rsvp} that we are building.
+     */
     public RsvpBuilder withPerson(Person person) {
         this.person = person;
         return this;
     }
 
+    /**
+     * Sets the {@code RsvpStatus} of the {@code Rsvp} that we are building.
+     */
     public RsvpBuilder withRsvpStatus(RsvpStatus rsvpStatus) {
         this.rsvpStatus = rsvpStatus;
         return this;
