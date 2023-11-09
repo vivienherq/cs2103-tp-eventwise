@@ -162,6 +162,7 @@ This feature creates a new event instance and is stored in storage.
 It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
 It is then hook to AddressBook where user is able to create a new event by using the event command.
 
+<<<<<<< HEAD
 ### Add Event Details feature
 
 The following sequence diagram shows how the view event operation works.
@@ -194,6 +195,8 @@ The following sequence diagram shows how the add event details operation works.
   - Pros: Each command has a single responsibility. Easier to handle exceptions.
   - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
 
+=======
+>>>>>>> 1071d44f5eaeb0a7aded54611638940745e27be9
 ### Create New Venue Feature
 
 #### Implementation
@@ -209,6 +212,30 @@ It is then hook to EventWise where user is able to create a new venue by using t
 This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
+
+### Add Person to Event Feature
+
+#### Implementation
+
+### Add Vendor to Event Feature
+
+#### Implementation
+
+### Set Venue to Event Feature
+
+#### Implementation
+
+### RSVP Feature
+
+#### Implementation
+
+### Remove Person from Event Feature
+
+#### Implementation
+
+### Remove Vendor from Event Feature
+
+#### Implementation
 
 ### \[Proposed\] Undo/redo feature
 
