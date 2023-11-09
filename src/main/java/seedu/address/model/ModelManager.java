@@ -225,10 +225,6 @@ public class ModelManager implements Model {
         } else {
             addressBook.setEventAttendees(event.getPersons());
             addressBook.setEventVendors(event.getVendors());
-            updateFilteredEventAttendeesList(PREDICATE_SHOW_NO_PERSONS);
-            updateFilteredEventVendorList(PREDICATE_SHOW_NO_VENDORS);
-            updateFilteredEventAttendeesList(PREDICATE_SHOW_ALL_PERSONS);
-            updateFilteredEventVendorList(PREDICATE_SHOW_ALL_VENDORS);
         }
         this.eventToView = event;
     }
@@ -456,12 +452,6 @@ public class ModelManager implements Model {
         return filteredEventAttendees;
     }
 
-    @Override
-    public void updateFilteredEventAttendeesList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredEventAttendees.setPredicate(predicate);
-    }
-
     //=========== Filtered Event Vendors List Accessors ====================================================
     /**
      * Returns an unmodifiable view of the list of {@code Vendor} backed by the internal list of
@@ -470,12 +460,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Vendor> getFilteredEventVendorsList() {
         return filteredEventVendors;
-    }
-
-    @Override
-    public void updateFilteredEventVendorList(Predicate<Vendor> predicate) {
-        requireNonNull(predicate);
-        filteredEventVendors.setPredicate(predicate);
     }
 
     //=========== RSVP List Accessors ====================================================
