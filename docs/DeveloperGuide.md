@@ -9,7 +9,15 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+EventWise is based on the [AddressBook-Level3](https://github.com/se-edu/addressbook-level3) project created by the [SE-EDU](https://se-education.org/) initiative as part of the [CS2103/T Software Engineering](https://nus-cs2103-ay2324s1.github.io/website/) module by the School of Computing, National University of Singapore.
+
+Java libraries used in this project:
+- [Jackson](https://github.com/FasterXML/jackson) for Storage
+- [JavaFX](https://openjfx.io/) for GUI
+- [JUnit5](https://junit.org/junit5/) for Testing
+
+Reused / Adapted Ideas
+- [Date Validation Format](https://stackoverflow.com/questions/15491894/) from StackOverflow
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -162,41 +170,6 @@ This feature creates a new event instance and is stored in storage.
 It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
 It is then hook to AddressBook where user is able to create a new event by using the event command.
 
-<<<<<<< HEAD
-### Add Event Details feature
-
-The following sequence diagram shows how the view event operation works.
-![ViewEventSequenceDiagram](images/ViewEventSequenceDiagram.png)
-
-This operation involves calling Model#setEventToView(Event) to notify EventDetailsDisplay to display the current event object.
-
-### [Implemented] Add Event Details feature
-
-#### Current Implementation
-Adding event details is a feature that uses the command `addEventDetails eid/EVENT_INDEX [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR_ID]`. This feature is designed to support adding people and vendors to a specified event as well as to set the venue of a specified event.
-
-To support such a relationship between the data classes `Event`, `Person`, `Vendor` and `Venue`, a partial class diagram representing the associations between the classes is given below.
-
-![DataClassDiagram](images/DataClassDiagram.png)
-
-- An event can accommodate any number of people.
-- An event can contain any number of vendors.
-- An event can only be held at up to one venue.
-
-The following sequence diagram shows how the add event details operation works.
-
-
-#### Design considerations
-- Current Choice: Functionality for adding people to events, adding vendors to events and setting venues are in the same command.
-  - Pros: User can add people into an event and set the event venue at the same time
-  - Cons: Many validation functions with different responsibilities are implemented in one class.
-
-- Alternative: Individual commands for adding people to events, adding vendors to events and setting venues.
-  - Pros: Each command has a single responsibility. Easier to handle exceptions.
-  - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
-
-=======
->>>>>>> 1071d44f5eaeb0a7aded54611638940745e27be9
 ### Create New Venue Feature
 
 #### Implementation
@@ -212,6 +185,11 @@ It is then hook to EventWise where user is able to create a new venue by using t
 This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
+
+### View specific event Feature
+
+#### Implementation
+The view specific event is a feature that allows users to view a specific event's details as well as other related information such as the venue, list of vendors and guests  
 
 ### Add Person to Event Feature
 
