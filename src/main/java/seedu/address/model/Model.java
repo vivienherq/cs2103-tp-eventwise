@@ -165,18 +165,7 @@ public interface Model {
     Event getEventToView();
 
 
-    /** Resets the attendee list associated to all events to an empty list */
-    void resetAllEventGuests();
-
-
-    /** Resets the vendor list associated to all events to an empty list */
-    void resetAllEventVendors();
-
-    /** Resets the venue associated to all events to null */
-    void resetAllEventVenues();
-
     // Venues
-
     /**
      * Returns true if a venue with the same identity as {@code venue} exists in the event list.
      */

@@ -104,10 +104,6 @@ public class Event implements DisplayableListViewItem {
         return venue;
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = venue;
-    }
-
     public void clearVenue() {
         this.venue = null;
     }

@@ -18,7 +18,6 @@ public class ClearVendorsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.resetVendors();
-        model.resetAllEventVendors();
         model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDORS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
