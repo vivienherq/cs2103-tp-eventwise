@@ -93,11 +93,12 @@ public class EditCommand extends Command {
                 Rsvp existingRsvp = model.findRsvp(event, personToEdit);
 
                 if (existingRsvp != null) {
-                    List<Rsvp> rsvpList = model.getAddressBook().getRsvpList();
+                    List<Rsvp> rsvpList = new ArrayList<>(model.getAddressBook().getRsvpList());
                     rsvpList.set(
                             rsvpList.indexOf(existingRsvp),
-                            new Rsvp(existingRsvp.getEvent(), editedPerson, existingRsvp.getRsvpStatus())
+                            new Rsvp(updatedEvent, editedPerson, existingRsvp.getRsvpStatus())
                     );
+                    model.setRsvps(rsvpList);
                 }
             }
         }

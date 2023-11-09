@@ -38,7 +38,7 @@ public class ViewEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> eventList = model.getFilteredEventsList();
+        List<Event> eventList = model.getAddressBook().getEventList();
 
         if (index.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);

@@ -296,6 +296,11 @@ public class CreateVendorCommandTest {
         }
 
         @Override
+        public void setRsvps(List<Rsvp> rsvps) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Rsvp findRsvp(Event event, Person person) {
             throw new AssertionError("This method should not be called.");
         }
