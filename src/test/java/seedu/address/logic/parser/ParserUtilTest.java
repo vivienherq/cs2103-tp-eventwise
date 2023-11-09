@@ -10,9 +10,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.FromDate;
+import seedu.address.model.event.Note;
+import seedu.address.model.event.ToDate;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.rsvp.RsvpStatus;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -23,6 +26,8 @@ public class ParserUtilTest {
     private static final String INVALID_EVENT_NAME = "F&S&C";
     private static final String INVALID_EVENT_DESC = "F&";
     private static final String INVALID_EVENT_DATE = "40-40-2000";
+    private static final String INVALID_EVENT_NOTE = "@91!";
+    private static final String INVALID_RSVP_STATUS = "DC";
 
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -34,6 +39,8 @@ public class ParserUtilTest {
     private static final String VALID_EVENT_NAME = "FSC 2023";
     private static final String VALID_EVENT_DESC = "Freshman Social Camp 2023";
     private static final String VALID_EVENT_DATE = "12-09-2023";
+    private static final String VALID_EVENT_NOTE = "This event has elements of horror";
+    private static final String VALID_RSVP_STATUS = "CC";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -160,38 +167,100 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEventDescription_validValueWithoutWhitespace_returnsName() throws Exception {
+    public void parseEventDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
         Description expectedDescription = new Description(VALID_EVENT_DESC);
         assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_EVENT_DESC));
     }
 
     @Test
-    public void parseEventDescription_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+    public void parseEventDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
         String descriptionWithWhitespace = WHITESPACE + VALID_EVENT_DESC + WHITESPACE;
         Description expectedDescription = new Description(VALID_EVENT_DESC);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 
     @Test
-    public void parseEventDate_null_throwsNullPointerException() {
+    public void parseEventFromDate_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseFromDate((String) null));
     }
 
     @Test
-    public void parseEventDate_invalidValue_throwsParseException() {
+    public void parseEventFromDate_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseFromDate(INVALID_EVENT_DATE));
     }
 
     @Test
-    public void parseEventDate_validValueWithoutWhitespace_returnsName() throws Exception {
+    public void parseEventFromDate_validValueWithoutWhitespace_returnsFromDate() throws Exception {
         FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
         assertEquals(expectedFromDate, ParserUtil.parseFromDate(VALID_EVENT_DATE));
     }
 
     @Test
-    public void parseEventDate_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+    public void parseEventFromDate_validValueWithWhitespace_returnsTrimmedFromDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_EVENT_DATE + WHITESPACE;
         FromDate expectedFromDate = new FromDate(VALID_EVENT_DATE);
         assertEquals(expectedFromDate, ParserUtil.parseFromDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseEventToDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseToDate((String) null));
+    }
+
+    @Test
+    public void parseEventToDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFromDate(INVALID_EVENT_DATE));
+    }
+
+    @Test
+    public void parseEventToDate_validValueWithoutWhitespace_returnsToDate() throws Exception {
+        ToDate expectedToDate = new ToDate(VALID_EVENT_DATE);
+        assertEquals(expectedToDate, ParserUtil.parseToDate(VALID_EVENT_DATE));
+    }
+
+    @Test
+    public void parseEventToDate_validValueWithWhitespace_returnsTrimmedToDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_EVENT_DATE + WHITESPACE;
+        ToDate expectedToDate = new ToDate(VALID_EVENT_DATE);
+        assertEquals(expectedToDate, ParserUtil.parseToDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseEventNote_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNote(INVALID_EVENT_NOTE));
+    }
+
+    @Test
+    public void parseEventNote_validValueWithoutWhitespace_returnsNote() throws Exception {
+        Note expectedNote = new Note(VALID_EVENT_NOTE);
+        assertEquals(expectedNote, ParserUtil.parseNote(VALID_EVENT_NOTE));
+    }
+
+    @Test
+    public void parseEventNote_validValueWithWhitespace_returnsTrimmedNote() throws Exception {
+        String noteWithWhitespace = WHITESPACE + VALID_EVENT_NOTE + WHITESPACE;
+        Note expectedNote = new Note(VALID_EVENT_NOTE);
+        assertEquals(expectedNote, ParserUtil.parseNote(noteWithWhitespace));
+    }
+
+    @Test
+    public void parseRSVPStatus_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRsvpStatus((String) null));
+    }
+
+    @Test
+    public void parseRSVPStatus_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRsvpStatus(INVALID_RSVP_STATUS));
+    }
+
+    @Test
+    public void parseRSVPStatus_validValueWithoutWhitespace_returnsRSVPStatus() throws Exception {
+        assertEquals(RsvpStatus.CC, ParserUtil.parseRsvpStatus(VALID_RSVP_STATUS));
+    }
+
+    @Test
+    public void parseRSVPStatus_validValueWithWhitespace_returnsRSVPStatus() throws Exception {
+        String rsvpStatusWithWhitespace = WHITESPACE + VALID_RSVP_STATUS + WHITESPACE;
+        assertEquals(RsvpStatus.CC, ParserUtil.parseRsvpStatus(rsvpStatusWithWhitespace));
     }
 }
