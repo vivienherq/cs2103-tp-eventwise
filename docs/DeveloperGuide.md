@@ -162,29 +162,6 @@ This feature creates a new event instance and is stored in storage.
 It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
 It is then hook to AddressBook where user is able to create a new event by using the event command.
 
-### Add Event Details feature
-
-#### Implementation
-
-The mechanism to add event details is designed to support adding people and vendors to a specified event as well as to set the venue of a specified event.
-
-To support such a relationship between the data classes `Event`, `Person`, `Vendor` and `Venue`, a partial class diagram representing the associations between the classes is given below.
-
-![DataClassDiagram](images/DataClassDiagram.png)
-
-- An event can accommodate any number of people.
-- An event can contain any number of vendors.
-- An event can only be held at one venue.
-
-#### Design considerations
-- Current Choice: Functionality for adding people to events, adding vendors to events and setting venues are in the same command.
-  - Pros: User can add people into an event and set the event venue at the same time
-  - Cons: Many validation functions with different responsibilities are implemented in one class.
-
-- Alternative: Individual commands for adding people to events, adding vendors to events and setting venues.
-  - Pros: Each command has a single responsibility. Easier to handle exceptions.
-  - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
-
 ### Create New Venue Feature
 
 #### Implementation
@@ -200,6 +177,30 @@ It is then hook to EventWise where user is able to create a new venue by using t
 This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
+
+### Add Person to Event Feature
+
+#### Implementation
+
+### Add Vendor to Event Feature
+
+#### Implementation
+
+### Set Venue to Event Feature
+
+#### Implementation
+
+### RSVP Feature
+
+#### Implementation
+
+### Remove Person from Event Feature
+
+#### Implementation
+
+### Remove Vendor from Event Feature
+
+#### Implementation
 
 ### \[Proposed\] Undo/redo feature
 
