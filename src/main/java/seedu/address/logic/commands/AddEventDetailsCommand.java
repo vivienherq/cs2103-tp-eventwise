@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
@@ -123,6 +124,18 @@ public class AddEventDetailsCommand extends Command {
         } else if (venueToAdd != null) {
             successfullyAddedMessage += ("\n" + String.format(MESSAGE_VENUE, venueToAdd.getName()));
         }
+
+        // Find Rsvp objects affected by the change and swap the event
+        List<Rsvp> rsvpList = new ArrayList<>(model.getFilteredRsvpList());
+        for (Rsvp rsvp: rsvpList) {
+            System.out.println(rsvp.toString());
+            if (rsvp.getEvent().isSameEvent(eventToEdit)) {
+                Rsvp editedRsvp = new Rsvp(editedEvent, rsvp.getPerson(), rsvp.getRsvpStatus());
+                rsvpList.set(rsvpList.indexOf(rsvp), editedRsvp);
+            }
+        }
+
+        model.setRsvps(rsvpList);
 
         // Set edited event to be shown in the UI
         model.setEventToView(editedEvent);

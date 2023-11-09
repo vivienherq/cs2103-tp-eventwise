@@ -25,7 +25,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     Predicate<Venue> PREDICATE_SHOW_ALL_VENUES = unused -> true;
-    Predicate<Vendor> PREDICATE_SHOW_ALL_VENDOR = unused -> true;
+    Predicate<Vendor> PREDICATE_SHOW_ALL_VENDORS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -209,6 +209,11 @@ public interface Model {
     void deleteRsvp(Rsvp rsvp);
 
     /**
+     * Sets {@code rsvps} as the updated rsvp list in address book
+     */
+    void setRsvps(List<Rsvp> rsvps);
+
+    /**
      * Finds a Rsvp given an {@code event} and {@code person}.
      */
     Rsvp findRsvp(Event event, Person person);
@@ -266,7 +271,7 @@ public interface Model {
     ObservableList<Vendor> getFilteredEventVendorsList();
 
     /**
-     * Updates the filter of the filtered vendor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered vendors list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredVendorList(Predicate<Vendor> predicate);
@@ -285,4 +290,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered displayable items list */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
 
+    ObservableList<Rsvp> getFilteredEventRsvpList();
+
+    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
 }

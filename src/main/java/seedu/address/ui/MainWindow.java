@@ -128,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         eventDetailsDisplay = new EventDetailsDisplay();
         eventDetailsPlaceholder.getChildren().add(eventDetailsDisplay.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList(), logic.getFilteredRsvpList());
+        personListPanel = new PersonListPanel(logic.getFilteredEventAttendeesList(), logic.getFilteredEventRsvpList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         vendorListPanel = new VendorListPanel(logic.getFilteredEventVendorsList());

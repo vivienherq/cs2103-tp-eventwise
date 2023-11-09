@@ -40,6 +40,7 @@ public class ModelManager implements Model {
     private final FilteredList<Vendor> filteredEventVendors;
     private final FilteredList<DisplayableListViewItem> filteredDisplayableItems;
     private final FilteredList<Rsvp> filteredRsvps;
+    private final FilteredList<Rsvp> filteredEventRsvps;
     private final FilteredList<Vendor> filteredVendors;
     private Event eventToView;
 
@@ -61,6 +62,7 @@ public class ModelManager implements Model {
         filteredEventVendors = new FilteredList<>(this.addressBook.getEventVendorsList());
         filteredDisplayableItems = new FilteredList<>(this.addressBook.getDisplayableItemList());
         filteredRsvps = new FilteredList<>(this.addressBook.getRsvpList());
+        filteredEventRsvps = new FilteredList<>(this.addressBook.getEventRsvpsList());
     }
 
     public ModelManager() {
@@ -222,11 +224,23 @@ public class ModelManager implements Model {
         if (event == null) {
             addressBook.setEventAttendees(new ArrayList<>());
             addressBook.setEventVendors(new ArrayList<>());
+            addressBook.setEventRsvps(new ArrayList<>());
         } else {
             addressBook.setEventAttendees(event.getPersons());
             addressBook.setEventVendors(event.getVendors());
+            addressBook.setEventRsvps(getRsvps(event));
         }
         this.eventToView = event;
+    }
+
+    private List<Rsvp> getRsvps(Event event) {
+        List<Rsvp> rsvps = new ArrayList<>();
+        for (Rsvp rsvp : filteredRsvps) {
+            if (rsvp.getEvent().isSameEvent(event)) {
+                rsvps.add(rsvp);
+            }
+        }
+        return rsvps;
     }
 
     // Venues
@@ -305,7 +319,7 @@ public class ModelManager implements Model {
         if (index.getZeroBased() >= addressBook.getVendorList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
         }
-        filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDOR);
+        filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDORS);
         return filteredVendors.get(index.getZeroBased());
     }
 
@@ -339,6 +353,11 @@ public class ModelManager implements Model {
         }
 
         return null;
+    }
+
+    @Override
+    public void setRsvps(List<Rsvp> rsvps) {
+        addressBook.setRsvps(rsvps);
     }
 
     /**
@@ -504,6 +523,18 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList() {
         return filteredDisplayableItems;
+    }
+
+    @Override
+    public ObservableList<Rsvp> getFilteredEventRsvpList() {
+        return filteredEventRsvps;
+    }
+
+    @Override
+    public void updateFilteredEventRsvpList(Predicate<Rsvp> predicate) {
+        requireNonNull(predicate);
+        filteredRsvps.setPredicate(predicate);
+        addressBook.setEventRsvps(filteredRsvps);
     }
 
 }

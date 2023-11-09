@@ -10,6 +10,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.rsvp.RsvpContainsEventPredicate;
 
 /**
  * View details for a specified event in EventWise
@@ -25,7 +26,6 @@ public class ViewEventCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_EVENT_ID + "1 ";
 
     public static final String MESSAGE_SUCCESS = "Showing Event %1$d: %2$s";
-
     private final Index index;
 
     /**
@@ -38,7 +38,7 @@ public class ViewEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> eventList = model.getFilteredEventsList();
+        List<Event> eventList = model.getAddressBook().getEventList();
 
         if (index.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
@@ -47,6 +47,7 @@ public class ViewEventCommand extends Command {
         // Use model to retrieve event
         Event eventToView = eventList.get(index.getZeroBased());
 
+        model.updateFilteredEventRsvpList(new RsvpContainsEventPredicate(eventToView));
         // Set eventToView in the model
         model.setEventToView(eventToView);
 
