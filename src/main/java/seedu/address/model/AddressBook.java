@@ -183,6 +183,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetVendors() {
         setVendors(new ArrayList<>());
     }
+    public void resetRsvps() {
+        setRsvps(new ArrayList<>());
+    }
+
 
     //// person-level operations
 

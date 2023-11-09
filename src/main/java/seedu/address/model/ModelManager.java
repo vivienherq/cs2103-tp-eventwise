@@ -131,6 +131,10 @@ public class ModelManager implements Model {
         this.addressBook.resetVendors();
     }
 
+    @Override
+    public void resetRsvps() {
+        this.addressBook.resetRsvps();
+    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENUES;
 
 import seedu.address.model.Model;
 
@@ -17,6 +18,7 @@ public class ClearVenuesCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.resetVenues();
+        model.updateFilteredVenueList(PREDICATE_SHOW_ALL_VENUES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
