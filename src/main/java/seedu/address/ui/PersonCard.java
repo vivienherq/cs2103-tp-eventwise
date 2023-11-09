@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
@@ -55,13 +54,13 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
-        RsvpStatus rsvpVal = getRsvpStatus(EventDetailsDisplay.getCurrentEvent(), person);
+        RsvpStatus rsvpVal = getRsvpStatus(person);
         displayRsvp(rsvpVal);
     }
 
-    private RsvpStatus getRsvpStatus(Event event, Person person) {
+    private RsvpStatus getRsvpStatus(Person person) {
         for (Rsvp rsvp: rsvps) {
-            if (rsvp.getEvent().isSameEvent(event) && rsvp.getPerson().isSamePerson(person)) {
+            if (rsvp.getPerson().isSamePerson(person)) {
                 return rsvp.getRsvpStatus();
             }
         }

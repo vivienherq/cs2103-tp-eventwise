@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpContainsEventPredicate;
 import seedu.address.model.rsvp.RsvpStatus;
 
 /**
@@ -56,6 +57,7 @@ public class RsvpCommand extends Command {
                     String.format(MESSAGE_PERSON_NOT_IN_EVENT, rsvp.getPersonName(), rsvp.getEventName()));
         }
         model.addRsvp(rsvp);
+        model.updateFilteredEventRsvpList(new RsvpContainsEventPredicate(rsvp.getEvent()));
         model.setEventToView(rsvp.getEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 rsvp.getEventName(), rsvp.getPersonName(), rsvpStatus.getStatus()));

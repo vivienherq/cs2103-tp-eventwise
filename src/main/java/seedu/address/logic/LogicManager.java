@@ -101,6 +101,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Rsvp> getFilteredEventRsvpList() {
+        return model.getFilteredEventRsvpList();
+    }
+
+    @Override
     public Event getEventToView() {
         return model.getEventToView();
     }

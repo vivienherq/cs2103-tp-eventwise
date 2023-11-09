@@ -27,6 +27,7 @@ import seedu.address.model.venue.Venue;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueRsvpList rsvps;
+    private final UniqueRsvpList eventRsvps;
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
@@ -50,6 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         eventVendors = new UniqueVendorList();
         displayableItems = new UniqueDisplayableItemList();
         rsvps = new UniqueRsvpList();
+        eventRsvps = new UniqueRsvpList();
         vendors = new UniqueVendorList();
     }
 
@@ -114,6 +116,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the rsvp list with {@code rsvps}.
+     * {@code rsvps} must not contain duplicate rsvps.
+     */
+    public void setEventRsvps(List<Rsvp> rsvps) {
+        this.eventRsvps.setRsvps(rsvps);
+    }
+
+    /**
      * Replaces the contents of the vendor list with {@code vendors}.
      * {@code vendors} must not contain duplicate vendors.
      */
@@ -143,6 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEventVendors(new ArrayList<>());
         setDisplayableItems(new ArrayList<>());
         setRsvps(newData.getRsvpList());
+        setEventRsvps(new ArrayList<>());
     }
 
     /**
@@ -406,6 +417,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Vendor> getEventVendorsList() {
         return eventVendors.asUnmodifiableObservableList();
+    }
+    public ObservableList<Rsvp> getEventRsvpsList() {
+        return eventRsvps.asUnmodifiableObservableList();
     }
 
     @Override
