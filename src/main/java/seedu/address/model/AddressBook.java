@@ -183,6 +183,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetVendors() {
         setVendors(new ArrayList<>());
     }
+    public void resetRsvps() {
+        setRsvps(new ArrayList<>());
+    }
+
 
     //// person-level operations
 
@@ -444,6 +448,33 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons);
+    }
+
+    /**
+     * Remove all guests' information from all events
+     */
+    public void clearGuestsFromEvents() {
+        for (Event event: events) {
+            event.clearGuests();
+        }
+    }
+
+    /**
+     * Remove all venues' information from all events
+     */
+    public void clearVenuesFromEvents() {
+        for (Event event: events) {
+            event.clearVenue();
+        }
+    }
+
+    /**
+     * Remove all vendors' information from all events
+     */
+    public void clearVendorsFromEvents() {
+        for (Event event: events) {
+            event.clearVendors();
+        }
     }
 
     @Override

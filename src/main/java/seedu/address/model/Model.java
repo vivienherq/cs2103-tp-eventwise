@@ -143,7 +143,7 @@ public interface Model {
     void resetGuests();
     void resetVenues();
     void resetVendors();
-
+    void resetRsvps();
 
     /** Returns an unmodifiable view of the filtered events list */
     ObservableList<Event> getFilteredEventsList();
