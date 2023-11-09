@@ -7,10 +7,16 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.displayable.DisplayableListViewItem;
+import seedu.address.model.displayable.UniqueDisplayableItemList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.UniqueRsvpList;
+import seedu.address.model.vendor.UniqueVendorList;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.UniqueVenueList;
 import seedu.address.model.venue.Venue;
 
@@ -20,10 +26,14 @@ import seedu.address.model.venue.Venue;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueRsvpList rsvps;
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueVenueList venues;
     private final UniquePersonList eventAttendees;
+    private final UniqueVendorList eventVendors;
+    private final UniqueDisplayableItemList displayableItems;
+    private final UniqueVendorList vendors;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +47,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
         venues = new UniqueVenueList();
         eventAttendees = new UniquePersonList();
+        eventVendors = new UniqueVendorList();
+        displayableItems = new UniqueDisplayableItemList();
+        rsvps = new UniqueRsvpList();
+        vendors = new UniqueVendorList();
     }
 
     public AddressBook() {}
@@ -84,6 +98,38 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the displayable listview items list with {@code items}.
+     * {@code items} must not contain duplicate displayable list view items.
+     */
+    public void setDisplayableItems(List<? extends DisplayableListViewItem> items) {
+        this.displayableItems.setDisplayableItems(items);
+    }
+
+    /**
+     * Replaces the contents of the rsvp list with {@code rsvps}.
+     * {@code rsvps} must not contain duplicate rsvps.
+     */
+    public void setRsvps(List<Rsvp> rsvps) {
+        this.rsvps.setRsvps(rsvps);
+    }
+
+    /**
+     * Replaces the contents of the vendor list with {@code vendors}.
+     * {@code vendors} must not contain duplicate vendors.
+     */
+    public void setVendors(List<Vendor> vendors) {
+        this.vendors.setVendors(vendors);
+    }
+
+    /**
+     * Replaces the contents of an event's vendor list with {@code vendors}.
+     * {@code vendors} must not contain duplicate vendors.
+     */
+    public void setEventVendors(List<Vendor> vendors) {
+        this.eventVendors.setVendors(vendors);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -92,6 +138,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setVenues(newData.getVenueList());
+        setVendors(newData.getVendorList());
+        setEventAttendees(new ArrayList<>());
+        setEventVendors(new ArrayList<>());
+        setDisplayableItems(new ArrayList<>());
+        setRsvps(newData.getRsvpList());
     }
 
     /**
@@ -113,6 +164,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetVenues() {
         setVenues(new ArrayList<>());
+    }
+
+    /**
+     * Resets the existing vendors data of this {@code AddressBook}.
+     */
+    public void resetVendors() {
+        setVendors(new ArrayList<>());
     }
 
     //// person-level operations
@@ -189,6 +247,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    //// venue-level operations
+
     /**
      * Returns true if an existing venue similar to {@code venue} exists in the venue list.
      */
@@ -224,6 +284,91 @@ public class AddressBook implements ReadOnlyAddressBook {
         venues.remove(key);
     }
 
+    /**
+     * Adds a displayable item to the address book.
+     * The displayable item must not already exist in the address book.
+     */
+    public void addDisplayableItem(DisplayableListViewItem item) {
+        displayableItems.add(item);
+    }
+
+    /**
+     * Replaces the given displayable list view item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The displayable list view identity of {@code editedItem} must not be the same as another existing
+     * displayable list view item in the address book.
+     */
+    public void setDisplayableItem(DisplayableListViewItem target, DisplayableListViewItem editedItem) {
+        requireNonNull(editedItem);
+
+        displayableItems.setDisplayableItem(target, editedItem);
+    }
+
+    /**
+     * Returns true if an RSVP with the same identity as {@code rsvp} exists in the address book.
+     */
+    public boolean hasRsvp(Rsvp rsvp) {
+        requireNonNull(rsvp);
+        return rsvps.contains(rsvp);
+    }
+
+    /**
+     * Adds an RSVP to the address book.
+     * The RSVP must not already exist in the address book.
+     */
+    public void addRsvp(Rsvp rsvp) {
+        rsvps.add(rsvp);
+    }
+
+    /**
+     * Removes an RSVP from the address book.
+     * The RSVP must exist in the address book.
+     */
+    public void removeRsvp(Rsvp key) {
+        rsvps.remove(key);
+    }
+
+    //// vendor-level operations
+
+    /**
+     * Returns true if an existing vendor similar to {@code vendor} exists in the vendor list.
+     */
+    public boolean hasVendor(Vendor vendor) {
+        requireNonNull(vendor);
+        return vendors.contains(vendor);
+    }
+
+    /**
+     * Adds a vendor to EventWise.
+     * The vendor must not already exist in EventWise.
+     */
+    public void addVendor(Vendor vendor) {
+        vendors.add(vendor);
+    }
+
+    /**
+     * Replaces the given vendor {@code target} in the list with {@code editedVendor}.
+     * {@code target} must exist in EventWise.
+     * The vendor identity of {@code editedVendor} must not be the same as another existing vendor in EventWise.
+     */
+    public void setVendor(Vendor target, Vendor editedVendor) {
+        requireNonNull(editedVendor);
+
+        vendors.setVendor(target, editedVendor);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDisplayableItem(DisplayableListViewItem key) {
+        displayableItems.remove(key);
+    }
+
+    public void removeVendor(Vendor key) {
+        vendors.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -249,8 +394,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Rsvp> getRsvpList() {
+        return rsvps.asUnmodifiableObservableList();
+    }
+
+    @Override
     public ObservableList<Person> getEventAttendeesList() {
         return eventAttendees.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Vendor> getEventVendorsList() {
+        return eventVendors.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<DisplayableListViewItem> getDisplayableItemList() {
+        return displayableItems.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Vendor> getVendorList() {
+        return vendors.asUnmodifiableObservableList();
     }
 
     @Override

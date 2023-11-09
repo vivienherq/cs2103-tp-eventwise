@@ -3,14 +3,16 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Represents a Event's date in EventWise.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class FromDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Event date should only be in DD-MM-YYYY format";
+            "Event date should only be in DD-MM-YYYY format and should be either today's date or a future date. ";
 
     // Regex referenced from
     // https://stackoverflow.com/questions/15491894/
@@ -29,17 +31,34 @@ public class Date {
      *
      * @param date A valid date.
      */
-    public Date(String date) {
+    public FromDate(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         eventDate = date;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given date input is of a valid format.
      */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if given date is a valid date.
+     */
+    public boolean isNotPast() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date currentDate = new java.util.Date();
+        String currentDateString = dateFormat.format(currentDate);
+
+        try {
+            java.util.Date inputDate = dateFormat.parse(eventDate);
+            java.util.Date currentDateParsed = dateFormat.parse(currentDateString);
+            return !inputDate.before(currentDateParsed);
+        } catch (java.text.ParseException e) {
+            return false;
+        }
     }
 
 
@@ -55,11 +74,11 @@ public class Date {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Date)) {
+        if (!(other instanceof FromDate)) {
             return false;
         }
 
-        Date otherName = (Date) other;
+        FromDate otherName = (FromDate) other;
         return eventDate.equals(otherName.eventDate);
     }
 

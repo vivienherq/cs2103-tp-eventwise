@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -18,19 +19,21 @@ public class CreateEventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to EventWise. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to EventWise. \n"
             + "Parameters: "
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_DESC + "DESCRIPTION "
-            + PREFIX_EVENT_DATE + "DATE "
+            + PREFIX_EVENT_FROM + "DATE "
+            + PREFIX_EVENT_TO + "DATE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME + "FSC 2023 "
             + PREFIX_EVENT_DESC + "Freshman Social Camp 2023 "
-            + PREFIX_EVENT_DATE + "01-01-2000";
+            + PREFIX_EVENT_FROM + "11-12-2023 "
+            + PREFIX_EVENT_TO + "13-12-2023";
 
     public static final String MESSAGE_SUCCESS = "New Event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in EventWise";
-
+    public static final String MESSAGE_INVALID_DATE = "Date entered should be either today's date or a future date.";
     private final Event toAdd;
 
     /**
@@ -50,6 +53,7 @@ public class CreateEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

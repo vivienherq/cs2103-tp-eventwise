@@ -185,7 +185,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#ffffff, 50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .context-menu .label {
@@ -369,4 +369,23 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
     -fx-text-fill: black;
+}
+
+.label-rsvp {
+    -fx-background-color: #2D8CFF; /* Sample background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-padding: 5px 10px; /* Top-Bottom and Left-Right padding */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-background-radius: 15px; /* Rounded background */
+    -fx-font-size: 12px; /* Font size */
+    -fx-font-weight: bold; /* Make text bold */
+}
+
+/* Sample for different colored tags */
+.label-rsvp.red {
+    -fx-background-color: #FF5733;
+}
+
+.label-rsvp.green {
+    -fx-background-color: #28A745;
 }

@@ -154,8 +154,15 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### [Implemented] View Event
-Viewing event details is a feature that uses the command `viewEvent eid/EVENT_INDEX`.
+### Create New Event Feature
+
+#### Implementation
+
+This feature creates a new event instance and is stored in storage.
+It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
+It is then hook to AddressBook where user is able to create a new event by using the event command.
+
+### Add Event Details feature
 
 The following sequence diagram shows how the view event operation works.
 ![ViewEventSequenceDiagram](images/ViewEventSequenceDiagram.png)
@@ -187,6 +194,21 @@ The following sequence diagram shows how the add event details operation works.
   - Pros: Each command has a single responsibility. Easier to handle exceptions.
   - Cons: The need to implement 3 separate commands and ensuring that each implementation is correct.
 
+### Create New Venue Feature
+
+#### Implementation
+
+This feature creates a new venue instance and is stored in storage.
+It is implemented by creating `CreateVenueCommand` and `CreateVenueCommandParser`
+It is then hook to EventWise where user is able to create a new venue by using the venue command.
+
+### Create New Vendor Feature
+
+#### Implementation
+
+This feature creates a new vendor instance and is stored in storage.
+It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
+It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -304,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
 |---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
-| `* * *` | event planner | create a new event, specifying its date, time, and location   | keep track of the event details                      |
+| `* * *` | event planner | create a new event, specifying its fromDate, time, and location   | keep track of the event details                      |
 | `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
 | `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
 | `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |

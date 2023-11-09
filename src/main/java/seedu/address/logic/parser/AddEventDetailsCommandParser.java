@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -19,18 +21,19 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddEventDetailsCommand}
-     * and returns a {@code ViewEventCommand} object for execution.
-     * @param args arguments for {@code ViewEventCommand}
-     * @return {@code ViewEventCommand}
+     * and returns a {@code AddEventDetailsCommand} object for execution.
+     * @param args arguments for {@code AddEventDetailsCommand}
+     * @return {@code AddEventDetailsCommand}
      * @throws ParseException if the user input does not conform with the expected format
      */
     @Override
     public AddEventDetailsCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID, PREFIX_PERSON);
+        ArgumentMultimap argumentMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_ID, PREFIX_PERSON, PREFIX_VENUE, PREFIX_VENDOR);
 
-        // Should only have one prefix for EVENT_ID
-        argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID);
+        // Should only have one prefix for EVENT_ID AND VENUE
+        argumentMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_ID, PREFIX_VENUE);
 
         // Minimally event prefix has to be present.
         if (!arePrefixesPresent(argumentMultimap, PREFIX_EVENT_ID)) {
@@ -44,7 +47,16 @@ public class AddEventDetailsCommandParser implements Parser<AddEventDetailsComma
         // Get a list of prefix: person/
         Set<Index> personIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_PERSON));
 
-        return new AddEventDetailsCommand(index, personIndexes);
+        // Get a list of prefix: vendor/
+        Set<Index> vendorIndexes = ParserUtil.parseIndexes(argumentMultimap.getAllValues(PREFIX_VENDOR));
+
+        // Venue ID to set venue
+        if (argumentMultimap.getValue(PREFIX_VENUE).isEmpty()) {
+            return new AddEventDetailsCommand(index, personIndexes, vendorIndexes, null);
+        }
+
+        Index venueIndex = ParserUtil.parseIndex(argumentMultimap.getValue(PREFIX_VENUE).get());
+        return new AddEventDetailsCommand(index, personIndexes, vendorIndexes, venueIndex);
     }
 
     /**

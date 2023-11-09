@@ -3,8 +3,9 @@ package seedu.address.model.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_CAREER_FAIR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TO_DATE_CAREER_FAIR;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.FOC;
 import static seedu.address.testutil.TypicalEvents.FSC;
@@ -23,7 +24,7 @@ public class UniqueEventListTest {
     private final UniqueEventList uniqueEventList = new UniqueEventList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullEvent_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEventList.contains(null));
     }
 
@@ -43,7 +44,8 @@ public class UniqueEventListTest {
         uniqueEventList.add(FSC);
         Event editedFsc = new EventBuilder(FSC)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
-                .withDate(VALID_EVENT_DATE_CAREER_FAIR)
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR)
                 .build();
         assertTrue(uniqueEventList.contains(editedFsc));
     }
@@ -88,7 +90,8 @@ public class UniqueEventListTest {
         uniqueEventList.add(FSC);
         Event editedFsc = new EventBuilder(FSC)
                 .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR)
-                .withDate(VALID_EVENT_DATE_CAREER_FAIR)
+                .withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR)
                 .build();
         uniqueEventList.setEvent(FSC, editedFsc);
         UniqueEventList expectedUniqueEventList = new UniqueEventList();
@@ -118,7 +121,7 @@ public class UniqueEventListTest {
     }
 
     @Test
-    public void remove_eventDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_eventDoesNotExist_throwsEventNotFoundException() {
         assertThrows(EventNotFoundException.class, () -> uniqueEventList.remove(FSC));
     }
 
@@ -152,8 +155,8 @@ public class UniqueEventListTest {
     @Test
     public void setEvents_list_replacesOwnListWithProvidedList() {
         uniqueEventList.add(FSC);
-        List<Event> personList = Collections.singletonList(FOC);
-        uniqueEventList.setEvents(personList);
+        List<Event> eventList = Collections.singletonList(FOC);
+        uniqueEventList.setEvents(eventList);
         UniqueEventList expectedUniqueEventList = new UniqueEventList();
         expectedUniqueEventList.add(FOC);
         assertEquals(expectedUniqueEventList, uniqueEventList);

@@ -7,9 +7,13 @@
    <children>
       <Label styleClass="event_description_title">Event Details</Label>
       <VBox>
-         <Label fx:id="name" styleClass="event_description_big_label" />
+         <Label fx:id="eventName" styleClass="event_description_big_label" />
          <Label fx:id="description" styleClass="event_description_small_label" />
          <Label fx:id="date" styleClass="event_description_small_label" />
+         <Label fx:id="venueName" styleClass="event_description_small_label" />
+         <Label fx:id="address" styleClass="event_description_small_label" />
+         <Label fx:id="capacity" styleClass="event_description_small_label" />
+         <Label fx:id="note" styleClass="event_description_small_label" />
       </VBox>
    </children>
 </VBox>

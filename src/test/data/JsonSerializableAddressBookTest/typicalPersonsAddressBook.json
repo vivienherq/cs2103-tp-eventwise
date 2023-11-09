@@ -46,11 +46,14 @@
   "events": [{
     "name" : "Capture The Flag",
     "description" : "Compete in the best cyber security competition",
-    "date" : "12/12/2023"
+    "fromDate" : "12-12-2023",
+    "toDate" : "13-12-2023"
   }],
   "venues": [{
     "name" : "LT27",
     "address" : "Science",
     "capacity" : "40"
-  }]
+  }],
+  "vendors": [],
+  "rsvps": []
 }

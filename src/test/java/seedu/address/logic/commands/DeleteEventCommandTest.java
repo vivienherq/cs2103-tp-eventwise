@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -26,7 +27,7 @@ public class DeleteEventCommandTest {
         Event eventToDelete = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(INDEX_FIRST_EVENT);
         String eventDetails = String.format("%s; Description: %s; Date: %s\n",
-                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getDate());
+                eventToDelete.getName(), eventToDelete.getDescription(), eventToDelete.getFromDate());
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS,
                 INDEX_FIRST_EVENT.getOneBased(), eventDetails);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -62,6 +63,23 @@ public class DeleteEventCommandTest {
 
         // different person -> returns false
         assertFalse(deleteFirstEventCommand.equals(deleteSecondEventCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index targetIndex = Index.fromOneBased(1);
+        DeleteEventCommand deleteEventCommand = new DeleteEventCommand(targetIndex);
+        String expected = DeleteEventCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        assertEquals(expected, deleteEventCommand.toString());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoEvent(Model model) {
+        model.updateFilteredEventList(p -> false);
+
+        assertTrue(model.getFilteredEventsList().isEmpty());
     }
 
 }

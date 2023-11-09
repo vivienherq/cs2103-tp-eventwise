@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -9,7 +10,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -42,6 +45,40 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
+
+        // Check if event contains person, if true, remove person from the event's vendor list
+        for (Event event : model.getAddressBook().getEventList()) {
+            if (event.getPersons().contains(personToDelete)) {
+                List<Person> editedPersonList = new ArrayList<>(event.getPersons());
+                editedPersonList.remove(personToDelete);
+                Event updatedEvent = new Event(event.getName(), event.getDescription(),
+                        event.getFromDate(), event.getToDate(), event.getNote(), editedPersonList,
+                        event.getVendors(), event.getVenue());
+                model.setEvent(event, updatedEvent);
+
+                // Find the Rsvp object to remove
+                Rsvp existingRsvp = model.findRsvp(event, personToDelete);
+
+                if (existingRsvp != null) {
+                    model.deleteRsvp(existingRsvp);
+                }
+            }
+        }
+
+        // Check if the current event that is being shown in the event details is affected
+        Event eventToView = model.getEventToView();
+        boolean isNotNull = eventToView != null;
+        if (isNotNull && eventToView.getPersons().contains(personToDelete)) {
+            Event currentlyShownEvent = model.getEventToView();
+            List<Person> editedPersonList = new ArrayList<>(currentlyShownEvent.getPersons());
+            editedPersonList.remove(personToDelete);
+            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
+                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
+                    editedPersonList, currentlyShownEvent.getVendors(), currentlyShownEvent.getVenue());
+            model.setEventToView(updatedEvent);
+        }
+
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 

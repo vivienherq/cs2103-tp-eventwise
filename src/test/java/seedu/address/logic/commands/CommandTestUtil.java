@@ -3,12 +3,19 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_CAPACITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE_NAME;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -23,6 +30,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditVendorDescriptorBuilder;
+import seedu.address.testutil.EditVenueDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -38,15 +47,42 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
 
+    // Vendors
+
+    public static final String VALID_VENDOR_NAME_FOOD = "Food Catering";
+    public static final String VALID_VENDOR_NAME_DRINKS = "Drinks Bar";
+    public static final String VALID_VENDOR_PHONE_FOOD = "66667777";
+    public static final String VALID_VENDOR_PHONE_DRINKS = "66886688";
+    public static final String VALID_VENDOR_EMAIL_FOOD = "foodcatering@example.com";
+    public static final String VALID_VENDOR_EMAIL_DRINKS = "drinksbar@example.com";
+
+    // Venues
+
+    public static final String VALID_VENUE_NAME_LT27 = "LT27";
+    public static final String VALID_VENUE_NAME_CLB = "CLB";
+    public static final String VALID_VENUE_NAME_COM1 = "COM1";
+    public static final String VALID_VENUE_NAME_BIZ2 = "BIZ2";
+    public static final String VALID_VENUE_ADDRESS_LT27 = "Lecture Theatre 27, 10 Lower Kent Ridge Rd, "
+            + "Kent Ridge Campus, Singapore 119076";
+    public static final String VALID_VENUE_ADDRESS_CLB = "Central Library, 12 Kent Ridge Crescent, Singapore 119275";
+    public static final String VALID_VENUE_ADDRESS_COM1 = "Computing 1 13 Computing Drive Singapore 117417";
+    public static final String VALID_VENUE_ADDRESS_BIZ2 = "1 Business Link Singapore 117592";
+    public static final String VALID_VENUE_CAPACITY_LT27 = "400";
+    public static final String VALID_VENUE_CAPACITY_CLB = "1000";
+    public static final String VALID_VENUE_CAPACITY_COM1 = "1500";
+    public static final String VALID_VENUE_CAPACITY_BIZ2 = "2000";
+
     // Events
 
     public static final String VALID_EVENT_NAME_CAREER_FAIR = "Career Fair";
     public static final String VALID_EVENT_DESCRIPTION_CAREER_FAIR = "Over 100 companies will be present";
-    public static final String VALID_EVENT_DATE_CAREER_FAIR = "14-11-2023";
+    public static final String VALID_EVENT_FROM_DATE_CAREER_FAIR = "14-11-2024";
+    public static final String VALID_EVENT_TO_DATE_CAREER_FAIR = "15-11-2024";
 
-    public static final String VALID_EVENT_NAME_FSC = "FSC 2023";
-    public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2023";
-    public static final String VALID_EVENT_DATE_FSC = "12-09-2023";
+    public static final String VALID_EVENT_NAME_FSC = "FSC 2024";
+    public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2024";
+    public static final String VALID_EVENT_FROM_DATE_FSC = "12-09-2024";
+    public static final String VALID_EVENT_TO_DATE_FSC = "15-09-2024";
 
     // Person Prefixes
 
@@ -57,15 +93,38 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
 
+    // Vendor Prefixes
+
+    public static final String VENDOR_NAME_DRINKS = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_DRINKS;
+    public static final String VENDOR_NAME_FOOD = " " + PREFIX_VENDOR_NAME + VALID_VENDOR_NAME_FOOD;
+    public static final String VENDOR_PHONE_DRINKS = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_DRINKS;
+    public static final String VENDOR_PHONE_FOOD = " " + PREFIX_VENDOR_PHONE + VALID_VENDOR_PHONE_FOOD;
+    public static final String VENDOR_EMAIL_DRINKS = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_DRINKS;
+    public static final String VENDOR_EMAIL_FOOD = " " + PREFIX_VENDOR_EMAIL + VALID_VENDOR_EMAIL_FOOD;
+
+    // Venue Prefixes
+
+    public static final String VENUE_NAME_COM1 = " " + PREFIX_VENUE_NAME + VALID_VENUE_NAME_COM1;
+    public static final String VENUE_NAME_BIZ2 = " " + PREFIX_VENUE_NAME + VALID_VENUE_NAME_BIZ2;
+    public static final String VENUE_ADDRESS_COM1 = " " + PREFIX_VENUE_ADDRESS + VALID_VENUE_ADDRESS_COM1;
+    public static final String VENUE_ADDRESS_BIZ2 = " " + PREFIX_VENUE_ADDRESS + VALID_VENUE_ADDRESS_BIZ2;
+    public static final String VENUE_CAPACITY_COM1 = " " + PREFIX_VENUE_CAPACITY + VALID_VENUE_CAPACITY_COM1;
+    public static final String VENUE_CAPACITY_BIZ2 = " " + PREFIX_VENUE_CAPACITY + VALID_VENUE_CAPACITY_BIZ2;
+
     // Event Prefixes
     public static final String EVENT_ID_CAREER_FAIR = " " + PREFIX_EVENT_ID + 1;
     public static final String EVENT_NAME_CAREER_FAIR = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_CAREER_FAIR;
     public static final String EVENT_DESC_CAREER_FAIR = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_CAREER_FAIR;
-    public static final String EVENT_DT_CAREER_FAIR = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_CAREER_FAIR;
+    public static final String EVENT_FROM_DATE_CAREER_FAIR = " " + PREFIX_EVENT_FROM
+            + VALID_EVENT_FROM_DATE_CAREER_FAIR;
+    public static final String EVENT_TO_DATE_CAREER_FAIR = " " + PREFIX_EVENT_TO + VALID_EVENT_TO_DATE_CAREER_FAIR;
+
     public static final String EVENT_ID_FSC = " " + PREFIX_EVENT_ID + 2;
     public static final String EVENT_NAME_FSC = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_FSC;
     public static final String EVENT_DESC_FSC = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_FSC;
-    public static final String EVENT_DT_FSC = " " + PREFIX_EVENT_DATE + VALID_EVENT_DATE_FSC;
+    public static final String EVENT_FROM_DATE_FSC = " " + PREFIX_EVENT_FROM + VALID_EVENT_FROM_DATE_FSC;
+    public static final String EVENT_TO_DATE_FSC = " " + PREFIX_EVENT_TO + VALID_EVENT_TO_DATE_FSC;
+
 
     // '&' not allowed in names
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
@@ -78,13 +137,23 @@ public class CommandTestUtil {
     // '' not allowed in descriptions
     public static final String INVALID_EVENT_DESC = " " + PREFIX_EVENT_DESC;
     // '&30-30-2000 not allowed in dates
-    public static final String INVALID_EVENT_DATE = " " + PREFIX_EVENT_DATE + "30-30-2000";
+    public static final String INVALID_EVENT_FROM_DATE = " " + PREFIX_EVENT_FROM + "30-30-2000";
+    public static final String INVALID_EVENT_TO_DATE = " " + PREFIX_EVENT_TO + "30-30-2000";
+
+    public static final String INVALID_VENUE_NAME = " " + PREFIX_VENUE_NAME + "MPSH&";
+    public static final String INVALID_VENUE_ADDRESS = " " + PREFIX_VENUE_ADDRESS + " ";
+    public static final String INVALID_VENUE_CAPACITY = " " + PREFIX_VENUE_CAPACITY + "S";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_DRINKS;
+    public static final EditVendorCommand.EditVendorDescriptor DESC_FOOD;
+    public static final EditVenueCommand.EditVenueDescriptor DESC_LT27;
+    public static final EditVenueCommand.EditVenueDescriptor DESC_CLB;
     public static final EditEventCommand.EditEventDescriptor DESC_FSC;
     public static final EditEventCommand.EditEventDescriptor DESC_CAREER;
 
@@ -95,10 +164,24 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .build();
+        DESC_DRINKS = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_DRINKS)
+                .withPhone(VALID_VENDOR_PHONE_DRINKS).withEmail(VALID_VENDOR_EMAIL_DRINKS)
+                .build();
+        DESC_FOOD = new EditVendorDescriptorBuilder().withName(VALID_VENDOR_NAME_FOOD)
+                .withPhone(VALID_VENDOR_PHONE_FOOD).withEmail(VALID_VENDOR_EMAIL_FOOD)
+                .build();
+        DESC_LT27 = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_LT27)
+                .withAddress(VALID_VENUE_ADDRESS_LT27).withCapacity(VALID_VENUE_CAPACITY_LT27)
+                .build();
+        DESC_CLB = new EditVenueDescriptorBuilder().withName(VALID_VENUE_NAME_CLB)
+                .withAddress(VALID_VENUE_ADDRESS_CLB).withCapacity(VALID_VENUE_CAPACITY_CLB)
+                .build();
         DESC_FSC = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_FSC)
-                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withDate(VALID_EVENT_DATE_FSC).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_FSC).withFromDate(VALID_EVENT_FROM_DATE_FSC)
+                .withToDate(VALID_EVENT_TO_DATE_FSC).build();
         DESC_CAREER = new EditEventDescriptorBuilder().withName(VALID_EVENT_NAME_CAREER_FAIR)
-                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withDate(VALID_EVENT_DATE_CAREER_FAIR).build();
+                .withDescription(VALID_EVENT_DESCRIPTION_CAREER_FAIR).withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
+                .withToDate(VALID_EVENT_FROM_DATE_CAREER_FAIR).build();
     }
 
     /**

@@ -18,18 +18,18 @@ public class CreateVenueCommand extends Command {
 
     public static final String COMMAND_WORD = "venue";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a venue to EventWise. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a venue to EventWise. \n"
             + "Parameters: "
             + PREFIX_VENUE_NAME + "NAME "
             + PREFIX_VENUE_ADDRESS + "ADDRESS "
-            + PREFIX_VENUE_CAPACITY + "CAPACITY "
+            + PREFIX_VENUE_CAPACITY + "CAPACITY \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VENUE_NAME + "MPSH 1 "
             + PREFIX_VENUE_ADDRESS + "Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 "
             + PREFIX_VENUE_CAPACITY + "500";
 
     public static final String MESSAGE_SUCCESS = "New Venue added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This venue already exists in EventWise";
+    public static final String MESSAGE_DUPLICATE_VENUE = "This venue already exists in EventWise";
 
     private final Venue toAdd;
 
@@ -46,10 +46,11 @@ public class CreateVenueCommand extends Command {
         requireNonNull(model);
 
         if (model.hasVenue(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+            throw new CommandException(MESSAGE_DUPLICATE_VENUE);
         }
 
         model.addVenue(toAdd);
+        model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

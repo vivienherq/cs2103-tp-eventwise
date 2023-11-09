@@ -10,20 +10,27 @@ import static seedu.address.testutil.TypicalEvents.ACADEMIC;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.displayable.DisplayableListViewItem;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpStatus;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
@@ -127,6 +134,16 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public Person getPerson(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Person> getPersons(Set<Index> indices) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -182,6 +199,12 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
+                                       List<Vendor> vendorsToAdd, Venue venueToAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetEvents() {
             throw new AssertionError("This method should not be called.");
         }
@@ -197,13 +220,18 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public void resetVendors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Event> getFilteredEventsList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredEventList(Predicate<Event> predicate) {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -218,6 +246,11 @@ public class CreateEventCommandTest {
 
         @Override
         public void addVenue(Venue venue) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Venue getVenue(Index index) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -241,12 +274,92 @@ public class CreateEventCommandTest {
         }
 
         @Override
+        public ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Venue> getFilteredVenuesList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredVenueList(Predicate<Venue> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp findRsvp(Event event, Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Rsvp createRsvp(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addVendor(Vendor vendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidRsvp(Rsvp rsvp) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteVendor(Vendor target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Rsvp> getFilteredRsvpList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setVendor(Vendor target, Vendor editedVendor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredVendorList(Predicate<Vendor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Vendor getVendor(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Vendor> getVendors(Set<Index> indices) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Vendor> getFilteredVendorList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Vendor> getFilteredEventVendorsList() {
             throw new AssertionError("This method should not be called.");
         }
     }

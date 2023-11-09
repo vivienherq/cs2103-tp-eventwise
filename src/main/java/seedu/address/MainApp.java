@@ -65,6 +65,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        // Default: Show all events when initialized
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
     }
 
     /**
@@ -172,6 +175,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        logger.info("Application successfully started...");
     }
 
     @Override

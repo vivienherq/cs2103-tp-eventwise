@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.event.Event;
+import seedu.address.model.displayable.DisplayableListViewItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code DisplayableListViewItem}.
  */
-public class EventCard extends UiPart<Region> {
+public class DisplayCard extends UiPart<Region> {
 
-    private static final String FXML = "EventListCard.fxml";
+    private static final String FXML = "DisplayableListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,28 +21,28 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event event;
+    public final DisplayableListViewItem item;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label displayTitle;
     @FXML
     private Label id;
     @FXML
-    private Label description;
+    private Label firstText;
     @FXML
-    private Label date;
+    private Label secondText;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Event} and index to display.
      */
-    public EventCard(Event event, int displayedIndex) {
+    public DisplayCard(DisplayableListViewItem item, int displayedIndex) {
         super(FXML);
-        this.event = event;
+        this.item = item;
         id.setText(displayedIndex + ". ");
-        name.setText(event.getName().eventName);
-        description.setText(event.getDescription().eventDesc);
-        date.setText(event.getDate().eventDate);
+        displayTitle.setText(item.getDisplayTitle());
+        firstText.setText(item.getDisplayFirstText());
+        secondText.setText(item.getDisplaySecondText());
     }
 }
