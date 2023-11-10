@@ -300,26 +300,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a displayable item to the address book.
-     * The displayable item must not already exist in the address book.
-     */
-    public void addDisplayableItem(DisplayableListViewItem item) {
-        displayableItems.add(item);
-    }
-
-    /**
-     * Replaces the given displayable list view item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the address book.
-     * The displayable list view identity of {@code editedItem} must not be the same as another existing
-     * displayable list view item in the address book.
-     */
-    public void setDisplayableItem(DisplayableListViewItem target, DisplayableListViewItem editedItem) {
-        requireNonNull(editedItem);
-
-        displayableItems.setDisplayableItem(target, editedItem);
-    }
-
-    /**
      * Returns true if an RSVP with the same identity as {@code rsvp} exists in the address book.
      */
     public boolean hasRsvp(Rsvp rsvp) {
@@ -370,14 +350,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedVendor);
 
         vendors.setVendor(target, editedVendor);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removeDisplayableItem(DisplayableListViewItem key) {
-        displayableItems.remove(key);
     }
 
     public void removeVendor(Vendor key) {
