@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditVendorCommandParser" as EditVendorCommandParser LOGIC_COLOR
+participant "e:EditVendorCommand" as EditVendorCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":EditVendorDescriptor" as EditVendorDescriptor MODEL_COLOR
+participant ":Vendor" as Vendor MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editVendor vdr/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editVendor vdr/1")
+activate AddressBookParser
+
+create EditVendorCommandParser
+AddressBookParser -> EditVendorCommandParser: parse(" vdr/1")
+activate EditVendorCommandParser
+
+create EditVendorDescriptor
+EditVendorCommandParser -> EditVendorDescriptor++
+return
+
+create EditVendorCommand
+EditVendorCommandParser -> EditVendorCommand
+activate EditVendorCommand
+
+EditVendorCommand --> EditVendorCommandParser : e
+deactivate EditVendorCommand
+
+EditVendorCommandParser --> AddressBookParser : d
+deactivate EditVendorCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditVendorCommandParser -[hidden]-> AddressBookParser
+destroy EditVendorCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditVendorCommand : execute()
+activate EditVendorCommand
+
+create Vendor
+EditVendorCommand -> Vendor : createEditedVendor(vendorToEdit, editVendorDescriptor)
+activate Vendor
+return
+
+EditVendorCommand -> Model++ : setVendor(vendorToEdit, EditedVendor)
+return
+
+EditVendorCommand -> Event++ : set(index, editedVendor)
+return
+
+create CommandResult
+EditVendorCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditVendorCommand
+deactivate CommandResult
+
+EditVendorCommand --> LogicManager : result
+deactivate EditVendorCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
