@@ -37,7 +37,7 @@ activate EditVendorCommand
 EditVendorCommand --> EditVendorCommandParser : e
 deactivate EditVendorCommand
 
-EditVendorCommandParser --> AddressBookParser : d
+EditVendorCommandParser --> AddressBookParser : e
 deactivate EditVendorCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 EditVendorCommandParser -[hidden]-> AddressBookParser
