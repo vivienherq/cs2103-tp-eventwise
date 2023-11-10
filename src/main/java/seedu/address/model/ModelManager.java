@@ -120,18 +120,33 @@ public class ModelManager implements Model {
     public void resetGuests() {
         this.addressBook.resetGuests();
         this.addressBook.clearGuestsFromEvents();
+        if (getEventToView() != null) {
+            Event updatedEvent = getEventToView();
+            updatedEvent.clearGuests();
+            setEventToView(updatedEvent);
+        }
     }
 
     @Override
     public void resetVenues() {
         this.addressBook.resetVenues();
         this.addressBook.clearVenuesFromEvents();
+        if (getEventToView() != null) {
+            Event updatedEvent = getEventToView();
+            updatedEvent.clearVenue();
+            setEventToView(updatedEvent);
+        }
     }
 
     @Override
     public void resetVendors() {
         this.addressBook.resetVendors();
         this.addressBook.clearVendorsFromEvents();
+        if (getEventToView() != null) {
+            Event updatedEvent = getEventToView();
+            updatedEvent.clearVendors();
+            setEventToView(updatedEvent);
+        }
     }
 
     @Override
@@ -250,8 +265,6 @@ public class ModelManager implements Model {
         return rsvps;
     }
 
-    // Venues
-
     @Override
     public Event createEditedEvent(Event eventToEdit, List<Person> personsToAdd,
                                    List<Vendor> vendorsToAdd, Venue venueToAdd) {
@@ -273,6 +286,7 @@ public class ModelManager implements Model {
                 eventToEdit.getNote(), currentAttendees, currentVendors, venueToStore);
     }
 
+    // Venues
     @Override
     public boolean hasVenue(Venue venue) {
         requireNonNull(venue);
