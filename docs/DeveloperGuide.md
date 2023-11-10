@@ -238,6 +238,20 @@ The following sequence diagram shows how this feature works:
 
 <img src="images/EditEventSequenceDiagram.png" width="550" />
 
+### Delete Person Feature
+
+The feature `delete` deletes an existing Person instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteCommandParser` to parse user inputs.
+An instance of `DeleteCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Person` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteSequenceDiagram.png" width="550" />
+
 ### Add Person to Event Feature
 
 #### Implementation
