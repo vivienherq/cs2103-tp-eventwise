@@ -35,7 +35,7 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
         return internalList.stream().anyMatch(toCheck::isSameRsvp);
     }
 
-    private Optional<Rsvp> getDuplicateRsvp(Rsvp toCheck) {
+    public Optional<Rsvp> getDuplicateRsvp(Rsvp toCheck) {
         requireNonNull(toCheck);
         return internalList.stream()
                 .filter(toCheck::isSameRsvp)
