@@ -189,7 +189,11 @@ It is then hook to EventWise where user is able to create a new vendor by using 
 ### View specific event Feature
 
 #### Implementation
-The view specific event is a feature that allows users to view a specific event's details as well as other related information such as the venue, list of vendors and guests  
+Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_INDEX`
+
+It is used to view detailed information relating to an existing `Event` in EventWise. Detailed information associated to an event includes information about the venue, list of vendors and guests that are associated to the specific event.
+
+The following ac
 
 ### Add Person to Event Feature
 
