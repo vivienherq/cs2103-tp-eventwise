@@ -186,16 +186,6 @@ This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
 
-<<<<<<< HEAD
-### View specific event Feature
-
-#### Implementation
-Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_INDEX`
-
-It is used to view detailed information relating to an existing `Event` in EventWise. Detailed information associated to an event includes information about the venue, list of vendors and guests that are associated to the specific event.
-
-The following ac
-=======
 ### Edit Person Feature
 
 The feature `edit` edits the details of an existing Person instance.
@@ -347,7 +337,14 @@ The feature `viewEvents` lists all existing Event instances.
 
 `LogicManager` calls `AddressBookParser` which creates an instance of `ViewEventsCommand`, which is then executed by `LogicManager`.
 All `Event` instances are then listed.
->>>>>>> c3002162f613743dd97c0eb6511898eb8e2efd68
+
+### View specific event Feature
+
+Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_INDEX`
+
+#### Implementation
+
+It is used to view detailed information relating to an existing `Event` in EventWise. Detailed information associated to an event includes information about the venue, list of vendors and guests that are associated to the specific event.
 
 ### Add Person to Event Feature
 
