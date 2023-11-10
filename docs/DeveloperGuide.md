@@ -210,7 +210,18 @@ The following sequence diagram shows how this feature works:
 
 ### Edit Venue Feature
 
+The feature `editVenue` edits the details of an existing Venue instance.
+Details that can be edited include `Name`, `Address`, `Capacity`.
+
 #### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditVenueCommandParser` to parse user inputs.
+An instance of `EditVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Venue` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditVenueSequenceDiagram.png" width="550" />
 
 ### Edit Event Feature
 

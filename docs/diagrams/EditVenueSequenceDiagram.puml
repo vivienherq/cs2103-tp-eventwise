@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditVenueCommandParser" as EditVenueCommandParser LOGIC_COLOR
+participant "e:EditVenueCommand" as EditVenueCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":EditVenueDescriptor" as EditVenueDescriptor MODEL_COLOR
+participant ":Venue" as Venue MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editVenue vne/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editVenue vne/1")
+activate AddressBookParser
+
+create EditVenueCommandParser
+AddressBookParser -> EditVenueCommandParser: parse(" vne/1")
+activate EditVenueCommandParser
+
+create EditVenueDescriptor
+EditVenueCommandParser -> EditVenueDescriptor++
+return
+
+create EditVenueCommand
+EditVenueCommandParser -> EditVenueCommand
+activate EditVenueCommand
+
+EditVenueCommand --> EditVenueCommandParser : e
+deactivate EditVenueCommand
+
+EditVenueCommandParser --> AddressBookParser : e
+deactivate EditVenueCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditVenueCommandParser -[hidden]-> AddressBookParser
+destroy EditVenueCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditVenueCommand : execute()
+activate EditVenueCommand
+
+create Venue
+EditVenueCommand -> Venue : createEditedVenue(venueToEdit, editVenueDescriptor)
+activate Venue
+return
+
+EditVenueCommand -> Model++ : setVenue(venueToEdit, EditedVenue)
+return
+
+EditVenueCommand -> Event++ : set(index, editedVenue)
+return
+
+create CommandResult
+EditVenueCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditVenueCommand
+deactivate CommandResult
+
+EditVenueCommand --> LogicManager : result
+deactivate EditVenueCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
