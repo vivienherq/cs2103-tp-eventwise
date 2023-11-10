@@ -225,7 +225,18 @@ The following sequence diagram shows how this feature works:
 
 ### Edit Event Feature
 
+The feature `editEvent` edits the details of an existing Event instance.
+Details that can be edited include `Name`, `Description`, `From Date`, `To Date`.
+
 #### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditEventCommandParser` to parse user inputs.
+An instance of `EditEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Event` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditEventSequenceDiagram.png" width="550" />
 
 ### Add Person to Event Feature
 
