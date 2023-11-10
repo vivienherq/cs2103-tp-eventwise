@@ -2,12 +2,14 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalEvents.getTypicalEvents;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalRsvps.getTypicalRsvps;
 import static seedu.address.testutil.TypicalVendors.getTypicalVendors;
 import static seedu.address.testutil.TypicalVenues.getTypicalVenues;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
@@ -26,11 +28,14 @@ public class TypicalAddressBook {
         for (Event event : getTypicalEvents()) {
             ab.addEvent(event);
         }
-        for (Venue venue: getTypicalVenues()) {
+        for (Venue venue : getTypicalVenues()) {
             ab.addVenue(venue);
         }
-        for (Vendor vendor: getTypicalVendors()) {
+        for (Vendor vendor : getTypicalVendors()) {
             ab.addVendor(vendor);
+        }
+        for (Rsvp rsvp : getTypicalRsvps()) {
+            ab.addRsvp(rsvp);
         }
         return ab;
     }
