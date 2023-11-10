@@ -266,6 +266,20 @@ The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteVendorSequenceDiagram.png" width="550" />
 
+### Delete Vendor Feature
+
+The feature `deleteVenue` deletes an existing Venue instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteVenueCommandParser` to parse user inputs.
+An instance of `DeleteVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Venue` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteVenueSequenceDiagram.png" width="550" />
+
 ### Add Person to Event Feature
 
 #### Implementation

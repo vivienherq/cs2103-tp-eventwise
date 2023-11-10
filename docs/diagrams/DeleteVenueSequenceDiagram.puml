@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteVenueCommandParser" as DeleteVenueCommandParser LOGIC_COLOR
+participant "d:DeleteVenueCommand" as DeleteVenueCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deleteVenue vne/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deleteVenue vne/1")
+activate AddressBookParser
+
+create DeleteVenueCommandParser
+AddressBookParser -> DeleteVenueCommandParser
+activate DeleteVenueCommandParser
+
+DeleteVenueCommandParser --> AddressBookParser
+deactivate DeleteVenueCommandParser
+
+AddressBookParser -> DeleteVenueCommandParser : parse(" vne/1")
+activate DeleteVenueCommandParser
+
+create DeleteVenueCommand
+DeleteVenueCommandParser -> DeleteVenueCommand
+activate DeleteVenueCommand
+
+DeleteVenueCommand --> DeleteVenueCommandParser : d
+deactivate DeleteVenueCommand
+
+DeleteVenueCommandParser --> AddressBookParser : d
+deactivate DeleteVenueCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteVenueCommandParser -[hidden]-> AddressBookParser
+destroy DeleteVenueCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteVenueCommand : execute()
+activate DeleteVenueCommand
+
+DeleteVenueCommand -> Model : deleteVenue(1)
+activate Model
+
+Model --> DeleteVenueCommand
+deactivate Model
+
+DeleteVenueCommand -> Event++ : remove(venueToDelete)
+return
+
+create CommandResult
+DeleteVenueCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteVenueCommand
+deactivate CommandResult
+
+DeleteVenueCommand --> LogicManager : result
+deactivate DeleteVenueCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
