@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditEventCommandParser" as EditEventCommandParser LOGIC_COLOR
+participant "e:EditEventCommand" as EditEventCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":EditEventDescriptor" as EditEventDescriptor MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editEvent eid/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editEvent eid/1")
+activate AddressBookParser
+
+create EditEventCommandParser
+AddressBookParser -> EditEventCommandParser: parse(" eid/1")
+activate EditEventCommandParser
+
+create EditEventDescriptor
+EditEventCommandParser -> EditEventDescriptor++
+return
+
+create EditEventCommand
+EditEventCommandParser -> EditEventCommand
+activate EditEventCommand
+
+EditEventCommand --> EditEventCommandParser : e
+deactivate EditEventCommand
+
+EditEventCommandParser --> AddressBookParser : e
+deactivate EditEventCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditEventCommandParser -[hidden]-> AddressBookParser
+destroy EditEventCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditEventCommand : execute()
+activate EditEventCommand
+
+create Event
+EditEventCommand -> Event : createEditedEvent(eventToEdit, editEventDescriptor)
+activate Event
+return
+
+EditEventCommand -> Model++ : setEvent(eventToEdit, EditedEvent)
+return
+
+EditEventCommand -> Model++ : updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS)
+return
+
+create CommandResult
+EditEventCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditEventCommand
+deactivate CommandResult
+
+EditEventCommand --> LogicManager : result
+deactivate EditEventCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

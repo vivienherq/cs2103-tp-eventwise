@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes EditCommand;
+if () then ([all parameters are valid])
+  :Page.onInit();
+  if (isForward?) then (no)
+
+  endif
+else ([else])
+endif
+
+stop
+
+@enduml

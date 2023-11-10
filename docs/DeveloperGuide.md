@@ -186,6 +186,7 @@ This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
 
+<<<<<<< HEAD
 ### View specific event Feature
 
 #### Implementation
@@ -194,6 +195,159 @@ Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT
 It is used to view detailed information relating to an existing `Event` in EventWise. Detailed information associated to an event includes information about the venue, list of vendors and guests that are associated to the specific event.
 
 The following ac
+=======
+### Edit Person Feature
+
+The feature `edit` edits the details of an existing Person instance.
+Details that can be edited include `Name`, `Phone`, `Email`.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditCommandParser` to parse user inputs.
+An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Person` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditPersonSequenceDiagram.png" width="550" />
+
+### Edit Vendor Feature
+
+The feature `editVendor` edits the details of an existing Vendor instance.
+Details that can be edited include `Name`, `Phone`, `Email`.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditVendorCommandParser` to parse user inputs.
+An instance of `EditVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Vendor` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditVendorSequenceDiagram.png" width="550" />
+
+### Edit Venue Feature
+
+The feature `editVenue` edits the details of an existing Venue instance.
+Details that can be edited include `Name`, `Address`, `Capacity`.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditVenueCommandParser` to parse user inputs.
+An instance of `EditVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Venue` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditVenueSequenceDiagram.png" width="550" />
+
+### Edit Event Feature
+
+The feature `editEvent` edits the details of an existing Event instance.
+Details that can be edited include `Name`, `Description`, `From Date`, `To Date`.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditEventCommandParser` to parse user inputs.
+An instance of `EditEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Event` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditEventSequenceDiagram.png" width="550" />
+
+### Delete Person Feature
+
+The feature `delete` deletes an existing Person instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteCommandParser` to parse user inputs.
+An instance of `DeleteCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Person` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteSequenceDiagram.png" width="550" />
+
+### Delete Vendor Feature
+
+The feature `deleteVendor` deletes an existing Vendor instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteVendorCommandParser` to parse user inputs.
+An instance of `DeleteVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Vendor` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteVendorSequenceDiagram.png" width="550" />
+
+### Delete Vendor Feature
+
+The feature `deleteVenue` deletes an existing Venue instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteVenueCommandParser` to parse user inputs.
+An instance of `DeleteVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Venue` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteVenueSequenceDiagram.png" width="550" />
+
+### Delete Event Feature
+
+The feature `deleteEvent` deletes an existing Event instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteEventCommandParser` to parse user inputs.
+An instance of `DeleteEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Event` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteEventSequenceDiagram.png" width="550" />
+
+### View All Persons Feature
+
+The feature `list` lists all existing Person instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ListCommand`, which is then executed by `LogicManager`.
+All `Person` instances are then listed.
+
+### View All Vendors Feature
+
+The feature `viewVendors` lists all existing Vendor instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewVendorsCommand`, which is then executed by `LogicManager`.
+All `Vendor` instances are then listed.
+
+### View All Venues Feature
+
+The feature `viewVenues` lists all existing Venue instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewVenuesCommand`, which is then executed by `LogicManager`.
+All `Venue` instances are then listed.
+
+### View All Events Feature
+
+The feature `viewEvents` lists all existing Event instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewEventsCommand`, which is then executed by `LogicManager`.
+All `Event` instances are then listed.
+>>>>>>> c3002162f613743dd97c0eb6511898eb8e2efd68
 
 ### Add Person to Event Feature
 
@@ -358,33 +512,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User chooses to create a new event
 2. User enters event’s new details
 3. EventWise displays that the event has been successfully added.
-   
+
    Use case ends.
-   
+
 **Extensions**
 * 2a. EventWise detects that the event name is missing.
     * 2a1. EventWise shows an error message.
-   
+
       Use case ends.
 
 * 2b. Event Wise detects that the event description is missing.
     * 2b1. EventWise shows an error message.
-   
+
       Use case ends.
 
 * 2c. Event Wise detects that the event datetime is missing. 
     * 2c1. EventWise shows an error message.
-    
+
       Use case ends.
 
 * 2d. Event Wise detects that the event datetime format is invalid. 
     * 2d1. EventWise shows an error message.
-      
+
       Use case ends.
-  
+
 * 2e. Event Wise detects that the user uses invalid prefixes. 
     * 2e1. EventWise shows an error message.
-      
+
       Use case ends.
 
 **Use case: UC02 – Add guest’s contact to an event**
@@ -393,18 +547,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User chooses to add guest’s contact to an event
 2. User enters the event ID and guest’s ID to be added to the event.
 3. EventWise displays that the guest has successfully been added to the specified event.
-   
+
    Use case ends.
 
 **Extensions**
 * 2a. EventWise detects that the event ID is missing.
     * 2a1. EventWise shows an error message.
-      
+
       Use case ends.
 
 * 2b. EventWise detects that the event ID is of an invalid format or range.
     * 2b1. EventWise shows an error message.
-    
+
       Use case ends.
 
 * 2c. EventWise detects that the guest’s ID is missing.
@@ -414,11 +568,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2d. EventWise detects that the guests ID is of an invalid format or range.
     * 2d1. EventWise shows an error message.
-    
+
       Use case ends.
 
 **Use case: UC03 – Add venue information to an event**
-   
+
 **MSS**
 1. User lists all venues (UC09)
 2. User chooses to add venue’s information to an event.
@@ -430,17 +584,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 * 3a. EventWise detects that the event ID is missing. 
     * 3a1. EventWise shows an error message.
-    
+
       Use case ends.
 
 * 3b. EventWise detects that the event ID is of an invalid format or range. 
     * 3b1. EventWise shows an error message.
-      
+
       Use case ends.
 
 * 3c. EventWise detects that the venue ID is missing. 
     * 3c1. EventWise shows an error message.
-      
+
       Use case ends. 
 
 * 3d. EventWise detects that the venue ID is of an invalid format or range. 
@@ -453,13 +607,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to list all events.
 2. EventWise shows a list of events.
-   
+
    Use case ends.
 
 **Extensions**
 * 1a. The event list is empty.
     * 1a1. EventWise shows a message indicating that no events have been created.
-      
+
       Use case ends.
 
 **Use case: UC05 – View an event’s details**
@@ -496,37 +650,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 * 3a. EventWise detects that the event ID is missing
     * 3a1. EventWise shows an error message.
-    
+
       Use case ends
 
 * 3b. EventWise detects that the event ID is invalid
     * 3b1. EventWise shows an error message.
-    
+
       Use case ends
 
 * 3c. EventWise detects that the event name is missing.
     * 3c1. EventWise shows an error message.
-  
+
       Use case ends. 
-  
+
 * 3d. Event Wise detects that the event description is missing.
     * 3d1. EventWise shows an error message.
-  
+
       Use case ends.
 
 * 3e. Event Wise detects that the event datetime is missing. 
     * 3e1. EventWise shows an error message.
-      
+
       Use case ends. 
 
 * 3f. Event Wise detects that the event datetime format is invalid. 
     * 3f1. EventWise shows an error message.
-    
+
       Use case ends. 
 
 * 3g. Event Wise detects that the user uses invalid prefixes. 
     * 3g1. EventWise shows an error message.
-    
+
       Use case ends.
 
 **Use case: UC07 – Delete an event**
@@ -536,7 +690,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User chooses to delete a specific event.
 3. User enters the event’s ID.
 4. EventWise displays that the event has been successfully deleted.
-   
+
    Use case ends.
 
 **Extensions**
@@ -564,36 +718,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. EventWise detects that the venue name is missing.
-    * 2a1. EventWise shows an error message. 
-  
+    * 2a1. EventWise shows an error message.
+
       Use case ends. 
 * 2b. Event Wise detects that the venue address is missing. 
     * 2b1. EventWise shows an error message. 
-  
+
       Use case ends. 
 
 * 2c. Event Wise detects that the venue capacity is missing. 
     * 2c1. EventWise shows an error message. 
-      
+
       Use case ends. 
 
 * 2d. Event Wise detects that the venue capacity format is invalid. 
     * 2d1. EventWise shows an error message. 
-     
+
       Use case ends. 
 
 * 2e. Event Wise detects that the user uses invalid prefixes. 
     * 2e1. EventWise shows an error message. 
-    
-      Use case ends.
 
+      Use case ends.
 
 **Use case: UC09 – List all venues**
 
 **MSS**
 1. User requests to list all venues.
 2. EventWise shows a list of venues.
-   
+
    Use case ends.
 
 **Extensions**
@@ -608,18 +761,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User chooses to add vendor’s information to an event.
 2. User enters the vendor’s ID to be added to the event.
 3. EventWise displays that the vendor has successfully been added to the specified event.
-   
+
    Use case ends.
 
 **Extensions**
 * 2a. EventWise detects that the vendor’s ID is missing. 
     * 2a1. EventWise shows an error message.
-    
+
       Use case ends.
 
 * 2b. EventWise detects that the vendor’s ID is of an invalid format or range. 
     * 2b1. EventWise shows an error message. 
-  
+
       Use case ends.
 
 ### Non-Functional Requirements
