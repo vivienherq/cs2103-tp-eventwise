@@ -164,8 +164,8 @@ public interface Model {
      */
     Event getEventToView();
 
-    // Venues
 
+    // Venues
     /**
      * Returns true if a venue with the same identity as {@code venue} exists in the event list.
      */
@@ -239,6 +239,15 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered rsvps list */
     ObservableList<Rsvp> getFilteredRsvpList();
 
+    /** Returns an unmodifiable view of the filtered event rsvp list */
+    ObservableList<Rsvp> getFilteredEventRsvpList();
+
+    /**
+     * Updates the filter of the filtered event rsvp list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
+
     // Vendors
 
     /**
@@ -290,7 +299,4 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered displayable items list */
     ObservableList<DisplayableListViewItem> getFilteredDisplayableItemList();
 
-    ObservableList<Rsvp> getFilteredEventRsvpList();
-
-    void updateFilteredEventRsvpList(Predicate<Rsvp> predicate);
 }

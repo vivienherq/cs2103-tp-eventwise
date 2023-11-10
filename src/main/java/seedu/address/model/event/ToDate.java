@@ -75,12 +75,12 @@ public class ToDate {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FromDate)) {
+        if (!(other instanceof ToDate)) {
             return false;
         }
 
-        FromDate otherName = (FromDate) other;
-        return eventDate.equals(otherName.eventDate);
+        ToDate otherToDate = (ToDate) other;
+        return eventDate.equals(otherToDate.eventDate);
     }
 
     @Override
