@@ -50,7 +50,7 @@ LogicManager -> EditCommand : execute()
 activate EditCommand
 
 create Person
-EditCommand -> Person : edit(1)
+EditCommand -> Person : createEditedPerson(personToEdit, editPersonDescriptor)
 activate Person
 return
 
