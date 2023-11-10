@@ -280,6 +280,20 @@ The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteVenueSequenceDiagram.png" width="550" />
 
+### Delete Event Feature
+
+The feature `deleteEvent` deletes an existing Event instance.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `DeleteEventCommandParser` to parse user inputs.
+An instance of `DeleteEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Event` instance is successfully deleted, and removed from `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/DeleteEventSequenceDiagram.png" width="550" />
+
 ### Add Person to Event Feature
 
 #### Implementation
