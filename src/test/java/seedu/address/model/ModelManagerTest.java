@@ -1,6 +1,9 @@
 package seedu.address.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
@@ -19,7 +22,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
 import seedu.address.testutil.AddressBookBuilder;
@@ -163,7 +170,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredDisplayableItemList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDisplayableItemList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                modelManager.getFilteredDisplayableItemList().remove(0));
     }
 
     @Test
