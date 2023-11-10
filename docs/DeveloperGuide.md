@@ -178,6 +178,33 @@ This feature creates a new vendor instance and is stored in storage.
 It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
 It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
 
+### Edit Person Feature
+
+The feature `edit` edits the details of an existing Person instance.
+Details that can be edited include `Name`, `Phone`, `Email`.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `EditCommandParser` to parse user inputs.
+An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+The `Person` instance is successfully edited, and is stored in `Storage`.
+
+The following sequence diagram shows how this feature works:
+
+<img src="images/EditPersonSequenceDiagram.png" width="550" />
+
+### Edit Vendor Feature
+
+#### Implementation
+
+### Edit Venue Feature
+
+#### Implementation
+
+### Edit Event Feature
+
+#### Implementation
+
 ### Add Person to Event Feature
 
 #### Implementation
