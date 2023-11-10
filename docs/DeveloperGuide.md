@@ -294,6 +294,42 @@ The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteEventSequenceDiagram.png" width="550" />
 
+### View All Persons Feature
+
+The feature `list` lists all existing Person instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ListCommand`, which is then executed by `LogicManager`.
+All `Person` instances are then listed.
+
+### View All Vendors Feature
+
+The feature `viewVendors` lists all existing Vendor instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewVendorsCommand`, which is then executed by `LogicManager`.
+All `Vendor` instances are then listed.
+
+### View All Venues Feature
+
+The feature `viewVenues` lists all existing Venue instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewVenuesCommand`, which is then executed by `LogicManager`.
+All `Venue` instances are then listed.
+
+### View All Events Feature
+
+The feature `viewEvents` lists all existing Event instances.
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of `ViewEventsCommand`, which is then executed by `LogicManager`.
+All `Event` instances are then listed.
+
 ### Add Person to Event Feature
 
 #### Implementation
