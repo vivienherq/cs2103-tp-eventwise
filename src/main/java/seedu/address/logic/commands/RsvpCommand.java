@@ -40,6 +40,9 @@ public class RsvpCommand extends Command {
      * Creates an RSVPCommand to set the specified {@code RSVP}
      */
     public RsvpCommand(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
+        requireNonNull(eventIndex);
+        requireNonNull(personIndex);
+        requireNonNull(rsvpStatus);
         this.eventIndex = eventIndex;
         this.personIndex = personIndex;
         this.rsvpStatus = rsvpStatus;
@@ -61,5 +64,21 @@ public class RsvpCommand extends Command {
         model.setEventToView(rsvp.getEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 rsvp.getEventName(), rsvp.getPersonName(), rsvpStatus.getStatus()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RsvpCommand)) {
+            return false;
+        }
+
+        RsvpCommand otherCommand = (RsvpCommand) other;
+        return eventIndex.equals(otherCommand.eventIndex)
+                && personIndex.equals(otherCommand.personIndex)
+                && rsvpStatus.equals(otherCommand.rsvpStatus);
     }
 }
