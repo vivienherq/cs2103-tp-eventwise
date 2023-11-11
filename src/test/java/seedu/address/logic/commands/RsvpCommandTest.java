@@ -36,7 +36,11 @@ public class RsvpCommandTest {
 
     @Test
     public void constructor_nullRsvp_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RsvpCommand(null, null, null));
+        Index index = Index.fromZeroBased(0);
+        assertThrows(NullPointerException.class, () -> new RsvpCommand(null, index, RsvpStatus.CC));
+        assertThrows(NullPointerException.class, () -> new RsvpCommand(index, null, RsvpStatus.CC));
+        assertThrows(NullPointerException.class, () -> new RsvpCommand(index, index, null));
+
     }
 
     @Test
@@ -47,7 +51,7 @@ public class RsvpCommandTest {
     }
 
     @Test
-    public void execute_invalidRsvp_throwsCommandException() {
+    public void execute_personNotInEvent_throwsCommandException() {
         Person newPerson = new Person(new Name("Dom"), new Phone("9213"), new Email("dom@gma.com"));
         model.addPerson(newPerson);
         model.addEvent(ACADEMIC);

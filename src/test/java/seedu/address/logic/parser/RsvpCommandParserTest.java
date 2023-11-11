@@ -22,14 +22,15 @@ public class RsvpCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        // missing fields specified
+        // Missing PREFIX_EVENT_ID
         assertParseFailure(parser, RsvpCommand.COMMAND_WORD + " "
-                + PREFIX_EVENT_ID + "1", MESSAGE_INVALID_FORMAT);
+                + PREFIX_PERSON + "1 " + PREFIX_RSVP_STATUS + "CC" , MESSAGE_INVALID_FORMAT);
+        // Missing PREFIX_PERSON
         assertParseFailure(parser, RsvpCommand.COMMAND_WORD + " "
-                + PREFIX_PERSON + "1", MESSAGE_INVALID_FORMAT);
+                + PREFIX_EVENT_ID + "1 " + PREFIX_RSVP_STATUS + "CC", MESSAGE_INVALID_FORMAT);
+        // Missing PREFIX_RSVP_STATUS
         assertParseFailure(parser, RsvpCommand.COMMAND_WORD + " "
-                + PREFIX_RSVP_STATUS + "CC", MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+                + PREFIX_EVENT_ID + "1 " + PREFIX_PERSON + "1 ", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
