@@ -12,6 +12,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
 end box
 
 [-> LogicManager : execute("delete 1")
@@ -54,6 +55,9 @@ activate Model
 
 Model --> DeleteCommand
 deactivate Model
+
+DeleteCommand -> Event++ : remove(personToDelete)
+return
 
 create CommandResult
 DeleteCommand -> CommandResult
