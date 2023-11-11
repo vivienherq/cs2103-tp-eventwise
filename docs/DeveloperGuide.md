@@ -189,6 +189,10 @@ Details that can be edited include `Name`, `Phone`, `Email`.
 An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Person` instance is successfully edited, and is stored in `Storage`.
 
+THe following activity diagram shows how this feature works:
+
+<img src="images/EditPersonActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditPersonSequenceDiagram.png" width="550" />
@@ -266,7 +270,7 @@ The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteVendorSequenceDiagram.png" width="550" />
 
-### Delete Vendor Feature
+### Delete Venue Feature
 
 The feature `deleteVenue` deletes an existing Venue instance.
 
