@@ -340,35 +340,76 @@ All `Event` instances are then listed.
 
 ### View specific event Feature
 
-Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_INDEX`
+Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_ID`.
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+
+It is used to view detailed information relating to an existing `Event` in EventWise such as the event's `Venue` information, a list of `Person` objects and a list of `Vendor` objects that are part of the specific event.
 
 #### Implementation
 
-It is used to view detailed information relating to an existing `Event` in EventWise. Detailed information associated to an event includes information about the venue, list of vendors and guests that are associated to the specific event.
+`LogicManager` calls `AddressBookParser` which creates an instance of a `ViewEventCommandParser` to parse user inputs. An instance of `ViewEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`. The `Event` instance is set as the event to be displayed in `Model`. `MainWindow` calls `Logic` to get the `Event` instance from `Model` after the `CommandResult` from executing the `ViewEventCommand` has been shown to the user.
 
 ### Add Person to Event Feature
 
+Adding a person to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [pid/INDEX]`
+
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+* `INDEX` refers to the index number displayed in Main List
+  * To view all persons, type the `list` command.
+* The field `[pid/INDEX]` can be repeated more than once to add multiple people.
+
 #### Implementation
 
+![](./images/add-event-details/activity_diagram.png)
+
 ### Add Vendor to Event Feature
+
+Adding a vendor to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [vdr/VENDOR_ID]`
+
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+* `VENDOR_ID` refers to the index number displayed in Main List
+  * To view all persons, type the `viewVendors` command.
+* The field `[vdr/VENDOR_ID]` can be repeated more than once to add multiple vendors.
 
 #### Implementation
 
 ### Set Venue to Event Feature
 
-#### Implementation
+Setting a venue to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [vne/VENUE_ID]`
 
-### RSVP Feature
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+* `VENUE_ID` refers to the index number displayed in Main List
+  * To view all persons, type the `viewVenues` command.
+* The field `[vdr/VENUE_ID]` can be repeated more than once to add multiple vendors.
 
 #### Implementation
 
 ### Remove Person from Event Feature
 
+Removing a person from an event is a feature that uses the command `removePerson eid/EVENT_ID pid/PERSON_INDEX`.
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+* `PERSON_INDEX` refers to the index number displayed in the Persons List that is associated to the event.
+
 #### Implementation
+The following activity diagram shows how the `removePerson` command works when given valid parameters or invalid parameters (`EVENT_ID` or `PERSON_INDEX`) are given.
+
+
 
 ### Remove Vendor from Event Feature
 
+Removing a vendor from an event is a feature that uses the command `removeVendor eid/EVENT_ID vdr/VENDOR_INDEX`.
+* `EVENT_ID` refers to the index number displayed in Main List
+  * To view all events, type the `viewEvents` command.
+* `VENDOR_INDEX` refers to the index number displayed in the Vendors List that is associated to the event.
+
 #### Implementation
+
+
 
 ### \[Proposed\] Undo/redo feature
 

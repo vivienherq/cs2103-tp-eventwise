@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes AddEventDetails command;
+if () then ([all parameters are valid])
+  fork
+  :Get persons to add;
+  fork again
+  :Get vendors to add;
+  end fork
+  if () then ([At least one of personsToAdd, vendorsToAdd or venue is provided])
+    fork
+    :Get new persons to add;
+    fork again
+    :Get new vendors to add;
+    fork again
+    :Get venue to set;
+    end fork
+    :Create edited event;
+    :Update event in model;
+    :addEventDetails command successfully executes;
+  else ([else])
+  :Error: No action given;
+  stop
+
+  endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+
+stop
+
+@enduml
