@@ -4,11 +4,22 @@
 start
 :User executes EditCommand;
 if () then ([all parameters are valid])
-  :Page.onInit();
-  if (isForward?) then (no)
-
+  :Get Person to edit;
+  :Create edited Person;
+  if () then ([Person to edit is part of one or more Event])
+    :Replace Person in event with edited Person;
+    :Create edited Event;
+    :Update Event in Model;
+    :Find RSVP Object for Person to edit;
+    if () then ([RSVP Object exists])
+       :Update RSVP for Person;
+       :Update RSVP List in Model;
+    else ([else])
+    endif
+  else ([else]))
   endif
 else ([else])
+    :Error: Invalid command format;
 endif
 
 stop
