@@ -350,43 +350,61 @@ It is used to view detailed information relating to an existing `Event` in Event
 
 `LogicManager` calls `AddressBookParser` which creates an instance of a `ViewEventCommandParser` to parse user inputs. An instance of `ViewEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`. The `Event` instance is set as the event to be displayed in `Model`. `MainWindow` calls `Logic` to get the `Event` instance from `Model` after the `CommandResult` from executing the `ViewEventCommand` has been shown to the user.
 
-### Add Person to Event Feature
+### Add Event Details Feature
 
-Adding a person to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [pid/INDEX]`
+The command `addEventDetails eid/EVENT_ID [pid/INDEX] [vdr/VENDOR_ID] [vne/VENUE_ID]` allows the user to add event details such as venue, guests and vendors to a specified event in EventWise.
 
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
-* `INDEX` refers to the index number displayed in Main List
-  * To view all persons, type the `list` command.
-* The field `[pid/INDEX]` can be repeated more than once to add multiple people.
+The format for this command can be seen [here](./UserGuide.md#adding-details-to-an-event-addeventdetails).
 
 #### Implementation
-
 ![](./images/add-event-details/activity_diagram.png)
 
-### Add Vendor to Event Feature
+`LogicManager` calls `AddressBookParser` which creates an instance of a `AddEventDetailsCommandParser` to parse user inputs. 
 
-Adding a vendor to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [vdr/VENDOR_ID]`
+The `AddEventDetailsCommandParser` parses the user input into 
+* `personIndexes` and `vendorIndexes` which are two `HashSet<Index>` objects storing multiple people or vendor indexes. 
+* `venueIndex` representing the venue index displayed in the Main List.
 
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
-* `VENDOR_ID` refers to the index number displayed in Main List
-  * To view all persons, type the `viewVendors` command.
-* The field `[vdr/VENDOR_ID]` can be repeated more than once to add multiple vendors.
+An instance of `AddEventDetailsCommand` is created from the parsed user inputs `personIndexes`, `vendorIndexes` and `venueIndex`, which is then executed by `LogicManager`. 
 
-#### Implementation
+The `Event` instance is set as the event to be displayed in `Model`. `MainWindow` calls `Logic` to get the `Event` instance from `Model` after the `CommandResult` from executing the `ViewEventCommand` has been shown to the user.
 
-### Set Venue to Event Feature
+#### Remarks
+In our Developer Guide, we have decided to split it into **three** smaller subfeatures to explain their command execution and implementation details.
+1. Add Person to Event
+2. Add Vendor to Event
+3. Set Venue to Event
 
-Setting a venue to a specific event is a feature that uses the command `addEventDetails eid/EVENT_ID [vne/VENUE_ID]`
+### Add Person to Event Subfeature
 
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
-* `VENUE_ID` refers to the index number displayed in Main List
-  * To view all persons, type the `viewVenues` command.
-* The field `[vdr/VENUE_ID]` can be repeated more than once to add multiple vendors.
+Adding a person to a specific event is a subfeature of the `addEventDetails` command which uses the `[pid/INDEX]` field. It can be repeated more than once to add multiple people.
 
 #### Implementation
+![Sequence Diagram for Add Person to Event](./images/add-event-details/AddPersonToEventSequenceDiagram.png)
+
+When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all person instances to be added to the event. 
+
+`Model#getPersons(personIndexes)` will handle cases where the person index is invalid (less than 0 or more than number of persons)
+
+A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)`.
+
+Finally, the `editedEvent` instance is set as the event to be displayed in `Model`.
+
+### Add Vendor to Event Subfeature
+
+Adding a vendor to a specific event is subfeature of the `addEventDetails` command which uses the `[vdr/VENDOR_ID]` field. It can be repeated more than once to add multiple people.
+
+#### Implementation
+![Sequence Diagram for Add Vendor to Event](./images/add-event-details/AddVendorToEventSequenceDiagram.png)
+
+
+### Set Venue to Event Subfeature
+
+Setting a venue to a specific event is subfeature of the `addEventDetails` command which uses the `[vne/VENUE_ID]` field.
+
+#### Implementation
+![Sequence Diagram for Set Venue to Event](./images/add-event-details/SetVenueToEventSequenceDiagram.png)
+
 
 ### Remove Person from Event Feature
 
@@ -409,91 +427,6 @@ Removing a vendor from an event is a feature that uses the command `removeVendor
 
 #### Implementation
 
-
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -878,8 +811,26 @@ testers are expected to do more *exploratory* testing.
 
 ### Saving data
 
+<div markdown="span" class="alert alert-primary">
+:bulb: **Note about corrupted file:** If a JSON file is corrupted upon launching EventWise, subsequent commands (e.g. rsvp) will wipe out the corrupted JSON file.
+</div>
+
 1. Dealing with missing/corrupted data files
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+## Planned Enhancements
+Given below are the fixes proposed to add in the near future.
+
+### 1. Deal with text-wrapping and truncation in UI
+* The current implementation of the truncates text relative to the window size, resulting in users being unable to view lengthy text even with text wrapping enabled in the UI.
+* Proposed solution: To update DisplayableItemCard, PersonCard and VendorCard to have dynamic heights, so when text is wrapped, the Card components expands in height so text is no longer truncated.
+
+### 2. Make the UI responsive to smaller window sizes
+* The current UI does not scale to a smaller window size, resulting in the Person List being cut off from the window if the window width is too small.
+* Proposed solution: Set a minimum width for MainWindow, Person
+ListPanel and VendorListPanel.
+

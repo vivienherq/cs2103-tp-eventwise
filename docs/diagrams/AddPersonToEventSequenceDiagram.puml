@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddEventDetailsCommandParser" as AddEventDetailsCommandParser LOGIC_COLOR
+participant "a:AddEventDetailsCommand" as AddEventDetailsCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addEventDetails eid/1 pid/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addEventDetails eid/1 pid/1")
+activate AddressBookParser
+
+create AddEventDetailsCommandParser
+AddressBookParser -> AddEventDetailsCommandParser: parse("eid/1 pid/1")
+activate AddEventDetailsCommandParser
+
+create AddEventDetailsCommand
+AddEventDetailsCommandParser -> AddEventDetailsCommand
+activate AddEventDetailsCommand
+
+AddEventDetailsCommand --> AddEventDetailsCommandParser : a
+deactivate AddEventDetailsCommand
+
+AddEventDetailsCommandParser --> AddressBookParser : a
+deactivate AddEventDetailsCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddEventDetailsCommandParser -[hidden]-> AddressBookParser
+destroy AddEventDetailsCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddEventDetailsCommand : execute()
+activate AddEventDetailsCommand
+
+AddEventDetailsCommand -> Model : getFilteredEventsList()
+activate Model
+Model --> AddEventDetailsCommand : events
+deactivate Model
+
+AddEventDetailsCommand -> Model : getPersons(personIndexes)
+activate Model
+Model --> AddEventDetailsCommand : personsToAdd
+deactivate Model
+
+AddEventDetailsCommand -> Model : createEditedEvent(eventToEdit, newPersons)
+activate Model
+create Event
+Model -> Event
+activate Event
+return editedEvent
+Model --> AddEventDetailsCommand: editedEvent
+deactivate Model
+
+AddEventDetailsCommand -> Model++ : setEvent(eventToEdit, editedEvent)
+return
+
+AddEventDetailsCommand -> Model++ : setEventToView(editedEvent)
+return
+
+create CommandResult
+AddEventDetailsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddEventDetailsCommand
+deactivate CommandResult
+
+AddEventDetailsCommand --> LogicManager : result
+deactivate AddEventDetailsCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
