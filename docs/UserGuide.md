@@ -741,7 +741,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 | Action                       | Format                                                                        | Examples                                                                     |
 |------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| **Add Event**                | `event n/NAME d/DESCRIPTION from/DATE to/DATE`                                | `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023` |
+| **Add Event**                | `event n/NAME d/DESCRIPTION from/DATE to/DATE [no/NOTE]`                      | `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023` |
 | **Add Event Details**        | `addEventDetails eid/EVENT_ID [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR_ID]` | `addEventDetails eid/3 pid/2`                                                |
 | **Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_ID`                                     | `removePerson eid/1 pid/1`                                                   |
 | **Remove Vendor from Event** | `removeVendor eid/EVENT_ID vdr/VENDOR_ID`                                     | `removeVendor eid/1 vdr/1`                                                   |
