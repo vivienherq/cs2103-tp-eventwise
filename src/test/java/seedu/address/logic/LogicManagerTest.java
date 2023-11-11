@@ -91,6 +91,31 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventList().remove(0));
     }
 
+    @Test
+    public void getFilteredEventAttendeesList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventAttendeesList().remove(0));
+    }
+
+    @Test
+    public void getFilteredEventVendorsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventVendorsList().remove(0));
+    }
+
+    @Test
+    public void getFilteredDisplayableItemsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDisplayableItemsList().remove(0));
+    }
+
+    @Test
+    public void getFilteredRsvpList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRsvpList().remove(0));
+    }
+
+    @Test
+    public void getFilteredEventRsvpList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventRsvpList().remove(0));
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
