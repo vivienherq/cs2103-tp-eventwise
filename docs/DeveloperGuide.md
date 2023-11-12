@@ -435,7 +435,10 @@ The sequence diagram for the `removePerson` command is given below.
 
 ![Sequence Diagram](./images/remove-person/sequence_diagram.png)
 
+`LogicManager` calls `AddressBookParser` which creates an instance of a `RemovePersonCommandParser` to parse user inputs. An instance of `RemovePersonCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 
+When `RemovePersonCommand#execute()` is called, `RemovePersonCommand` calls `Model` to get the `Event` instance to edit. `RemovePersonCommand` then calls the `Event` instance to remove the person from the event by passing `personIndex`.
+Finally, `RemovePersonCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.
 
 ### Remove Vendor from Event Feature
 
@@ -444,6 +447,14 @@ Removing a vendor from an event is a feature that uses the command `removeVendor
 The format for this command can be seen [here](./UserGuide.md#removing-a-vendor-from-an-event-removevendor).
 
 #### Implementation
+The sequence diagram for the `removeVendor` command is given below.
+
+![Sequence Diagram](./images/remove-vendor/sequence_diagram.png)
+
+`LogicManager` calls `AddressBookParser` which creates an instance of a `RemoveVendorCommandParser` to parse user inputs. An instance of `RemoveVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+
+When `RemoveVendorCommand#execute()` is called, `RemoveVendorCommand` calls `Model` to get the `Event` instance to edit. `RemoveVendorCommand` then calls the `Event` instance to remove the vendor from the event by passing `vendorIndex`.
+Finally, `RemoveVendorCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.
 
 
 
@@ -479,17 +490,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
 |---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
 | `* * *` | event planner | create a new event, specifying its fromDate, time, and location   | keep track of the event details                      |
-| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
-| `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
-| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
-| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
-| `* * *` | event planner | edit an existing event                                        | keep track of the updated changes                    |
-| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* * *` | event planner | create a new vendor, specifying its name, email, and phone    | record down vendors I am working with              |
 | `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
+| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
+| `* * *` | event planner | add my venue’s information to the event                       | know where the event will be held at                 |
+| `* * *` | event planner | add my vendor's information to the event                      | know which vendors are involved in the specified event and how to contact them  |
+| `* * *` | event planner | add each guest's RSVP status in an event                      | know which guests will be attending the event  |
+| `* * *` | event planner | remove a guest from an event                                  | remove guests that I have mistakenly added           |
+| `* * *` | event planner | remove a vendor from an event                                 | remove vendors who are unable to commit for the event  |
+| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
+| `* * *` | event planner | view the list of vendors created                              | keep track of the vendors that I am working with     |
 | `* * *` | event planner | view the list of venues created                               | keep track of the venues that I created              |
-| `* *`   | event planner | add my vendor's information to the event                      | know which vendor I have to work with for eac event  |
-
-*{More to be added}*
+| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
+| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* *`   | event planner | delete an existing vendor                                     | remove vendors who I am not working with             |
+| `* *`   | event planner | delete an existing venue                                      | remove venues that are not for use                   |
+| `* *`   | event planner | edit an existing event                                        | keep track of the updated event information          |
+| `* *`   | event planner | edit an existing vendor                                       | keep track of the updated vendor information         |
+| `* *`   | event planner | edit an existing venue                                        | keep track of the updated venue information          |
+| `* *`   | event planner | delete all events in the application                          | start all over and create new events                 |
+| `* *`   | event planner | delete all vendors in the application                         | start over and create a new list of vendors          |
+| `* *`   | event planner | delete all venues in the application                          | start over and create a new list of venues           |
+| `* *`   | event planner | search for a specific event                                   | easily find an event I need                          |
 
 ### Use cases
 
