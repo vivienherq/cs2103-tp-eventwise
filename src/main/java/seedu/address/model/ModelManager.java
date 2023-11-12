@@ -338,7 +338,7 @@ public class ModelManager implements Model {
     @Override
     public Vendor getVendor(Index index) throws CommandException {
         if (index.getZeroBased() >= addressBook.getVendorList().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_INDEX);
         }
         filteredVendors.setPredicate(PREDICATE_SHOW_ALL_VENDORS);
         return filteredVendors.get(index.getZeroBased());

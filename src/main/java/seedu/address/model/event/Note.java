@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Note {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Event note should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Event note should only contain alphanumeric characters and spaces";
 
     /*
      * The first character of the name must not be a whitespace,

@@ -171,24 +171,24 @@ Examples:
 
 **Expected Command Result**
 ```
-Venue 1: Catering, 64646262, catering@gmail.com has been successfully added.
+New vendor added: Catering, Phone: 64646262, Email: catering@gmail.com.
 ```
 
 **Invalid Command Results**
 ```
-Create Vendor Failed: Vendor name cannot be empty.
+This vendor already exists in the address book
 ```
 ```
-Create Vendor Failed: Vendor phone number cannot be empty.
+Names should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
-Create Vendor Failed: Vendor email cannot be empty.
+Phone numbers should only contain numbers, and it should be at least 3 digits long
 ```
 ```
-Create Venue Failed: Invalid phone number.
+Emails should be of the format local-part@domain 
 ```
 ```
-Create Venue Failed: Invalid email.
+This vendor already exists in the address book
 ```
 
 ### Listing all vendors: `viewVendors`
@@ -219,18 +219,18 @@ Examples:
 
 **Expected Command Result**
 ```
-Vendor 1: Catering - Name changed to Good Food Catering.
+Edited Vendor: Good Food Catering; Phone: 91234123; Email: ddom@gmail.com
 ```
 ```
-Vendor 1: Good Food Catering - Email changed to gfcatering@gmail.com.
+Edited Vendor: Good Food Catering; Phone: 91234123; Email: gfcatering@gmail.com
 ```
 
 **Invalid Command Results**
 ```
-Edit Vendor Failed: Vendor ID does not exist.
+The vendor index provided is invalid.
 ```
 ```
-Edit Vendor Failed: No parameters provided.
+At least one field to edit must be provided.
 ```
 
 ### Deleting a vendor : `deleteVendor`
@@ -249,12 +249,12 @@ Examples:
 
 **Expected Command Result**
 ```
-Vendor 2: Good Food Catering has been successfully deleted
+Deleted Vendor: SUN Catering; Phone: 64226800; Email: catering@sun.com
 ```
 
 **Invalid Command Results**
 ```
-Delete Vendor Failed: Vendor ID does not exist.
+The vendor index provided is invalid.
 ```
 
 ## Venue Features
@@ -271,21 +271,21 @@ Examples:
 
 **Expected Command Result**
 ```
-Venue 1: LT27, Lower Kent Ridge Road, Capacity: 400 has been successfully added.
+New Venue added: LT27; Address: Lower Kent Ridge Road; Capacity: 400
 ```
 
 **Invalid Command Results**
 ```
-Create Venue Failed: Venue name cannot be empty.
+Event name should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
-Create Venue Failed: Venue address cannot be empty.
+Addresses can take any values, and it should not be blank
 ```
 ```
-Create Venue Failed: Venue capacity cannot be empty.
+Venue capacity should only contain numbers, and it should be at least 1 digit long
 ```
 ```
-Create Venue Failed: Invalid capacity value.
+This venue already exists in EventWise
 ```
 
 ### Listing all venues: `viewVenues`
@@ -316,18 +316,18 @@ Examples:
 
 **Expected Command Result**
 ```
-Venue 1: MPSH - Name changed to MPSH2.
+Edited Venue: MPSH2; Address: Lower Kent Ridge Road; Capacity: 400
 ```
 ```
-Venue 1: MPSH2 - Capacity changed to 300.
+Edited Venue: MPSH2; Address: Lower Kent Ridge Road; Capacity: 300
 ```
 
 **Invalid Command Results**
 ```
-Edit Venue Failed: Venue ID does not exist.
+The venue index provided is invalid
 ```
 ```
-Edit Venue Failed: No parameters provided.
+At least one field to edit must be provided.
 ```
 
 ### Deleting a venue : `deleteVenue`
@@ -346,15 +346,13 @@ Examples:
 
 **Expected Command Result**
 ```
-Venue 2: MPSH has been successfully deleted
+Deleted Venue 2: MPSH2; Address: Lower Kent Ridge Road; Capacity: 300
 ```
 
 **Invalid Command Results**
 ```
-Delete Venue Failed: Venue ID does not exist.
+The venue index provided is invalid
 ```
-
-
 
 ## Event Features
 
@@ -371,24 +369,30 @@ Examples:
 
 **Expected Command Result**
 ```
-Event 1: FSC 2023 has been successfully added.
+New Event added: FSC 2023; Description: Freshman Social Camp 2023; Date: 10-12-2023
 ```
 ```
-Event 2: FOC 2023 has been successfully added.
+New Event added: FOC 2023; Description: Freshman Orientation Camp 2023; Date: 04-12-2023
 ```
 
 **Invalid Command Results**
 ```
-Create Event Failed: Event name cannot be empty.
+This event already exists in EventWise
 ```
 ```
-Create Event Failed: Event description cannot be empty.
+Event name should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
-Create Event Failed: Event from date has to be in DD-MM-YYYY format.
+Event description should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
-Create Event Failed: Event to date has after from date.
+Event date should only be in DD-MM-YYYY format and should be either today's date or a future date. 
+```
+```
+To Date entered should be either the same as from date or after.
+```
+```
+Event note should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 
 ### Adding details to an event: `addEventDetails`
@@ -493,18 +497,18 @@ Examples:
 
 **Expected Command Result**
 ```
-Event 1: FSC 2023 - Name changed to FSC 2024.
+Edited Event: FSC 2024; Description: Freshman Social Camp 2023; Date: 10-12-2023
 ```
 ```
-Event 1: FSC 2024 - Description changed to Freshman Orientation Camp 2024.
+Edited Event: FSC 2024; Description: Freshman Orientation Camp 2024; Date: 10-12-2023
 ```
 
 **Invalid Command Results**
 ```
-Edit Event Failed: Event ID does not exist.
+The event index provided is invalid
 ```
 ```
-Edit Event Failed: No parameters provided.
+At least one field to edit must be provided.
 ```
 
 ### Delete Event : `deleteEvent`
@@ -522,12 +526,12 @@ Examples:
 
 **Expected Command Result**
 ```
-Event 2: FOC, Freshman Orientation Camp has been successfully deleted
+Deleted Event 2: FOC 2023; Description: Freshman Orientation Camp 2023; Date: 04-12-2023
 ```
 
 **Invalid Command Results**
 ```
-Delete Event Failed: Event ID does not exist.
+The event index provided is invalid
 ```
 
 ### Locating events by name: `findEvent`
@@ -579,7 +583,7 @@ Event or Person does not exist!
 Value of RSVP Status can only be CC, CCC or TBC.
 ```
 ```
-John Doe 2 has not been added to FSC 2023!
+John Doe has not been added to FSC 2023!
 ```
 
 ### Removing a person from an event: `removePerson`
