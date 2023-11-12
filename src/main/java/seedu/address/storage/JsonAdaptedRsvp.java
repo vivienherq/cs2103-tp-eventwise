@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
@@ -47,7 +46,7 @@ class JsonAdaptedRsvp {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Rsvp.
      */
-    public Rsvp toModelType() throws IllegalValueException, ParseException {
+    public Rsvp toModelType() throws IllegalValueException {
         if (event == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Event.class.getSimpleName()));
         }
