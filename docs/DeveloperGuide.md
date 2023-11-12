@@ -197,10 +197,6 @@ Details that can be edited include `Name`, `Phone`, `Email`.
 An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Person` instance is successfully edited, and is stored in `Storage`.
 
-THe following activity diagram shows how this feature works:
-
-<img src="images/EditPersonActivityDiagram.png" width="550" />
-
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditPersonSequenceDiagram.png" width="550" />
@@ -386,13 +382,13 @@ Adding a person to a specific event is a subfeature of the `addEventDetails` com
 #### Implementation
 ![Sequence Diagram for Add Person to Event](./images/add-event-details/AddPersonToEventSequenceDiagram.png)
 
-When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all person instances to be added to the event. 
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all person instances to be added to the event. 
 
-`Model#getPersons(personIndexes)` will handle cases where the person index is invalid (less than 0 or more than number of persons)
+* `Model#getPersons(personIndexes)` will handle cases where the person index is invalid (less than 0 or more than number of persons)
 
-A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)`.
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
 
-Finally, the `editedEvent` instance is set as the event to be displayed in `Model`.
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
 
 ### Add Vendor to Event Subfeature
 
@@ -401,6 +397,13 @@ Adding a vendor to a specific event is subfeature of the `addEventDetails` comma
 #### Implementation
 ![Sequence Diagram for Add Vendor to Event](./images/add-event-details/AddVendorToEventSequenceDiagram.png)
 
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all vendor instances to be added to the event. 
+
+* `Model#getVendors(vendorIndexes)` will handle cases where the vendor index is invalid (less than 0 or more than number of vendors)
+
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
+
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
 
 ### Set Venue to Event Subfeature
 
@@ -409,25 +412,36 @@ Setting a venue to a specific event is subfeature of the `addEventDetails` comma
 #### Implementation
 ![Sequence Diagram for Set Venue to Event](./images/add-event-details/SetVenueToEventSequenceDiagram.png)
 
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get the venue instance to be set as the event's venue.
+
+* `Model#getVenue(venueIndex)` will handle cases where the venue index is invalid (less than 0 or more than number of vendors).
+
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
+
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
 
 ### Remove Person from Event Feature
 
-Removing a person from an event is a feature that uses the command `removePerson eid/EVENT_ID pid/PERSON_INDEX`.
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
-* `PERSON_INDEX` refers to the index number displayed in the Persons List that is associated to the event.
+Removing a person from an event is a feature that uses the command `removePerson eid/EVENT_ID pid/PERSON_ID`.
+
+The format for this command can be seen [here](./UserGuide.md#removing-a-person-from-an-event-removeperson).
 
 #### Implementation
-The following activity diagram shows how the `removePerson` command works when given valid parameters or invalid parameters (`EVENT_ID` or `PERSON_INDEX`) are given.
+The following activity diagram shows how the `removePerson` command works when given valid parameters or invalid parameters (`EVENT_ID` or `PERSON_ID`) are given.
+
+![Activity Diagram](./images/remove-person/activity_diagram.png)
+
+The sequence diagram for the `removePerson` command is given below.
+
+![Sequence Diagram](./images/remove-person/sequence_diagram.png)
 
 
 
 ### Remove Vendor from Event Feature
 
-Removing a vendor from an event is a feature that uses the command `removeVendor eid/EVENT_ID vdr/VENDOR_INDEX`.
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
-* `VENDOR_INDEX` refers to the index number displayed in the Vendors List that is associated to the event.
+Removing a vendor from an event is a feature that uses the command `removeVendor eid/EVENT_ID vdr/VENDOR_ID`.
+
+The format for this command can be seen [here](./UserGuide.md#removing-a-vendor-from-an-event-removevendor).
 
 #### Implementation
 

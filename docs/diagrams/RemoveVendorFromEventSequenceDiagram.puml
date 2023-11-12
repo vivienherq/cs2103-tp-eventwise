@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":RemoveVendorCommandParser" as RemoveVendorCommandParser LOGIC_COLOR
+participant "r:RemoveVendorCommand" as RemoveVendorCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":CommandException" as CommandException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "eventToEdit:Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("removeVendor eid/1 vdr/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("removeVendor eid/1 vdr/1")
+activate AddressBookParser
+
+create RemoveVendorCommandParser
+AddressBookParser -> RemoveVendorCommandParser: parse("eid/1 vdr/1")
+activate RemoveVendorCommandParser
+
+create RemoveVendorCommand
+RemoveVendorCommandParser -> RemoveVendorCommand
+activate RemoveVendorCommand
+
+RemoveVendorCommand --> RemoveVendorCommandParser : r
+deactivate RemoveVendorCommand
+
+RemoveVendorCommandParser --> AddressBookParser : r
+deactivate RemoveVendorCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RemoveVendorCommandParser -[hidden]-> AddressBookParser
+destroy RemoveVendorCommandParser
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> RemoveVendorCommand : execute()
+activate RemoveVendorCommand
+
+RemoveVendorCommand -> Model : getEvent(eventIndex)
+activate Model
+Model --> RemoveVendorCommand : eventToEdit
+deactivate Model
+
+RemoveVendorCommand -> Event : removeVendor(vendorIndex)
+activate Event
+Event --> RemoveVendorCommand
+deactivate Event
+
+RemoveVendorCommand -> Model++ : setEvent(eventToEdit, editedEvent)
+return
+
+RemoveVendorCommand -> Model++ : setEventToView(editedEvent)
+return
+
+create CommandResult
+RemoveVendorCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RemoveVendorCommand
+deactivate CommandResult
+
+RemoveVendorCommand --> LogicManager : result
+deactivate RemoveVendorCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
