@@ -72,7 +72,7 @@ This is where the user interacts with the application by providing a specific co
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `eid/EVENT_ID [pid/INDEX]` can be used as `eid/1 pid/1` or as `eid/1`.
+  e.g `eid/EVENT_ID [pid/PERSON_ID]` can be used as `eid/1 pid/1` or as `eid/1`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -112,10 +112,11 @@ Format: `list`
 
 Edits an existing person in EventWise.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `edit PERSON_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
-  The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `PERSON_ID`. 
+* `PERSON_ID` refers to the index number shown in the displayed person list.
+* `PERSON_ID` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -146,11 +147,11 @@ Examples:
 
 Deletes the specified person from the persons list in EventWise.
 
-Format: `delete INDEX`
+Format: `delete PERSON_ID`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the person at the specified `PERSON_ID`.
+* `PERSON_ID` refers to the index number shown in the displayed person list.
+* `PERSON_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in EventWise.
@@ -162,7 +163,7 @@ Examples:
 
 Adds a vendor, with vendor name, phone number and email to EventWise.
 
-Format: `vendor n/NAME p/PHONE e/EMAIL`
+Format: `vendor n/NAME p/PHONE_NUMBER e/EMAIL`
 * The adding of a vendor is **case-sensitive**. e.g `Sun Catering` will not be the same as `SUN Catering`
 
 Examples:
@@ -207,7 +208,7 @@ Format: `viewVendors`
 
 Edits an existing vendor in EventWise.
 
-Format: `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
@@ -239,9 +240,9 @@ Deletes the specified vendor from the vendors list in EventWise.
 Format: `deleteVendor vdr/VENDOR_ID`
 
 **Command Behavior**
-* Deletes the vendor at the specified `VENDOR_ID` from the vendor list.
-* The Vendor ID refers to the index number shown in the displayed vendor list.
-* The Vendor ID **must be a positive integer** 1, 2, 3, …​
+* Deletes the vendor at the specified `VENDOR_ID`.
+* `VENDOR_ID` refers to the index number shown in the displayed vendor list.
+* `VENDOR_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `viewVendors` followed by `deleteVendor vdr/2` deletes the 2nd vendor in the vendor list.
@@ -252,9 +253,6 @@ Vendor 2: Good Food Catering has been successfully deleted
 ```
 
 **Invalid Command Results**
-```
-Delete Vendor Failed: Invalid Vendor ID.
-```
 ```
 Delete Vendor Failed: Vendor ID does not exist.
 ```
@@ -339,9 +337,9 @@ Deletes the specified venue from the venues list in EventWise.
 Format: `deleteVenue vne/VENUE_ID`
 
 **Command Behavior**
-* Deletes the venue at the specified `VENUE_ID` from the venue list.
-* The Venue ID refers to the index number shown in the displayed venue list.
-* The Venue ID **must be a positive integer** 1, 2, 3, …​
+* Deletes the venue at the specified `VENUE_ID`.
+* `VENUE_ID` refers to the index number shown in the displayed venue list.
+* `VENUE_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `viewVenues` followed by `deleteVenue vne/2` deletes the 2nd venue in the venue list.
@@ -353,9 +351,9 @@ Venue 2: MPSH has been successfully deleted
 
 **Invalid Command Results**
 ```
-Delete Venue Failed: Invalid Venue ID.
-```
 Delete Venue Failed: Venue ID does not exist.
+```
+
 
 
 ## Event Features
@@ -364,7 +362,7 @@ Delete Venue Failed: Venue ID does not exist.
 
 Adds an event, with event name, description, from date, to date and note (optional) to EventWise.
 
-Format: `event n/NAME d/DESC from/DT to/DT [no/NOTE]`
+Format: `event n/NAME d/DESCRIPTION from/DT to/DT [no/NOTE]`
 * The adding of an event is **case-sensitive**. e.g `FSC` will not be the same as `Fsc`
 
 Examples:
@@ -397,19 +395,19 @@ Create Event Failed: Event to date has after from date.
 
 Adds event details such as venue, guests and vendors to a specified event in EventWise.
 
-Format: `addEventDetails eid/EVENT_ID [pid/INDEX] [vne/VENUE_ID] [vdr/VENDOR_ID]`
+Format: `addEventDetails eid/EVENT_ID [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR_ID]`
 
 **What each optional field does for a specified event**
-* `[pid/INDEX]`: Adds the person at the specified `INDEX` in persons list as a guest of the event.
+* `[pid/PERSON_ID]`: Adds the person at the specified `PERSON_ID` in persons list as a guest of the event.
 * `[vne/VENUE_ID]`: Sets the venue at the specified `VENUE_ID` in venues list as the venue of the event.
 * `[vdr/VENDOR_ID]`: Adds the vendor at the specified `VENDOR_ID` in vendors list as a vendor of the event.
 
 **Command Behavior**
 * Adds details such as venue, guests and vendors for the event at the specified `EVENT_ID`.
-  The index refers to the index number shown in the displayed person list. 
-  The index **must be a positive integer** 1, 2, 3, …​
+* `EVENT_ID` refers to the index number shown in the displayed person list. 
+* `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* The optional fields `[pid/INDEX]` and `[vdr/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
+* The optional fields `[pid/PERSON_ID]` and `[vdr/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
 
 Examples:
 * `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2` adds the 2nd person in the address book to 3rd event in the event list
@@ -456,9 +454,9 @@ Format: `viewEvent eid/EVENT_ID`
 - Guest List
 - Vendor List
 
-* Displays the details for the event at the specified `EVENT_ID` from the event list. 
-  The Event ID refers to the index number shown in the displayed event list. 
-  The Event ID **must be a positive integer** 1, 2, 3, …​
+* Displays the details for the event at the specified `EVENT_ID`. 
+* `EVENT_ID` refers to the index number shown in the displayed event list. 
+* `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `viewEvents` followed by `viewEvent eid/3` shows the details of the 3rd event in the events list.
@@ -484,7 +482,7 @@ Invalid Index:
 
 Edits an existing event in EventWise.
 
-Format: `editEvent eid/ID [n/NAME] [d/DESC] [from/DT] [to/DT]`
+Format: `editEvent eid/ID [n/NAME] [d/DESCRIPTION] [from/DT] [to/DT]`
 
 **Command Behavior**
 * At least one of the optional fields must be provided.
@@ -515,9 +513,9 @@ Deletes the specified event from the events list in EventWise.
 
 Format: `deleteEvent eid/EVENT_ID`
 
-* Deletes the event at the specified `EVENT_ID` from the event list. 
-  The Event ID refers to the index number shown in the displayed event list.
-  The Event ID **must be a positive integer** 1, 2, 3, …​
+* Deletes the event at the specified `EVENT_ID`. 
+* `EVENT_ID` refers to the index number shown in the displayed event list.
+* `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `viewEvents` followed by `deleteEvent eid/2` deletes the 2nd event in the events list.
@@ -528,9 +526,6 @@ Event 2: FOC, Freshman Orientation Camp has been successfully deleted
 ```
 
 **Invalid Command Results**
-```
-Delete Event Failed: Invalid Event ID.
-```
 ```
 Delete Event Failed: Event ID does not exist.
 ```
@@ -561,8 +556,8 @@ Updates RSVP status of a person for a specific event.
 Format: `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`
 
 * Set the RSVP status of the specified `EVENT_ID` and `PERSON_ID` to the new RSVP status.
-* The Event ID refers to the index number shown in the displayed event list.
-* The Person ID refers to the index number shown in the displayed person list.
+* `EVENT_ID` refers to the index number shown in the displayed event list.
+* `PERSON_ID` refers to the index number shown in the displayed person list.
 * `CC` means the guest is **Confirm Coming**
 * `CCC` means the guest is **Confirm Not Coming**
 * `TBC` means the guest's attendance is **To Be Confirmed**
@@ -591,10 +586,9 @@ John Doe 2 has not been added to FSC 2023!
 
 Removes a person from a specified event
 
-Format: `removePerson eid/EVENT_ID pid/PERSON_INDEX`
-- The Event ID refers to the index number displayed in Main List
-  - To view all events, type the `viewEvents` command.
-- The Person ID refers to the index number displayed in the Persons List that is associated to the event.
+Format: `removePerson eid/EVENT_ID pid/PERSON_ID`
+* `EVENT_ID` refers to the index number in the main displayed event list.
+* `PERSON_ID` refers to the index number displayed in the Persons List that is associated to the event.
 
 Examples:
 - `viewEvent eid/4` followed by `removePerson eid/4 pid/1` deletes the 1st person in the person list associated with the 4th event.
@@ -610,12 +604,11 @@ Examples:
 Removes a vendor from a specified event
 
 Format: `removeVendor eid/EVENT_ID vdr/VENDOR_ID`
-- The Event ID refers to the index number displayed in Main List
-  - To view all events, type the `viewEvents` command.
-- The Vendor ID refers to the index number displayed in the Vendors List that is associated to the event.
+* `EVENT_ID` refers to the index number in the main displayed event list.
+* `VENDOR_ID` refers to the index number displayed in the Vendors List that is associated to the event.
 
 Examples:
-- `viewEvent eid/2` followed by `removeVendor eid/2 vdr/2` deletes the 2nd vendor in the vendor list associated with the 2nd event.
+* `viewEvent eid/2` followed by `removeVendor eid/2 vdr/2` deletes the 2nd vendor in the vendor list associated with the 2nd event.
 
 **Expected Command Result**
 ![result for `removeVendor eid/2 vdr/2`](images/remove-vendor/result.png)
@@ -694,7 +687,7 @@ EventWise data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-EventWise data are saved automatically as a JSON file `[JAR file location]/data/eventwise.json`. 
+EventWise data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. 
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -719,22 +712,22 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 ## Command summary
 ### Guest Command summary
 
-| Action     | Format                                           | Examples                                          |
-|------------|--------------------------------------------------|---------------------------------------------------|
-| **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL`              | `add n/James Ho p/22224444 e/jamesho@example.com` |
-| **Delete** | `delete INDEX`                                   | `delete 3`                                        |
-| **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]` | `edit 2 n/James Lee e/jameslee@example.com`       |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS]`                   | `find James Jake`                                 |
-| **List**   | `list`                                           |                                                   |
+| Action     | Format                                               | Examples                                          |
+|------------|------------------------------------------------------|---------------------------------------------------|
+| **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL`                  | `add n/James Ho p/22224444 e/jamesho@example.com` |
+| **Delete** | `delete PERSON_ID`                                   | `delete 3`                                        |
+| **Edit**   | `edit PERSON_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]` | `edit 2 n/James Lee e/jameslee@example.com`       |
+| **Find**   | `find KEYWORD [MORE_KEYWORDS]`                       | `find James Jake`                                 |
+| **List**   | `list`                                               |                                                   |
 
 ### Vendor Command summary
 
-| Action            | Format                                                  | Examples                                              |
-|-------------------|---------------------------------------------------------|-------------------------------------------------------|
-| **Create Vendor** | `vendor n/NAME p/PHONE e/EMAIL`                         | `vendor n/SUN Catering p/64646767 e/catering@sun.com` |
-| **Edit Vendor**   | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE] [e/EMAIL]` | `editVendor vdr/1 n/SUN Catering`                     |
-| **Delete Vendor** | `deleteVendor vdr/VENDOR_ID`                            | `deleteVendor vdr/1`                                  |
-| **View Vendors**  | `viewVendors`                                           |                                                       |
+| Action            | Format                                                         | Examples                                              |
+|-------------------|----------------------------------------------------------------|-------------------------------------------------------|
+| **Create Vendor** | `vendor n/NAME p/PHONE_NUMBER e/EMAIL`                         | `vendor n/SUN Catering p/64646767 e/catering@sun.com` |
+| **Edit Vendor**   | `editVendor vdr/VENDOR_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]` | `editVendor vdr/1 n/SUN Catering`                     |
+| **Delete Vendor** | `deleteVendor vdr/VENDOR_ID`                                   | `deleteVendor vdr/1`                                  |
+| **View Vendors**  | `viewVendors`                                                  |                                                       |
 
 ### Venue Command summary
 
@@ -747,17 +740,17 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 ### Event Command summary
 
-| Action                       | Format                                                                    | Examples                                                                     |
-|------------------------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| **Add Event**                | `event n/NAME d/DESC from/DATE to/DATE`                                   | `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023` |
-| **Add Event Details**        | `addEventDetails eid/EVENT_ID [pid/INDEX] [vne/VENUE_ID] [vdr/VENDOR_ID]` | `addEventDetails eid/3 pid/2`                                                |
-| **Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_INDEX`                              | `removePerson eid/1 pid/1`                                                   |
-| **Remove Vendor from Event** | `removeVendor eid/EVENT_ID vdr/VENDOR_ID`                              | `removeVendor eid/1 vdr/1`                                                   |
-| **Delete Event**             | `deleteEvent eid/EVENT_ID`                                                | `deleteEvent eid/1`                                                          |
-| **Edit Event**               | `editEvent eid/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]`                | `editEvent eid/1 d/Freshman Orientation Camp 2024`                           |
-| **View Event**               | `viewEvent eid/ID`                                                        | `viewEvent eid/1`                                                            |
-| **View All Events**          | `viewEvents`                                                              |                                                                              |
-| **RSVP**                     | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`                                | `rsvp eid/1 pid/1 s/CC`                                                      |
+| Action                       | Format                                                                        | Examples                                                                     |
+|------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| **Add Event**                | `event n/NAME d/DESCRIPTION from/DATE to/DATE [no/NOTE]`                      | `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023` |
+| **Add Event Details**        | `addEventDetails eid/EVENT_ID [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR_ID]` | `addEventDetails eid/3 pid/2`                                                |
+| **Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_ID`                                     | `removePerson eid/1 pid/1`                                                   |
+| **Remove Vendor from Event** | `removeVendor eid/EVENT_ID vdr/VENDOR_ID`                                     | `removeVendor eid/1 vdr/1`                                                   |
+| **Delete Event**             | `deleteEvent eid/EVENT_ID`                                                    | `deleteEvent eid/1`                                                          |
+| **Edit Event**               | `editEvent eid/EVENT_ID [n/NAME] [d/DESCRIPTION] [from/DATE] [to/DATE]`       | `editEvent eid/1 d/Freshman Orientation Camp 2024`                           |
+| **View Event**               | `viewEvent eid/EVENT_ID`                                                      | `viewEvent eid/1`                                                            |
+| **View All Events**          | `viewEvents`                                                                  |                                                                              |
+| **RSVP**                     | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`                                    | `rsvp eid/1 pid/1 s/CC`                                                      |
 
 ### General Command summary
 
