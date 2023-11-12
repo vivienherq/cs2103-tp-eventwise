@@ -45,6 +45,8 @@ Given below are my contributions to the project.
   * Create `Event` Class (PR [#40](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/40))
   * Create `Rsvp` Class (PR [#84](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/84))
   * Refactor `Person` Class (PR [#76](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/76), [#77](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/77))
+  * Created Demo Video for [v1.3](https://drive.google.com/file/d/1FN2dsgVg_88JK2bkcxixUYlgjININqwR/view?usp=sharing)
   * Reviewed Pull Requests done by the team and check for correctness of the code.
+  * Managed releases `v1.3.1`, `v1.3.2` (2 releases) on GitHub
 * **Community**:
   * Reported bugs and suggestions for other teams in the PE Dry Run (Issue [#170](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/170), Issue [#172](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/172), Issue [#177](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/177), Issue [#179](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/179), Issue [#186](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/186), Issue [#194](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/194), Issue [#195](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/195), Issue [#197](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/197), Issue [#204](https://github.com/AY2324S1-CS2103T-F08-0/tp/issues/204))
