@@ -451,6 +451,7 @@ Format: `viewEvent eid/EVENT_ID`
 - Description
 - From Date 
 - To Date
+- Note (if present)
 - Venue Name
 - Guest List
 - Vendor List
@@ -608,7 +609,7 @@ Examples:
 
 Removes a vendor from a specified event
 
-Format: `removeVendor eid/EVENT_ID vdr/PERSON_INDEX`
+Format: `removeVendor eid/EVENT_ID vdr/VENDOR_ID`
 - The Event ID refers to the index number displayed in Main List
   - To view all events, type the `viewEvents` command.
 - The Vendor ID refers to the index number displayed in the Vendors List that is associated to the event.
@@ -751,10 +752,11 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 | **Add Event**                | `event n/NAME d/DESC from/DATE to/DATE`                                   | `event n/FSC 2023 d/Freshman Social Camp 2023 from/12-12-2023 to/13-12-2023` |
 | **Add Event Details**        | `addEventDetails eid/EVENT_ID [pid/INDEX] [vne/VENUE_ID] [vdr/VENDOR_ID]` | `addEventDetails eid/3 pid/2`                                                |
 | **Remove Person from Event** | `removePerson eid/EVENT_ID pid/PERSON_INDEX`                              | `removePerson eid/1 pid/1`                                                   |
+| **Remove Vendor from Event** | `removeVendor eid/EVENT_ID vdr/VENDOR_ID`                              | `removeVendor eid/1 vdr/1`                                                   |
 | **Delete Event**             | `deleteEvent eid/EVENT_ID`                                                | `deleteEvent eid/1`                                                          |
 | **Edit Event**               | `editEvent eid/ID [n/NAME] [d/DESC] [from/DATE] [to/DATE]`                | `editEvent eid/1 d/Freshman Orientation Camp 2024`                           |
 | **View Event**               | `viewEvent eid/ID`                                                        | `viewEvent eid/1`                                                            |
-| **View All Events**          | `ViewEvents`                                                              |                                                                              |
+| **View All Events**          | `viewEvents`                                                              |                                                                              |
 | **RSVP**                     | `rsvp eid/EVENT_ID pid/PERSON_ID s/STATUS`                                | `rsvp eid/1 pid/1 s/CC`                                                      |
 
 ### General Command summary
