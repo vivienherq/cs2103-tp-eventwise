@@ -453,6 +453,7 @@ Format: `viewEvent eid/EVENT_ID`
 - Description
 - From Date 
 - To Date
+- Note (if present)
 - Venue Name
 - Guest List
 - Vendor List

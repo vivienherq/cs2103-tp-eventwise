@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes removePersonFromEvent command;
+if () then ([all parameters are valid])
+  if () then ([eventIndex within valid range])
+    :Get event to edit;
+  else ([else])
+    :Error: Event does not exist;
+    stop
+  endif
+  :Get event attendees;
+  if () then ([personIndex within valid range])
+    :Get person to remove;
+    :Remove person from event attendees;
+    :Update event attendees;
+  else ([else])
+    :Error: Person does not exist;
+    stop
+  endif
+  :Update event in model;
+  :removePersonFromEvent command successfully executes;
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+
+stop
+
+@enduml

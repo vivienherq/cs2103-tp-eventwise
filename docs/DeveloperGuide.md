@@ -9,16 +9,47 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+EventWise is based on the [AddressBook-Level3](https://github.com/se-edu/addressbook-level3) project created by the [SE-EDU](https://se-education.org/) initiative as part of the [CS2103/T Software Engineering](https://nus-cs2103-ay2324s1.github.io/website/) module by the School of Computing, National University of Singapore.
 
---------------------------------------------------------------------------------------------------------------------
+Java libraries used in this project:
+- [Jackson](https://github.com/FasterXML/jackson) for Storage
+- [JavaFX](https://openjfx.io/) for GUI
+- [JUnit5](https://junit.org/junit5/) for Testing
+
+Reused / Adapted Ideas
+- [Date Validation Format](https://stackoverflow.com/questions/15491894/) from StackOverflow
+
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+<div markdown="span" class="callout callout-info">
+
+:bulb: If you are interested in testing out EventWise, you can refer to our [quick start](./UserGuide.md#quick-start) in the user guide.
+</div>
+
+If you are interested in contributing to EventWise, you can find the project setup steps below.
+
+### Set up the project locally
+1. Create a fork of the GitHub repository.
+2. Clone your fork of the repository into a local directory.
+3. Build the project.
+4. Run the project.
+
+### Make your contribution
+1. Create a local branch for a feature/fix/enhancement.
+2. Make changes and push them to your fork.
+3. Create a pull request to the original repository  
+
+
+## **Terminology**
+
+|Term           |Meaning                                                    |
+|---------------|-----------------------------------------------------------|
+|Attendee       |An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably as they refer to the same thing. |
+|Vendor         |A company or individual that provides goods, services or exhibits at an event|
+
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## **Design**
 
 <div markdown="span" class="alert alert-primary">
@@ -189,10 +220,6 @@ Details that can be edited include `Name`, `Phone`, `Email`.
 An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Person` instance is successfully edited, and is stored in `Storage`.
 
-THe following activity diagram shows how this feature works:
-
-<img src="images/EditPersonActivityDiagram.png" width="550" />
-
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditPersonSequenceDiagram.png" width="550" />
@@ -334,114 +361,135 @@ The feature `viewEvents` lists all existing Event instances.
 `LogicManager` calls `AddressBookParser` which creates an instance of `ViewEventsCommand`, which is then executed by `LogicManager`.
 All `Event` instances are then listed.
 
-### Add Person to Event Feature
+### View specific event Feature
+
+Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_ID`.
+
+The format for this command can be seen [here](./UserGuide.md#displaying-details-for-an-event-viewevent).
+
+It is used to view detailed information relating to an existing `Event` in EventWise such as the event's `Venue` information, a list of `Person` objects and a list of `Vendor` objects that are part of the specific event.
 
 #### Implementation
 
-### Add Vendor to Event Feature
+`LogicManager` calls `AddressBookParser` which creates an instance of a `ViewEventCommandParser` to parse user inputs. An instance of `ViewEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`. The `Event` instance is set as the event to be displayed in `Model`. `MainWindow` calls `Logic` to get the `Event` instance from `Model` after the `CommandResult` from executing the `ViewEventCommand` has been shown to the user.
+
+### Add Event Details Feature
+
+The command `addEventDetails eid/EVENT_ID [pid/INDEX] [vdr/VENDOR_ID] [vne/VENUE_ID]` allows the user to add event details such as venue, guests and vendors to a specified event in EventWise.
+
+The format for this command can be seen [here](./UserGuide.md#adding-details-to-an-event-addeventdetails).
 
 #### Implementation
+![](./images/add-event-details/activity_diagram.png)
 
-### Set Venue to Event Feature
+`LogicManager` calls `AddressBookParser` which creates an instance of a `AddEventDetailsCommandParser` to parse user inputs. 
+
+The `AddEventDetailsCommandParser` parses the user input into 
+* `personIndexes` and `vendorIndexes` which are two `HashSet<Index>` objects storing multiple people or vendor indexes. 
+* `venueIndex` representing the venue index displayed in the Main List.
+
+An instance of `AddEventDetailsCommand` is created from the parsed user inputs `personIndexes`, `vendorIndexes` and `venueIndex`, which is then executed by `LogicManager`. 
+
+The `Event` instance is set as the event to be displayed in `Model`. `MainWindow` calls `Logic` to get the `Event` instance from `Model` after the `CommandResult` from executing the `ViewEventCommand` has been shown to the user.
+
+#### Remarks
+In our Developer Guide, we have decided to split it into **three** smaller subfeatures to explain their command execution and implementation details.
+1. Add Person to Event
+2. Add Vendor to Event
+3. Set Venue to Event
+
+### Add Person to Event Subfeature
+
+Adding a person to a specific event is a subfeature of the `addEventDetails` command which uses the `[pid/INDEX]` field. It can be repeated more than once to add multiple people.
 
 #### Implementation
+![Sequence Diagram for Add Person to Event](./images/add-event-details/AddPersonToEventSequenceDiagram.png)
 
-### RSVP Feature
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all person instances to be added to the event. 
+
+* `Model#getPersons(personIndexes)` will handle cases where the person index is invalid (less than 0 or more than number of persons)
+
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
+
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
+
+### Add Vendor to Event Subfeature
+
+Adding a vendor to a specific event is subfeature of the `addEventDetails` command which uses the `[vdr/VENDOR_ID]` field. It can be repeated more than once to add multiple people.
 
 #### Implementation
+![Sequence Diagram for Add Vendor to Event](./images/add-event-details/AddVendorToEventSequenceDiagram.png)
+
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get all vendor instances to be added to the event. 
+
+* `Model#getVendors(vendorIndexes)` will handle cases where the vendor index is invalid (less than 0 or more than number of vendors)
+
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
+
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
+
+### Set Venue to Event Subfeature
+
+Setting a venue to a specific event is subfeature of the `addEventDetails` command which uses the `[vne/VENUE_ID]` field.
+
+#### Implementation
+![Sequence Diagram for Set Venue to Event](./images/add-event-details/SetVenueToEventSequenceDiagram.png)
+
+* When the `AddEventDetailsCommand` is executed by `LogicManager`. The `AddEventDetailsCommand` instance calls the `Model` to get a list of events before making another call to get the venue instance to be set as the event's venue.
+
+* `Model#getVenue(venueIndex)` will handle cases where the venue index is invalid (less than 0 or more than number of vendors).
+
+* A new `Event` instance, `editedEvent` is created by `Model` and returned to the `AddEventDetailsCommand`. `AddEventDetailsCommand` will then call `Model#setEvent(eventToEdit, editedEvent)` to update the modified event instance.
+
+* Finally, the `editedEvent` is set as the event to be displayed in `Model`.
 
 ### Remove Person from Event Feature
 
+Removing a person from an event is a feature that uses the command `removePerson eid/EVENT_ID pid/PERSON_ID`.
+
+The format for this command can be seen [here](./UserGuide.md#removing-a-person-from-an-event-removeperson).
+
 #### Implementation
+The following activity diagram shows how the `removePerson` command works when given valid parameters or invalid parameters (`EVENT_ID` or `PERSON_ID`) are given.
+
+![Activity Diagram](./images/remove-person/activity_diagram.png)
+
+The sequence diagram for the `removePerson` command is given below.
+
+![Sequence Diagram](./images/remove-person/sequence_diagram.png)
+
+`LogicManager` calls `AddressBookParser` which creates an instance of a `RemovePersonCommandParser` to parse user inputs. An instance of `RemovePersonCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+
+When `RemovePersonCommand#execute()` is called, `RemovePersonCommand` calls `Model` to get the `Event` instance to edit. `RemovePersonCommand` then calls the `Event` instance to remove the person from the event by passing `personIndex`.
+Finally, `RemovePersonCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.
 
 ### Remove Vendor from Event Feature
 
+Removing a vendor from an event is a feature that uses the command `removeVendor eid/EVENT_ID vdr/VENDOR_ID`.
+
+The format for this command can be seen [here](./UserGuide.md#removing-a-vendor-from-an-event-removevendor).
+
+#### Implementation
+The sequence diagram for the `removeVendor` command is given below.
+
+![Sequence Diagram](./images/remove-vendor/sequence_diagram.png)
+
+`LogicManager` calls `AddressBookParser` which creates an instance of a `RemoveVendorCommandParser` to parse user inputs. An instance of `RemoveVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+
+When `RemoveVendorCommand#execute()` is called, `RemoveVendorCommand` calls `Model` to get the `Event` instance to edit. `RemoveVendorCommand` then calls the `Event` instance to remove the vendor from the event by passing `vendorIndex`.
+Finally, `RemoveVendorCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.
+
+### Find event Feature
+
+Finding events by name is a feature that uses the command `findEvent KEYWORD [MORE_KEYWORDS]`.
+
+The format for this command can be seen [here](./UserGuide.md#locating-events-by-name-findevent).
+
 #### Implementation
 
-### \[Proposed\] Undo/redo feature
+`LogicManager` calls `AddressBookParser` which creates an instance of a `FindEventCommandParser` to parse user inputs into an array of keywords. An instance of `FindEventCommand` is created, which is then executed by `LogicManager`.
 
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
+All `Event` instances whose names match the keywords are then listed.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -475,17 +523,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​       | I want to …​                                                  | So that I can…​                                      |
 |---------|---------------|---------------------------------------------------------------|------------------------------------------------------|
 | `* * *` | event planner | create a new event, specifying its fromDate, time, and location   | keep track of the event details                      |
-| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
-| `* * *` | event planner | add my venue’s  information to the event                      | know where the event will be held at                 |
-| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
-| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
-| `* * *` | event planner | edit an existing event                                        | keep track of the updated changes                    |
-| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* * *` | event planner | create a new vendor, specifying its name, email, and phone    | record down vendors I am working with              |
 | `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
+| `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
+| `* * *` | event planner | add my vendor's information to the event                      | know which vendors are involved in the specified event and how to contact them  |
+| `* * *` | event planner | add my venue’s information to the event                       | know where the event will be held at                 |
+| `* * *` | event planner | add each guest's RSVP status to an event's guest list         | know which guests will be attending the event  |
+| `* * *` | event planner | remove a guest from an event                                  | remove guests that I have mistakenly added           |
+| `* * *` | event planner | remove a vendor from an event                                 | remove vendors who are unable to commit for the event  |
+| `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
+| `* * *` | event planner | view the list of vendors created                              | keep track of the vendors that I am working with     |
 | `* * *` | event planner | view the list of venues created                               | keep track of the venues that I created              |
-| `* *`   | event planner | add my vendor's information to the event                      | know which vendor I have to work with for eac event  |
-
-*{More to be added}*
+| `* * *` | event planner | view the event details of a specific event                    | prepare for that specific event                      |
+| `* * *` | event planner | delete an existing event                                      | be more attentive to valid events                    |
+| `* *`   | event planner | delete an existing vendor                                     | remove vendors who I am not working with             |
+| `* *`   | event planner | delete an existing venue                                      | remove venues that are not for use                   |
+| `* *`   | event planner | edit an existing event                                        | keep track of the updated event information          |
+| `* *`   | event planner | edit an existing vendor                                       | keep track of the updated vendor information         |
+| `* *`   | event planner | edit an existing venue                                        | keep track of the updated venue information          |
+| `* *`   | event planner | delete all events in the application                          | start all over and create new events                 |
+| `* *`   | event planner | delete all vendors in the application                         | start over and create a new list of vendors          |
+| `* *`   | event planner | delete all venues in the application                          | start over and create a new list of venues           |
+| `* *`   | event planner | search for events using keywords                              | easily find events I need to work on                 |
 
 ### Use cases
 
@@ -526,174 +585,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC02 – Add guest’s contact to an event**
+**Use case: UC02 - Create a new vendor**
 
 **MSS**
-1. User chooses to add guest’s contact to an event
-2. User enters the event ID and guest’s ID to be added to the event.
-3. EventWise displays that the guest has successfully been added to the specified event.
+1. User chooses to create a new vendor
+2. User enters vendor’s new details
+3. EventWise displays that the vendor has been successfully added.
 
    Use case ends.
 
 **Extensions**
-* 2a. EventWise detects that the event ID is missing.
+* 2a. EventWise detects that the vendor name is missing.
     * 2a1. EventWise shows an error message.
 
       Use case ends.
 
-* 2b. EventWise detects that the event ID is of an invalid format or range.
+* 2b. Event Wise detects that the vendor phone number is missing.
     * 2b1. EventWise shows an error message.
 
       Use case ends.
 
-* 2c. EventWise detects that the guest’s ID is missing.
+* 2c. Event Wise detects that the vendor email is missing. 
     * 2c1. EventWise shows an error message.
 
       Use case ends.
 
-* 2d. EventWise detects that the guests ID is of an invalid format or range.
+* 2d. Event Wise detects that the user uses invalid prefixes. 
     * 2d1. EventWise shows an error message.
 
       Use case ends.
 
-**Use case: UC03 – Add venue information to an event**
-
-**MSS**
-1. User lists all venues (UC09)
-2. User chooses to add venue’s information to an event.
-3. User enters the event ID and venue’s ID to be added to the event.
-4. EventWise displays that the venue has successfully been added to the specified event.
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing. 
-    * 3a1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3b. EventWise detects that the event ID is of an invalid format or range. 
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3c. EventWise detects that the venue ID is missing. 
-    * 3c1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3d. EventWise detects that the venue ID is of an invalid format or range. 
-    * 3d1. EventWise shows an error message. 
-
-      Use case ends.
-
-**Use case: UC04 – List all events**
-
-**MSS**
-1. User requests to list all events.
-2. EventWise shows a list of events.
-
-   Use case ends.
-
-**Extensions**
-* 1a. The event list is empty.
-    * 1a1. EventWise shows a message indicating that no events have been created.
-
-      Use case ends.
-
-**Use case: UC05 – View an event’s details**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to view a specific event’s details.
-3. User enters event ID of the event.
-4. EventWise shows the specific event’s details
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing.
-    * 3a1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3b. EventWise detects that the event ID is of an invalid format or range.
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC06 – Edit an existing event**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to edit a specific event’s details.
-3. User enters the event’s updated details
-4. EventWise displays that the event has been successfully edited.
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing
-    * 3a1. EventWise shows an error message.
-
-      Use case ends
-
-* 3b. EventWise detects that the event ID is invalid
-    * 3b1. EventWise shows an error message.
-
-      Use case ends
-
-* 3c. EventWise detects that the event name is missing.
-    * 3c1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3d. Event Wise detects that the event description is missing.
-    * 3d1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3e. Event Wise detects that the event datetime is missing. 
-    * 3e1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3f. Event Wise detects that the event datetime format is invalid. 
-    * 3f1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3g. Event Wise detects that the user uses invalid prefixes. 
-    * 3g1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC07 – Delete an event**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to delete a specific event.
-3. User enters the event’s ID.
-4. EventWise displays that the event has been successfully deleted.
-
-   Use case ends.
-
-**Extensions**
-* 3a. The event list is empty.
-
-  Use case ends.
-
-* 3b. EventWise detects that the event ID is missing.
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3c. EventWise detects that the event ID is of an invalid format or range.
-    * 3c1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC08 – Create a new venue**
+**Use case: UC03 – Create a new venue**
 
 **MSS**
 1. User chooses to create a new venue
@@ -726,7 +648,221 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC09 – List all venues**
+**Use case: UC04 – Add guest’s contact to an event**
+
+**MSS**
+1. User chooses to add guest’s contact to an event
+2. User enters the event ID and guest’s ID to be added to the event.
+3. EventWise displays that the guest has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing.
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range.
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the guest’s ID is missing.
+    * 2c1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2d. EventWise detects that the guests ID is of an invalid format or range.
+    * 2d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC05 – Add vendor information to an event**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to add vendor’s information to an event.
+3. User enters the event ID and vendor’s ID to be added to the event.
+4. EventWise displays that the vendor has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing. 
+    * 3a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range. 
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the vendor ID is missing. 
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. EventWise detects that the vendor ID is of an invalid format or range. 
+    * 3d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC06 – Add venue information to an event**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to add venue’s information to an event.
+3. User enters the event ID and venue’s ID to be added to the event.
+4. EventWise displays that the venue has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing. 
+    * 3a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range. 
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the venue ID is missing. 
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. EventWise detects that the venue ID is of an invalid format or range. 
+    * 3d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC07 – Add guest RSVP status to the event's guest list**
+
+**MSS**
+1. User chooses to add guest RSVP status to the event's guest list.
+2. User enters the event ID, person ID and RSVP Status.
+3. EventWise displays that the rsvp status has been added / updated.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the person ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the person ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+* 2e. EventWise detects that the RSVP Status is missing. 
+    * 2e1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2f. EventWise detects that an invalid value was entered for the RSVP Status. 
+    * 2f1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC08 – Remove a guest from an event**
+
+**MSS**
+1. User chooses to remove a guest from an event.
+2. User enters the event ID and person ID.
+3. EventWise displays that the guest has been removed from the event.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the person ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the person ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC09 – Remove a vendor from an event**
+
+**MSS**
+1. User chooses to remove a vendor from an event.
+2. User enters the event ID and vendor ID.
+3. EventWise displays that the vendor has been removed from the event.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the vendor ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the vendor ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC10 – List all events**
+
+**MSS**
+1. User requests to list all events.
+2. EventWise shows a list of events.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The event list is empty.
+    * 1a1. EventWise shows a message indicating that no events have been created.
+
+      Use case ends.
+
+**Use case: UC11 – List all vendors**
+
+**MSS**
+1. User requests to list all vendors.
+2. EventWise shows a list of vendors.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The vendors list is empty.
+    * 1a1. EventWise shows a message indicating that no vendors have been created.
+
+      Use case ends.
+
+**Use case: UC12 – List all venues**
 
 **MSS**
 1. User requests to list all venues.
@@ -740,25 +876,241 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC10 – Add vendor’s information to an event**
+**Use case: UC13 – View an event’s details**
 
 **MSS**
-1. User chooses to add vendor’s information to an event.
-2. User enters the vendor’s ID to be added to the event.
-3. EventWise displays that the vendor has successfully been added to the specified event.
+1. User lists all events (UC10)
+2. User chooses to view a specific event’s details.
+3. User enters event ID of the event.
+4. EventWise shows the specific event’s details
 
    Use case ends.
 
 **Extensions**
-* 2a. EventWise detects that the vendor’s ID is missing. 
-    * 2a1. EventWise shows an error message.
+* 3a. EventWise detects that the event ID is missing.
+    * 3a1. EventWise shows an error message.
 
       Use case ends.
 
-* 2b. EventWise detects that the vendor’s ID is of an invalid format or range. 
-    * 2b1. EventWise shows an error message. 
+* 3b. EventWise detects that the event ID is of an invalid format or range.
+    * 3b1. EventWise shows an error message.
 
       Use case ends.
+
+**Use case: UC14 – Delete an event**
+
+**MSS**
+1. User lists all events (UC10)
+2. User chooses to delete a specific event.
+3. User enters the event’s ID.
+4. EventWise displays that the event has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The event list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the event ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the event ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC15 – Delete a vendor**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to delete a specific vendor.
+3. User enters the vendor’s ID.
+4. EventWise displays that the vendor has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The vendor list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the vendor ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the vendor ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC16 – Delete a venue**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to delete a specific venue.
+3. User enters the venue’s ID.
+4. EventWise displays that the venue has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The venue list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the venue ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the venue ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC17 – Edit an existing event**
+
+**MSS**
+1. User lists all events (UC10)
+2. User chooses to edit a specific event’s details.
+3. User enters the event’s updated details
+4. EventWise displays that the event has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the event ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the event datetime format is invalid. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3e. Event Wise detects that the user uses invalid prefixes. 
+    * 3e1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC18 – Edit an existing vendor**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to edit a specific vendor’s details.
+3. User enters the vendor’s updated details
+4. EventWise displays that the vendor has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the vendor ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the vendor ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the user uses invalid prefixes. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC19 – Edit an existing venue**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to edit a specific venue’s details.
+3. User enters the venue’s updated details
+4. EventWise displays that the venue has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the venue ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the venue ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the user uses invalid prefixes. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC20 – Delete all events**
+
+**MSS**
+1. User chooses to delete all events.
+2. EventWise displays that all events were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC21 – Delete all vendors**
+
+**MSS**
+1. User chooses to delete all vendors.
+2. EventWise displays that all vendors were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC22 – Delete all venues**
+
+**MSS**
+1. User chooses to delete all venues.
+2. EventWise displays that all venues were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC23 – Search for a specific event**
+
+**MSS**
+1. User chooses to search for a specific event.
+2. User enters the search keywords.
+2. EventWise displays that all events whose names matches the keywords.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the search keyword is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
 
 ### Non-Functional Requirements
 
@@ -774,10 +1126,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 ### Glossary
-
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Attendee**: An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably.
+* **Vendor**: A company or individual that provides goods, services or exhibits at an event.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -793,40 +1143,139 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file.
+        1. Expected: Shows the GUI with a set of sample events. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Re-launch the app by double-clicking the jar file.<br>
+        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. Shutting down
+    1. Type `exit` in the app's input box, or click on `file` option on the top menu bar then click exit.
 
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### View a specific event
+
+1. Prerequisites: Have existing events in the system.
+
+1. Test case: `viewEvent 1`<br>
+  Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
+
+1. Test case: `viewEvent 0`<br>
+  Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
+
+1. Test case: `viewEvent 100`<br>
+  Expected: No event is displayed. Status message indicates that the event index provided is invalid.
+
+1. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
+  Expected: Similar to the previous case.
+
+### Add Person to Event
+
+1. Prerequisites: Have existing persons and events in the system.
+
+1. Test case: `addEventDetails eid/2 pid/1`<br>
+    Expected: The specified person is added into the persons list of the second event. Details of the addition are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 pid/0`<br>
+    Expected: No person is added. Error details are shown in the status message.
+
+1. Other incorrect add person to event commands to try: `addEventDetails eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+    Expected: Similar to the previous case.
+
+### Add Vendor to Event
+
+1. Prerequisites: Have existing vendors and events in the system.
+
+1. Test case: `addEventDetails eid/3 vdr/1`<br>
+    Expected: The specified vendor is added into the vendors list of the third event. Details of the addition are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 vdr/0`<br>
+    Expected: No vendor is added. Error details are shown in the status message.
+
+1. Other incorrect add vendor to event commands to try: `add vendor x to event y` (where x or y is larger than the respective list sizes)<br>
+    Expected: Similar to the previous case.
+
+### Set Venue to Event
+
+1. Prerequisites: Have existing venues and events in the system.
+
+1. Test case: `addEventDetails eid/2 vne/1`<br>
+  Expected: The specified venue is set as the venue of the second event. Details of the changes are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 vne/0`<br>
+  Expected: No venue set to the event. If the event has an existing venue, the existing venue remains. Error details are shown in the status message.
+
+1. Other incorrect set venue to event commands to try: `addEventDetails eid/x vne/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
+
+### Remove Person from Event
+
+1. Prerequisites: Have existing persons and events in the system with at least one person in an event.
+
+1. Test case: `removePerson eid/3 pid/1`<br>
+  Expected: The specified person is removed from the third event. Details of the removal are shown in the status message.
+
+1. Test case: `removePerson eid/2 pid/0`<br>
+  Expected: No person is removed. Error details are shown in the status message.
+
+1. Other incorrect remove person from event commands to try: `removePerson eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
+
+### Remove Vendor from Event
+
+1. Prerequisites: Have existing vendors and events in the system with at least one vendor in an event.
+
+1. Test case: `removeVendor eid/2 vdr/1`<br>
+  Expected: The specified vendor is removed from the second event. Details of the removal are shown in the status message.
+
+1. Test case: `removeVendor eid/1 vdr/0`<br>
+  Expected: No vendor is removed. Error details are shown in the status message.
+
+1. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
+    1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
+    1. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
 
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data files
+    1. To simulate a corrupted file, edit the `data/addressbook.json` file such that it does not follow the proper json format before running the app.
+    1. Expected Behaviour: The app will not list any events, persons, vendors or venues. It will clear all events, persons, vendors or venues in `data/addressbook.json` when a user enters a valid command.
+
+
+## Planned Enhancements
+Given below are the fixes proposed to add in the near future.
+
+### 1. Deal with text-wrapping and truncation in UI
+* The current implementation of the truncates text relative to the window size, resulting in users being unable to view lengthy text even with text wrapping enabled in the UI.
+* Proposed solution: To update DisplayableItemCard, PersonCard and VendorCard to have dynamic heights, so when text is wrapped, the Card components expands in height so text is no longer truncated.
+
+### 2. Make the UI responsive to smaller window sizes
+* The current UI does not scale to a smaller window size, resulting in the Person List being cut off from the window if the window width is too small.
+* Proposed solution: Set a minimum width for MainWindow, Person
+ListPanel and VendorListPanel.
+

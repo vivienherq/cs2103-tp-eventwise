@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":RemovePersonCommandParser" as RemovePersonCommandParser LOGIC_COLOR
+participant "r:RemovePersonCommand" as RemovePersonCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "eventToEdit:Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute("removePerson eid/1 pid/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("removePerson eid/1 pid/1")
+activate AddressBookParser
+
+create RemovePersonCommandParser
+AddressBookParser -> RemovePersonCommandParser: parse("eid/1 pid/1")
+activate RemovePersonCommandParser
+
+create RemovePersonCommand
+RemovePersonCommandParser -> RemovePersonCommand
+activate RemovePersonCommand
+
+RemovePersonCommand --> RemovePersonCommandParser : r
+deactivate RemovePersonCommand
+
+RemovePersonCommandParser --> AddressBookParser : r
+deactivate RemovePersonCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RemovePersonCommandParser -[hidden]-> AddressBookParser
+destroy RemovePersonCommandParser
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> RemovePersonCommand : execute()
+activate RemovePersonCommand
+
+RemovePersonCommand -> Model : getEvent(eventIndex)
+activate Model
+Model --> RemovePersonCommand : eventToEdit
+deactivate Model
+
+RemovePersonCommand -> Event : removePerson(personIndex)
+activate Event
+Event --> RemovePersonCommand
+deactivate Event
+
+RemovePersonCommand -> Model++ : setEvent(eventToEdit, editedEvent)
+return
+
+RemovePersonCommand -> Model++ : setEventToView(editedEvent)
+return
+
+create CommandResult
+RemovePersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RemovePersonCommand
+deactivate CommandResult
+
+RemovePersonCommand --> LogicManager : result
+deactivate RemovePersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

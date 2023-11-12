@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ViewEventCommandParser" as ViewEventCommandParser LOGIC_COLOR
+participant "v:ViewEventCommand" as ViewEventCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("viewEvent eid/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("viewEvent eid/1")
+activate AddressBookParser
+
+create ViewEventCommandParser
+AddressBookParser -> ViewEventCommandParser
+activate ViewEventCommandParser
+
+ViewEventCommandParser --> AddressBookParser
+deactivate ViewEventCommandParser
+
+AddressBookParser -> ViewEventCommandParser : parse("1")
+activate ViewEventCommandParser
+
+create ViewEventCommand
+ViewEventCommandParser -> ViewEventCommand
+activate ViewEventCommand
+
+ViewEventCommand --> ViewEventCommandParser : v
+deactivate ViewEventCommand
+
+ViewEventCommandParser --> AddressBookParser : v
+deactivate ViewEventCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ViewEventCommandParser -[hidden]-> AddressBookParser
+destroy ViewEventCommandParser
+
+AddressBookParser --> LogicManager : v
+deactivate AddressBookParser
+
+LogicManager -> ViewEventCommand : execute()
+activate ViewEventCommand
+
+ViewEventCommand -> Model : getFilteredEventsList()
+activate Model
+Model --> ViewEventCommand : eventList
+
+
+ViewEventCommand -> ViewEventCommand : get(1)
+activate ViewEventCommand
+deactivate
+
+ViewEventCommand -> Model : setEventToView(event)
+Model --> ViewEventCommand
+deactivate Model
+
+create CommandResult
+ViewEventCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewEventCommand
+deactivate CommandResult
+
+ViewEventCommand --> LogicManager : result
+deactivate ViewEventCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
