@@ -69,7 +69,7 @@ public class EditVendorCommand extends Command {
         List<Vendor> lastShownList = model.getFilteredVendorList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_VENDOR_INDEX);
         }
 
         Vendor vendorToEdit = lastShownList.get(index.getZeroBased());
