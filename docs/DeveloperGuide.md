@@ -19,14 +19,37 @@ Java libraries used in this project:
 Reused / Adapted Ideas
 - [Date Validation Format](https://stackoverflow.com/questions/15491894/) from StackOverflow
 
---------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+<div markdown="span" class="callout callout-info">
+
+:bulb: If you are interested in testing out EventWise, you can refer to our [quick start](./UserGuide.md#quick-start) in the user guide.
+</div>
+
+If you are interested in contributing to EventWise, you can find the project setup steps below.
+
+### Set up the project locally
+1. Create a fork of the GitHub repository.
+2. Clone your fork of the repository into a local directory.
+3. Build the project.
+4. Run the project.
+
+### Make your contribution
+1. Create a local branch for a feature/fix/enhancement.
+2. Make changes and push them to your fork.
+3. Create a pull request to the original repository  
+
+
+## **Terminology**
+
+|Term           |Meaning                                                    |
+|---------------|-----------------------------------------------------------|
+|Attendee       |An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably as they refer to the same thing. |
+|Vendor         |A company or individual that provides goods, services or exhibits at an event|
+
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## **Design**
 
 <div markdown="span" class="alert alert-primary">
@@ -341,8 +364,8 @@ All `Event` instances are then listed.
 ### View specific event Feature
 
 Viewing a specific event is a feature that uses the command `viewEvent eid/EVENT_ID`.
-* `EVENT_ID` refers to the index number displayed in Main List
-  * To view all events, type the `viewEvents` command.
+
+The format for this command can be seen [here](./UserGuide.md#displaying-details-for-an-event-viewevent).
 
 It is used to view detailed information relating to an existing `Event` in EventWise such as the event's `Venue` information, a list of `Person` objects and a list of `Vendor` objects that are part of the specific event.
 
@@ -456,7 +479,17 @@ The sequence diagram for the `removeVendor` command is given below.
 When `RemoveVendorCommand#execute()` is called, `RemoveVendorCommand` calls `Model` to get the `Event` instance to edit. `RemoveVendorCommand` then calls the `Event` instance to remove the vendor from the event by passing `vendorIndex`.
 Finally, `RemoveVendorCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.
 
+### Find event Feature
 
+Finding events by name is a feature that uses the command `findEvent KEYWORD [MORE_KEYWORDS]`.
+
+The format for this command can be seen [here](./UserGuide.md#locating-events-by-name-findevent).
+
+#### Implementation
+
+`LogicManager` calls `AddressBookParser` which creates an instance of a `FindEventCommandParser` to parse user inputs into an array of keywords. An instance of `FindEventCommand` is created, which is then executed by `LogicManager`.
+
+All `Event` instances whose names match the keywords are then listed.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -511,7 +544,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | event planner | delete all events in the application                          | start all over and create new events                 |
 | `* *`   | event planner | delete all vendors in the application                         | start over and create a new list of vendors          |
 | `* *`   | event planner | delete all venues in the application                          | start over and create a new list of venues           |
-| `* *`   | event planner | search for a specific event                                   | easily find an event I need                          |
+| `* *`   | event planner | search for events using keywords                              | easily find events I need to work on                 |
 
 ### Use cases
 
@@ -1093,10 +1126,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 ### Glossary
-
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Attendee**: An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably.
+* **Vendor**: A company or individual that provides goods, services or exhibits at an event.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -1112,47 +1143,128 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file.
+        1. Expected: Shows the GUI with a set of sample events. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Re-launch the app by double-clicking the jar file.<br>
+        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. Shutting down
+    1. Type `exit` in the app's input box, or click on `file` option on the top menu bar then click exit.
 
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### View a specific event
+
+1. Prerequisites: Have existing events in the system.
+
+1. Test case: `viewEvent 1`<br>
+  Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
+
+1. Test case: `viewEvent 0`<br>
+  Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
+
+1. Test case: `viewEvent 100`<br>
+  Expected: No event is displayed. Status message indicates that the event index provided is invalid.
+
+1. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
+  Expected: Similar to the previous case.
+
+### Add Person to Event
+
+1. Prerequisites: Have existing persons and events in the system.
+
+1. Test case: `addEventDetails eid/2 pid/1`<br>
+    Expected: The specified person is added into the persons list of the second event. Details of the addition are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 pid/0`<br>
+    Expected: No person is added. Error details are shown in the status message.
+
+1. Other incorrect add person to event commands to try: `addEventDetails eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+    Expected: Similar to the previous case.
+
+### Add Vendor to Event
+
+1. Prerequisites: Have existing vendors and events in the system.
+
+1. Test case: `addEventDetails eid/3 vdr/1`<br>
+    Expected: The specified vendor is added into the vendors list of the third event. Details of the addition are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 vdr/0`<br>
+    Expected: No vendor is added. Error details are shown in the status message.
+
+1. Other incorrect add vendor to event commands to try: `add vendor x to event y` (where x or y is larger than the respective list sizes)<br>
+    Expected: Similar to the previous case.
+
+### Set Venue to Event
+
+1. Prerequisites: Have existing venues and events in the system.
+
+1. Test case: `addEventDetails eid/2 vne/1`<br>
+  Expected: The specified venue is set as the venue of the second event. Details of the changes are shown in the status message.
+
+1. Test case: `addEventDetails eid/2 vne/0`<br>
+  Expected: No venue set to the event. If the event has an existing venue, the existing venue remains. Error details are shown in the status message.
+
+1. Other incorrect set venue to event commands to try: `addEventDetails eid/x vne/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
+
+### Remove Person from Event
+
+1. Prerequisites: Have existing persons and events in the system with at least one person in an event.
+
+1. Test case: `removePerson eid/3 pid/1`<br>
+  Expected: The specified person is removed from the third event. Details of the removal are shown in the status message.
+
+1. Test case: `removePerson eid/2 pid/0`<br>
+  Expected: No person is removed. Error details are shown in the status message.
+
+1. Other incorrect remove person from event commands to try: `removePerson eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
+
+### Remove Vendor from Event
+
+1. Prerequisites: Have existing vendors and events in the system with at least one vendor in an event.
+
+1. Test case: `removeVendor eid/2 vdr/1`<br>
+  Expected: The specified vendor is removed from the second event. Details of the removal are shown in the status message.
+
+1. Test case: `removeVendor eid/1 vdr/0`<br>
+  Expected: No vendor is removed. Error details are shown in the status message.
+
+1. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
+  Expected: Similar to the previous case.
 
 ### Saving data
 
-<div markdown="span" class="alert alert-primary">
-:bulb: **Note about corrupted file:** If a JSON file is corrupted upon launching EventWise, subsequent commands (e.g. rsvp) will wipe out the corrupted JSON file.
-</div>
+1. Dealing with missing data files
 
-1. Dealing with missing/corrupted data files
+    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
+    1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
+    1. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data files
+    1. To simulate a corrupted file, edit the `data/addressbook.json` file such that it does not follow the proper json format before running the app.
+    1. Expected Behaviour: The app will not list any events, persons, vendors or venues. It will clear all events, persons, vendors or venues in `data/addressbook.json` when a user enters a valid command.
 
 
 ## Planned Enhancements
