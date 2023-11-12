@@ -493,9 +493,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | event planner | create a new vendor, specifying its name, email, and phone    | record down vendors I am working with              |
 | `* * *` | event planner | create a new venue, specifying its name, address and capacity | know which venue is suitable for each event          |
 | `* * *` | event planner | add my guest’s contact information to the event               | know who the event is for and how to reach the guest |
-| `* * *` | event planner | add my venue’s information to the event                       | know where the event will be held at                 |
 | `* * *` | event planner | add my vendor's information to the event                      | know which vendors are involved in the specified event and how to contact them  |
-| `* * *` | event planner | add each guest's RSVP status in an event                      | know which guests will be attending the event  |
+| `* * *` | event planner | add my venue’s information to the event                       | know where the event will be held at                 |
+| `* * *` | event planner | add each guest's RSVP status to an event's guest list         | know which guests will be attending the event  |
 | `* * *` | event planner | remove a guest from an event                                  | remove guests that I have mistakenly added           |
 | `* * *` | event planner | remove a vendor from an event                                 | remove vendors who are unable to commit for the event  |
 | `* * *` | event planner | view the list of the events created                           | know what event to prepare for                       |
@@ -552,174 +552,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC02 – Add guest’s contact to an event**
+**Use case: UC02 - Create a new vendor**
 
 **MSS**
-1. User chooses to add guest’s contact to an event
-2. User enters the event ID and guest’s ID to be added to the event.
-3. EventWise displays that the guest has successfully been added to the specified event.
+1. User chooses to create a new vendor
+2. User enters vendor’s new details
+3. EventWise displays that the vendor has been successfully added.
 
    Use case ends.
 
 **Extensions**
-* 2a. EventWise detects that the event ID is missing.
+* 2a. EventWise detects that the vendor name is missing.
     * 2a1. EventWise shows an error message.
 
       Use case ends.
 
-* 2b. EventWise detects that the event ID is of an invalid format or range.
+* 2b. Event Wise detects that the vendor phone number is missing.
     * 2b1. EventWise shows an error message.
 
       Use case ends.
 
-* 2c. EventWise detects that the guest’s ID is missing.
+* 2c. Event Wise detects that the vendor email is missing. 
     * 2c1. EventWise shows an error message.
 
       Use case ends.
 
-* 2d. EventWise detects that the guests ID is of an invalid format or range.
+* 2d. Event Wise detects that the user uses invalid prefixes. 
     * 2d1. EventWise shows an error message.
 
       Use case ends.
 
-**Use case: UC03 – Add venue information to an event**
-
-**MSS**
-1. User lists all venues (UC09)
-2. User chooses to add venue’s information to an event.
-3. User enters the event ID and venue’s ID to be added to the event.
-4. EventWise displays that the venue has successfully been added to the specified event.
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing. 
-    * 3a1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3b. EventWise detects that the event ID is of an invalid format or range. 
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3c. EventWise detects that the venue ID is missing. 
-    * 3c1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3d. EventWise detects that the venue ID is of an invalid format or range. 
-    * 3d1. EventWise shows an error message. 
-
-      Use case ends.
-
-**Use case: UC04 – List all events**
-
-**MSS**
-1. User requests to list all events.
-2. EventWise shows a list of events.
-
-   Use case ends.
-
-**Extensions**
-* 1a. The event list is empty.
-    * 1a1. EventWise shows a message indicating that no events have been created.
-
-      Use case ends.
-
-**Use case: UC05 – View an event’s details**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to view a specific event’s details.
-3. User enters event ID of the event.
-4. EventWise shows the specific event’s details
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing.
-    * 3a1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3b. EventWise detects that the event ID is of an invalid format or range.
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC06 – Edit an existing event**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to edit a specific event’s details.
-3. User enters the event’s updated details
-4. EventWise displays that the event has been successfully edited.
-
-   Use case ends.
-
-**Extensions**
-* 3a. EventWise detects that the event ID is missing
-    * 3a1. EventWise shows an error message.
-
-      Use case ends
-
-* 3b. EventWise detects that the event ID is invalid
-    * 3b1. EventWise shows an error message.
-
-      Use case ends
-
-* 3c. EventWise detects that the event name is missing.
-    * 3c1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3d. Event Wise detects that the event description is missing.
-    * 3d1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3e. Event Wise detects that the event datetime is missing. 
-    * 3e1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3f. Event Wise detects that the event datetime format is invalid. 
-    * 3f1. EventWise shows an error message.
-
-      Use case ends. 
-
-* 3g. Event Wise detects that the user uses invalid prefixes. 
-    * 3g1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC07 – Delete an event**
-
-**MSS**
-1. User lists all events (UC04)
-2. User chooses to delete a specific event.
-3. User enters the event’s ID.
-4. EventWise displays that the event has been successfully deleted.
-
-   Use case ends.
-
-**Extensions**
-* 3a. The event list is empty.
-
-  Use case ends.
-
-* 3b. EventWise detects that the event ID is missing.
-    * 3b1. EventWise shows an error message.
-
-      Use case ends.
-
-* 3c. EventWise detects that the event ID is of an invalid format or range.
-    * 3c1. EventWise shows an error message.
-
-      Use case ends.
-
-**Use case: UC08 – Create a new venue**
+**Use case: UC03 – Create a new venue**
 
 **MSS**
 1. User chooses to create a new venue
@@ -752,7 +615,221 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC09 – List all venues**
+**Use case: UC04 – Add guest’s contact to an event**
+
+**MSS**
+1. User chooses to add guest’s contact to an event
+2. User enters the event ID and guest’s ID to be added to the event.
+3. EventWise displays that the guest has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing.
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range.
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the guest’s ID is missing.
+    * 2c1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2d. EventWise detects that the guests ID is of an invalid format or range.
+    * 2d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC05 – Add vendor information to an event**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to add vendor’s information to an event.
+3. User enters the event ID and vendor’s ID to be added to the event.
+4. EventWise displays that the vendor has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing. 
+    * 3a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range. 
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the vendor ID is missing. 
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. EventWise detects that the vendor ID is of an invalid format or range. 
+    * 3d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC06 – Add venue information to an event**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to add venue’s information to an event.
+3. User enters the event ID and venue’s ID to be added to the event.
+4. EventWise displays that the venue has successfully been added to the specified event.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing. 
+    * 3a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3b. EventWise detects that the event ID is of an invalid format or range. 
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the venue ID is missing. 
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. EventWise detects that the venue ID is of an invalid format or range. 
+    * 3d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC07 – Add guest RSVP status to the event's guest list**
+
+**MSS**
+1. User chooses to add guest RSVP status to the event's guest list.
+2. User enters the event ID, person ID and RSVP Status.
+3. EventWise displays that the rsvp status has been added / updated.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the person ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the person ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+* 2e. EventWise detects that the RSVP Status is missing. 
+    * 2e1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2f. EventWise detects that an invalid value was entered for the RSVP Status. 
+    * 2f1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC08 – Remove a guest from an event**
+
+**MSS**
+1. User chooses to remove a guest from an event.
+2. User enters the event ID and person ID.
+3. EventWise displays that the guest has been removed from the event.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the person ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the person ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC09 – Remove a vendor from an event**
+
+**MSS**
+1. User chooses to remove a vendor from an event.
+2. User enters the event ID and vendor ID.
+3. EventWise displays that the vendor has been removed from the event.
+
+**Extensions**
+* 2a. EventWise detects that the event ID is missing. 
+    * 2a1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2b. EventWise detects that the event ID is of an invalid format or range. 
+    * 2b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 2c. EventWise detects that the vendor ID is missing. 
+    * 2c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 2d. EventWise detects that the vendor ID is of an invalid format or range. 
+    * 2d1. EventWise shows an error message. 
+
+      Use case ends.
+
+**Use case: UC10 – List all events**
+
+**MSS**
+1. User requests to list all events.
+2. EventWise shows a list of events.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The event list is empty.
+    * 1a1. EventWise shows a message indicating that no events have been created.
+
+      Use case ends.
+
+**Use case: UC11 – List all vendors**
+
+**MSS**
+1. User requests to list all vendors.
+2. EventWise shows a list of vendors.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The vendors list is empty.
+    * 1a1. EventWise shows a message indicating that no vendors have been created.
+
+      Use case ends.
+
+**Use case: UC12 – List all venues**
 
 **MSS**
 1. User requests to list all venues.
@@ -766,25 +843,241 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC10 – Add vendor’s information to an event**
+**Use case: UC13 – View an event’s details**
 
 **MSS**
-1. User chooses to add vendor’s information to an event.
-2. User enters the vendor’s ID to be added to the event.
-3. EventWise displays that the vendor has successfully been added to the specified event.
+1. User lists all events (UC10)
+2. User chooses to view a specific event’s details.
+3. User enters event ID of the event.
+4. EventWise shows the specific event’s details
 
    Use case ends.
 
 **Extensions**
-* 2a. EventWise detects that the vendor’s ID is missing. 
-    * 2a1. EventWise shows an error message.
+* 3a. EventWise detects that the event ID is missing.
+    * 3a1. EventWise shows an error message.
 
       Use case ends.
 
-* 2b. EventWise detects that the vendor’s ID is of an invalid format or range. 
-    * 2b1. EventWise shows an error message. 
+* 3b. EventWise detects that the event ID is of an invalid format or range.
+    * 3b1. EventWise shows an error message.
 
       Use case ends.
+
+**Use case: UC14 – Delete an event**
+
+**MSS**
+1. User lists all events (UC10)
+2. User chooses to delete a specific event.
+3. User enters the event’s ID.
+4. EventWise displays that the event has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The event list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the event ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the event ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC15 – Delete a vendor**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to delete a specific vendor.
+3. User enters the vendor’s ID.
+4. EventWise displays that the vendor has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The vendor list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the vendor ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the vendor ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC16 – Delete a venue**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to delete a specific venue.
+3. User enters the venue’s ID.
+4. EventWise displays that the venue has been successfully deleted.
+
+   Use case ends.
+
+**Extensions**
+* 3a. The venue list is empty.
+    * 3a1. EventWise shows an error message.
+
+  Use case ends.
+
+* 3b. EventWise detects that the venue ID is missing.
+    * 3b1. EventWise shows an error message.
+
+      Use case ends.
+
+* 3c. EventWise detects that the venue ID is of an invalid format or range.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC17 – Edit an existing event**
+
+**MSS**
+1. User lists all events (UC10)
+2. User chooses to edit a specific event’s details.
+3. User enters the event’s updated details
+4. EventWise displays that the event has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the event ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the event ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the event datetime format is invalid. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3e. Event Wise detects that the user uses invalid prefixes. 
+    * 3e1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC18 – Edit an existing vendor**
+
+**MSS**
+1. User lists all vendors (UC11)
+2. User chooses to edit a specific vendor’s details.
+3. User enters the vendor’s updated details
+4. EventWise displays that the vendor has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the vendor ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the vendor ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the user uses invalid prefixes. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC19 – Edit an existing venue**
+
+**MSS**
+1. User lists all venues (UC12)
+2. User chooses to edit a specific venue’s details.
+3. User enters the venue’s updated details
+4. EventWise displays that the venue has been successfully edited.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the venue ID is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
+
+* 3b. EventWise detects that the venue ID is invalid
+    * 3b1. EventWise shows an error message.
+
+      Use case ends
+
+* 3c. EventWise detects that the no optional fields were entered.
+    * 3c1. EventWise shows an error message.
+
+      Use case ends. 
+
+* 3d. Event Wise detects that the user uses invalid prefixes. 
+    * 3d1. EventWise shows an error message.
+
+      Use case ends.
+
+**Use case: UC20 – Delete all events**
+
+**MSS**
+1. User chooses to delete all events.
+2. EventWise displays that all events were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC21 – Delete all vendors**
+
+**MSS**
+1. User chooses to delete all vendors.
+2. EventWise displays that all vendors were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC22 – Delete all venues**
+
+**MSS**
+1. User chooses to delete all venues.
+2. EventWise displays that all venues were successfully deleted.
+
+   Use case ends.
+
+**Use case: UC23 – Search for a specific event**
+
+**MSS**
+1. User chooses to search for a specific event.
+2. User enters the search keywords.
+2. EventWise displays that all events whose names matches the keywords.
+
+   Use case ends.
+
+**Extensions**
+* 3a. EventWise detects that the search keyword is missing
+    * 3a1. EventWise shows an error message.
+
+      Use case ends
 
 ### Non-Functional Requirements
 
