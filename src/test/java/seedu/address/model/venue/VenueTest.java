@@ -2,6 +2,7 @@ package seedu.address.model.venue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_ADDRESS_CLB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_CAPACITY_CLB;
@@ -80,5 +81,11 @@ public class VenueTest {
         String expected = Venue.class.getCanonicalName() + "{name=" + LT27.getName() + ", address=" + LT27.getAddress()
                 + ", capacity=" + LT27.getCapacity() + "}";
         assertEquals(expected, LT27.toString());
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        assertEquals(LT27.hashCode(), LT27.hashCode());
+        assertNotEquals(LT27.hashCode(), CLB.hashCode());
     }
 }
