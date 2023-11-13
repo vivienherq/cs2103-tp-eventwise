@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpContainsEventPredicate;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 
@@ -135,6 +136,7 @@ public class AddEventDetailsCommand extends Command {
         }
 
         model.setRsvps(rsvpList);
+        model.updateFilteredEventRsvpList(new RsvpContainsEventPredicate(editedEvent));
 
         // Set edited event to be shown in the UI
         model.setEventToView(editedEvent);
