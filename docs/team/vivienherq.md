@@ -64,7 +64,7 @@ Given below are my contributions to the project.
 * **Contributions to User Guide**:
     * Added documentation for the features `venue`, `viewVenues`, `editVenue`, `deleteVenue` [\#39](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/39) [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
     * Added documentation for the features `vendor`, `viewVendors`, `editVendor`, `deleteVendor` [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
-    * Format, vet and fix mistakes [\#123](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/123) [\#156](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/156) [\#167](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/167)
+    * Format, vet and fix mistakes [\#123](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/123) [\#156](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/156) [\#167](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/167) [\#196](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/196)
 
 * **Contributions to Developer Guide**:
     * Added non-functional requirements [\#25](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/25)
