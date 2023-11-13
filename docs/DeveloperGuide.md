@@ -149,20 +149,14 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
+Note: The class diagram above does not show the association between `Person`, `Event`, `Venue`, `Vendor` and `Rsvp` to hide the complexity 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person`, `Event`, `Vendor`, `Venue`, `Rsvp` objects (which are contained in `UniquePersonList`, `UniqueEventList`, `UniqueVendorList`, `UniqueVenueList`, `UniqueRsvpList` object).
+* stores the currently 'selected' `Person`, `Event`, `Vendor`, `Venue`, `Rsvp` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person/Event/Venue/Vendor/Rsvp>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -688,31 +682,31 @@ The implementation of `clearVenues` is similar to `clear`. The difference are:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​       | I want to …​                                                           | So that I can…​                                                                |
-|----------|---------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| `* * *`  | event planner | create a new event, specifying its name, description, fromDate, toDate | keep track of the event details                                                |
-| `* * *`  | event planner | create a new vendor, specifying its name, email, and phone             | record down vendors I am working with                                          |
-| `* * *`  | event planner | create a new venue, specifying its name, address and capacity          | know which venue is suitable for each event                                    |
-| `* * *`  | event planner | add my guest’s contact information to the event                        | know who the event is for and how to reach the guest                           |
-| `* * *`  | event planner | add my vendor's information to the event                               | know which vendors are involved in the specified event and how to contact them |
-| `* * *`  | event planner | add my venue’s information to the event                                | know where the event will be held at                                           |
-| `* * *`  | event planner | add each guest's RSVP status to an event's guest list                  | know which guests will be attending the event                                  |
-| `* * *`  | event planner | remove a guest from an event                                           | remove guests that I have mistakenly added                                     |
-| `* * *`  | event planner | remove a vendor from an event                                          | remove vendors who are unable to commit for the event                          |
-| `* * *`  | event planner | view the list of the events created                                    | know what event to prepare for                                                 |
-| `* * *`  | event planner | view the list of vendors created                                       | keep track of the vendors that I am working with                               |
-| `* * *`  | event planner | view the list of venues created                                        | keep track of the venues that I created                                        |
-| `* * *`  | event planner | view the event details of a specific event                             | prepare for that specific event                                                |
-| `* * *`  | event planner | delete an existing event                                               | be more attentive to valid events                                              |
-| `* *`    | event planner | delete an existing vendor                                              | remove vendors who I am not working with                                       |
-| `* *`    | event planner | delete an existing venue                                               | remove venues that are not for use                                             |
-| `* *`    | event planner | edit an existing event                                                 | keep track of the updated event information                                    |
-| `* *`    | event planner | edit an existing vendor                                                | keep track of the updated vendor information                                   |
-| `* *`    | event planner | edit an existing venue                                                 | keep track of the updated venue information                                    |
-| `* *`    | event planner | delete all events in the application                                   | start all over and create new events                                           |
-| `* *`    | event planner | delete all vendors in the application                                  | start over and create a new list of vendors                                    |
-| `* *`    | event planner | delete all venues in the application                                   | start over and create a new list of venues                                     |
-| `* *`    | event planner | search for events using keywords                                       | easily find events I need to work on                                           |
+| Priority | As a …​       | I want to …​                                                                    | So that I can…​                                                                |
+|----------|---------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| `* * *`  | event planner | create a new event, specifying its name, description, fromDate, toDate and note | keep track of the event details                                                |
+| `* * *`  | event planner | create a new vendor, specifying its name, email, and phone                      | record down vendors I am working with                                          |
+| `* * *`  | event planner | create a new venue, specifying its name, address and capacity                   | know which venue is suitable for each event                                    |
+| `* * *`  | event planner | add my guest’s contact information to the event                                 | know who the event is for and how to reach the guest                           |
+| `* * *`  | event planner | add my vendor's information to the event                                        | know which vendors are involved in the specified event and how to contact them |
+| `* * *`  | event planner | add my venue’s information to the event                                         | know where the event will be held at                                           |
+| `* * *`  | event planner | add each guest's RSVP status to an event's guest list                           | know which guests will be attending the event                                  |
+| `* * *`  | event planner | remove a guest from an event                                                    | remove guests that I have mistakenly added                                     |
+| `* * *`  | event planner | remove a vendor from an event                                                   | remove vendors who are unable to commit for the event                          |
+| `* * *`  | event planner | view the list of the events created                                             | know what event to prepare for                                                 |
+| `* * *`  | event planner | view the list of vendors created                                                | keep track of the vendors that I am working with                               |
+| `* * *`  | event planner | view the list of venues created                                                 | keep track of the venues that I created                                        |
+| `* * *`  | event planner | view the event details of a specific event                                      | prepare for that specific event                                                |
+| `* * *`  | event planner | delete an existing event                                                        | be more attentive to valid events                                              |
+| `* *`    | event planner | delete an existing vendor                                                       | remove vendors who I am not working with                                       |
+| `* *`    | event planner | delete an existing venue                                                        | remove venues that are not for use                                             |
+| `* *`    | event planner | edit an existing event                                                          | keep track of the updated event information                                    |
+| `* *`    | event planner | edit an existing vendor                                                         | keep track of the updated vendor information                                   |
+| `* *`    | event planner | edit an existing venue                                                          | keep track of the updated venue information                                    |
+| `* *`    | event planner | delete all events in the application                                            | start all over and create new events                                           |
+| `* *`    | event planner | delete all vendors in the application                                           | start over and create a new list of vendors                                    |
+| `* *`    | event planner | delete all venues in the application                                            | start over and create a new list of venues                                     |
+| `* *`    | event planner | search for events using keywords                                                | easily find events I need to work on                                           |
 
 ### Use cases
 
