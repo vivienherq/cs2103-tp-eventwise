@@ -538,6 +538,16 @@ The format for this command can be seen [here](./UserGuide.md#locating-events-by
 
 All `Event` instances whose names match the keywords are then listed.
 
+### RSVP feature
+
+In EventWise, users are able to set the RSVP status to indicate their attendance after being added to an event. The feature `rsvp` sets a creates a new `Rsvp` instance. In each `rsvp` instance, it stores the `Person` object, the `Event` object as well as the `RSVP_Status`.
+
+#### Implementation
+
+The sequence diagram for the `rsvp` command is given below.
+
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
