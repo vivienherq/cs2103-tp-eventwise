@@ -36,7 +36,6 @@ public class AddEventDetailsCommandParserTest {
                 PREFIX_EVENT_ID, INDEX_THIRD_EVENT.getOneBased(),
                 PREFIX_PERSON, INDEX_SECOND_PERSON.getOneBased(),
                 PREFIX_VENUE, INDEX_FIRST_VENUE.getOneBased());
-        System.out.println(userInput);
         HashSet<Index> expectedPersons = new HashSet<>();
         HashSet<Index> expectedVendors = new HashSet<>();
         expectedPersons.add(INDEX_SECOND_PERSON);

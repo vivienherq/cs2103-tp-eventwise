@@ -51,24 +51,19 @@ public class DeleteVendorCommand extends Command {
             if (event.getVendors().contains(vendorToDelete)) {
                 List<Vendor> editedVendorList = new ArrayList<>(event.getVendors());
                 editedVendorList.remove(vendorToDelete);
+
                 Event updatedEvent = new Event(event.getName(), event.getDescription(),
                         event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
                         editedVendorList, event.getVenue());
-                model.setEvent(event, updatedEvent);
-            }
-        }
 
-        // Check if the current event that is being shown in the event details is affected
-        Event eventToView = model.getEventToView();
-        boolean isNotNull = eventToView != null;
-        if (isNotNull && eventToView.getVendors().contains(vendorToDelete)) {
-            Event currentlyShownEvent = model.getEventToView();
-            List<Vendor> editedVendorList = new ArrayList<>(currentlyShownEvent.getVendors());
-            editedVendorList.remove(vendorToDelete);
-            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
-                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
-                    currentlyShownEvent.getPersons(), editedVendorList, currentlyShownEvent.getVenue());
-            model.setEventToView(updatedEvent);
+                model.setEvent(event, updatedEvent);
+
+                // Check if the current event that is being shown in the event details is affected
+                Event eventToView = model.getEventToView();
+                if (eventToView != null && eventToView.getVendors().contains(vendorToDelete)) {
+                    model.setEventToView(updatedEvent);
+                }
+            }
         }
 
         model.updateFilteredVendorList(Model.PREDICATE_SHOW_ALL_VENDORS);

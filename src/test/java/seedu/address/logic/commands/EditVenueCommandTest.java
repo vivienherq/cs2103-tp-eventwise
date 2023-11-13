@@ -10,9 +10,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_CLB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_COM1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENUE;
-import static seedu.address.testutil.TypicalVenues.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +24,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EditVenueDescriptorBuilder;
+import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.VenueBuilder;
 
 /**
@@ -50,10 +53,35 @@ public class EditVenueCommandTest {
     }
 
     @Test
+    public void execute_allFieldsSpecifiedVenueInEvent_success() {
+        Venue firstVenue = model.getFilteredVenuesList().get(INDEX_FIRST_VENUE.getZeroBased());
+        Venue editedVenue = new VenueBuilder().build();
+
+        Event firstEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event modifiedEvent = new EventBuilder(firstEvent).withVenue(firstVenue).build();
+
+        model.setEvent(firstEvent, modifiedEvent);
+        model.setEventToView(modifiedEvent);
+
+        EditVenueDescriptor descriptor = new EditVenueDescriptorBuilder(editedVenue).build();
+        EditVenueCommand editVenueCommand = new EditVenueCommand(INDEX_FIRST_VENUE, descriptor);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        modifiedEvent = new EventBuilder(firstEvent).withVenue(editedVenue).build();
+
+        expectedModel.setEvent(firstEvent, modifiedEvent);
+
+        String expectedMessage = String.format(editVenueCommand.MESSAGE_EDIT_VENUE_SUCCESS,
+                Messages.format(editedVenue));
+
+        assertCommandSuccess(editVenueCommand, model, expectedMessage, expectedModel);
+        assertTrue(model.getEventToView().getVenue().isSameVenue(editedVenue));
+    }
+
+    @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastVenue = Index.fromOneBased(model.getFilteredVenuesList().size());
         Venue lastVenue = model.getFilteredVenuesList().get(indexLastVenue.getZeroBased());
-        System.out.println(lastVenue.toString());
 
         VenueBuilder venueInList = new VenueBuilder(lastVenue);
         Venue editedVenue = venueInList.withName(VALID_VENUE_NAME_COM1).withAddress(VALID_VENUE_ADDRESS_COM1)

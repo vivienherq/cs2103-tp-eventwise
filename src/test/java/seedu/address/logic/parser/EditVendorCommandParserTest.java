@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -27,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.EditVendorCommand;
 import seedu.address.logic.commands.EditVendorCommand.EditVendorDescriptor;
 import seedu.address.model.vendor.Email;
@@ -175,5 +180,30 @@ public class EditVendorCommandParserTest {
                 + INVALID_PHONE_DESC + INVALID_EMAIL_DESC;
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_VENDOR_PHONE, PREFIX_VENDOR_EMAIL));
+    }
+
+    @Test
+    public void equals() {
+        final EditVendorCommand standardCommand = new EditVendorCommand(INDEX_FIRST_VENDOR, DESC_DRINKS);
+
+        // same values -> returns true
+        EditVendorDescriptor copyDescriptor = new EditVendorDescriptor(DESC_DRINKS);
+        EditVendorCommand commandWithSameValues = new EditVendorCommand(INDEX_FIRST_VENDOR, copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditVendorCommand(INDEX_SECOND_VENDOR, DESC_DRINKS)));
+
+        // different descriptor -> returns false
+        assertFalse(standardCommand.equals(new EditVendorCommand(INDEX_FIRST_VENDOR, DESC_FOOD)));
     }
 }
