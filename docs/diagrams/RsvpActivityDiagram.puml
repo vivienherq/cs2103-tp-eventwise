@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes RSVP command;
+if () then ([all parameters are valid])
+  if () then ([eventIndex within valid range])
+    :Get event to set RSVP;
+  else ([else])
+    :Error: Event does not exist;
+    stop
+  endif
+  if () then ([personIndex within valid range])
+    :Get person to set RSVP;
+  else ([else])
+    :Error: Person does not exist;
+    stop
+  endif
+  if () then ([rsvpStatus is valid])
+    :Get rsvpStatus to set RSVP;
+  else ([else])
+    :Error: Invalid Rsvp Status;
+    stop
+  endif
+  if () then ([Person has been added to Event])
+    :Create Rsvp;
+    :Add RSVP into model;
+    :RSVP command successfully executes;
+  else ([else])
+    :Error: Person has not been added to Event;
+    stop
+  endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+
+stop
+
+@enduml

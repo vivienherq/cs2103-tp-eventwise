@@ -544,6 +544,10 @@ In EventWise, users are able to set the RSVP status to indicate their attendance
 
 #### Implementation
 
+The following activity diagram shows how the `rsvp` command works when given valid parameters or invalid parameters (`EVENT_ID`, `PERSON_ID` or `RSVP_STATUS`) are given.
+
+<img src="images/RsvpActivityDiagram.png" width="550" />
+
 The sequence diagram for the `rsvp` command is given below.
 
 <img src="images/RSVPSequenceDiagram.png" width="550" />
