@@ -185,29 +185,76 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Create New Event Feature
+### Create new Person/Event/Vendor/Venue Feature
+
+In EventWise, users are able to create a new person, event, vendor and venue instance and are stored in storage.
+
+##### Create a new Person
+
+The feature `add` creates a new `Person` instance. Details that must be provided includes `Name`, `Phone` and `Email`.
 
 #### Implementation
 
-This feature creates a new event instance and is stored in storage.
-It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
-It is then hook to AddressBook where user is able to create a new event by using the event command.
+The sequence diagram for the `add` command is given below.
 
-### Create New Venue Feature
+<img src="images/CreateSequenceDiagram.png" width="550" />
+
+1. The `LogicManager` receives an input string to execute. For example, using the sequence diagram above,
+it receives `add n/Tom p/912 e/t@nus.com`
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `AddCommandParser` instance
+4. The `AddressBookParser` then parse the name, phone and email of the user input. In this example, `n/Tom p/912 e/t@nus.com` is the parameter parsed to `AddCommandParser`
+5. The `AddCommandParser` then creates a new Person instance and creates a `AddCommand` object with the newly created `Person` object
+6. This `AddCommand` is then passed back to `LogicManager`
+7. The `LogicManager` then calls the `execute` method in `AddCommand`
+8. The `AddCommand` then interacts with the `Model` instance to add the `Person` object to storage
+9. After adding the `Person` object, the `Model` update the filtered person list which updates the GUI to display the newly created `Person` object
+10. Lastly, The `AddCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+
+##### Create a new Event
+
+The feature `event` creates a new `Event` instance. Details that must be provided includes `Name`, `Description`, `FromDate` and `ToDate` and an optional `Note`.
 
 #### Implementation
 
-This feature creates a new venue instance and is stored in storage.
-It is implemented by creating `CreateVenueCommand` and `CreateVenueCommandParser`
-It is then hook to EventWise where user is able to create a new venue by using the venue command.
+The sequence diagram for the `event` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `event` implementation is:
+1. An example of the user input for `event` is `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and Drinks provided`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateEventCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateEventCommand`
+4. Instead of parsing the name, phone and email of the user input, the name, description, from date, to date and the optional note will be parsed.
+5. Instead of creating and adding the `Person` object, it will be replaced with `Event` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered event list instead
 
-### Create New Vendor Feature
+##### Create a new Vendor
+
+The feature `vendor` creates a new `Vendor` instance. Details that must be provided includes `Name`, `Phone`, `Email`.
 
 #### Implementation
 
-This feature creates a new vendor instance and is stored in storage.
-It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
-It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
+The sequence diagram for the `vendor` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `vendor` implementation is:
+1. An example of the user input for `vendor` is `vendor n/SUN Catering p/64226800 e/catering@sun.com`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateVendorCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateVendorCommand`
+4. In this case, the details that will be parsed from the user input will be the same, which is the name, phone and email
+5. Instead of creating and adding the `Person` object, it will be replaced with `Vendor` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered vendor list instead
+
+##### Create a new Venue
+
+The feature `venue` creates a new `Venue` instance. Details that must be provided includes `Name`, `Address`, `Capacity`.
+
+#### Implementation
+
+The sequence diagram for the `venue` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `venue` implementation is:
+1. An example of the user input for `venue` is `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateVenueCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateVenueCommand`
+4. Instead of parsing the name, phone and email of the user input, the name, address and capacity will be parsed.
+5. Instead of creating and adding the `Person` object, it will be replaced with `Venue` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered venue list instead
 
 ### Edit Person Feature
 
