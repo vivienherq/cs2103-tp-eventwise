@@ -2,12 +2,15 @@ package seedu.address.model.rsvp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
 import static seedu.address.testutil.TypicalEvents.BASKETBALL;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRsvps.ALICE_FSC_CC;
+import static seedu.address.testutil.TypicalRsvps.BENSON_EXHIBITION_CCC;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,5 +52,11 @@ public class RsvpTest {
         seedu.address.model.person.Name personName = new seedu.address.model.person.Name("Alice Pauline");
         assertEquals(rsvp.getEventName(), eventName);
         assertEquals(rsvp.getPersonName(), personName);
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        assertEquals(ALICE_FSC_CC.hashCode(), ALICE_FSC_CC.hashCode());
+        assertNotEquals(ALICE_FSC_CC.hashCode(), BENSON_EXHIBITION_CCC.hashCode());
     }
 }

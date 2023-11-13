@@ -6,8 +6,13 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENDOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENDOR;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,14 +23,25 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventDetailsCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearEventsCommand;
+import seedu.address.logic.commands.ClearGuestsCommand;
+import seedu.address.logic.commands.ClearVendorsCommand;
+import seedu.address.logic.commands.ClearVenuesCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteVendorCommand;
+import seedu.address.logic.commands.DeleteVenueCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ViewEventCommand;
+import seedu.address.logic.commands.ViewEventsCommand;
+import seedu.address.logic.commands.ViewVendorsCommand;
+import seedu.address.logic.commands.ViewVenuesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -57,10 +73,51 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_clearEvents() throws Exception {
+        assertTrue(parser.parseCommand(ClearEventsCommand.COMMAND_WORD) instanceof ClearEventsCommand);
+    }
+
+    @Test
+    public void parseCommand_clearGuests() throws Exception {
+        assertTrue(parser.parseCommand(ClearGuestsCommand.COMMAND_WORD) instanceof ClearGuestsCommand);
+    }
+
+    @Test
+    public void parseCommand_clearVendors() throws Exception {
+        assertTrue(parser.parseCommand(ClearVendorsCommand.COMMAND_WORD) instanceof ClearVendorsCommand);
+    }
+
+    @Test
+    public void parseCommand_clearVenues() throws Exception {
+        assertTrue(parser.parseCommand(ClearVenuesCommand.COMMAND_WORD) instanceof ClearVenuesCommand);
+    }
+
+    @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_deleteEvent() throws Exception {
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+                DeleteEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_ID + INDEX_FIRST_EVENT.getOneBased());
+        assertEquals(new DeleteEventCommand(INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_deleteVendor() throws Exception {
+        DeleteVendorCommand command = (DeleteVendorCommand) parser.parseCommand(
+                DeleteVendorCommand.COMMAND_WORD + " " + PREFIX_VENDOR + INDEX_FIRST_VENDOR.getOneBased());
+        assertEquals(new DeleteVendorCommand(INDEX_FIRST_VENDOR), command);
+    }
+
+    @Test
+    public void parseCommand_deleteVenue() throws Exception {
+        DeleteVenueCommand command = (DeleteVenueCommand) parser.parseCommand(
+                DeleteVenueCommand.COMMAND_WORD + " " + PREFIX_VENUE + INDEX_FIRST_VENUE.getOneBased());
+        assertEquals(new DeleteVenueCommand(INDEX_FIRST_VENUE), command);
     }
 
     @Test
@@ -87,6 +144,16 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_findEvent() throws Exception {
+        List<String> keywords = Arrays.asList("fair", "science", "life");
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+                FindEventCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindEventCommand(
+                new seedu.address.model.event.NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -102,6 +169,21 @@ public class AddressBookParserTest {
     public void parseCommand_viewEvent() throws Exception {
         assertTrue(parser.parseCommand(ViewEventCommand.COMMAND_WORD
                 + " " + PREFIX_EVENT_ID + "1") instanceof ViewEventCommand);
+    }
+
+    @Test
+    public void parseCommand_viewEvents() throws Exception {
+        assertTrue(parser.parseCommand(ViewEventsCommand.COMMAND_WORD) instanceof ViewEventsCommand);
+    }
+
+    @Test
+    public void parseCommand_viewVenues() throws Exception {
+        assertTrue(parser.parseCommand(ViewVendorsCommand.COMMAND_WORD) instanceof ViewVendorsCommand);
+    }
+
+    @Test
+    public void parseCommand_viewVendors() throws Exception {
+        assertTrue(parser.parseCommand(ViewVenuesCommand.COMMAND_WORD) instanceof ViewVenuesCommand);
     }
 
     @Test
