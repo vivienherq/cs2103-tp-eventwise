@@ -15,6 +15,9 @@ import static seedu.address.testutil.TypicalRsvps.BENSON_EXHIBITION_CCC;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.event.Name;
+import seedu.address.testutil.RsvpBuilder;
+import seedu.address.testutil.TypicalEvents;
+import seedu.address.testutil.TypicalPersons;
 
 public class RsvpTest {
 
@@ -58,5 +61,53 @@ public class RsvpTest {
     public void isHashcodeValid() {
         assertEquals(ALICE_FSC_CC.hashCode(), ALICE_FSC_CC.hashCode());
         assertNotEquals(ALICE_FSC_CC.hashCode(), BENSON_EXHIBITION_CCC.hashCode());
+    }
+
+    @Test
+    public void equals() {
+        Rsvp aliceCopy = new RsvpBuilder()
+                .withPerson(TypicalPersons.ALICE)
+                .withEvent(TypicalEvents.FSC)
+                .withRsvpStatus(RsvpStatus.CC)
+                .build();
+
+        // same values -> returns true
+        assertTrue(ALICE_FSC_CC.equals(aliceCopy));
+
+        // same object -> returns true
+        assertTrue(ALICE_FSC_CC.equals(ALICE_FSC_CC));
+
+        // null -> returns false
+        assertFalse(ALICE_FSC_CC.equals(null));
+
+        // different type -> returns false
+        assertFalse(ALICE_FSC_CC.equals(5));
+
+        // different person -> returns false
+        assertFalse(ALICE_FSC_CC.equals(BENSON_EXHIBITION_CCC));
+
+        Rsvp bensonCopy = new RsvpBuilder()
+                .withPerson(BENSON)
+                .withEvent(TypicalEvents.FSC)
+                .withRsvpStatus(RsvpStatus.CC)
+                .build();
+        // different name -> returns false
+        assertFalse(ALICE_FSC_CC.equals(bensonCopy));
+
+        Rsvp fowCopy = new RsvpBuilder()
+                .withPerson(ALICE)
+                .withEvent(TypicalEvents.FOW)
+                .withRsvpStatus(RsvpStatus.CC)
+                .build();
+        // different event -> returns false
+        assertFalse(ALICE_FSC_CC.equals(fowCopy));
+
+        Rsvp notComingCopy = new RsvpBuilder()
+                .withPerson(ALICE)
+                .withEvent(TypicalEvents.FOW)
+                .withRsvpStatus(RsvpStatus.CCC)
+                .build();
+        // different rsvp status -> returns false
+        assertFalse(ALICE_FSC_CC.equals(notComingCopy));
     }
 }

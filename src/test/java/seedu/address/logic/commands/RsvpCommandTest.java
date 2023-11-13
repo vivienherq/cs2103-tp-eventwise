@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
@@ -86,4 +88,28 @@ public class RsvpCommandTest {
                         newRsvp.getPersonName(), newRsvp.getRsvpStatus().getStatus());
         assertCommandSuccess(rsvpCommand, model, expectedSuccessMessage, expectedModel);
     }
+
+    @Test
+    public void equals() {
+        Index index = Index.fromZeroBased(0);
+        RsvpCommand rsvpCommand = new RsvpCommand(index, index, RsvpStatus.CC);
+        RsvpCommand diffRsvpCommand = new RsvpCommand(index, index, RsvpStatus.CCC);
+
+        // same object -> returns true
+        assertTrue(rsvpCommand.equals(rsvpCommand));
+
+        // same values -> returns true
+        RsvpCommand rsvpCommandCopy = new RsvpCommand(index, index, RsvpStatus.CC);
+        assertTrue(rsvpCommand.equals(rsvpCommandCopy));
+
+        // different types -> returns false
+        assertFalse(rsvpCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(rsvpCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(rsvpCommand.equals(diffRsvpCommand));
+    }
+
 }

@@ -46,6 +46,24 @@ public class VenueTest {
     }
 
     @Test
+    public void getDisplayTitle_isValid() {
+        assertEquals(CLB.getDisplayTitle(), CLB.getName().toString());
+        assertNotEquals(CLB.getDisplayTitle(), LT27.getName().toString());
+    }
+
+    @Test
+    public void getDisplayFirstText_isValid() {
+        assertEquals(CLB.getDisplayFirstText(), CLB.getAddress().toString());
+        assertNotEquals(CLB.getDisplayFirstText(), LT27.getAddress().toString());
+    }
+
+    @Test
+    public void getDisplaySecondText_isValid() {
+        assertEquals(CLB.getDisplaySecondText(), String.format("Capacity: %s", CLB.getCapacity()));
+        assertNotEquals(CLB.getDisplaySecondText(), String.format("Capacity: %s", LT27.getCapacity()));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Venue lTCopy = new VenueBuilder(LT27).build();
