@@ -276,7 +276,7 @@ New Venue added: LT27; Address: Lower Kent Ridge Road; Capacity: 400
 
 **Invalid Command Results**
 ```
-Event name should only contain alphanumeric characters and spaces, and it should not be blank
+Names should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
 Addresses can take any values, and it should not be blank
@@ -392,7 +392,7 @@ Event date should only be in DD-MM-YYYY format and should be either today's date
 To Date entered should be either the same as from date or after.
 ```
 ```
-Event note should only contain alphanumeric characters and spaces, and it should not be blank
+Event note should only contain alphanumeric characters and spaces
 ```
 
 ### Adding details to an event: `addEventDetails`
