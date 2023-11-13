@@ -76,9 +76,12 @@ Given below are my contributions to the project.
   * User Guide:
     * Added documentation for the features `venue`, `viewVenues`, `editVenue`, `deleteVenue` [\#39](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/39) [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
     * Added documentation for the features `vendor`, `viewVendors`, `editVendor`, `deleteVendor` [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
-    * Format, tidy and fix mistakes [\#123](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/123) [\#156](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/156) [\#167](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/167)
+    * Format, vet and fix mistakes [\#123](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/123) [\#156](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/156) [\#167](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/167)
   * Developer Guide:
     * Added non-functional requirements [\#25](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/25)
     * Added documentation for the features `edit`, `editVendor`, `editVenue`, `editEvent` [\#187](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/187)
     * Added documentation for the features `delete`, `deleteVendor`, `deleteVenue`, `deleteEvent` [\#189](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/189)
     * Added documentation for the features `list`, `viewVendors`, `viewVenues`, `viewEvents` [\#189](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/189)
+    * Added manual testing instructions for the features `edit`, `editVendor`, `editVenue`, `editEvent` [\#201](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/201)
+    * Added manual testing instructions for the features `delete`, `deleteVendor`, `deleteVenue`, `deleteEvent` [\#201](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/201)
+    * Added manual testing instructions for the features `list`, `viewVendors`, `viewVenues`, `viewEvents` [\#201](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/201)
