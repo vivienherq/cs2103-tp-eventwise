@@ -1,5 +1,6 @@
 package seedu.address.model.venue;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -62,5 +63,12 @@ public class AddressTest {
         Address address = new Address("Road Name, Postal Code");
         assertTrue(address.toString().equals("Road Name, Postal Code"));
         assertFalse(address.toString().equals("Not the same address"));
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        Address address = new Address("Valid Address");
+        Address sameAddress = new Address("Valid Address");
+        assertEquals(address.hashCode(), sameAddress.hashCode());
     }
 }

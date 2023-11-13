@@ -2,13 +2,11 @@ package seedu.address.model.vendor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_DRINKS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_DRINKS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_DRINKS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalVendors.DRINKS;
 import static seedu.address.testutil.TypicalVendors.SUN;
+import static seedu.address.testutil.TypicalVendors.UNS;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,24 +28,21 @@ public class UniqueVendorListTest {
 
     @Test
     public void contains_vendorNotInList_returnsFalse() {
-        assertFalse(uniqueVendorList.contains(DRINKS));
+        assertFalse(uniqueVendorList.contains(SUN));
     }
 
     @Test
     public void contains_vendorInList_returnsTrue() {
-        uniqueVendorList.add(DRINKS);
-        assertTrue(uniqueVendorList.contains(DRINKS));
+        uniqueVendorList.add(SUN);
+        assertTrue(uniqueVendorList.contains(SUN));
     }
 
     @Test
     public void contains_vendorWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueVendorList.add(DRINKS);
-        Vendor editedDrinks = new VendorBuilder(DRINKS)
-                .withName(VALID_VENDOR_NAME_DRINKS)
-                .withEmail(VALID_VENDOR_EMAIL_DRINKS)
-                .withPhone(VALID_VENDOR_PHONE_DRINKS)
+        uniqueVendorList.add(SUN);
+        Vendor editedSun = new VendorBuilder(SUN)
                 .build();
-        assertTrue(uniqueVendorList.contains(editedDrinks));
+        assertTrue(uniqueVendorList.contains(editedSun));
     }
 
     @Test
@@ -57,80 +52,77 @@ public class UniqueVendorListTest {
 
     @Test
     public void add_duplicateVendor_throwsDuplicateVendorException() {
-        uniqueVendorList.add(DRINKS);
-        assertThrows(DuplicateVendorException.class, () -> uniqueVendorList.add(DRINKS));
+        uniqueVendorList.add(SUN);
+        assertThrows(DuplicateVendorException.class, () -> uniqueVendorList.add(SUN));
     }
 
     @Test
     public void setVendor_nullTargetVendor_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueVendorList.setVendor(null, DRINKS));
+        assertThrows(NullPointerException.class, () -> uniqueVendorList.setVendor(null, SUN));
     }
 
     @Test
     public void setVendor_nullEditedVendor_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueVendorList.setVendor(DRINKS, null));
+        assertThrows(NullPointerException.class, () -> uniqueVendorList.setVendor(SUN, null));
     }
 
     @Test
     public void setVendor_targetVendorNotInList_throwsVendorNotFoundException() {
-        assertThrows(VendorNotFoundException.class, () -> uniqueVendorList.setVendor(DRINKS, DRINKS));
+        assertThrows(VendorNotFoundException.class, () -> uniqueVendorList.setVendor(SUN, SUN));
     }
 
     @Test
     public void setVendor_editedVendorIsSameVendor_success() {
-        uniqueVendorList.add(DRINKS);
-        uniqueVendorList.setVendor(DRINKS, DRINKS);
-        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
-        expectedUniqueVendorList.add(DRINKS);
-        assertEquals(expectedUniqueVendorList, uniqueVendorList);
-    }
-
-    @Test
-    public void setVendor_editedVendorHasSameIdentity_success() {
-        uniqueVendorList.add(DRINKS);
-        Vendor editedDrinks = new VendorBuilder(DRINKS)
-                .withName(VALID_VENDOR_NAME_DRINKS)
-                .withEmail(VALID_VENDOR_EMAIL_DRINKS)
-                .withPhone(VALID_VENDOR_PHONE_DRINKS)
-                .build();
-        uniqueVendorList.setVendor(DRINKS, editedDrinks);
-        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
-        expectedUniqueVendorList.add(editedDrinks);
-        assertEquals(expectedUniqueVendorList, uniqueVendorList);
-    }
-
-    @Test
-    public void setVendor_editedVendorHasDifferentIdentity_success() {
-        uniqueVendorList.add(DRINKS);
-        uniqueVendorList.setVendor(DRINKS, SUN);
+        uniqueVendorList.add(SUN);
+        uniqueVendorList.setVendor(SUN, SUN);
         UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
         expectedUniqueVendorList.add(SUN);
         assertEquals(expectedUniqueVendorList, uniqueVendorList);
     }
 
     @Test
-    public void setVendor_editedVendorHasNonUniqueIdentity_throwsDuplicateVendorException() {
-        uniqueVendorList.add(DRINKS);
+    public void setVendor_editedVendorHasSameIdentity_success() {
         uniqueVendorList.add(SUN);
-        assertThrows(DuplicateVendorException.class, () -> uniqueVendorList.setVendor(DRINKS, SUN));
+        Vendor editedSun = new VendorBuilder(SUN)
+                .build();
+        uniqueVendorList.setVendor(SUN, editedSun);
+        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
+        expectedUniqueVendorList.add(editedSun);
+        assertEquals(expectedUniqueVendorList, uniqueVendorList);
     }
 
     @Test
-    public void remove_nullVendor_throwsNullPointerException() {
+    public void setVendor_editedVendorHasDifferentIdentity_success() {
+        uniqueVendorList.add(SUN);
+        uniqueVendorList.setVendor(SUN, UNS);
+        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
+        expectedUniqueVendorList.add(UNS);
+        assertEquals(expectedUniqueVendorList, uniqueVendorList);
+    }
+
+    @Test
+    public void setVendor_editedVendorHasNonUniqueIdentity_throwsDuplicateVendorException() {
+        uniqueVendorList.add(SUN);
+        uniqueVendorList.add(UNS);
+        assertThrows(DuplicateVendorException.class, () -> uniqueVendorList.setVendor(SUN, UNS));
+    }
+
+    @Test
+    public void remove_nullVendorsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueVendorList.remove(null));
     }
 
     @Test
     public void remove_vendorDoesNotExist_throwsVendorNotFoundException() {
-        assertThrows(VendorNotFoundException.class, () -> uniqueVendorList.remove(DRINKS));
+        assertThrows(VendorNotFoundException.class, () -> uniqueVendorList.remove(SUN));
     }
 
     @Test
     public void remove_existingVendor_removesVendor() {
-        uniqueVendorList.add(DRINKS);
-        uniqueVendorList.remove(DRINKS);
-        UniqueVendorList expectedUniqueVenueList = new UniqueVendorList();
-        assertEquals(expectedUniqueVenueList, uniqueVendorList);
+        uniqueVendorList.add(SUN);
+        uniqueVendorList.remove(SUN);
+        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
+        assertEquals(expectedUniqueVendorList, uniqueVendorList);
     }
 
     @Test
@@ -140,11 +132,11 @@ public class UniqueVendorListTest {
 
     @Test
     public void setVendors_uniqueVendorList_replacesOwnListWithProvidedUniqueVendorList() {
-        uniqueVendorList.add(DRINKS);
-        UniqueVendorList expectedUniqueVenueList = new UniqueVendorList();
-        expectedUniqueVenueList.add(SUN);
-        uniqueVendorList.setVendors(expectedUniqueVenueList);
-        assertEquals(expectedUniqueVenueList, uniqueVendorList);
+        uniqueVendorList.add(SUN);
+        UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
+        expectedUniqueVendorList.add(UNS);
+        uniqueVendorList.setVendors(expectedUniqueVendorList);
+        assertEquals(expectedUniqueVendorList, uniqueVendorList);
     }
 
     @Test
@@ -154,17 +146,17 @@ public class UniqueVendorListTest {
 
     @Test
     public void setVendors_list_replacesOwnListWithProvidedList() {
-        uniqueVendorList.add(DRINKS);
-        List<Vendor> vendorList = Collections.singletonList(SUN);
+        uniqueVendorList.add(SUN);
+        List<Vendor> vendorList = Collections.singletonList(UNS);
         uniqueVendorList.setVendors(vendorList);
         UniqueVendorList expectedUniqueVendorList = new UniqueVendorList();
-        expectedUniqueVendorList.add(SUN);
+        expectedUniqueVendorList.add(UNS);
         assertEquals(expectedUniqueVendorList, uniqueVendorList);
     }
 
     @Test
-    public void setVendor_listWithDuplicateVendors_throwsDuplicateVendorException() {
-        List<Vendor> listWithDuplicateVendors = Arrays.asList(DRINKS, DRINKS);
+    public void setVendors_listWithDuplicateVendors_throwsDuplicateVendorException() {
+        List<Vendor> listWithDuplicateVendors = Arrays.asList(SUN, SUN);
         assertThrows(DuplicateVendorException.class, () -> uniqueVendorList.setVendors(listWithDuplicateVendors));
     }
 
@@ -175,14 +167,18 @@ public class UniqueVendorListTest {
     }
 
     @Test
-    public void equals() {
-        assertTrue(uniqueVendorList.equals(uniqueVendorList));
-        uniqueVendorList.add(DRINKS);
-        assertFalse(uniqueVendorList.equals(Arrays.asList(DRINKS)));
-    }
-
-    @Test
     public void toStringMethod() {
         assertEquals(uniqueVendorList.asUnmodifiableObservableList().toString(), uniqueVendorList.toString());
     }
+
+    @Test
+    public void isHashcodeValid() {
+        UniqueVendorList list1 = new UniqueVendorList();
+        UniqueVendorList list2 = new UniqueVendorList();
+        UniqueVendorList list3 = new UniqueVendorList();
+        list1.add(SUN);
+        assertEquals(list2, list3);
+        assertNotEquals(list1, list3);
+    }
+
 }

@@ -544,6 +544,10 @@ In EventWise, users are able to set the RSVP status to indicate their attendance
 
 #### Implementation
 
+The following activity diagram shows how the `rsvp` command works when given valid parameters or invalid parameters (`EVENT_ID`, `PERSON_ID` or `RSVP_STATUS`) are given.
+
+<img src="images/RsvpActivityDiagram.png" width="550" />
+
 The sequence diagram for the `rsvp` command is given below.
 
 <img src="images/RSVPSequenceDiagram.png" width="550" />
@@ -1655,10 +1659,8 @@ Expected: No new person created. Status message indicates This person already ex
 ### Saving data
 
 1. Dealing with missing data files
-
-    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
-    2. To simulate a missing file, delete `data/addressbook.json` file before running the app.
-    3. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
+    1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
+    2. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
 
 2. Dealing with corrupted data files
     1. To simulate a corrupted file, edit the `data/addressbook.json` file such that it does not follow the proper json format before running the app.

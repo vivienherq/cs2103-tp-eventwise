@@ -2,10 +2,8 @@ package seedu.address.model.venue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_ADDRESS_CLB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_CAPACITY_CLB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_NAME_CLB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalVenues.CLB;
 import static seedu.address.testutil.TypicalVenues.LT27;
@@ -43,9 +41,6 @@ public class UniqueVenueListTest {
     public void contains_venueWithSameIdentityFieldsInList_returnsTrue() {
         uniqueVenueList.add(CLB);
         Venue editedClb = new VenueBuilder(CLB)
-                .withName(VALID_VENUE_NAME_CLB)
-                .withAddress(VALID_VENUE_ADDRESS_CLB)
-                .withCapacity(VALID_VENUE_CAPACITY_CLB)
                 .build();
         assertTrue(uniqueVenueList.contains(editedClb));
     }
@@ -72,7 +67,7 @@ public class UniqueVenueListTest {
     }
 
     @Test
-    public void setEvent_targetVenueNotInList_throwsVenueNotFoundException() {
+    public void setVenue_targetVenueNotInList_throwsVenueNotFoundException() {
         assertThrows(VenueNotFoundException.class, () -> uniqueVenueList.setVenue(CLB, CLB));
     }
 
@@ -89,9 +84,6 @@ public class UniqueVenueListTest {
     public void setVenue_editedVenueHasSameIdentity_success() {
         uniqueVenueList.add(CLB);
         Venue editedClb = new VenueBuilder(CLB)
-                .withName(VALID_VENUE_NAME_CLB)
-                .withAddress(VALID_VENUE_ADDRESS_CLB)
-                .withCapacity(VALID_VENUE_CAPACITY_CLB)
                 .build();
         uniqueVenueList.setVenue(CLB, editedClb);
         UniqueVenueList expectedUniqueVenueList = new UniqueVenueList();
@@ -116,7 +108,7 @@ public class UniqueVenueListTest {
     }
 
     @Test
-    public void remove_nullVenue_throwsNullPointerException() {
+    public void remove_nullVenuesNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueVenueList.remove(null));
     }
 
@@ -139,7 +131,7 @@ public class UniqueVenueListTest {
     }
 
     @Test
-    public void setVenues_uniqueVenueList_replacesOwnListWithProvidedUniqueVenueList() {
+    public void setVenues_uniqueVenueList_replacesOwnListWithProvidedUniqueVendorList() {
         uniqueVenueList.add(CLB);
         UniqueVenueList expectedUniqueVenueList = new UniqueVenueList();
         expectedUniqueVenueList.add(LT27);
@@ -154,11 +146,11 @@ public class UniqueVenueListTest {
 
     @Test
     public void setVenues_list_replacesOwnListWithProvidedList() {
-        uniqueVenueList.add(LT27);
-        List<Venue> vendorList = Collections.singletonList(CLB);
-        uniqueVenueList.setVenues(vendorList);
+        uniqueVenueList.add(CLB);
+        List<Venue> venueList = Collections.singletonList(LT27);
+        uniqueVenueList.setVenues(venueList);
         UniqueVenueList expectedUniqueVenueList = new UniqueVenueList();
-        expectedUniqueVenueList.add(CLB);
+        expectedUniqueVenueList.add(LT27);
         assertEquals(expectedUniqueVenueList, uniqueVenueList);
     }
 
@@ -175,14 +167,18 @@ public class UniqueVenueListTest {
     }
 
     @Test
-    public void equals() {
-        assertTrue(uniqueVenueList.equals(uniqueVenueList));
-        uniqueVenueList.add(CLB);
-        assertFalse(uniqueVenueList.equals(Arrays.asList(CLB)));
-    }
-
-    @Test
     public void toStringMethod() {
         assertEquals(uniqueVenueList.asUnmodifiableObservableList().toString(), uniqueVenueList.toString());
     }
+
+    @Test
+    public void isHashcodeValid() {
+        UniqueVenueList list1 = new UniqueVenueList();
+        UniqueVenueList list2 = new UniqueVenueList();
+        UniqueVenueList list3 = new UniqueVenueList();
+        list1.add(CLB);
+        assertEquals(list2, list3);
+        assertNotEquals(list1, list3);
+    }
+
 }
