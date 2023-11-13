@@ -267,6 +267,10 @@ Details that can be edited include `Name`, `Phone`, `Email`.
 An instance of `EditCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Person` instance is successfully edited, and is stored in `Storage`.
 
+The following activity diagram shows how this feature works:
+
+<img src="images/EditPersonActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditPersonSequenceDiagram.png" width="550" />
@@ -281,6 +285,10 @@ Details that can be edited include `Name`, `Phone`, `Email`.
 `LogicManager` calls `AddressBookParser` which creates an instance of `EditVendorCommandParser` to parse user inputs.
 An instance of `EditVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Vendor` instance is successfully edited, and is stored in `Storage`.
+
+The following activity diagram shows how this feature works:
+
+<img src="images/EditVendorActivityDiagram.png" width="550" />
 
 The following sequence diagram shows how this feature works:
 
@@ -297,6 +305,10 @@ Details that can be edited include `Name`, `Address`, `Capacity`.
 An instance of `EditVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Venue` instance is successfully edited, and is stored in `Storage`.
 
+The following activity diagram shows how this feature works:
+
+<img src="images/EditVenueActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditVenueSequenceDiagram.png" width="550" />
@@ -312,6 +324,10 @@ Details that can be edited include `Name`, `Description`, `From Date`, `To Date`
 An instance of `EditEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Event` instance is successfully edited, and is stored in `Storage`.
 
+The following activity diagram shows how this feature works:
+
+<img src="images/EditEventActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/EditEventSequenceDiagram.png" width="550" />
@@ -325,6 +341,10 @@ The feature `delete` deletes an existing Person instance.
 `LogicManager` calls `AddressBookParser` which creates an instance of `DeleteCommandParser` to parse user inputs.
 An instance of `DeleteCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Person` instance is successfully deleted, and removed from `Storage`.
+
+The following activity diagram shows how this feature works:
+
+<img src="images/DeletePersonActivityDiagram.png" width="550" />
 
 The following sequence diagram shows how this feature works:
 
@@ -340,6 +360,10 @@ The feature `deleteVendor` deletes an existing Vendor instance.
 An instance of `DeleteVendorCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Vendor` instance is successfully deleted, and removed from `Storage`.
 
+The following activity diagram shows how this feature works:
+
+<img src="images/DeleteVendorActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteVendorSequenceDiagram.png" width="550" />
@@ -354,6 +378,10 @@ The feature `deleteVenue` deletes an existing Venue instance.
 An instance of `DeleteVenueCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Venue` instance is successfully deleted, and removed from `Storage`.
 
+The following activity diagram shows how this feature works:
+
+<img src="images/DeleteVenueActivityDiagram.png" width="550" />
+
 The following sequence diagram shows how this feature works:
 
 <img src="images/DeleteVenueSequenceDiagram.png" width="550" />
@@ -367,6 +395,10 @@ The feature `deleteEvent` deletes an existing Event instance.
 `LogicManager` calls `AddressBookParser` which creates an instance of `DeleteEventCommandParser` to parse user inputs.
 An instance of `DeleteEventCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 The `Event` instance is successfully deleted, and removed from `Storage`.
+
+The following activity diagram shows how this feature works:
+
+<img src="images/DeleteEventActivityDiagram.png" width="550" />
 
 The following sequence diagram shows how this feature works:
 

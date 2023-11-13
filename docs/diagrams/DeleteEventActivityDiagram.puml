@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes DeleteEventCommand;
+if () then ([all parameters are valid])
+  :Delete Event from model;
+else ([else])
+  :Error: Invalid command format;
+endif
+
+stop
+
+@enduml
