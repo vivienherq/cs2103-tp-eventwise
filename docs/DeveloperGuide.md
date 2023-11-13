@@ -867,7 +867,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 3c. EventWise detects that the vendor ID is missing. 
+* 3c. EventWise detects that the vendor ID is missing.
     * 3c1. EventWise shows an error message.
 
       Use case ends.

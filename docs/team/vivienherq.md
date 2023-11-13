@@ -61,9 +61,6 @@ Given below are my contributions to the project.
     * Wrote additional date input validation checks [\#88](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/88)
     * Wrote additional tests for existing features to increase coverage from 55.39% to 67.43% [\#171](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/171) [\#172](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/172) [\#174](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/174) [\#175](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/175)
 
-* **Project management**:
-    * Managed releases `v1.2`, `v1.2.1`, `v1.3` (3 releases) on GitHub
-
 * **Contributions to User Guide**:
     * Added documentation for the features `venue`, `viewVenues`, `editVenue`, `deleteVenue` [\#39](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/39) [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
     * Added documentation for the features `vendor`, `viewVendors`, `editVendor`, `deleteVendor` [\#119](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/119)
