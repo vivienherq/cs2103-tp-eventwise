@@ -62,20 +62,13 @@ public class DeleteCommand extends Command {
                 if (existingRsvp != null) {
                     model.deleteRsvp(existingRsvp);
                 }
-            }
-        }
 
-        // Check if the current event that is being shown in the event details is affected
-        Event eventToView = model.getEventToView();
-        boolean isNotNull = eventToView != null;
-        if (isNotNull && eventToView.getPersons().contains(personToDelete)) {
-            Event currentlyShownEvent = model.getEventToView();
-            List<Person> editedPersonList = new ArrayList<>(currentlyShownEvent.getPersons());
-            editedPersonList.remove(personToDelete);
-            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
-                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
-                    editedPersonList, currentlyShownEvent.getVendors(), currentlyShownEvent.getVenue());
-            model.setEventToView(updatedEvent);
+                // Check if the current event that is being shown in the event details is affected
+                Event eventToView = model.getEventToView();
+                if (eventToView != null && eventToView.getPersons().contains(personToDelete)) {
+                    model.setEventToView(updatedEvent);
+                }
+            }
         }
 
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);

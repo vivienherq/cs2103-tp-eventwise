@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_OUT_OF_RANGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class RemovePersonCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexOutOfRange_failure() {
+    public void execute_invalidEventIndexOutOfRange_failure() {
         RemovePersonCommand removePersonCommand = new RemovePersonCommand(INDEX_OUT_OF_RANGE, INDEX_FIRST_PERSON);
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 
@@ -59,11 +60,19 @@ public class RemovePersonCommandTest {
     }
 
     @Test
+    public void execute_invalidPersonIndexOutOfRange_failure() {
+        RemovePersonCommand removePersonCommand = new RemovePersonCommand(INDEX_FIRST_EVENT, INDEX_OUT_OF_RANGE);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_PERSON_INDEX);
+
+        assertCommandFailure(removePersonCommand, model, expectedMessage);
+    }
+
+    @Test
     public void equals() {
-        final RemovePersonCommand standardCommand = new RemovePersonCommand(INDEX_FIRST_EVENT, INDEX_SECOND_EVENT);
+        final RemovePersonCommand standardCommand = new RemovePersonCommand(INDEX_FIRST_EVENT, INDEX_SECOND_PERSON);
 
         // same values -> returns true
-        RemovePersonCommand commandWithSameValues = new RemovePersonCommand(INDEX_FIRST_EVENT, INDEX_SECOND_EVENT);
+        RemovePersonCommand commandWithSameValues = new RemovePersonCommand(INDEX_FIRST_EVENT, INDEX_SECOND_PERSON);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -76,6 +85,6 @@ public class RemovePersonCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new ViewEventCommand(INDEX_SECOND_EVENT)));
+        assertFalse(standardCommand.equals(new RemovePersonCommand(INDEX_SECOND_EVENT, INDEX_SECOND_PERSON)));
     }
 }

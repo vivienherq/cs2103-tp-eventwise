@@ -113,7 +113,6 @@ public class EditEventCommandParserTest {
                 .withDescription(VALID_EVENT_DESCRIPTION_FSC).withFromDate(VALID_EVENT_FROM_DATE_CAREER_FAIR)
                 .withToDate(VALID_EVENT_TO_DATE_CAREER_FAIR).build();
         EditEventCommand expectedCommand = new EditEventCommand(targetIndex, descriptor);
-        System.out.println(userInput);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

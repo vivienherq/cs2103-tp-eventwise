@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_VENDOR_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_VENUE_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_EXISTING;
 import static seedu.address.logic.commands.AddEventDetailsCommand.MESSAGE_SUCCESS;
@@ -27,15 +28,19 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for AddEventDetailsCommand.
+ */
 public class AddEventDetailsCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_invalidPersonIndexOutOfRange_failure() {
+    public void execute_invalidEventIndexOutOfRange_failure() {
         HashSet<Index> personIndexes = new HashSet<>();
         personIndexes.add(INDEX_SECOND_PERSON);
 
@@ -49,17 +54,44 @@ public class AddEventDetailsCommandTest {
     }
 
     @Test
-    public void execute_invalidVendorIndexOutOfRange_failure() {
+    public void execute_addPersonIndexOutOfRange_failure() {
+        // Person Indexes should only contain the index of the second person
+        HashSet<Index> personIndexes = new HashSet<>();
+        personIndexes.add(INDEX_OUT_OF_RANGE);
+
+        HashSet<Index> vendorIndexes = new HashSet<>();
+
+        // Command to simulate
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, INDEX_FIRST_VENUE);
+
+
+        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_addVendorIndexOutOfRange_failure() {
         HashSet<Index> personIndexes = new HashSet<>();
 
         HashSet<Index> vendorIndexes = new HashSet<>();
-        vendorIndexes.add(INDEX_SECOND_VENDOR);
+        vendorIndexes.add(INDEX_OUT_OF_RANGE);
 
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_OUT_OF_RANGE, personIndexes, vendorIndexes, null);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        assertCommandFailure(addEventDetailsCommand, model, expectedMessage);
+        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_VENDOR_INDEX);
+    }
+
+    @Test
+    public void execute_addVenueIndexOutOfRange_failure() {
+        HashSet<Index> personIndexes = new HashSet<>();
+
+        HashSet<Index> vendorIndexes = new HashSet<>();
+
+        AddEventDetailsCommand addEventDetailsCommand =
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, INDEX_OUT_OF_RANGE);
+
+        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -229,31 +261,37 @@ public class AddEventDetailsCommandTest {
     }
 
     @Test
-    public void execute_addVenueIndexOutOfRange_failure() {
+    public void execute_addNewVendorToEvent_success() {
         HashSet<Index> personIndexes = new HashSet<>();
+
         HashSet<Index> vendorIndexes = new HashSet<>();
+        vendorIndexes.add(INDEX_SECOND_VENDOR);
 
         // Command to simulate
         AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, INDEX_OUT_OF_RANGE);
+                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, null);
 
+        // Create an edited model
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_VENUE_DISPLAYED_INDEX);
-    }
+        // Simulate adding a person into an event by swapping the existing event object with the updated event object
+        Event eventToEdit = expectedModel.getAddressBook().getEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
-    @Test
-    public void execute_addPersonIndexOutOfRange_failure() {
-        // Person Indexes should only contain the index of the second person
-        HashSet<Index> personIndexes = new HashSet<>();
-        personIndexes.add(INDEX_OUT_OF_RANGE);
+        // Get the second vendor
+        Vendor vendor = expectedModel.getAddressBook().getVendorList().get(INDEX_SECOND_VENDOR.getZeroBased());
 
-        HashSet<Index> vendorIndexes = new HashSet<>();
+        // Edited event
+        Event editedEvent = new EventBuilder(eventToEdit).withVendors(List.of(vendor)).build();
 
-        // Command to simulate
-        AddEventDetailsCommand addEventDetailsCommand =
-                new AddEventDetailsCommand(INDEX_FIRST_EVENT, personIndexes, vendorIndexes, INDEX_FIRST_VENUE);
+        // Update the edited event
+        expectedModel.setEvent(eventToEdit, editedEvent);
 
+        // Expected success message
+        String expectedSuccessMessage =
+                String.format(AddEventDetailsCommand.MESSAGE_SUCCESS, INDEX_FIRST_EVENT.getOneBased(),
+                        editedEvent.getName(), "");
 
-        assertCommandFailure(addEventDetailsCommand, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // Check if the updated model
+        assertCommandSuccess(addEventDetailsCommand, model, expectedSuccessMessage, expectedModel);
     }
 }
