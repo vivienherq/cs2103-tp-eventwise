@@ -1710,4 +1710,3 @@ Given below are the fixes proposed to add in the near future.
 * The current UI does not scale to a smaller window size, resulting in the Person List being cut off from the window if the window width is too small.
 * Proposed solution: Set a minimum width for MainWindow, Person
 ListPanel and VendorListPanel.
-
