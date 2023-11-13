@@ -1,5 +1,6 @@
 package seedu.address.model.vendor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -84,5 +85,12 @@ public class EmailTest {
 
         // different values -> returns false
         assertFalse(email.equals(new Email("other.valid@email")));
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        Email email = new Email("valid@email");
+        Email sameEmail = new Email("valid@email");
+        assertEquals(email.hashCode(), sameEmail.hashCode());
     }
 }

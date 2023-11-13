@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -63,5 +64,12 @@ public class NameTest {
         Name name = new Name("Valid Name");
         assertTrue(name.toString().equals("Valid Name"));
         assertFalse(name.toString().equals("Invalid Name"));
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        Name name = new Name("Valid Name");
+        Name sameName = new Name("Valid Name");
+        assertEquals(name.hashCode(), sameName.hashCode());
     }
 }

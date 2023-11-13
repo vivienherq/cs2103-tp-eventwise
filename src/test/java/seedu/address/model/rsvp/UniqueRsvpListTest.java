@@ -2,6 +2,7 @@ package seedu.address.model.rsvp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
@@ -140,5 +141,15 @@ public class UniqueRsvpListTest {
     @Test
     public void toStringMethod() {
         assertEquals(uniqueRsvpList.asUnmodifiableObservableList().toString(), uniqueRsvpList.toString());
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        UniqueRsvpList list1 = new UniqueRsvpList();
+        UniqueRsvpList list2 = new UniqueRsvpList();
+        UniqueRsvpList list3 = new UniqueRsvpList();
+        list1.add(validRsvp);
+        assertEquals(list2, list3);
+        assertNotEquals(list1, list3);
     }
 }

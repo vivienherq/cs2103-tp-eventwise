@@ -146,7 +146,8 @@ public class Event implements DisplayableListViewItem {
         Event otherEvent = (Event) other;
         return name.equals(otherEvent.name)
                 && description.equals(otherEvent.description)
-                && fromDate.equals(otherEvent.fromDate);
+                && fromDate.equals(otherEvent.fromDate)
+                && toDate.equals(otherEvent.toDate);
     }
 
     @Override

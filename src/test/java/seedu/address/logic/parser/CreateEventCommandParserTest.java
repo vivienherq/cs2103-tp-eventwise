@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EVENT_FROM_DATE_CAREE
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_FROM_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_FSC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_NOTE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_TO_DATE_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_TO_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC;
@@ -45,7 +46,8 @@ public class CreateEventCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_FSC
-                + EVENT_DESC_FSC + EVENT_FROM_DATE_FSC + EVENT_TO_DATE_FSC, new CreateEventCommand(expectedEvent));
+                + EVENT_DESC_FSC + EVENT_FROM_DATE_FSC + EVENT_TO_DATE_FSC + EVENT_NOTE_FSC,
+                new CreateEventCommand(expectedEvent));
     }
 
     @Test

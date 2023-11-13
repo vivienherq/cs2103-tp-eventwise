@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -63,5 +64,12 @@ public class DescriptionTest {
         Description description = new Description("Valid Description");
         assertTrue(description.toString().equals("Valid Description"));
         assertFalse(description.toString().equals("Invalid Description"));
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        Description description = new Description("Valid Description");
+        Description sameDescription = new Description("Valid Description");
+        assertEquals(description.hashCode(), sameDescription.hashCode());
     }
 }
