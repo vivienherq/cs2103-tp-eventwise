@@ -46,7 +46,8 @@ public class RsvpCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         String invalidPreamble = "invalid" + PREFIX_EVENT_ID + "-1 " + PREFIX_PERSON + "1 " + PREFIX_RSVP_STATUS + "CC";
-        assertParseFailure(parser, invalidPreamble, String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvpCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, invalidPreamble,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvpCommand.MESSAGE_USAGE));
     }
     @Test
     public void parse_allFieldsSpecified_success() {

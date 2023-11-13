@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
-import static seedu.address.testutil.TypicalRsvps.ALICE_FSC_CC;
-import static seedu.address.testutil.TypicalRsvps.BENSON_EXHIBITION_CCC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.rsvp.Rsvp;
 import seedu.address.model.rsvp.RsvpStatus;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.RsvpBuilder;
 
 public class RsvpCommandTest {
 

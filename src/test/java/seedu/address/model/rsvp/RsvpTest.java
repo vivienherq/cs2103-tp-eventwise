@@ -4,19 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.ACADEMIC;
 import static seedu.address.testutil.TypicalEvents.BASKETBALL;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalRsvps.ALICE_FSC_CC;
 import static seedu.address.testutil.TypicalRsvps.BENSON_EXHIBITION_CCC;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.event.Name;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RsvpBuilder;
 import seedu.address.testutil.TypicalEvents;
 import seedu.address.testutil.TypicalPersons;
@@ -67,14 +65,14 @@ public class RsvpTest {
 
     @Test
     public void equals() {
-        Rsvp ALICE_FSC_CC_Copy = new RsvpBuilder()
+        Rsvp aliceCopy = new RsvpBuilder()
                 .withPerson(TypicalPersons.ALICE)
                 .withEvent(TypicalEvents.FSC)
                 .withRsvpStatus(RsvpStatus.CC)
                 .build();
 
         // same values -> returns true
-        assertTrue(ALICE_FSC_CC.equals(ALICE_FSC_CC_Copy));
+        assertTrue(ALICE_FSC_CC.equals(aliceCopy));
 
         // same object -> returns true
         assertTrue(ALICE_FSC_CC.equals(ALICE_FSC_CC));
@@ -88,28 +86,28 @@ public class RsvpTest {
         // different person -> returns false
         assertFalse(ALICE_FSC_CC.equals(BENSON_EXHIBITION_CCC));
 
-        Rsvp BENSON_FSC_CC = new RsvpBuilder()
+        Rsvp bensonCopy = new RsvpBuilder()
                 .withPerson(BENSON)
                 .withEvent(TypicalEvents.FSC)
                 .withRsvpStatus(RsvpStatus.CC)
                 .build();
         // different name -> returns false
-        assertFalse(ALICE_FSC_CC.equals(BENSON_FSC_CC));
+        assertFalse(ALICE_FSC_CC.equals(bensonCopy));
 
-        Rsvp ALICE_FOW_CC = new RsvpBuilder()
+        Rsvp fowCopy = new RsvpBuilder()
                 .withPerson(ALICE)
                 .withEvent(TypicalEvents.FOW)
                 .withRsvpStatus(RsvpStatus.CC)
                 .build();
         // different event -> returns false
-        assertFalse(ALICE_FSC_CC.equals(ALICE_FOW_CC));
+        assertFalse(ALICE_FSC_CC.equals(fowCopy));
 
-        Rsvp ALICE_FOW_CCC = new RsvpBuilder()
+        Rsvp notComingCopy = new RsvpBuilder()
                 .withPerson(ALICE)
                 .withEvent(TypicalEvents.FOW)
                 .withRsvpStatus(RsvpStatus.CCC)
                 .build();
         // different rsvp status -> returns false
-        assertFalse(ALICE_FSC_CC.equals(ALICE_FOW_CCC));
+        assertFalse(ALICE_FSC_CC.equals(notComingCopy));
     }
 }
