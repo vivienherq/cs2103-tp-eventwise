@@ -189,11 +189,11 @@ This section describes some noteworthy details on how certain features are imple
 
 In EventWise, users are able to create a new person, event, vendor and venue instance and are stored in storage.
 
-##### Create a new Person
+#### Create a new Person
 
 The feature `add` creates a new `Person` instance. Details that must be provided includes `Name`, `Phone` and `Email`.
 
-#### Implementation
+##### Implementation
 
 The sequence diagram for the `add` command is given below.
 
@@ -211,11 +211,11 @@ it receives `add n/Tom p/912 e/t@nus.com`
 9. After adding the `Person` object, the `Model` update the filtered person list which updates the GUI to display the newly created `Person` object
 10. Lastly, The `AddCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
 
-##### Create a new Event
+#### Create a new Event
 
 The feature `event` creates a new `Event` instance. Details that must be provided includes `Name`, `Description`, `FromDate` and `ToDate` and an optional `Note`.
 
-#### Implementation
+##### Implementation
 
 The sequence diagram for the `event` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
 The difference between the `add` and `event` implementation is:
@@ -226,11 +226,11 @@ The difference between the `add` and `event` implementation is:
 5. Instead of creating and adding the `Person` object, it will be replaced with `Event` object
 6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered event list instead
 
-##### Create a new Vendor
+#### Create a new Vendor
 
 The feature `vendor` creates a new `Vendor` instance. Details that must be provided includes `Name`, `Phone`, `Email`.
 
-#### Implementation
+##### Implementation
 
 The sequence diagram for the `vendor` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
 The difference between the `add` and `vendor` implementation is:
@@ -241,11 +241,11 @@ The difference between the `add` and `vendor` implementation is:
 5. Instead of creating and adding the `Person` object, it will be replaced with `Vendor` object
 6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered vendor list instead
 
-##### Create a new Venue
+#### Create a new Venue
 
 The feature `venue` creates a new `Venue` instance. Details that must be provided includes `Name`, `Address`, `Capacity`.
 
-#### Implementation
+##### Implementation
 
 The sequence diagram for the `venue` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
 The difference between the `add` and `venue` implementation is:
@@ -561,6 +561,67 @@ The sequence diagram for the `rsvp` command is given below.
 8. The `RsvpCommand` then interacts with the `Model` instance again to add the `Rsvp` object to storage
 9. After adding the `Rsvp` object, the `Model` update the filtered RSVP list which updates the GUI to display the newly created `Rsvp` object
 10. Lastly, The `RsvpCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+
+### Clear all Data/Person/Event/Vendor/Venue Feature
+
+In EventWise, users are able to delete all entries in storage and also have the option to delete all entries of `Person`, `Event`, `Vendor`, or `Venue`
+
+#### Clear all Data
+
+The feature `clear` clears all entries in storage
+
+##### Implementation
+
+1. The `LogicManager` receives an input string, `clear` to execute
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `ClearCommand` instance
+4. The `LogicManager` then calls the `execute` method in `ClearCommand`
+5. The `ClearCommand` then interacts with the `Model` instance to create a new empty storage. 
+6. Lastly, The `ClearCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+
+#### Clear all Persons
+
+The feature `clearGuests` clears all `Person` entries in storage
+
+##### Implementation
+
+The implementation of `clearGuests` is similar to `clear`. The difference are:
+1. The user input string is `clearGuests` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearGuestsCommand` instead of `ClearCommand`
+3. The `ClearGuestsComand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Person`
+
+#### Clear all Events
+
+The feature `clearEvents` clears all `Event` entries in storage
+
+##### Implementation
+
+The implementation of `clearEvents` is similar to `clear`. The difference are:
+1. The user input string is `clearEvents` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearEventsCommand` instead of `ClearCommand`
+3. The `ClearEventsCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Event`
+
+#### Clear all Vendors
+
+The feature `clearVendors` clears all `Vendor` entries in storage
+
+##### Implementation
+
+The implementation of `clearVendors` is similar to `clear`. The difference are:
+1. The user input string is `clearVendors` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearVendorsCommand` instead of `ClearCommand`
+3. The `ClearVendorsCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Vendor`
+
+#### Clear all Venues
+
+The feature `clearVenues` clears all `Venue` entries in storage
+
+##### Implementation
+
+The implementation of `clearVenues` is similar to `clear`. The difference are:
+1. The user input string is `clearVenues` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearVenuesCommand` instead of `ClearCommand`
+3. The `ClearVenuesCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Venue`
 
 --------------------------------------------------------------------------------------------------------------------
 
