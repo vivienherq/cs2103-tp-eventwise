@@ -1260,6 +1260,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 * **Attendee**: An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably.
 * **Vendor**: A company or individual that provides goods, services or exhibits at an event.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -1343,6 +1344,7 @@ Expected: This person already exists in the address book
    Expected: All persons listed.
 
 ### Creating a vendor
+
 1. Test case: `vendor n/SUN Catering p/64226800 e/catering@sun.com`<br>
    Expected: New vendor added: SUN Catering; Phone: 64226800; Email: catering@sun.com
 
@@ -1583,6 +1585,56 @@ Expected: This person already exists in the address book
 
 4. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
   Expected: Similar to the previous case.
+
+### Clear All Data in Storage
+
+1. Prerequisites: Have at least one existing Person/Event/Vendor/Venue in the system.
+
+2. Test case: `clear`<br>
+   Expected: All data is deleted.
+
+3. Test case: `clear 1`<br>
+   Expected: All data is deleted.
+
+### Clear All Person in Storage
+
+1. Prerequisites: Have at least one existing person in the system.
+
+2. Test case: `clearGuests`<br>
+   Expected: All persons' data is deleted.
+
+3. Test case: `clearGuests 1`<br>
+   Expected: All persons' data is deleted.
+
+### Clear All Event in Storage
+
+1. Prerequisites: Have at least one existing event in the system.
+
+2. Test case: `clearEvents`<br>
+   Expected: All events' data is deleted.
+
+3. Test case: `clearEvents 1`<br>
+   Expected: All events' data is deleted.
+
+### Clear All Vendor in Storage
+
+1. Prerequisites: Have at least one existing vendor in the system.
+
+2. Test case: `clearVendors`<br>
+   Expected: All vendors' data is deleted.
+
+3. Test case: `clearVendors 1`<br>
+   Expected: All vendors' data is deleted.
+
+### Clear All Venue in Storage
+
+1. Prerequisites: Have at least one existing venue in the system.
+
+2. Test case: `clearVenues`<br>
+   Expected: All venues' data is deleted.
+
+3. Test case: `clearVenues 1`<br>
+   Expected: All venues' data is deleted.
 
 ### Saving data
 
