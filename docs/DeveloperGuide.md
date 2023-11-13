@@ -185,29 +185,76 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Create New Event Feature
+### Create new Person/Event/Vendor/Venue Feature
 
-#### Implementation
+In EventWise, users are able to create a new person, event, vendor and venue instance and are stored in storage.
 
-This feature creates a new event instance and is stored in storage.
-It is implemented by creating `CreateEventCommand` and `CreateEventCommandParser`
-It is then hook to AddressBook where user is able to create a new event by using the event command.
+#### Create a new Person
 
-### Create New Venue Feature
+The feature `add` creates a new `Person` instance. Details that must be provided includes `Name`, `Phone` and `Email`.
 
-#### Implementation
+##### Implementation
 
-This feature creates a new venue instance and is stored in storage.
-It is implemented by creating `CreateVenueCommand` and `CreateVenueCommandParser`
-It is then hook to EventWise where user is able to create a new venue by using the venue command.
+The sequence diagram for the `add` command is given below.
 
-### Create New Vendor Feature
+<img src="images/CreateSequenceDiagram.png" width="550" />
 
-#### Implementation
+1. The `LogicManager` receives an input string to execute. For example, using the sequence diagram above,
+it receives `add n/Tom p/912 e/t@nus.com`
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `AddCommandParser` instance
+4. The `AddressBookParser` then parse the name, phone and email of the user input. In this example, `n/Tom p/912 e/t@nus.com` is the parameter parsed to `AddCommandParser`
+5. The `AddCommandParser` then creates a new Person instance and creates a `AddCommand` object with the newly created `Person` object
+6. This `AddCommand` is then passed back to `LogicManager`
+7. The `LogicManager` then calls the `execute` method in `AddCommand`
+8. The `AddCommand` then interacts with the `Model` instance to add the `Person` object to storage
+9. After adding the `Person` object, the `Model` update the filtered person list which updates the GUI to display the newly created `Person` object
+10. Lastly, The `AddCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
 
-This feature creates a new vendor instance and is stored in storage.
-It is implemented by creating `CreateVendorCommand` and `CreateVendorCommandParser`
-It is then hook to EventWise where user is able to create a new vendor by using the vendor command.
+#### Create a new Event
+
+The feature `event` creates a new `Event` instance. Details that must be provided includes `Name`, `Description`, `FromDate` and `ToDate` and an optional `Note`.
+
+##### Implementation
+
+The sequence diagram for the `event` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `event` implementation is:
+1. An example of the user input for `event` is `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and Drinks provided`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateEventCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateEventCommand`
+4. Instead of parsing the name, phone and email of the user input, the name, description, from date, to date and the optional note will be parsed.
+5. Instead of creating and adding the `Person` object, it will be replaced with `Event` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered event list instead
+
+#### Create a new Vendor
+
+The feature `vendor` creates a new `Vendor` instance. Details that must be provided includes `Name`, `Phone`, `Email`.
+
+##### Implementation
+
+The sequence diagram for the `vendor` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `vendor` implementation is:
+1. An example of the user input for `vendor` is `vendor n/SUN Catering p/64226800 e/catering@sun.com`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateVendorCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateVendorCommand`
+4. In this case, the details that will be parsed from the user input will be the same, which is the name, phone and email
+5. Instead of creating and adding the `Person` object, it will be replaced with `Vendor` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered vendor list instead
+
+#### Create a new Venue
+
+The feature `venue` creates a new `Venue` instance. Details that must be provided includes `Name`, `Address`, `Capacity`.
+
+##### Implementation
+
+The sequence diagram for the `venue` command is similar to the `add` command. Hence, we will be referring to the sequence diagram of the `add` command.
+The difference between the `add` and `venue` implementation is:
+1. An example of the user input for `venue` is `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`
+2. Instead of `AddCommandParser`, it will be replaced with `CreateVenueCommandParser`
+3. Instead of `AddCommand`, it will be replaced with `CreateVenueCommand`
+4. Instead of parsing the name, phone and email of the user input, the name, address and capacity will be parsed.
+5. Instead of creating and adding the `Person` object, it will be replaced with `Venue` object
+6. Instead of the `Model` updating the filtered person list, the `Model` updates the filtered venue list instead
 
 ### Edit Person Feature
 
@@ -490,6 +537,91 @@ The format for this command can be seen [here](./UserGuide.md#locating-events-by
 `LogicManager` calls `AddressBookParser` which creates an instance of a `FindEventCommandParser` to parse user inputs into an array of keywords. An instance of `FindEventCommand` is created, which is then executed by `LogicManager`.
 
 All `Event` instances whose names match the keywords are then listed.
+
+### RSVP feature
+
+In EventWise, users are able to set the RSVP status to indicate their attendance after being added to an event. The feature `rsvp` sets a creates a new `Rsvp` instance. In each `rsvp` instance, it stores the `Person` object, the `Event` object as well as the `RSVP_Status`.
+
+#### Implementation
+
+The sequence diagram for the `rsvp` command is given below.
+
+<img src="images/RSVPSequenceDiagram.png" width="550" />
+
+1. The `LogicManager` receives an input string to execute. For example, using the sequence diagram above,
+   it receives `rsvp eid/1 pid/1 s/CC`
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `RsvpCommandParser` instance
+4. The `AddressBookParser` then parse the `Event ID`, `Person ID` and `RSVP_Status` of the user input. In this example, `eid/1 pid/1 s/CC` is the parameter parsed to `RsvpCommandParser`
+5. The `RsvpCommandParser` then creates a `RSVPCommand` instance with the `Index` value of the `Event_ID` and `Person_ID`. It also provided the `RsvpStatus` object
+6. This `RsvpCommand` is then passed back to `LogicManager`
+7. The `LogicManager` then calls the `execute` method in `RsvpCommand`
+8. The `RsvpCommand` then interacts with the `Model` instance to create a new `Rsvp` object.
+9. The `RsvpCommand` then check whether the `Rsvp` object is valid by checking if the `Person` is attending the `Event`
+8. The `RsvpCommand` then interacts with the `Model` instance again to add the `Rsvp` object to storage
+9. After adding the `Rsvp` object, the `Model` update the filtered RSVP list which updates the GUI to display the newly created `Rsvp` object
+10. Lastly, The `RsvpCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+
+### Clear all Data/Person/Event/Vendor/Venue Feature
+
+In EventWise, users are able to delete all entries in storage and also have the option to delete all entries of `Person`, `Event`, `Vendor`, or `Venue`
+
+#### Clear all Data
+
+The feature `clear` clears all entries in storage
+
+##### Implementation
+
+1. The `LogicManager` receives an input string, `clear` to execute
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `ClearCommand` instance
+4. The `LogicManager` then calls the `execute` method in `ClearCommand`
+5. The `ClearCommand` then interacts with the `Model` instance to create a new empty storage. 
+6. Lastly, The `ClearCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+
+#### Clear all Persons
+
+The feature `clearGuests` clears all `Person` entries in storage
+
+##### Implementation
+
+The implementation of `clearGuests` is similar to `clear`. The difference are:
+1. The user input string is `clearGuests` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearGuestsCommand` instead of `ClearCommand`
+3. The `ClearGuestsComand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Person`
+
+#### Clear all Events
+
+The feature `clearEvents` clears all `Event` entries in storage
+
+##### Implementation
+
+The implementation of `clearEvents` is similar to `clear`. The difference are:
+1. The user input string is `clearEvents` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearEventsCommand` instead of `ClearCommand`
+3. The `ClearEventsCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Event`
+
+#### Clear all Vendors
+
+The feature `clearVendors` clears all `Vendor` entries in storage
+
+##### Implementation
+
+The implementation of `clearVendors` is similar to `clear`. The difference are:
+1. The user input string is `clearVendors` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearVendorsCommand` instead of `ClearCommand`
+3. The `ClearVendorsCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Vendor`
+
+#### Clear all Venues
+
+The feature `clearVenues` clears all `Venue` entries in storage
+
+##### Implementation
+
+The implementation of `clearVenues` is similar to `clear`. The difference are:
+1. The user input string is `clearVenues` instead of `clear`
+2. The `AddressBookParser` creates a new `ClearVenuesCommand` instead of `ClearCommand`
+3. The `ClearVenuesCommand` interacts with the `Model` instance to create a new and empty `ArrayList` of type `Venue`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1159,111 +1291,383 @@ testers are expected to do more *exploratory* testing.
 1. Shutting down
     1. Type `exit` in the app's input box, or click on `file` option on the top menu bar then click exit.
 
+### Creating a person
+1. Test case: `add n/John Doe p/98765432 e/johnd@example.com`<br>
+Expected: New person added: John Doe; Phone: 98765432; Email: johnd@example.com
+
+2. Test case: `add n/@ p/98765432 e/johnd@example.com`<br>
+Expected: No new person created. Status message indicates that Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `add n/John Doe p/a e/johnd@example.com`<br>
+Expected: No new person created. Status message indicates Phone numbers should only contain numbers, and it should be at least 3 digits long
+
+4. Test case: `add n/John Doe p/98765432 e/johnd`<br>
+Expected: No new person created. Status message indicates Emails should be of the format local-part@domain
+
+5. Test case: `add n/John Doe p/98765432 e/johnd@example.com`, followed by `add n/John Doe p/98765432 e/johnd@example.com`
+Expected: No new person created. Status message indicates This person already exists in the address book
+
+### Editing a person
+
+1. Prerequisites: Have at least one existing person in the system. List all persons using the `list` command. 
+
+2. Test case: `edit 1 n/John Smith`<br>
+   Expected: First person's name is changed to John Smith.
+
+3. Test case: `edit 0 n/John Smith`<br>
+   Expected: No person's details will be changed. Error details shown in the status message.
+
+4. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
+
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+2. Test case: `delete 1`<br>
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
 
-    1. Test case: `delete 1`<br>
-        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+3. Test case: `delete 0`<br>
+   Expected: No person is deleted. Error details shown in the status message. 
 
-    1. Test case: `delete 0`<br>
-        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+4. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the persons list size)<br>
+   Expected: Similar to previous.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-        Expected: Similar to previous.
+### Viewing a list of all persons
 
-### View a specific event
+1. Prerequisites: Have at least one existing person in the system.
+
+2. Test case: `list`<br>
+   Expected: All persons listed. 
+
+3. Test case: `list 1`<br>
+   Expected: All persons listed.
+
+### Creating a vendor
+
+1. Test case: `vendor n/SUN Catering p/64226800 e/catering@sun.com`<br>
+   Expected: New vendor added: SUN Catering; Phone: 64226800; Email: catering@sun.com
+
+2. Test case: `vendor n/@ p/64226800 e/catering@sun.com`<br>
+   Expected: No new vendor created. Status message indicates Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `vendor n/SUN Catering p/a e/catering@sun.com`<br>
+   Expected: No new vendor created. Status message indicates Phone numbers should only contain numbers, and it should be at least 3 digits long
+
+4. Test case: `vendor n/SUN Catering p/64226800 e/catering`<br>
+   Expected: No new vendor created. Status message indicates Emails should be of the format local-part@domain
+
+5. Test case: `vendor n/SUN Catering p/64226800 e/catering@sun.com`, followed by `vendor n/SUN Catering p/64226800 e/catering@sun.com`
+   Expected: No new vendor created. Status message indicates This vendor already exists in the address book
+
+### Editing a vendor
+
+1. Prerequisites: Have at least one existing vendor in the system. List all vendors using the `viewVendors` command.
+
+2. Test case: `editVendor vdr/1 n/Wow Food Catering`<br>
+   Expected: First vendor's name is changed to Wow Food Catering.
+
+3. Test case: `editVendor vdr/0 n/Wow Food Catering`<br>
+   Expected: No vendor's details will be changed. Error details shown in the status message.
+
+4. Other incorrect edit commands to try: `editVendor`, `editVendor 1`, `editVendor vdr/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
+
+### Deleting a vendor
+
+1. Prerequisites: List all vendors using the `viewVendors` command. Multiple vendors in the list.
+
+2. Test case: `deleteVendor vdr/1`<br>
+   Expected: First vendor is deleted from the list. Details of the deleted vendor shown in the status message.
+
+3. Test case: `deleteVendor vdr/0`<br>
+   Expected: No vendor is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteVendor`, `deleteVendor 1`, `deleteVendor vdr/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
+
+### Viewing a list of all vendors
+
+1. Prerequisites: Have at least one existing vendor in the system.
+
+2. Test case: `viewVendors`<br>
+   Expected: All vendors listed.
+
+3. Test case: `viewVendors 1`<br>
+   Expected: All vendors listed.
+
+### Creating a venue
+1. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`<br>
+   Expected: New Venue added: MPSH 1; Address: Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077; Capacity: 500
+
+2. Test case: `venue n/@ a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`<br>
+   Expected: No new venue created. Status message indicates Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `venue n/MPSH 1 a/ c/500`<br>
+   Expected: No new venue created. Status message indicates Addresses can take any values, and it should not be blank
+
+4. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/a`<br>
+   Expected: No new venue created. Status message indicates Venue capacity should only contain numbers, and it should be at least 1 digit long
+
+5. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`, followed by `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`
+   Expected: No new venue created. Status message indicates This venue already exists in EventWise
+
+### Editing a venue
+
+1. Prerequisites: Have at least one existing venue in the system. List all venues using the `viewVenues` command.
+
+2. Test case: `editVenue vne/1 n/MPSH5`<br>
+   Expected: First venue's name is changed to MPSH5.
+
+3. Test case: `eeditVenue vne/0 n/MPSH5`<br>
+   Expected: No venue's details will be changed. Error details shown in the status message.
+
+4. Other incorrect edit commands to try: `eeditVenue`, `editVenue 1`, `eeditVenue vne/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
+
+### Deleting a venue
+
+1. Prerequisites: List all venues using the `viewVenues` command. Multiple venues in the list.
+
+2. Test case: `deleteVenue vne/1`<br>
+   Expected: First venue is deleted from the list. Details of the deleted venue shown in the status message.
+
+3. Test case: `deleteVenue vne/0`<br>
+   Expected: No venue is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteVenue`, `deleteVenue 1`, `deleteVenue vne/x` (where x is larger than the venues list size)<br>
+   Expected: Similar to previous.
+
+### Viewing a list of all venues
+
+1. Prerequisites: Have at least one existing venue in the system.
+
+2. Test case: `viewVenues`<br>
+   Expected: All venues listed.
+
+3. Test case: `viewVenues 1`<br>
+   Expected: All venues listed.
+
+### Creating a event
+1. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: New Event added: FSC 2023; Description: Freshman Social Camp 2023; Date: 11-12-2023; Note: Food and drinks are provided
+
+2. Test case: `event n/@ d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: No new event created. Status message indicates Event name should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `event n/FSC 2023 d/@ from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: No new event created. Status message indicates Event description should only contain alphanumeric characters and spaces, and it should not be blank
+
+4. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11/12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: No new event created. Status message indicates Event date should only be in DD-MM-YYYY format and should be either today's date or a future date.
+
+5. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/10-12-2023 no/Food and drinks are provided`<br>
+   Expected: No new event created. Status message indicates To Date entered should be either the same as from date or after.
+
+6. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/@`<br>
+   Expected: No new event created. Status message indicates Event note should only contain alphanumeric characters and spaces.
+
+7. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`, followed by `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`
+   Expected: No new event created. Status message indicates This event already exists in EventWise
+
+### Editing an event
+
+1. Prerequisites: Have at least one existing event in the system. List all persons using the `viewEvents` command.
+
+2. Test case: `editEvent eid/1 n/CS2103 PE`<br>
+   Expected: First event's name is changed to CS2103 PE.
+
+3. Test case: `editEvent eid/0 n/CS2103 PE`<br>
+   Expected: No event's details will be changed. Error details shown in the status message.
+
+4. Other incorrect edit commands to try: `editEvent`, `editEvent 1`, `editEvent eid/x` (where x is larger than the events list size)<br>
+   Expected: Similar to previous.
+
+### Deleting an event
+1. Prerequisites: List all events using the `viewEvents` command. Multiple events in the list.
+
+2. Test case: `deleteEvent eid/1`<br>
+   Expected: First event is deleted from the list. Details of the deleted event shown in the status message.
+
+3. Test case: `deleteEvent eid/0`<br>
+   Expected: No event is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteEvent`, `deleteEvent 1`, `deleteEvent eid/x` (where x is larger than the events list size)<br>
+   Expected: Similar to previous.
+
+### Viewing a specific event
 
 1. Prerequisites: Have existing events in the system.
 
-1. Test case: `viewEvent 1`<br>
-  Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
+2. Test case: `viewEvent 1`<br>
+   Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
 
-1. Test case: `viewEvent 0`<br>
-  Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
+3. Test case: `viewEvent 0`<br>
+   Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
 
-1. Test case: `viewEvent 100`<br>
-  Expected: No event is displayed. Status message indicates that the event index provided is invalid.
+4. Test case: `viewEvent 100`<br>
+   Expected: No event is displayed. Status message indicates that the event index provided is invalid.
 
-1. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
-  Expected: Similar to the previous case.
+5. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
+   Expected: Similar to the previous case.
+
+### Viewing a list of all events
+
+1. Prerequisites: Have at least one existing event in the system.
+
+2. Test case: `viewEvents`<br>
+   Expected: All events listed.
+
+3. Test case: `viewEvents 1`<br>
+   Expected: All events listed.
 
 ### Add Person to Event
 
 1. Prerequisites: Have existing persons and events in the system.
 
-1. Test case: `addEventDetails eid/2 pid/1`<br>
+2. Test case: `addEventDetails eid/2 pid/1`<br>
     Expected: The specified person is added into the persons list of the second event. Details of the addition are shown in the status message.
 
-1. Test case: `addEventDetails eid/2 pid/0`<br>
+3. Test case: `addEventDetails eid/2 pid/0`<br>
     Expected: No person is added. Error details are shown in the status message.
 
-1. Other incorrect add person to event commands to try: `addEventDetails eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+4. Other incorrect add person to event commands to try: `addEventDetails eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
     Expected: Similar to the previous case.
 
 ### Add Vendor to Event
 
 1. Prerequisites: Have existing vendors and events in the system.
 
-1. Test case: `addEventDetails eid/3 vdr/1`<br>
+2. Test case: `addEventDetails eid/3 vdr/1`<br>
     Expected: The specified vendor is added into the vendors list of the third event. Details of the addition are shown in the status message.
 
-1. Test case: `addEventDetails eid/2 vdr/0`<br>
+3. Test case: `addEventDetails eid/2 vdr/0`<br>
     Expected: No vendor is added. Error details are shown in the status message.
 
-1. Other incorrect add vendor to event commands to try: `add vendor x to event y` (where x or y is larger than the respective list sizes)<br>
+4. Other incorrect add vendor to event commands to try: `add vendor x to event y` (where x or y is larger than the respective list sizes)<br>
     Expected: Similar to the previous case.
 
 ### Set Venue to Event
 
 1. Prerequisites: Have existing venues and events in the system.
 
-1. Test case: `addEventDetails eid/2 vne/1`<br>
+2. Test case: `addEventDetails eid/2 vne/1`<br>
   Expected: The specified venue is set as the venue of the second event. Details of the changes are shown in the status message.
 
-1. Test case: `addEventDetails eid/2 vne/0`<br>
+3. Test case: `addEventDetails eid/2 vne/0`<br>
   Expected: No venue set to the event. If the event has an existing venue, the existing venue remains. Error details are shown in the status message.
 
-1. Other incorrect set venue to event commands to try: `addEventDetails eid/x vne/y` (where x or y is larger than the respective list sizes)<br>
+4. Other incorrect set venue to event commands to try: `addEventDetails eid/x vne/y` (where x or y is larger than the respective list sizes)<br>
   Expected: Similar to the previous case.
 
 ### Remove Person from Event
 
 1. Prerequisites: Have existing persons and events in the system with at least one person in an event.
 
-1. Test case: `removePerson eid/3 pid/1`<br>
+2. Test case: `removePerson eid/3 pid/1`<br>
   Expected: The specified person is removed from the third event. Details of the removal are shown in the status message.
 
-1. Test case: `removePerson eid/2 pid/0`<br>
+3. Test case: `removePerson eid/2 pid/0`<br>
   Expected: No person is removed. Error details are shown in the status message.
 
-1. Other incorrect remove person from event commands to try: `removePerson eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
+4. Other incorrect remove person from event commands to try: `removePerson eid/x pid/y` (where x or y is larger than the respective list sizes)<br>
   Expected: Similar to the previous case.
 
 ### Remove Vendor from Event
 
 1. Prerequisites: Have existing vendors and events in the system with at least one vendor in an event.
 
-1. Test case: `removeVendor eid/2 vdr/1`<br>
+2. Test case: `removeVendor eid/2 vdr/1`<br>
   Expected: The specified vendor is removed from the second event. Details of the removal are shown in the status message.
 
-1. Test case: `removeVendor eid/1 vdr/0`<br>
+3. Test case: `removeVendor eid/1 vdr/0`<br>
   Expected: No vendor is removed. Error details are shown in the status message.
 
-1. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
+4. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
   Expected: Similar to the previous case.
+
+### Set RSVP status
+
+1. Prerequisites: Have existing persons and events in the system with at least one person in an event.
+
+2. Test case: `rsvp eid/1 pid/1 s/CC`<br>
+   Expected: The RSVP status of the specified person in the specific event will be updated. Details of the update are shown in the status message.
+
+3. Test case: `rsvp eid/1 pid/0 s/CC`<br>
+   Expected: No RSVP status is updated. Status message indicates that the index is supposed to be a non-zero unsigned integer.
+
+4. Test case: `rsvp eid/1 pid/1 s/ABC`<br>
+   Expected: No RSVP status is updated. Status message indicates that the value of RSVP status can only be CC,CCC or TBC
+
+5. Other incorrect rsvp commands to try: `removeVendor eid/x vdr/y s/CC` (where y is person id that does not belong to event id x)<br>
+   Expected: No RSVP status is updated. Status message indicates that the person has not been added to the event.
+
+### Clear All Data in Storage
+
+1. Prerequisites: Have at least one existing Person/Event/Vendor/Venue in the system.
+
+2. Test case: `clear`<br>
+   Expected: All data is deleted.
+
+3. Test case: `clear 1`<br>
+   Expected: All data is deleted.
+
+### Clear All Person in Storage
+
+1. Prerequisites: Have at least one existing person in the system.
+
+2. Test case: `clearGuests`<br>
+   Expected: All persons' data is deleted.
+
+3. Test case: `clearGuests 1`<br>
+   Expected: All persons' data is deleted.
+
+### Clear All Event in Storage
+
+1. Prerequisites: Have at least one existing event in the system.
+
+2. Test case: `clearEvents`<br>
+   Expected: All events' data is deleted.
+
+3. Test case: `clearEvents 1`<br>
+   Expected: All events' data is deleted.
+
+### Clear All Vendor in Storage
+
+1. Prerequisites: Have at least one existing vendor in the system.
+
+2. Test case: `clearVendors`<br>
+   Expected: All vendors' data is deleted.
+
+3. Test case: `clearVendors 1`<br>
+   Expected: All vendors' data is deleted.
+
+### Clear All Venue in Storage
+
+1. Prerequisites: Have at least one existing venue in the system.
+
+2. Test case: `clearVenues`<br>
+   Expected: All venues' data is deleted.
+
+3. Test case: `clearVenues 1`<br>
+   Expected: All venues' data is deleted.
 
 ### Saving data
 
 1. Dealing with missing data files
+<<<<<<< HEAD
     1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
     1. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
+=======
 
-1. Dealing with corrupted data files
+    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
+    2. To simulate a missing file, delete `data/addressbook.json` file before running the app.
+    3. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
+>>>>>>> f14de3649ee2b0bc607bb2cbdaf8fc1eceb1d6ea
+
+2. Dealing with corrupted data files
     1. To simulate a corrupted file, edit the `data/addressbook.json` file such that it does not follow the proper json format before running the app.
-    1. Expected Behaviour: The app will not list any events, persons, vendors or venues. It will clear all events, persons, vendors or venues in `data/addressbook.json` when a user enters a valid command.
+    2. Expected Behaviour: The app will not list any events, persons, vendors or venues. It will clear all events, persons, vendors or venues in `data/addressbook.json` when a user enters a valid command.
 
 
 ## Planned Enhancements

@@ -69,6 +69,10 @@ public class Messages {
                 .append(event.getDescription())
                 .append("; Date: ")
                 .append(event.getFromDate());
+        if (event.getNote() != null) {
+            builder.append("; Note: ")
+                    .append(event.getNote());
+        }
         return builder.toString();
     }
 
