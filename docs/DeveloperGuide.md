@@ -1160,94 +1160,122 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing a person
 
-1. Editing a person while all persons are being shown using `list` command.
+1. Prerequisites: Have at least one existing person in the system. List all persons using the `list` command. 
 
-    1. Prerequisites: Have at least one existing person in the system. List all persons using the `list` command. 
+2. Test case: `edit 1 n/John Smith`<br>
+   Expected: First person's name is changed to John Smith.
 
-    2. Test case: `edit 1 n/John Smith`<br>
-       Expected: First person's name is changed to John Smith.
+3. Test case: `edit 0 n/John Smith`<br>
+   Expected: No person's details will be changed. Error details shown in the status message.
 
-    3. Test case: `edit 0 n/John Smith`<br>
-       Expected: No person's details will be changed. Error details shown in the status message.
-
-    4. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+4. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+2. Test case: `delete 1`<br>
+    Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
 
-    2. Test case: `delete 1`<br>
-        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+3. Test case: `delete 0`<br>
+    Expected: No person is deleted. Error details shown in the status message. 
 
-    3. Test case: `delete 0`<br>
-        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the persons list size)<br>
-        Expected: Similar to previous.
+4. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the persons list size)<br>
+    Expected: Similar to previous.
 
 ### Editing a vendor
 
-1. Editing a vendor while all vendors are being shown using `viewVendors` command.
+1. Prerequisites: Have at least one existing vendor in the system. List all vendors using the `viewVendors` command.
 
-    1. Prerequisites: Have at least one existing vendor in the system. List all vendors using the `viewVendors` command.
+2. Test case: `editVendor vdr/1 n/Wow Food Catering`<br>
+   Expected: First vendor's name is changed to Wow Food Catering.
 
-    2. Test case: `editVendor vdr/1 n/Wow Food Catering`<br>
-       Expected: First vendor's name is changed to Wow Food Catering.
+3. Test case: `editVendor vdr/0 n/Wow Food Catering`<br>
+   Expected: No vendor's details will be changed. Error details shown in the status message.
 
-    3. Test case: `editVendor vdr/0 n/Wow Food Catering`<br>
-       Expected: No vendor's details will be changed. Error details shown in the status message.
+4. Other incorrect edit commands to try: `editVendor`, `editVendor 1`, `editVendor vdr/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
 
-    4. Other incorrect edit commands to try: `editVendor`, `editVendor 1`, `editVendor vdr/x` (where x is larger than the vendors list size)<br>
-       Expected: Similar to previous.
+### Deleting a vendor
+
+1. Prerequisites: List all vendors using the `viewVendors` command. Multiple vendors in the list.
+
+2. Test case: `deleteVendor vdr/1`<br>
+   Expected: First vendor is deleted from the list. Details of the deleted vendor shown in the status message.
+
+3. Test case: `deleteVendor vdr/0`<br>
+   Expected: No vendor is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteVendor`, `deleteVendor 1`, `deleteVendor vdr/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
 
 ### Editing a venue
 
-1. Editing a venue while all venues are being shown using `viewVenues` command.
+1. Prerequisites: Have at least one existing venue in the system. List all venues using the `viewVenues` command.
 
-    1. Prerequisites: Have at least one existing venue in the system. List all venues using the `viewVenues` command.
+2. Test case: `editVenue vne/1 n/MPSH5`<br>
+   Expected: First venue's name is changed to MPSH5.
 
-    2. Test case: `editVenue vne/1 n/MPSH5`<br>
-       Expected: First venue's name is changed to MPSH5.
+3. Test case: `eeditVenue vne/0 n/MPSH5`<br>
+   Expected: No venue's details will be changed. Error details shown in the status message.
 
-    3. Test case: `eeditVenue vne/0 n/MPSH5`<br>
-       Expected: No venue's details will be changed. Error details shown in the status message.
+4. Other incorrect edit commands to try: `eeditVenue`, `editVenue 1`, `eeditVenue vne/x` (where x is larger than the vendors list size)<br>
+   Expected: Similar to previous.
 
-    4. Other incorrect edit commands to try: `eeditVenue`, `eeditVenue 1`, `eeditVenue vne/x` (where x is larger than the vendors list size)<br>
-       Expected: Similar to previous.
+### Deleting a venue
+
+1. Prerequisites: List all venues using the `viewVenues` command. Multiple venues in the list.
+
+2. Test case: `deleteVenue vne/1`<br>
+   Expected: First venue is deleted from the list. Details of the deleted venue shown in the status message.
+
+3. Test case: `deleteVenue vne/0`<br>
+   Expected: No venue is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteVenue`, `deleteVenue 1`, `deleteVenue vne/x` (where x is larger than the venues list size)<br>
+   Expected: Similar to previous.
 
 ### View a specific event
 
 1. Prerequisites: Have existing events in the system.
 
-1. Test case: `viewEvent 1`<br>
-  Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
+2. Test case: `viewEvent 1`<br>
+   Expected: Information about the first event are displayed on the event details segment. Status message indicates that the first event is being shown.
 
-1. Test case: `viewEvent 0`<br>
-  Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
+3. Test case: `viewEvent 0`<br>
+   Expected: No event is displayed. Status message indicates that the index is a non-zero unsigned integer. (Note: this error message will appear when the index provided is greater than the maximum signed integer value i.e. 2,147,483,647)
 
-1. Test case: `viewEvent 100`<br>
-  Expected: No event is displayed. Status message indicates that the event index provided is invalid.
+4. Test case: `viewEvent 100`<br>
+   Expected: No event is displayed. Status message indicates that the event index provided is invalid.
 
-1. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
-  Expected: Similar to the previous case.
+5. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
+   Expected: Similar to the previous case.
 
 ### Editing an event
 
-1. Editing an event while all events are being shown using `viewEvents` command.
+1. Prerequisites: Have at least one existing event in the system. List all persons using the `viewEvents` command.
 
-    1. Prerequisites: Have at least one existing event in the system. List all persons using the `viewEvents` command.
+2. Test case: `editEvent eid/1 n/CS2103 PE`<br>
+   Expected: First event's name is changed to CS2103 PE.
 
-    2. Test case: `editEvent eid/1 n/CS2103 PE`<br>
-       Expected: First event's name is changed to CS2103 PE.
+3. Test case: `editEvent eid/0 n/CS2103 PE`<br>
+   Expected: No event's details will be changed. Error details shown in the status message.
 
-    3. Test case: `editEvent eid/0 n/CS2103 PE`<br>
-       Expected: No event's details will be changed. Error details shown in the status message.
+4. Other incorrect edit commands to try: `editEvent`, `editEvent 1`, `editEvent eid/x` (where x is larger than the events list size)<br>
+   Expected: Similar to previous.
 
-    4. Other incorrect edit commands to try: `editEvent`, `editEvent 0`, `editEvent eid/x` (where x is larger than the events list size)<br>
-       Expected: Similar to previous.
+### Deleting an event
+1. Prerequisites: List all events using the `viewEvents` command. Multiple events in the list.
+
+2. Test case: `deleteEvent eid/1`<br>
+   Expected: First event is deleted from the list. Details of the deleted event shown in the status message.
+
+3. Test case: `deleteEvent eid/0`<br>
+   Expected: No event is deleted. Error details shown in the status message.
+
+4. Other incorrect delete commands to try: `deleteEvent`, `deleteEvent 1`, `deleteEvent eid/x` (where x is larger than the events list size)<br>
+   Expected: Similar to previous.
 
 ### Add Person to Event
 
