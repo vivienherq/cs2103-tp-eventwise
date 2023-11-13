@@ -1655,15 +1655,8 @@ Expected: No new person created. Status message indicates This person already ex
 ### Saving data
 
 1. Dealing with missing data files
-<<<<<<< HEAD
     1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
-    1. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
-=======
-
-    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
-    2. To simulate a missing file, delete `data/addressbook.json` file before running the app.
-    3. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
->>>>>>> f14de3649ee2b0bc607bb2cbdaf8fc1eceb1d6ea
+    2. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
 
 2. Dealing with corrupted data files
     1. To simulate a corrupted file, edit the `data/addressbook.json` file such that it does not follow the proper json format before running the app.
