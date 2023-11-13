@@ -141,10 +141,10 @@ public class UniqueEventListTest {
     @Test
     public void setEvents_uniqueEventList_replacesOwnListWithProvidedUniqueEventList() {
         uniqueEventList.add(FSC);
-        UniqueEventList expectedUniquePersonList = new UniqueEventList();
-        expectedUniquePersonList.add(FOC);
-        uniqueEventList.setEvents(expectedUniquePersonList);
-        assertEquals(expectedUniquePersonList, uniqueEventList);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(FOC);
+        uniqueEventList.setEvents(expectedUniqueEventList);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
     }
 
     @Test
