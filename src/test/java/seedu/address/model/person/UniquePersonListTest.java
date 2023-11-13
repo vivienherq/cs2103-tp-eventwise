@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -169,5 +170,15 @@ public class UniquePersonListTest {
     @Test
     public void toStringMethod() {
         assertEquals(uniquePersonList.asUnmodifiableObservableList().toString(), uniquePersonList.toString());
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        UniquePersonList list1 = new UniquePersonList();
+        UniquePersonList list2 = new UniquePersonList();
+        UniquePersonList list3 = new UniquePersonList();
+        list1.add(ALICE);
+        assertEquals(list2, list3);
+        assertNotEquals(list1, list3);
     }
 }

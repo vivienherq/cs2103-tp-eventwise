@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -15,8 +16,8 @@ public class FromDateTest {
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
-        String invalidName = "abc";
-        assertThrows(IllegalArgumentException.class, () -> new FromDate(invalidName));
+        String invalidDate = "abc";
+        assertThrows(IllegalArgumentException.class, () -> new FromDate(invalidDate));
     }
 
     @Test
@@ -24,13 +25,13 @@ public class FromDateTest {
         // null name
         assertThrows(NullPointerException.class, () -> FromDate.isValidDate(null));
 
-        // invalid name
+        // invalid date
         assertFalse(FromDate.isValidDate("2000/01/01")); // YYYY/MM/DD
         assertFalse(FromDate.isValidDate("12/15/2000")); // MM/DD/YYYY
         assertFalse(FromDate.isValidDate("29/02/2001")); // non leap year date
         assertFalse(FromDate.isValidDate("32/03/2000")); // invalid date
 
-        // valid name
+        // valid date
         assertTrue(FromDate.isValidDate("01/01/2000")); // valid date
         assertTrue(FromDate.isValidDate("29/02/2000")); // leap year date
         assertTrue(FromDate.isValidDate("15/01/1800")); // past date
@@ -62,5 +63,12 @@ public class FromDateTest {
         FromDate fromDate = new FromDate("01/01/2000");
         assertTrue(fromDate.toString().equals("01/01/2000"));
         assertFalse(fromDate.toString().equals("Invalid Date"));
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        FromDate fromDate = new FromDate("11-11-2023");
+        FromDate sameFromDate = new FromDate("11-11-2023");
+        assertEquals(fromDate.hashCode(), sameFromDate.hashCode());
     }
 }

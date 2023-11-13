@@ -2,6 +2,7 @@ package seedu.address.model.vendor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_EMAIL_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_FOOD;
@@ -80,5 +81,11 @@ public class VendorTest {
         String expected = Vendor.class.getCanonicalName() + "{name=" + DRINKS.getName() + ", phone=" + DRINKS.getPhone()
                 + ", email=" + DRINKS.getEmail() + "}";
         assertEquals(expected, DRINKS.toString());
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        assertEquals(DRINKS.hashCode(), DRINKS.hashCode());
+        assertNotEquals(DRINKS.hashCode(), FOOD.hashCode());
     }
 }
