@@ -1158,20 +1158,65 @@ testers are expected to do more *exploratory* testing.
 1. Shutting down
     1. Type `exit` in the app's input box, or click on `file` option on the top menu bar then click exit.
 
+### Editing a person
+
+1. Editing a person while all persons are being shown using `list` command.
+
+    1. Prerequisites: Have at least one existing person in the system. List all persons using the `list` command. 
+
+    2. Test case: `edit 1 n/John Smith`<br>
+       Expected: First person's name is changed to John Smith.
+
+    3. Test case: `edit 0 n/John Smith`<br>
+       Expected: No person's details will be changed. Error details shown in the status message.
+
+    4. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete 1`<br>
+    2. Test case: `delete 1`<br>
         Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    3. Test case: `delete 0`<br>
         Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the persons list size)<br>
         Expected: Similar to previous.
+
+### Editing a vendor
+
+1. Editing a vendor while all vendors are being shown using `viewVendors` command.
+
+    1. Prerequisites: Have at least one existing vendor in the system. List all vendors using the `viewVendors` command.
+
+    2. Test case: `editVendor vdr/1 n/Wow Food Catering`<br>
+       Expected: First vendor's name is changed to Wow Food Catering.
+
+    3. Test case: `editVendor vdr/0 n/Wow Food Catering`<br>
+       Expected: No vendor's details will be changed. Error details shown in the status message.
+
+    4. Other incorrect edit commands to try: `editVendor`, `editVendor 1`, `editVendor vdr/x` (where x is larger than the vendors list size)<br>
+       Expected: Similar to previous.
+
+### Editing a venue
+
+1. Editing a venue while all venues are being shown using `viewVenues` command.
+
+    1. Prerequisites: Have at least one existing venue in the system. List all venues using the `viewVenues` command.
+
+    2. Test case: `editVenue vne/1 n/MPSH5`<br>
+       Expected: First venue's name is changed to MPSH5.
+
+    3. Test case: `eeditVenue vne/0 n/MPSH5`<br>
+       Expected: No venue's details will be changed. Error details shown in the status message.
+
+    4. Other incorrect edit commands to try: `eeditVenue`, `eeditVenue 1`, `eeditVenue vne/x` (where x is larger than the vendors list size)<br>
+       Expected: Similar to previous.
 
 ### View a specific event
 
@@ -1188,6 +1233,21 @@ testers are expected to do more *exploratory* testing.
 
 1. Other incorrect view event commands to try: `viewEvent`, `viewEvent x`, `...` (where x is larger than the number of events but smaller than the maximum signed integer value)<br>
   Expected: Similar to the previous case.
+
+### Editing an event
+
+1. Editing an event while all events are being shown using `viewEvents` command.
+
+    1. Prerequisites: Have at least one existing event in the system. List all persons using the `viewEvents` command.
+
+    2. Test case: `editEvent eid/1 n/CS2103 PE`<br>
+       Expected: First event's name is changed to CS2103 PE.
+
+    3. Test case: `editEvent eid/0 n/CS2103 PE`<br>
+       Expected: No event's details will be changed. Error details shown in the status message.
+
+    4. Other incorrect edit commands to try: `editEvent`, `editEvent 0`, `editEvent eid/x` (where x is larger than the events list size)<br>
+       Expected: Similar to previous.
 
 ### Add Person to Event
 
