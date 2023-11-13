@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -24,12 +21,14 @@ public class CreateEventCommand extends Command {
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_DESC + "DESCRIPTION "
             + PREFIX_EVENT_FROM + "DATE "
-            + PREFIX_EVENT_TO + "DATE \n"
+            + PREFIX_EVENT_TO + "DATE ["
+            + PREFIX_EVENT_NOTE + "NOTE]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME + "FSC 2023 "
             + PREFIX_EVENT_DESC + "Freshman Social Camp 2023 "
             + PREFIX_EVENT_FROM + "11-12-2023 "
-            + PREFIX_EVENT_TO + "13-12-2023";
+            + PREFIX_EVENT_TO + "13-12-2023 "
+            + PREFIX_EVENT_NOTE + "Food and drinks are provided";
 
     public static final String MESSAGE_SUCCESS = "New Event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in EventWise";

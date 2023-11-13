@@ -1290,6 +1290,22 @@ testers are expected to do more *exploratory* testing.
 1. Shutting down
     1. Type `exit` in the app's input box, or click on `file` option on the top menu bar then click exit.
 
+### Creating a person
+1. Test case: `add n/John Doe p/98765432 e/johnd@example.com`<br>
+Expected: New person added: John Doe; Phone: 98765432; Email: johnd@example.com
+
+2. Test case: `add n/@ p/98765432 e/johnd@example.com`<br>
+Expected: Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `add n/John Doe p/a e/johnd@example.com`<br>
+Expected: Phone numbers should only contain numbers, and it should be at least 3 digits long
+
+4. Test case: `add n/John Doe p/98765432 e/johnd`<br>
+Expected: Emails should be of the format local-part@domain
+
+5. Test case: `add n/John Doe p/98765432 e/johnd@example.com`, followed by `add n/John Doe p/98765432 e/johnd@example.com`
+Expected: This person already exists in the address book
+
 ### Editing a person
 
 1. Prerequisites: Have at least one existing person in the system. List all persons using the `list` command. 
@@ -1325,6 +1341,22 @@ testers are expected to do more *exploratory* testing.
 
 3. Test case: `list 1`<br>
    Expected: All persons listed.
+
+### Creating a vendor
+1. Test case: `vendor n/SUN Catering p/64226800 e/catering@sun.com`<br>
+   Expected: New vendor added: SUN Catering; Phone: 64226800; Email: catering@sun.com
+
+2. Test case: `vendor n/@ p/64226800 e/catering@sun.com`<br>
+   Expected: Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `vendor n/SUN Catering p/a e/catering@sun.com`<br>
+   Expected: Phone numbers should only contain numbers, and it should be at least 3 digits long
+
+4. Test case: `vendor n/SUN Catering p/64226800 e/catering`<br>
+   Expected: Emails should be of the format local-part@domain
+
+5. Test case: `vendor n/SUN Catering p/64226800 e/catering@sun.com`, followed by `vendor n/SUN Catering p/64226800 e/catering@sun.com`
+   Expected: This vendor already exists in the address book
 
 ### Editing a vendor
 
@@ -1362,6 +1394,22 @@ testers are expected to do more *exploratory* testing.
 3. Test case: `viewVendors 1`<br>
    Expected: All vendors listed.
 
+### Creating a venue
+1. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`<br>
+   Expected: New Venue added: MPSH 1; Address: Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077; Capacity: 500
+
+2. Test case: `venue n/@ a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`<br>
+   Expected: Names should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `venue n/MPSH 1 a/ c/500`<br>
+   Expected: Addresses can take any values, and it should not be blank
+
+4. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/a`<br>
+   Expected: Venue capacity should only contain numbers, and it should be at least 1 digit long
+
+5. Test case: `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`, followed by `venue n/MPSH 1 a/Multipurpose Sports Hall 1, Sports and Recreation Centre, 119077 c/500`
+   Expected: This venue already exists in EventWise
+
 ### Editing a venue
 
 1. Prerequisites: Have at least one existing venue in the system. List all venues using the `viewVenues` command.
@@ -1397,6 +1445,28 @@ testers are expected to do more *exploratory* testing.
 
 3. Test case: `viewVenues 1`<br>
    Expected: All venues listed.
+
+### Creating a event
+1. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: New Event added: FSC 2023; Description: Freshman Social Camp 2023; Date: 11-12-2023; Note: Food and drinks are provided
+
+2. Test case: `event n/@ d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: Event name should only contain alphanumeric characters and spaces, and it should not be blank
+
+3. Test case : `event n/FSC 2023 d/@ from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: Event description should only contain alphanumeric characters and spaces, and it should not be blank
+
+4. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11/12-2023 to/13-12-2023 no/Food and drinks are provided`<br>
+   Expected: Event date should only be in DD-MM-YYYY format and should be either today's date or a future date.
+
+5. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/10-12-2023 no/Food and drinks are provided`<br>
+   Expected: To Date entered should be either the same as from date or after.
+
+6. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/@`<br>
+   Expected: Event note should only contain alphanumeric characters and spaces.
+
+7. Test case: `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`, followed by `event n/FSC 2023 d/Freshman Social Camp 2023 from/11-12-2023 to/13-12-2023 no/Food and drinks are provided`
+   Expected: This event already exists in EventWise
 
 ### Editing an event
 
