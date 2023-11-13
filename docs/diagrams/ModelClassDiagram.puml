@@ -13,12 +13,54 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class Tag
+Class person.Person
+Class person.Email
+Class person.Name
+Class person.Phone
+
+person.Person *--> person.Name
+person.Person *--> person.Phone
+person.Person *--> person.Email
+
+Class UniqueEventList
+Class event.Event
+Class event.Description
+Class event.Name
+Class event.FromDate
+Class event.ToDate
+Class event.Note
+
+event.Event *--> event.Name
+event.Event *--> event.Description
+event.Event *--> event.FromDate
+event.Event *--> event.ToDate
+event.Event *--> event.Note
+
+Class UniqueVendorList
+Class vendor.Vendor
+Class vendor.Email
+Class vendor.Name
+Class vendor.Phone
+
+vendor.Vendor *--> vendor.Name
+vendor.Vendor *--> vendor.Phone
+vendor.Vendor *--> vendor.Email
+
+Class UniqueVenueList
+Class venue.Venue
+Class venue.Address
+Class venue.Name
+Class venue.Capacity
+
+venue.Venue *--> venue.Name
+venue.Venue *--> venue.Address
+venue.Venue *--> venue.Capacity
+
+Class UniqueRsvpList
+Class rsvp.Rsvp
+Class rsvp.RsvpStatus
+
+rsvp.Rsvp *--> rsvp.RsvpStatus
 
 Class I #FFFFFF
 }
@@ -37,18 +79,41 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
 ModelManager --> "~* filtered" Person
+AddressBook *--> "1" UniqueEventList
+UniqueEventList --> "~* all" Event
+
+Event -[hidden]up--> I
+UniqueEventList -[hidden]right-> I
+
+ModelManager --> "~* filtered" Event
+
+AddressBook *--> "1" UniqueVendorList
+UniqueVendorList --> "~* all" Vendor
+
+Vendor -[hidden]up--> I
+UniqueVendorList -[hidden]right-> I
+
+ModelManager --> "~* filtered" Vendor
+
+AddressBook *--> "1" UniqueVenueList
+UniqueVenueList --> "~* all" Venue
+
+Venue -[hidden]up--> I
+UniqueVenueList -[hidden]right-> I
+
+ModelManager --> "~* filtered" Venue
+
+AddressBook *--> "1" UniqueRsvpList
+UniqueRsvpList --> "~* all" Rsvp
+
+Rsvp -[hidden]up--> I
+UniqueRsvpList -[hidden]right-> I
+
+ModelManager --> "~* filtered" Rsvp
+
 @enduml
