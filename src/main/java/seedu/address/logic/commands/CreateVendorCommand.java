@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.vendor.Vendor;
 
 /**
- * Adds a person to the address book.
+ * Adds a vendor to the address book.
  */
 public class CreateVendorCommand extends Command {
 

@@ -13,7 +13,7 @@ import seedu.address.model.rsvp.RsvpContainsEventPredicate;
 import seedu.address.model.rsvp.RsvpStatus;
 
 /**
- * Update the RSVP of a person for an event in the address book.
+ * Represent a command to update the RSVP status of a person for an event in the address book.
  */
 public class RsvpCommand extends Command {
     public static final String COMMAND_WORD = "rsvp";
@@ -37,7 +37,11 @@ public class RsvpCommand extends Command {
     private final RsvpStatus rsvpStatus;
 
     /**
-     * Creates an RSVPCommand to set the specified {@code RSVP}
+     * Constructs an {@code RsvpCommand} to set the RSVP status for a person in an event.
+     *
+     * @param eventIndex The index of the event in the address book.
+     * @param personIndex The index of the person in the address book.
+     * @param rsvpStatus The RSVP status to be set for the person in the event.
      */
     public RsvpCommand(Index eventIndex, Index personIndex, RsvpStatus rsvpStatus) {
         requireNonNull(eventIndex);
@@ -52,9 +56,11 @@ public class RsvpCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Rsvp rsvp = model.createRsvp(eventIndex, personIndex, rsvpStatus);
+        // Check whether the event and person index is in the address book.
         if (rsvp == null) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
+        // Check whether the person has been added to the event.
         if (!model.isValidRsvp(rsvp)) {
             throw new CommandException(
                     String.format(MESSAGE_PERSON_NOT_IN_EVENT, rsvp.getPersonName(), rsvp.getEventName()));

@@ -26,8 +26,8 @@ import seedu.address.model.event.ToDate;
 public class CreateEventCommandParser implements Parser<CreateEventCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CreateEventCommand
+     * and returns an CreateEventCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateEventCommand parse(String args) throws ParseException {

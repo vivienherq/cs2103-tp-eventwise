@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * View a list of all events in EventWise
+ * View a list of all venues in EventWise
  */
 public class ViewVenuesCommand extends Command {
 

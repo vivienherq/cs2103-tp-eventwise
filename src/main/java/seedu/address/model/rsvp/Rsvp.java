@@ -18,7 +18,12 @@ public class Rsvp {
     private RsvpStatus rsvpStatus;
 
     /**
+     * Constructs a {@code Rsvp} with the specified event, person, and RSVP status.
      * Every field must be present and not null.
+     *
+     * @param event      The event associated with the RSVP.
+     * @param person     The person who is RSVPing.
+     * @param rsvpStatus The RSVP status of the person for the event.
      */
     public Rsvp(Event event, Person person, RsvpStatus rsvpStatus) {
         requireAllNonNull(event, person, rsvpStatus);
@@ -40,7 +45,11 @@ public class Rsvp {
     }
 
     /**
-     * Returns true if both rsvp have the same event and person.
+     * Checks if two RSVPs are the same, based on the event and person.
+     * Two RSVPs are considered the same if they have the same event and person.
+     *
+     * @param otherRsvp The other RSVP to compare with.
+     * @return True if both RSVPs have the same event and person, false otherwise.
      */
     public boolean isSameRsvp(Rsvp otherRsvp) {
         if (otherRsvp == this) {
@@ -52,7 +61,7 @@ public class Rsvp {
                 && otherRsvp.getPerson().equals(getPerson());
     }
 
-    // To Resolve Law of Demeter.
+    // The following three methods are to resolve Law of Demeter.
     public Name getPersonName() {
         return person.getName();
     }
@@ -65,14 +74,12 @@ public class Rsvp {
         return event.getPersons();
     }
 
-    //For testing
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Rsvp)) {
             return false;
         }

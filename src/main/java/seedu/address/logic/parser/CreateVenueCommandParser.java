@@ -20,8 +20,8 @@ import seedu.address.model.venue.Venue;
 public class CreateVenueCommandParser implements Parser<CreateVenueCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CreateVenueCommand
+     * and returns an CreateVenueCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateVenueCommand parse(String args) throws ParseException {

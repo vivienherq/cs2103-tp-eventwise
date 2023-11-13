@@ -15,6 +15,11 @@ public enum RsvpStatus {
 
     private final String status;
 
+    /**
+     * Constructs an RsvpStatus with the specified status.
+     *
+     * @param status The description of the RSVP status.
+     */
     RsvpStatus(String status) {
         this.status = status;
     }
@@ -23,6 +28,13 @@ public enum RsvpStatus {
         return this.status;
     }
 
+    /**
+     * Returns the corresponding {@code RsvpStatus} for the given status string.
+     *
+     * @param status The status string to be converted into an RsvpStatus.
+     * @return The {@code RsvpStatus} that corresponds to the given status string.
+     * @throws ParseException If the given status string does not match any RsvpStatus.
+     */
     public static RsvpStatus getRsvpStatus(String status) throws ParseException {
         for (RsvpStatus rsvpStatus : RsvpStatus.values()) {
             if (rsvpStatus.name().equals(status)) {
