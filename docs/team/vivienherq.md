@@ -21,7 +21,7 @@ Given below are my contributions to the project.
   * Justification: This feature allows the user to delete events that they no longer want to plan and thus no longer need to be on the app.
 
 * **New Feature**: Added the ability to add venues `venue` [\#63](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/63)
-  * What it does: allows the user to add a new venue and its details (name, address, capacity). 
+  * What it does: allows the user to add a new venue and its details (name, address, capacity).
   * Justification: This feature allows the user to add venues to the app, and keep track of the basic details of the venue such as name, address and capacity, which can later be added to events.
 
 * **New Feature**: Added the ability to edit a venue `editVenue` [\#93](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/93)

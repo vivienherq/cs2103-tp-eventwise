@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes DeleteVendorCommand;
+if () then ([all parameters are valid])
+  :Delete Vendor from model;
+  if () then ([Deleted Vendor is part of one or more Event])
+    :Delete Vendor from Event;
+    :Create edited Event;
+    :Update Event in Model;
+  else ([else]))
+  stop
+  endif
+else ([else])
+  :Error: Invalid command format;
+  stop
+endif
+
+stop
+
+@enduml
