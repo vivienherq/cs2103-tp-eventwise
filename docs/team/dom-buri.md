@@ -31,7 +31,7 @@ Given below are my contributions to the project.
   * Justification: Enhances EventWise’s functionality by enabling users to set and track the RSVP statuses
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=dom-buri&breakdown=true)
-* **Enhancements implemented**: 
+* **Enhancements implemented**:
   * Updated `help` command (PR [#59](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/59))
     * to include URL to EventWise product website
 * **Documentation**:

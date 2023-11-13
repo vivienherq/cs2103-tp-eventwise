@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes EditVendorCommand;
+if () then ([all parameters are valid])
+  :Get Vendor to edit;
+  :Create edited Vendor;
+  :Update Vendor in model;
+  if () then ([Vendor to edit is part of one or more Event])
+    :Replace Vendor in event with edited Vendor;
+    :Create edited Event;
+    :Update Event in Model;
+  else ([else]))
+  stop
+  endif
+else ([else])
+  :Error: Invalid command format;
+  stop
+endif
+
+stop
+
+@enduml
