@@ -316,7 +316,7 @@ The following sequence diagram shows how this feature works:
 ### Edit Event Feature
 
 The feature `editEvent` edits the details of an existing Event instance.
-Details that can be edited include `Name`, `Description`, `From Date`, `To Date`.
+Details that can be edited include `Name`, `Description`, `From Date`, `To Date`, `Note`.
 
 #### Implementation
 
@@ -594,9 +594,9 @@ The sequence diagram for the `rsvp` command is given below.
 7. The `LogicManager` then calls the `execute` method in `RsvpCommand`
 8. The `RsvpCommand` then interacts with the `Model` instance to create a new `Rsvp` object.
 9. The `RsvpCommand` then check whether the `Rsvp` object is valid by checking if the `Person` is attending the `Event`
-8. The `RsvpCommand` then interacts with the `Model` instance again to add the `Rsvp` object to storage
-9. After adding the `Rsvp` object, the `Model` update the filtered RSVP list which updates the GUI to display the newly created `Rsvp` object
-10. Lastly, The `RsvpCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
+10. The `RsvpCommand` then interacts with the `Model` instance again to add the `Rsvp` object to storage
+11. After adding the `Rsvp` object, the `Model` update the filtered RSVP list which updates the GUI to display the newly created `Rsvp` object
+12. Lastly, The `RsvpCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
 
 ### Clear all Data/Person/Event/Vendor/Venue Feature
 

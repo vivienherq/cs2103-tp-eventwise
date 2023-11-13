@@ -4,7 +4,7 @@ title: Vivien's Project Portfolio Page
 ---
 
 ### Project: EventWise
-EventWise is a event management desktop application used for managing contacts and details specific to an event. 
+EventWise is an event management desktop application used for managing contacts and details specific to an event. 
 It combines the flexibility of a Command Line Interface (CLI) and the benefits of a Graphical User Interface (GUI). 
 Designed for event planners, EventWise helps you to easily track and access crucial information in a single place, 
 simplifying event coordination and communication. It is written in Java and has about 16 kLoc.
