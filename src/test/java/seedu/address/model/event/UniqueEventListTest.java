@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_CAREER_FAIR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_FROM_DATE_CAREER_FAIR;
@@ -184,5 +185,15 @@ public class UniqueEventListTest {
     @Test
     public void toStringMethod() {
         assertEquals(uniqueEventList.asUnmodifiableObservableList().toString(), uniqueEventList.toString());
+    }
+
+    @Test
+    public void isHashcodeValid() {
+        UniqueEventList list1 = new UniqueEventList();
+        UniqueEventList list2 = new UniqueEventList();
+        UniqueEventList list3 = new UniqueEventList();
+        list1.add(FSC);
+        assertEquals(list2, list3);
+        assertNotEquals(list1, list3);
     }
 }

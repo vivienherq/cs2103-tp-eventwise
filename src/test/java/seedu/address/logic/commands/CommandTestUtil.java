@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -78,11 +79,14 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_DESCRIPTION_CAREER_FAIR = "Over 100 companies will be present";
     public static final String VALID_EVENT_FROM_DATE_CAREER_FAIR = "14-11-2024";
     public static final String VALID_EVENT_TO_DATE_CAREER_FAIR = "15-11-2024";
+    public static final String VALID_EVENT_NOTE_CAREER_FAIR = "Food and drinks provided";
 
     public static final String VALID_EVENT_NAME_FSC = "FSC 2024";
     public static final String VALID_EVENT_DESCRIPTION_FSC = "Freshman Social Camp 2024";
     public static final String VALID_EVENT_FROM_DATE_FSC = "12-09-2024";
-    public static final String VALID_EVENT_TO_DATE_FSC = "15-09-2024";
+    public static final String VALID_EVENT_TO_DATE_FSC = "09-11-2024";
+    public static final String VALID_EVENT_NOTE_FSC = "Food and drinks are provided";
+
 
     // Person Prefixes
 
@@ -124,6 +128,8 @@ public class CommandTestUtil {
     public static final String EVENT_DESC_FSC = " " + PREFIX_EVENT_DESC + VALID_EVENT_DESCRIPTION_FSC;
     public static final String EVENT_FROM_DATE_FSC = " " + PREFIX_EVENT_FROM + VALID_EVENT_FROM_DATE_FSC;
     public static final String EVENT_TO_DATE_FSC = " " + PREFIX_EVENT_TO + VALID_EVENT_TO_DATE_FSC;
+    public static final String EVENT_NOTE_FSC = " " + PREFIX_EVENT_NOTE + VALID_EVENT_NOTE_FSC;
+
 
 
     // '&' not allowed in names
