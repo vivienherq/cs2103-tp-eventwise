@@ -190,7 +190,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Description.isValidDesc(trimmedName)) {
-            throw new ParseException(seedu.address.model.event.Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(seedu.address.model.venue.Name.MESSAGE_CONSTRAINTS);
         }
         return new seedu.address.model.venue.Name(trimmedName);
     }
