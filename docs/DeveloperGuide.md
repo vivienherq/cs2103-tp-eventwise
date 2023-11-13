@@ -546,7 +546,21 @@ In EventWise, users are able to set the RSVP status to indicate their attendance
 
 The sequence diagram for the `rsvp` command is given below.
 
+<img src="images/RSVPSequenceDiagram.png" width="550" />
 
+1. The `LogicManager` receives an input string to execute. For example, using the sequence diagram above,
+   it receives `rsvp eid/1 pid/1 s/CC`
+2. The `LogicManager` then sends the input string to `AddressBookParser`
+3. The `AddressBookParser` then validate the input string and create a new `RsvpCommandParser` instance
+4. The `AddressBookParser` then parse the `Event ID`, `Person ID` and `RSVP_Status` of the user input. In this example, `eid/1 pid/1 s/CC` is the parameter parsed to `RsvpCommandParser`
+5. The `RsvpCommandParser` then creates a `RSVPCommand` instance with the `Index` value of the `Event_ID` and `Person_ID`. It also provided the `RsvpStatus` object
+6. This `RsvpCommand` is then passed back to `LogicManager`
+7. The `LogicManager` then calls the `execute` method in `RsvpCommand`
+8. The `RsvpCommand` then interacts with the `Model` instance to create a new `Rsvp` object.
+9. The `RsvpCommand` then check whether the `Rsvp` object is valid by checking if the `Person` is attending the `Event`
+8. The `RsvpCommand` then interacts with the `Model` instance again to add the `Rsvp` object to storage
+9. After adding the `Rsvp` object, the `Model` update the filtered RSVP list which updates the GUI to display the newly created `Rsvp` object
+10. Lastly, The `RsvpCommand` creates a `CommandResult` instance and return it to `LogicManager` to display success message
 
 --------------------------------------------------------------------------------------------------------------------
 
