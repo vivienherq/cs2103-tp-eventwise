@@ -86,24 +86,18 @@ public class EditVendorCommand extends Command {
             if (event.getVendors().contains(vendorToEdit)) {
                 List<Vendor> editedVendorList = new ArrayList<>(event.getVendors());
                 editedVendorList.set(editedVendorList.indexOf(vendorToEdit), editedVendor);
+
                 Event updatedEvent = new Event(event.getName(), event.getDescription(),
                         event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
                         editedVendorList, event.getVenue());
                 model.setEvent(event, updatedEvent);
-            }
-        }
 
-        // Check if the current event that is being shown in the event details is affected
-        Event eventToView = model.getEventToView();
-        boolean isNotNull = eventToView != null;
-        if (isNotNull && eventToView.getVendors().contains(vendorToEdit)) {
-            Event currentlyShownEvent = model.getEventToView();
-            List<Vendor> editedVendorList = new ArrayList<>(currentlyShownEvent.getVendors());
-            editedVendorList.set(editedVendorList.indexOf(vendorToEdit), editedVendor);
-            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
-                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
-                    currentlyShownEvent.getPersons(), editedVendorList, currentlyShownEvent.getVenue());
-            model.setEventToView(updatedEvent);
+                // Check if the current event that is being shown in the event details is affected
+                Event eventToView = model.getEventToView();
+                if (eventToView != null && eventToView.getVendors().contains(vendorToEdit)) {
+                    model.setEventToView(updatedEvent);
+                }
+            }
         }
 
         model.updateFilteredVendorList(PREDICATE_SHOW_ALL_VENDORS);

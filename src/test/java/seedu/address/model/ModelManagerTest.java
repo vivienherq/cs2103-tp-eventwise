@@ -149,9 +149,15 @@ public class ModelManagerTest {
 
     @Test
     public void validRsvp_returnsTrue() {
-        assertFalse(modelManager.isValidRsvp(ALICE_FSC_CC));
-    }
+        modelManager = new ModelManager();
+        modelManager.addPerson(ALICE);
+        modelManager.addEvent(ACADEMIC);
 
+        Rsvp validRsvp = new Rsvp(ACADEMIC, ALICE, RsvpStatus.CC);
+        modelManager.addRsvp(validRsvp);
+
+        assertTrue(modelManager.isValidRsvp(ALICE_FSC_CC));
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
