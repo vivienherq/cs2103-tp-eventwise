@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENUE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENUE;
-import static seedu.address.testutil.TypicalVenues.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,9 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.venue.Venue;
+import seedu.address.testutil.EventBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -38,6 +42,31 @@ public class DeleteVenueCommandTest {
         expectedModel.deleteVenue(venueToDelete);
 
         assertCommandSuccess(deleteVenueCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexWithVenueInEvent_success() {
+        // Set up test case
+        Event firstEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Venue testFirstVenue = model.getFilteredVenuesList().get(INDEX_FIRST_VENUE.getZeroBased());
+        Event testEvent = new EventBuilder(firstEvent).withVenue(testFirstVenue).build();
+
+        model.setEvent(firstEvent, testEvent);
+        model.setEventToView(testEvent);
+
+        // DeleteVenueCommand
+        DeleteVenueCommand deleteVenueCommand = new DeleteVenueCommand(INDEX_FIRST_VENUE);
+
+        // Expected Model
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deleteVenue(testFirstVenue);
+
+        String expectedMessage = String.format(DeleteVenueCommand.MESSAGE_DELETE_VENUE_SUCCESS,
+                INDEX_FIRST_VENUE.getOneBased(), Messages.format(testFirstVenue));
+
+        assertCommandSuccess(deleteVenueCommand, model, expectedMessage, expectedModel);
+
+        assertNull(model.getEventToView().getVenue());
     }
 
     @Test

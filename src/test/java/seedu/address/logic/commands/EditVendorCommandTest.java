@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_DRINKS;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FOOD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_NAME_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENDOR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENDOR;
-import static seedu.address.testutil.TypicalVendors.getTypicalAddressBook;
 
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -23,9 +26,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.vendor.Vendor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditVendorDescriptorBuilder;
+import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.VendorBuilder;
 
 /**
@@ -33,7 +38,12 @@ import seedu.address.testutil.VendorBuilder;
  */
 public class EditVendorCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void init() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -48,6 +58,33 @@ public class EditVendorCommandTest {
         expectedModel.setVendor(model.getFilteredVendorList().get(0), editedVendor);
 
         assertCommandSuccess(editVendorCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_allFieldsSpecifiedVendorInEvent_success() {
+        Vendor firstVendor = model.getFilteredVendorList().get(INDEX_FIRST_VENDOR.getZeroBased());
+        Vendor editedVendor = new VendorBuilder().build();
+
+        Event firstEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event modifiedEvent = new EventBuilder(firstEvent).withVendors(List.of(firstVendor)).build();
+
+        model.setEvent(firstEvent, modifiedEvent);
+        model.setEventToView(modifiedEvent);
+
+        EditVendorDescriptor descriptor = new EditVendorDescriptorBuilder(editedVendor).build();
+        EditVendorCommand editVendorCommand = new EditVendorCommand(INDEX_FIRST_VENDOR, descriptor);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        modifiedEvent = new EventBuilder(firstEvent).withVendors(List.of(editedVendor)).build();
+
+        expectedModel.setEvent(firstEvent, modifiedEvent);
+
+        String expectedMessage = String.format(editVendorCommand.MESSAGE_EDIT_VENDOR_SUCCESS,
+                Messages.format(editedVendor));
+
+        assertCommandSuccess(editVendorCommand, model, expectedMessage, expectedModel);
+        assertTrue(model.getEventToView().getVendors().contains(editedVendor));
+
     }
 
     @Test
@@ -95,13 +132,12 @@ public class EditVendorCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+    public void execute_invalidVendorIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredVendorList().size() + 1);
+        EditVendorDescriptor descriptor = new EditVendorDescriptorBuilder().build();
+        EditVendorCommand editVendorCommand = new EditVendorCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editVendorCommand, model, Messages.MESSAGE_INVALID_VENDOR_INDEX);
     }
 
     @Test

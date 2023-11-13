@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalVendors.SUN;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.Messages;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;

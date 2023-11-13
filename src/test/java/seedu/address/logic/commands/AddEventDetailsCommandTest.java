@@ -30,6 +30,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.venue.Venue;
 import seedu.address.testutil.EventBuilder;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for AddEventDetailsCommand.
+ */
 public class AddEventDetailsCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
