@@ -28,7 +28,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.vendor.Vendor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditVendorDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.VendorBuilder;
