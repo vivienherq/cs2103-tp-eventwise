@@ -83,8 +83,8 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     /**
      * Removes the equivalent RSVP from the list.
      * The RSVP must exist in the list.
-     * 
-     * @param toRemove The RSVP to be removed from the list.
+     *
+     * @param toRemove the RSVP to be removed from the list.
      */
     public void remove(Rsvp toRemove) {
         requireNonNull(toRemove);
