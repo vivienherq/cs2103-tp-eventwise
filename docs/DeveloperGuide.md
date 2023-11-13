@@ -1128,6 +1128,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 * **Attendee**: An individual who participates in an event, typically as a guest. In the Developer Guide, we use the terms "Attendee", "Guest" and "Person" interchangably.
 * **Vendor**: A company or individual that provides goods, services or exhibits at an event.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -1257,8 +1258,6 @@ testers are expected to do more *exploratory* testing.
 ### Saving data
 
 1. Dealing with missing data files
-
-    1. `_{explain how to simulate a missing/corrupted file, and the expected behavior}_`
     1. To simulate a missing file, delete `data/addressbook.json` file before running the app.
     1. Expected Behaviour: The app will create this file with prepopulated events, persons, vendors and venues.
 
