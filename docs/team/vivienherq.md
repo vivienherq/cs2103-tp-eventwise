@@ -5,14 +5,14 @@ title: Vivien's Project Portfolio Page
 
 ### Project: EventWise
 
-EventWise is a desktop event management application used for managing details and contacts relevant to specific events. 
+EventWise is a desktop event management application used for managing details and contacts relevant to specific events.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 16 kLoC.
 
 Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to view a list of events `viewEvents` [\#47](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/47)
   * What it does: allows the user to view a list of all events created (and not yet deleted).
-  * Justification: This feature allows the user to see all the planned and upcoming events in one place. 
+  * Justification: This feature allows the user to see all the planned and upcoming events in one place.
   * Highlights:
   * Credits:
 
@@ -23,10 +23,10 @@ Given below are my contributions to the project.
   * Credits:
 
 * **New Feature**: Added the ability to add venues `venue` [\#63](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/63)
-  * What it does: allows the user to add a new venue and its details (name, address, capacity). 
+  * What it does: allows the user to add a new venue and its details (name, address, capacity).
   * Justification: This feature allows the user to add venues to the app, and keep track of the basic details of the venue such as name, address and capacity, which can later be added to events.
-  * Highlights: 
-  * Credits: 
+  * Highlights:
+  * Credits:
 
 * **New Feature**: Added the ability to edit a venue `editVenue` [\#93](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/93)
   * What it does: allows the user to add edit a venue's details (name, address, capacity).
@@ -54,7 +54,7 @@ Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to view a list of vendors `viewVendors` [\#87](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/87)
   * What it does: allows the user to view a list of all vendors added.
-  * Justification: This feature allows the user to see a list of all vendors which have been added and may have been vendors for previous events. 
+  * Justification: This feature allows the user to see a list of all vendors which have been added and may have been vendors for previous events.
   * Highlights:
   * Credits:
 
@@ -98,9 +98,9 @@ Given below are my contributions to the project.
 
 * **Team-based Tasks**:
   * Configure Gradle [\#60](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/60) [\#80](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/80)
-  * Maintain issue tracker on Github 
+  * Maintain issue tracker on GitHub
   * Label bugs (issues) identified during PE Dry Run
-  * Managed releases `v1.2`, `v1.2.1`, `v1.3` (3 releases) on GitHub 
+  * Managed releases `v1.2`, `v1.2.1`, `v1.3` (3 releases) on GitHub
 
 * **Community**:
   * Reported an above-average number of bugs for PE Dry Run
