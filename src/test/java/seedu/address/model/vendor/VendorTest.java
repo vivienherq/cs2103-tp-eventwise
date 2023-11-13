@@ -46,6 +46,24 @@ public class VendorTest {
     }
 
     @Test
+    public void getDisplayTitle_isValid() {
+        assertEquals(DRINKS.getDisplayTitle(), DRINKS.getName().toString());
+        assertNotEquals(DRINKS.getDisplayTitle(), FOOD.getName().toString());
+    }
+
+    @Test
+    public void getDisplayFirstText_isValid() {
+        assertEquals(DRINKS.getDisplayFirstText(), DRINKS.getPhone().toString());
+        assertNotEquals(DRINKS.getDisplayFirstText(), FOOD.getPhone().toString());
+    }
+
+    @Test
+    public void getDisplaySecondText_isValid() {
+        assertEquals(DRINKS.getDisplaySecondText(), DRINKS.getEmail().toString());
+        assertNotEquals(DRINKS.getDisplaySecondText(), FOOD.getEmail().toString());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Vendor drinksCopy = new VendorBuilder(DRINKS).build();

@@ -86,6 +86,8 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_FROM_DATE_FSC = "12-09-2024";
     public static final String VALID_EVENT_TO_DATE_FSC = "09-11-2024";
     public static final String VALID_EVENT_NOTE_FSC = "Food and drinks are provided";
+    public static final String INVALID_EVENT_TO_DATE_FSC = "11-09-2024";
+
 
 
     // Person Prefixes

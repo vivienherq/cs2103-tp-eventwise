@@ -55,6 +55,26 @@ public class EventTest {
     }
 
     @Test
+    public void getDisplayTitle_isValid() {
+        assertEquals(FSC.getDisplayTitle(), FSC.getName().toString());
+        assertNotEquals(FSC.getDisplayTitle(), FOW.getName().toString());
+    }
+
+    @Test
+    public void getDisplayFirstText_isValid() {
+        assertEquals(FSC.getDisplayFirstText(), FSC.getDescription().toString());
+        assertNotEquals(FSC.getDisplayFirstText(), FOW.getDescription().toString());
+    }
+
+    @Test
+    public void getDisplaySecondText_isValid() {
+        assertEquals(FSC.getDisplaySecondText(),
+                String.format("%s to %s", FSC.getFromDate().toString(), FSC.getToDate().toString()));
+        assertNotEquals(FSC.getDisplaySecondText(),
+                String.format("%s to %s", FOW.getFromDate().toString(), FOW.getToDate().toString()));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Event fscCopy = new EventBuilder(FSC).build();

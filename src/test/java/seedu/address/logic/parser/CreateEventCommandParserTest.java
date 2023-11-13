@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EVENT_TO_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_FROM_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TO_DATE_FSC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_FSC;
@@ -145,5 +146,15 @@ public class CreateEventCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_FSC + EVENT_DESC_FSC + EVENT_FROM_DATE_FSC
                 + EVENT_TO_DATE_FSC, String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateEventCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_pastDateValues_failure() {
+        String inThePastFromDate = " " + PREFIX_EVENT_FROM + "01-01-2000";
+        String beforeFromDate = " " + PREFIX_EVENT_TO + INVALID_EVENT_TO_DATE_FSC;
+        assertParseFailure(parser, EVENT_NAME_FSC + EVENT_DESC_FSC + inThePastFromDate
+                + EVENT_TO_DATE_FSC + EVENT_NOTE_FSC, Messages.MESSAGE_INVALID_EVENT_DATE);
+        assertParseFailure(parser, EVENT_NAME_FSC + EVENT_DESC_FSC + EVENT_FROM_DATE_FSC
+                + beforeFromDate + EVENT_NOTE_FSC, Messages.MESSAGE_INVALID_INTERVAL);
     }
 }

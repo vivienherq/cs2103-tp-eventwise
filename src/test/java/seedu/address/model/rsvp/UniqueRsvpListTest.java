@@ -149,7 +149,7 @@ public class UniqueRsvpListTest {
         UniqueRsvpList list2 = new UniqueRsvpList();
         UniqueRsvpList list3 = new UniqueRsvpList();
         list1.add(validRsvp);
-        assertEquals(list2, list3);
-        assertNotEquals(list1, list3);
+        assertEquals(list2.hashCode(), list3.hashCode());
+        assertNotEquals(list1.hashCode(), list3.hashCode());
     }
 }

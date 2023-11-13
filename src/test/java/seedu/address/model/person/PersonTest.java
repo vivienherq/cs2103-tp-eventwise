@@ -44,6 +44,24 @@ public class PersonTest {
     }
 
     @Test
+    public void getDisplayTitle_isValid() {
+        assertEquals(ALICE.getDisplayTitle(), ALICE.getName().toString());
+        assertNotEquals(ALICE.getDisplayTitle(), BOB.getName().toString());
+    }
+
+    @Test
+    public void getDisplayFirstText_isValid() {
+        assertEquals(ALICE.getDisplayFirstText(), ALICE.getPhone().toString());
+        assertNotEquals(ALICE.getDisplayFirstText(), BOB.getPhone().toString());
+    }
+
+    @Test
+    public void getDisplaySecondText_isValid() {
+        assertEquals(ALICE.getDisplaySecondText(), ALICE.getEmail().toString());
+        assertNotEquals(ALICE.getDisplaySecondText(), BOB.getEmail().toString());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
