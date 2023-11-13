@@ -2,17 +2,15 @@
 'https://plantuml.com/activity-diagram-beta
 
 start
-:User executes EditCommand;
+:User executes DeleteCommand;
 if () then ([all parameters are valid])
-  :Get Person to edit;
-  :Create edited Person;
-  :Update Person in model;
-  if () then ([Person to edit is part of one or more Event])
-    :Replace Person in event with edited Person;
-    :Create edited Event;
+  :Delete Person from model;
+  if () then ([Person deleted is part of one or more Event])
+    :Delete Person from Event;
+    :Create edited Event without Person;
     :Update Event in Model;
     if () then ([RSVP Object for Person exists])
-       :Update RSVP for Person;
+       :Delete RSVP Object;
        :Update RSVP List in Model;
     else ([else])
     stop

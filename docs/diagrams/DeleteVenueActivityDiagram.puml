@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes DeleteVenueCommand;
+if () then ([all parameters are valid])
+  :Delete Venue from model;
+  if () then ([Deleted Venue is part of one or more Event])
+    :Delete Venue from event;
+    :Create edited Event;
+    :Update Event in Model;
+  else ([else]))
+  stop
+  endif
+else ([else])
+  :Error: Invalid command format;
+  stop
+endif
+
+stop
+
+@enduml

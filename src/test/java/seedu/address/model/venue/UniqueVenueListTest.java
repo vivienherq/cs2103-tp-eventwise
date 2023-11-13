@@ -19,7 +19,6 @@ import seedu.address.model.venue.exceptions.VenueNotFoundException;
 import seedu.address.testutil.VenueBuilder;
 
 public class UniqueVenueListTest {
-
     private final UniqueVenueList uniqueVenueList = new UniqueVenueList();
 
     @Test

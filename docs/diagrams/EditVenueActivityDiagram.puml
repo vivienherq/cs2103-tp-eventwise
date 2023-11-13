@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes EditVenueCommand;
+if () then ([all parameters are valid])
+  :Get Venue to edit;
+  :Create edited Venue;
+  :Update Venue in model;
+  if () then ([Venue to edit is part of one or more Event])
+    :Replace Venue in event with edited Venue;
+    :Create edited Event;
+    :Update Event in Model;
+  else ([else]))
+  stop
+  endif
+else ([else])
+  :Error: Invalid command format;
+  stop
+endif
+
+stop
+
+@enduml

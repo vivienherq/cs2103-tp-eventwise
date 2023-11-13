@@ -3,8 +3,8 @@ layout: page
 title: User Guide
 ---
 
-**EventWise** provides a platform that allows all event-specific contacts, including management, attendees, vendors, 
-and venue details to be consolidated in one place. It allows event planners to easily track and access their crucial 
+**EventWise** provides a platform that allows all event-specific contacts, including management, attendees, vendors,
+and venue details to be consolidated in one place. It allows event planners to easily track and access their crucial
 information in a single app, simplifying event coordination and communication for various kinds of events.
 
 * Table of Contents
@@ -20,12 +20,12 @@ information in a single app, simplifying event coordination and communication fo
 
 1. Copy the file to the folder you want to use as the _home folder_ for EventWise.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar EventWise.jar` 
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar EventWise.jar`
    command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
    Some example commands you can try:
 
@@ -36,15 +36,15 @@ information in a single app, simplifying event coordination and communication fo
 
 --------------------------------------------------------------------------------------------------------------------
 ## User Interface Components
-This section defines and explains the components used in EventWise's UI. 
+This section defines and explains the components used in EventWise's UI.
 ![EventWise UI Components](images/UIComponents.png)
 ### 1. Main List
-The Main List serves as the primary view to display a range of data types within the application which includes events, 
-persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with 
+The Main List serves as the primary view to display a range of data types within the application which includes events,
+persons, vendors and venues. It provides users with an organized view of various items and facilitates interaction with
 the displayed content.
 
 ### 2. Event Details
-The Event Details component provides users with in-depth information about a specific event from the Main List such as 
+The Event Details component provides users with in-depth information about a specific event from the Main List such as
 description, from date, to date and venue information.
 
 #### 2a. Person List
@@ -54,7 +54,7 @@ Displays a list of persons associated with the event.
 Displays a list of vendors associated with the event.
 
 ### 3. Command Result
-The Command Result component displays the outcome or feedback of the requested action. It may display success messages, 
+The Command Result component displays the outcome or feedback of the requested action. It may display success messages,
 error notifications or other relevant information
 
 ### 4. Command Input
@@ -114,7 +114,7 @@ Edits an existing person in EventWise.
 
 Format: `edit PERSON_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL]`
 
-* Edits the person at the specified `PERSON_ID`. 
+* Edits the person at the specified `PERSON_ID`.
 * `PERSON_ID` refers to the index number shown in the displayed person list.
 * `PERSON_ID` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -176,16 +176,13 @@ New vendor added: Catering, Phone: 64646262, Email: catering@gmail.com.
 
 **Invalid Command Results**
 ```
-This vendor already exists in the address book
-```
-```
 Names should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
 Phone numbers should only contain numbers, and it should be at least 3 digits long
 ```
 ```
-Emails should be of the format local-part@domain 
+Emails should be of the format local-part@domain
 ```
 ```
 This vendor already exists in the address book
@@ -386,7 +383,7 @@ Event name should only contain alphanumeric characters and spaces, and it should
 Event description should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
-Event date should only be in DD-MM-YYYY format and should be either today's date or a future date. 
+Event date should only be in DD-MM-YYYY format and should be either today's date or a future date.
 ```
 ```
 To Date entered should be either the same as from date or after.
@@ -408,18 +405,18 @@ Format: `addEventDetails eid/EVENT_ID [pid/PERSON_ID] [vne/VENUE_ID] [vdr/VENDOR
 
 **Command Behavior**
 * Adds details such as venue, guests and vendors for the event at the specified `EVENT_ID`.
-* `EVENT_ID` refers to the index number shown in the displayed person list. 
+* `EVENT_ID` refers to the index number shown in the displayed person list.
 * `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * The optional fields `[pid/PERSON_ID]` and `[vdr/VENDOR_ID]` can be repeated more than once to add multiple people or vendors.
 
 Examples:
 * `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2` adds the 2nd person in the address book to 3rd event in the event list
-* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2 pid/3 vne/3` 
-  * adds the 2nd and 3rd person in the address book to 3rd event in the event list 
+* `viewEvent eid/3` followed by `addEventDetails eid/3 pid/2 pid/3 vne/3`
+  * adds the 2nd and 3rd person in the address book to 3rd event in the event list
   * sets the 3rd venue in the venue list as the venue for the 3rd event in the event list.
-* `viewEvent eid/3` followed by `addEventDetails eid/1 pid/1 vdr/2 vne/3` 
-  * adds the 1st person in the address book to the 1st event in the event list 
+* `viewEvent eid/3` followed by `addEventDetails eid/1 pid/1 vdr/2 vne/3`
+  * adds the 1st person in the address book to the 1st event in the event list
   * adds the 2nd vendor in the address book to the 1st event in the event list
   * sets the 3rd venue in the venue list as the venue for the 1st event in the event list.
 
@@ -451,15 +448,15 @@ Format: `viewEvent eid/EVENT_ID`
 **Event details to be displayed**
 - Event Name
 - Description
-- From Date 
+- From Date
 - To Date
 - Note (if present)
 - Venue Name
 - Guest List
 - Vendor List
 
-* Displays the details for the event at the specified `EVENT_ID`. 
-* `EVENT_ID` refers to the index number shown in the displayed event list. 
+* Displays the details for the event at the specified `EVENT_ID`.
+* `EVENT_ID` refers to the index number shown in the displayed event list.
 * `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
@@ -470,13 +467,13 @@ Examples:
 
 **Invalid Command Results**
 
-Non Integer Index: 
+Non Integer Index:
 
 `viewEvent eid/afdefdfe`
 
 ![Ui](images/view-event/non_integer_index.png)
 
-Invalid Index: 
+Invalid Index:
 
 `viewEvent eid/10000000`
 
@@ -517,7 +514,7 @@ Deletes the specified event from the events list in EventWise.
 
 Format: `deleteEvent eid/EVENT_ID`
 
-* Deletes the event at the specified `EVENT_ID`. 
+* Deletes the event at the specified `EVENT_ID`.
 * `EVENT_ID` refers to the index number shown in the displayed event list.
 * `EVENT_ID` **must be a positive integer** 1, 2, 3, …​
 
@@ -574,7 +571,9 @@ Examples:
 ```
 RSVP status has been updated: FSC 2023, John Doe, Confirm Coming
 ```
-
+```
+RSVP status has been updated: FSC 2024, Jack Tan, Confirm Not Coming
+```
 **Invalid Command Results**
 ```
 Event or Person does not exist!
@@ -691,11 +690,11 @@ EventWise data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-EventWise data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. 
+EventWise data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`.
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file makes its format invalid, EventWise will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -703,7 +702,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EventWise home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
