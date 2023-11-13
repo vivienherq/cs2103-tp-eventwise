@@ -23,6 +23,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.rsvp.Rsvp;
+import seedu.address.model.rsvp.RsvpContainsEventPredicate;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -113,6 +114,7 @@ public class EditCommand extends Command {
             Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
                     currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
                     editedPersonList, currentlyShownEvent.getVendors(), currentlyShownEvent.getVenue());
+            model.updateFilteredEventRsvpList(new RsvpContainsEventPredicate(eventToView));
             model.setEventToView(updatedEvent);
         }
 
