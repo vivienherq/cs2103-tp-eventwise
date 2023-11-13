@@ -4,27 +4,16 @@ title: Vivien's Project Portfolio Page
 ---
 
 ### Project: EventWise
-
-<<<<<<< HEAD
-EventWise is a desktop event management application used for managing details and contacts relevant to specific events.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 16 kLoC.
-=======
 EventWise is a event management desktop application used for managing contacts and details specific to an event. 
 It combines the flexibility of a Command Line Interface (CLI) and the benefits of a Graphical User Interface (GUI). 
 Designed for event planners, EventWise helps you to easily track and access crucial information in a single place, 
 simplifying event coordination and communication. It is written in Java and has about 16 kLoc.
->>>>>>> master
 
 Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to view a list of events `viewEvents` [\#47](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/47)
   * What it does: allows the user to view a list of all events created (and not yet deleted).
   * Justification: This feature allows the user to see all the planned and upcoming events in one place.
-<<<<<<< HEAD
-  * Highlights:
-  * Credits:
-=======
->>>>>>> master
 
 * **New Feature**: Added the ability to delete an event `deleteEvent` [\#49](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/49)
   * What it does: allows the user to delete an event.
@@ -33,11 +22,6 @@ Given below are my contributions to the project.
 * **New Feature**: Added the ability to add venues `venue` [\#63](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/63)
   * What it does: allows the user to add a new venue and its details (name, address, capacity).
   * Justification: This feature allows the user to add venues to the app, and keep track of the basic details of the venue such as name, address and capacity, which can later be added to events.
-<<<<<<< HEAD
-  * Highlights:
-  * Credits:
-=======
->>>>>>> master
 
 * **New Feature**: Added the ability to edit a venue `editVenue` [\#93](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/93)
   * What it does: allows the user to add edit a venue's details (name, address, capacity).
@@ -58,11 +42,6 @@ Given below are my contributions to the project.
 * **New Feature**: Added the ability to view a list of vendors `viewVendors` [\#87](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/87)
   * What it does: allows the user to view a list of all vendors added.
   * Justification: This feature allows the user to see a list of all vendors which have been added and may have been vendors for previous events.
-<<<<<<< HEAD
-  * Highlights:
-  * Credits:
-=======
->>>>>>> master
 
 * **New Feature**: Added the ability to edit a venue `editVendor` [\#108](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/108)
   * What it does: allows the user to add edit a vendor's details (name, phone, email).
@@ -87,15 +66,9 @@ Given below are my contributions to the project.
 
 * **Team-based Tasks**:
   * Configure Gradle [\#60](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/60) [\#80](https://github.com/AY2324S1-CS2103-F13-3/tp/pull/80)
-<<<<<<< HEAD
-  * Maintain issue tracker on GitHub
-  * Label bugs (issues) identified during PE Dry Run
-  * Managed releases `v1.2`, `v1.2.1`, `v1.3` (3 releases) on GitHub
-=======
   * Managed releases `v1.2`, `v1.2.1`, `v1.3` (3 releases) on GitHub
   * Maintain issue tracker on GitHub 
   * Label bugs (issues) identified during PE Dry Run
->>>>>>> master
 
 * **Community**:
   * Reported an above-average number of bugs for PE Dry Run
