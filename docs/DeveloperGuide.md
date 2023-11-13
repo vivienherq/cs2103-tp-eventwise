@@ -316,7 +316,7 @@ The following sequence diagram shows how this feature works:
 ### Edit Event Feature
 
 The feature `editEvent` edits the details of an existing Event instance.
-Details that can be edited include `Name`, `Description`, `From Date`, `To Date`.
+Details that can be edited include `Name`, `Description`, `From Date`, `To Date` and `Note`.
 
 #### Implementation
 
