@@ -1586,6 +1586,22 @@ Expected: This person already exists in the address book
 4. Other incorrect remove vendor from event commands to try: `removeVendor eid/x vdr/y` (where x or y is larger than the respective list sizes)<br>
   Expected: Similar to the previous case.
 
+### Set RSVP status
+
+1. Prerequisites: Have existing persons and events in the system with at least one person in an event.
+
+2. Test case: `rsvp eid/1 pid/1 s/CC`<br>
+   Expected: The RSVP status of the specified person in the specific event will be updated. Details of the update are shown in the status message.
+
+3. Test case: `rsvp eid/1 pid/0 s/CC`<br>
+   Expected: No RSVP status is updated. Status message indicates that the index is supposed to be a non-zero unsigned integer.
+
+4. Test case: `rsvp eid/1 pid/1 s/ABC`<br>
+   Expected: No RSVP status is updated. Status message indicates that the value of RSVP status can only be CC,CCC or TBC
+
+5. Other incorrect rsvp commands to try: `removeVendor eid/x vdr/y s/CC` (where y is person id that does not belong to event id x)<br>
+   Expected: No RSVP status is updated. Status message indicates that the person has not been added to the event.
+
 ### Clear All Data in Storage
 
 1. Prerequisites: Have at least one existing Person/Event/Vendor/Venue in the system.
