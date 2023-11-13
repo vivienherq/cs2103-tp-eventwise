@@ -148,8 +148,8 @@ public class UniqueVenueListTest {
     @Test
     public void setVenues_list_replacesOwnListWithProvidedList() {
         uniqueVenueList.add(CLB);
-        List<Venue> vendorList = Collections.singletonList(LT27);
-        uniqueVenueList.setVenues(vendorList);
+        List<Venue> venueList = Collections.singletonList(LT27);
+        uniqueVenueList.setVenues(venueList);
         UniqueVenueList expectedUniqueVenueList = new UniqueVenueList();
         expectedUniqueVenueList.add(LT27);
         assertEquals(expectedUniqueVenueList, uniqueVenueList);

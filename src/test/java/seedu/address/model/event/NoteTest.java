@@ -15,13 +15,13 @@ public class NoteTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "@";
-        assertThrows(IllegalArgumentException.class, () -> new Note(invalidName));
+    public void constructor_invalidNote_throwsIllegalArgumentException() {
+        String invalidNote = "@";
+        assertThrows(IllegalArgumentException.class, () -> new Note(invalidNote));
     }
 
     @Test
-    public void isValidName() {
+    public void isValidNote() {
         // null note
         assertThrows(NullPointerException.class, () -> Note.isValidNote(null));
 
