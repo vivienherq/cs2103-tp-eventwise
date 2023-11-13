@@ -176,9 +176,6 @@ New vendor added: Catering, Phone: 64646262, Email: catering@gmail.com.
 
 **Invalid Command Results**
 ```
-This vendor already exists in the address book
-```
-```
 Names should only contain alphanumeric characters and spaces, and it should not be blank
 ```
 ```
@@ -574,7 +571,9 @@ Examples:
 ```
 RSVP status has been updated: FSC 2023, John Doe, Confirm Coming
 ```
-
+```
+RSVP status has been updated: FSC 2024, Jack Tan, Confirm Not Coming
+```
 **Invalid Command Results**
 ```
 Event or Person does not exist!
@@ -695,7 +694,7 @@ EventWise data are saved automatically as a JSON file `[JAR file location]/data/
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file makes its format invalid, EventWise will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -703,7 +702,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EventWise home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
