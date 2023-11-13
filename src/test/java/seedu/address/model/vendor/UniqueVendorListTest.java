@@ -1,14 +1,5 @@
 package seedu.address.model.vendor;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.vendor.exceptions.DuplicateVendorException;
-import seedu.address.model.vendor.exceptions.VendorNotFoundException;
-import seedu.address.testutil.VendorBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,6 +9,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_VENDOR_PHONE_DR
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalVendors.DRINKS;
 import static seedu.address.testutil.TypicalVendors.SUN;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.vendor.exceptions.DuplicateVendorException;
+import seedu.address.model.vendor.exceptions.VendorNotFoundException;
+import seedu.address.testutil.VendorBuilder;
 
 public class UniqueVendorListTest {
     private final UniqueVendorList uniqueVendorList = new UniqueVendorList();
