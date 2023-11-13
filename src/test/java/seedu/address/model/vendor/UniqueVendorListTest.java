@@ -19,7 +19,6 @@ import seedu.address.model.vendor.exceptions.VendorNotFoundException;
 import seedu.address.testutil.VendorBuilder;
 
 public class UniqueVendorListTest {
-
     private final UniqueVendorList uniqueVendorList = new UniqueVendorList();
 
     @Test
