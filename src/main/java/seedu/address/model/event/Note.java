@@ -25,7 +25,6 @@ public class Note {
      * @param note A valid note.
      */
     public Note(String note) {
-        System.out.println(note);
         checkArgument(isValidNote(note), MESSAGE_CONSTRAINTS);
         this.note = note;
     }

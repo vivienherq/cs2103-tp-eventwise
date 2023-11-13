@@ -458,7 +458,7 @@ The sequence diagram for the `removePerson` command is given below.
 
 ![Sequence Diagram](./images/remove-person/sequence_diagram.png)
 
-`LogicManager` calls `AddressBookParser` which creates an instance of a `RemovePersonCommandParser` to parse user inputs. An instance of `RemovePersonCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
+`LogicManager` calls `AddressBookParser` which creates an instance of a `RemoveVendorCommandParser` to parse user inputs. An instance of `RemovePersonCommand` is created from parsing the user inputs, which is then executed by `LogicManager`.
 
 When `RemovePersonCommand#execute()` is called, `RemovePersonCommand` calls `Model` to get the `Event` instance to edit. `RemovePersonCommand` then calls the `Event` instance to remove the person from the event by passing `personIndex`.
 Finally, `RemovePersonCommand` calls the `Model` instance to update the edited `Event` instance before creating a `CommandResult` to be shown to the user.

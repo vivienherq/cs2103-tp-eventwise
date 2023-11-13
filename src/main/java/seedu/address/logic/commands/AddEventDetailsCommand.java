@@ -128,7 +128,6 @@ public class AddEventDetailsCommand extends Command {
         // Find Rsvp objects affected by the change and swap the event
         List<Rsvp> rsvpList = new ArrayList<>(model.getFilteredRsvpList());
         for (Rsvp rsvp: rsvpList) {
-            System.out.println(rsvp.toString());
             if (rsvp.getEvent().isSameEvent(eventToEdit)) {
                 Rsvp editedRsvp = new Rsvp(editedEvent, rsvp.getPerson(), rsvp.getRsvpStatus());
                 rsvpList.set(rsvpList.indexOf(rsvp), editedRsvp);

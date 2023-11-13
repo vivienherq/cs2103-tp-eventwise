@@ -58,18 +58,14 @@ public class DeleteVenueCommand extends Command {
                         event.getFromDate(), event.getToDate(), event.getNote(), event.getPersons(),
                         event.getVendors(), null);
                 model.setEvent(event, updatedEvent);
-            }
-        }
 
-        // Check if the current event that is being shown in the event details is affected
-        Event eventToView = model.getEventToView();
-        boolean isNotNull = eventToView != null && eventToView.getVenue() != null;
-        if (isNotNull && eventToView.getVenue().isSameVenue(venueToDelete)) {
-            Event currentlyShownEvent = model.getEventToView();
-            Event updatedEvent = new Event(currentlyShownEvent.getName(), currentlyShownEvent.getDescription(),
-                    currentlyShownEvent.getFromDate(), currentlyShownEvent.getToDate(), currentlyShownEvent.getNote(),
-                    currentlyShownEvent.getPersons(), currentlyShownEvent.getVendors(), null);
-            model.setEventToView(updatedEvent);
+                // Check if the current event that is being shown in the event details is affected
+                Event eventToView = model.getEventToView();
+                boolean isNotNull = eventToView != null && eventToView.getVenue() != null;
+                if (isNotNull && eventToView.getVenue().isSameVenue(venueToDelete)) {
+                    model.setEventToView(updatedEvent);
+                }
+            }
         }
 
         model.updateFilteredVenueList(Model.PREDICATE_SHOW_ALL_VENUES);

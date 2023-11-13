@@ -53,7 +53,6 @@ public class EditVenueCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastVenue = Index.fromOneBased(model.getFilteredVenuesList().size());
         Venue lastVenue = model.getFilteredVenuesList().get(indexLastVenue.getZeroBased());
-        System.out.println(lastVenue.toString());
 
         VenueBuilder venueInList = new VenueBuilder(lastVenue);
         Venue editedVenue = venueInList.withName(VALID_VENUE_NAME_COM1).withAddress(VALID_VENUE_ADDRESS_COM1)

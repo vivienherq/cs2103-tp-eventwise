@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_VENDOR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_VENDOR;
-import static seedu.address.testutil.TypicalVendors.getTypicalAddressBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,7 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.vendor.Vendor;
 
 /**
@@ -38,6 +41,34 @@ public class DeleteVendorCommandTest {
         expectedModel.deleteVendor(vendorToDelete);
 
         assertCommandSuccess(deleteVendorCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexWithVendorInEvent_success() {
+        // Set up test case
+        Event firstEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event testEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Vendor testFirstVendor = model.getFilteredVendorList().get(INDEX_FIRST_VENDOR.getZeroBased());
+        testEvent.setVendors(List.of(testFirstVendor));
+
+        // Set the model's event
+        model.setEvent(firstEvent, testEvent);
+        model.setEventToView(testEvent);
+
+        // DeleteVendor Command
+        DeleteVendorCommand deleteVendorCommand = new DeleteVendorCommand(INDEX_FIRST_VENDOR);
+
+        // Expected model
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.deleteVendor(testFirstVendor);
+
+        String expectedMessage = String.format(DeleteVendorCommand.MESSAGE_DELETE_VENDOR_SUCCESS,
+                Messages.format(testFirstVendor));
+
+        assertCommandSuccess(deleteVendorCommand, model, expectedMessage, expectedModel);
+
+        // Check that the event's vendor list that is being shown has been cleared.
+        assertEquals(model.getEventToView().getVendors(), new ArrayList<>());
     }
 
     @Test

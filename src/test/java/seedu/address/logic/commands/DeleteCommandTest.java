@@ -6,9 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,11 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -39,6 +44,34 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexWithPersonInEvent_success() {
+        // Set up test case
+        Event firstEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event testEvent = model.getFilteredEventsList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Person testFirstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        testEvent.setPersons(List.of(testFirstPerson));
+
+        // Set the model's event
+        model.setEvent(firstEvent, testEvent);
+        model.setEventToView(testEvent);
+
+        // DeleteCommand
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        // Expected model
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(testFirstPerson);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(testFirstPerson));
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+
+        // Check that the event's vendor list that is being shown has been cleared.
+        assertEquals(model.getEventToView().getPersons(), new ArrayList<>());
     }
 
     @Test
