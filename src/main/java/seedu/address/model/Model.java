@@ -194,8 +194,6 @@ public interface Model {
      */
     void setVenue(Venue target, Venue editedVenue);
 
-
-
     /**
      * Adds the given rsvp.
      * {@code rsvp} must not already exist in the rsvp list.

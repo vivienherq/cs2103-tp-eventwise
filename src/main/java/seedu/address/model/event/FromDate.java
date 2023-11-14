@@ -14,7 +14,7 @@ public class FromDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Event date should only be in DD-MM-YYYY format and should be either today's date or a future date. ";
 
-    // Regex referenced from
+    // Regex solution below adapted by
     // https://stackoverflow.com/questions/15491894/
     // regex-to-validate-date-formats-dd-mm-yyyy-dd-mm-yyyy-dd-mm-yyyy-dd-mmm-yyyy
     public static final String VALIDATION_REGEX =
@@ -27,7 +27,7 @@ public class FromDate {
     public final String eventDate;
 
     /**
-     * Constructs a {@code Date}.
+     * Constructs a {@code FromDate}.
      *
      * @param date A valid date.
      */
@@ -73,7 +73,6 @@ public class FromDate {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof FromDate)) {
             return false;
         }

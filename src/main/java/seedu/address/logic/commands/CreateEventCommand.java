@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Adds a person to the address book.
+ * Adds a event to the address book.
  */
 public class CreateEventCommand extends Command {
 

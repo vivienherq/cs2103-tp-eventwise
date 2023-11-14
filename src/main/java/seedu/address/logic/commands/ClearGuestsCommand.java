@@ -13,7 +13,6 @@ public class ClearGuestsCommand extends Command {
     public static final String COMMAND_WORD = "clearGuests";
     public static final String MESSAGE_SUCCESS = "Guests in address book has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

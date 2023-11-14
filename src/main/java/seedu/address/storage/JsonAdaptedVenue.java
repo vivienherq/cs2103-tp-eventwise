@@ -20,7 +20,7 @@ class JsonAdaptedVenue {
     private final String capacity;
 
     /**
-     * Constructs a {@code JsonAdaptedEvent} with the given event details.
+     * Constructs a {@code JsonAdaptedVenue} with the given venue details.
      */
     @JsonCreator
     public JsonAdaptedVenue(@JsonProperty("name") String name,
@@ -41,9 +41,9 @@ class JsonAdaptedVenue {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Event} object.
+     * Converts this Jackson-friendly adapted venue object into the model's {@code Venue} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted venue.
      */
     public Venue toModelType() throws IllegalValueException {
         if (name == null) {

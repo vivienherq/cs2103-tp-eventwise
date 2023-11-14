@@ -30,7 +30,7 @@ public class Note {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid note.
      */
     public static boolean isValidNote(String test) {
         return test.matches(VALIDATION_REGEX);

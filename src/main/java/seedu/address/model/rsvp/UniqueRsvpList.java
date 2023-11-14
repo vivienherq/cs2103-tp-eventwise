@@ -35,6 +35,12 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
         return internalList.stream().anyMatch(toCheck::isSameRsvp);
     }
 
+    /**
+     * Retrieves a duplicate RSVP from the list if it exists.
+     *
+     * @param toCheck The RSVP to be checked for duplication.
+     * @return An Optional containing the duplicate RSVP if it exists, otherwise an empty Optional.
+     */
     public Optional<Rsvp> getDuplicateRsvp(Rsvp toCheck) {
         requireNonNull(toCheck);
         return internalList.stream()
@@ -43,8 +49,9 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     }
 
     /**
-     * Adds an RSVP to the list.
-     * The RSVP must not already exist in the list.
+     * Adds an RSVP to the list. If an equivalent RSVP already exists in the list, it will be updated.
+     *
+     * @param toAdd The RSVP to be added to the list.
      */
     public void add(Rsvp toAdd) {
         requireNonNull(toAdd);
@@ -60,6 +67,9 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
      * Replaces the Rsvp {@code target} in the list with {@code editedRsvp}.
      * {@code target} must exist in the list.
      * The RSVP identity of {@code editedRsvp} must not be the same as another existing RSVP in the list.
+     *
+     * @param target      The RSVP to be replaced in the list.
+     * @param editedRsvp  The RSVP to replace the target with.
      */
     public void setRsvp(Rsvp target, Rsvp editedRsvp) {
         requireAllNonNull(target, editedRsvp);
@@ -73,6 +83,8 @@ public class UniqueRsvpList implements Iterable<Rsvp> {
     /**
      * Removes the equivalent RSVP from the list.
      * The RSVP must exist in the list.
+     *
+     * @param toRemove the RSVP to be removed from the list.
      */
     public void remove(Rsvp toRemove) {
         requireNonNull(toRemove);

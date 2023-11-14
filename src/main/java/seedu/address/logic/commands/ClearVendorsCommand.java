@@ -13,7 +13,6 @@ public class ClearVendorsCommand extends Command {
     public static final String COMMAND_WORD = "clearVendors";
     public static final String MESSAGE_SUCCESS = "Vendors in address book has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

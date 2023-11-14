@@ -13,13 +13,17 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.rsvp.RsvpStatus;
 
 /**
- * Parses input arguments and creates a new RsvpCommand object
+ * Parses input arguments and creates a new {@code RsvpCommand} object.
+ * This parser handles the parsing of the command arguments for the RSVP command.
  */
 public class RsvpCommandParser implements Parser<RsvpCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RsvpCommand
      * and returns an RsvpCommand object for execution.
+     *
+     * @param args The input arguments to be parsed.
+     * @return A new {@code RsvpCommand} object created with the parsed arguments.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RsvpCommand parse(String args) throws ParseException {
